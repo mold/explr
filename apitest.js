@@ -24,7 +24,7 @@ request.onreadystatechange = function() {
 				if (req2.readyState === 4) {
 					console.log("Got country for " + el.name)
 					var mbzdata = JSON.parse(req2.response);
-					text += el.name + " (" + mbzdata.area.name + "), ";
+					text += el.name + " (" + mbzdata.area.name + ", " + el.playcount +" plays), ";
 					document.body.innerHTML = text;
 				}
 			}
