@@ -3,15 +3,6 @@ var LASTFM_KEY = "865b1653dbe200905a5b75d9d839467a",
 
 var lastfm = {};
 
-lastfm.library = {};
-lastfm.library.getartists = function(user, limit, page, callback) {
-	lastfm.send("library.getartists", [
-		["user", user],
-		["limit", limit || ""],
-		["page", page || ""]
-		], callback);
-}
-
 lastfm.send = function(method, options, callback) {
 	var url = LASTFM_URL + "?" + "method=" + method + "&api_key=" +
 		LASTFM_KEY + "&format=json";
@@ -40,11 +31,9 @@ var cb = function(error, responseData) {
 					" plays), ";
 				document.body.innerHTML = text;
 			}
-
 		}
 		req2.send();
-
 	})
 }
 
-lastfm.library.getartists(user, 20, undefined, cb);
+lastfm.send("library.getartists", [["user", user], ["limit", 20]], cb);
