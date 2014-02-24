@@ -1,6 +1,17 @@
 var LASTFM_KEY = "865b1653dbe200905a5b75d9d839467a",
 	LASTFM_URL = "http://ws.audioscrobbler.com/2.0/";
 
+var lastfm = {};
+
+lastfm.library = {};
+lastfm.library.getartists = function(user, limit, page) {
+
+}
+
+lastfm.send = function(method, options, callback) {
+
+}
+
 var method = "library.getartists";
 var formatJSON = true;
 var user = prompt("Input your user name, get top 20 artists")
