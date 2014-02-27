@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+	<title>
+	{% if auth %}
+	You are {{s.name}} and your session id is {{s.key}}.
+	{% endif %}
+	</title>
+</head>
+<body>
+{% if auth %}
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+	<script>var SESSION = {name:"{{s.name}}",key:"{{s.key}}"};</script>
+
+	<script src="{{ url_for('static', filename='api/lastfm.js')}}"></script>
+	<script src="{{ url_for('static', filename='api/musicbrainz.js')}}"></script>
+	<script src="{{ url_for('static', filename='script.js')}}"></script>
+{% else %}
+	To experience Explr, you need to authenticate with last.fm.
+	<a href='{{api["lastfm"]["auth_url"]+api["lastfm"]["key"]}}'>Click here!</a>
+{% endif %}
+</body>
+</html>

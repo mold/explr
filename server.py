@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, url_for
+from flask import Flask, request, redirect, url_for, render_template
 from hashlib import md5
 import urllib2
 import ast
@@ -25,8 +25,7 @@ def root():
 def welcome():
 	# Ask user to auth
 	# TODO: Show a nicer page/template
-	return "To experience Explr, you need to authenticate with last.fm.\
-			<a href="+api["lastfm"]["auth_url"]+api["lastfm"]["key"]+">Click here!</a>"
+	return render_template("index.html",api=api, auth=False)
 
 @app.route("/auth/")
 def auth():
@@ -41,12 +40,17 @@ def auth():
 	# print session_response
 	# print url
 	# print sessions
-	return redirect(url_for("explr", sk=s_key))
+	return redirect(url_for("explr", user=s_name))
 	# return "Auth'd! Your are "+s_name+" and your session key is "+s_key
 
-@app.route("/explr/world/<sk>")
-def explr(sk):
-	return sk
+@app.route("/explr/<user>")
+def explr(user):
+	try:
+		sk = sessions[user]
+		s = {"name":user,"key":sk}
+		return render_template("index.html", auth=True,s=s)
+	except:
+		return "You are not authenticated, go away"
 
 if __name__ == "__main__":
 	app.debug=True	
