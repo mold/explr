@@ -19,7 +19,7 @@ api.lastfm.send = function(method, options, callback) {
 
 	options.forEach(function(el) {
 		url += "&" + el[0] + "=" + el[1];
-	})
+	});
 
 	d3.json(url, callback);
 }
