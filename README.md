@@ -11,3 +11,4 @@ Running the server
   sudo pip install Flask
 ```
 - Start the server by running ```python server.py```
+- Go to ```http://localhost:5000/``` 
