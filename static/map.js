@@ -40,7 +40,7 @@ function setup(width, height) {
 
 }
 //Load country aliases and names
-d3.csv("countries.csv", function(err, countries) {
+d3.csv("../static/countries.csv", function(err, countries) {
   test = countries;
   rateById = {};
 
@@ -57,7 +57,7 @@ d3.csv("countries.csv", function(err, countries) {
 
 });
 //Load map
-d3.json("world-50m.json", function(error, world) {
+d3.json("../static/world-50m.json", function(error, world) {
 
   var countries = topojson.feature(world, world.objects.countries).features;
 
