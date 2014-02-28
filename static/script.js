@@ -18,7 +18,7 @@ var getAllArtists = function() {
 
             currPage += 1;
 
-            console.log("Artists done, countries")
+            console.log("Artists done, get countries")
             var artistNames = responseData.artists.artist.map(function(el) {
                 return el.name;
             });
@@ -38,12 +38,9 @@ var getAllArtists = function() {
 
                     d3.keys(dataObj).forEach(function(id) {
                         if (countryCountObj[id]) {
-                            console.log("New from same")
-                            console.log(countryCountObj[id], dataObj[id])
                             countryCountObj[id] = countryCountObj[id].concat(
                                 dataObj[id]);
                         } else {
-                            console.log("Country new")
                             countryCountObj[id] = dataObj[id];
                         }
                     })

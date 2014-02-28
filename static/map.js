@@ -22,6 +22,9 @@ var map = {};
   var tooltip = d3.select("#map-container").append("div").attr("class",
     "tooltip hidden");
 
+  var detailsDiv = d3.select("#map-container").append("div").attr("class",
+    "detailsDiv hidden");
+
   setup(width, height);
 
   function setup(width, height) {
@@ -118,7 +121,27 @@ var map = {};
         tooltip.classed("hidden", true);
       });
 
+    country
+      .on("click", function(d, i) {
+        var name;
+        var tag;
+        test.forEach(function(e, i) {
+          if (e.id === d.id) {
+            name = e.name;
+            tag = e.tag;
+          };
+        })
+        var mouse = d3.mouse(svg.node()).map(function(d) {
+          return parseInt(d);
+        });
 
+        detailsDiv.classed("hidden", false)
+          .attr("style", "left:" + (mouse[0] + offsetL) + "px;top:" + (
+            mouse[
+              1] +
+            offsetT) + "px")
+          .html(d.id + " HEEEJ " + name + ", " + tag);
+      })
   }
 
   function redraw() {
@@ -128,6 +151,8 @@ var map = {};
     setup(width, height);
     draw(topo);
   }
+  //Ny funktion WIP:
+
 
 
   function move() {
