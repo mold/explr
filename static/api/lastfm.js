@@ -18,7 +18,11 @@ api.lastfm.send = function(method, options, callback) {
 		api.lastfm.key + "&format=json";
 
 	options.forEach(function(el) {
-		url += "&" + el[0] + "=" + (el[1] + "").replace("&", "%26");
+		url += "&" + el[0] + "=" +
+			(el[1] + "")
+			.replace("&", "%26")
+			.replace("/", "%2F")
+			.replace("\\", "%5C");
 	});
 
 	d3.json(url, callback);

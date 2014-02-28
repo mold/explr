@@ -35,7 +35,8 @@ d3.csv("../static/countries.csv", function(err, data) {
 				responseData2) {
 				// Return if something failed
 				if (err || !responseData2.toptags.tag || !responseData2.toptags.tag.length) {
-					console.error("Couldn't get top tags from lastfm", err, responseData2);
+					console.error("No or too few tags from last.fm. Err: " + err +
+						" Response: ", responseData2);
 					callback({
 						"artist": artist
 					});
