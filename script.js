@@ -3,18 +3,17 @@ var country;
 
 // This is run when we've got artists from last.fm
 var cb = function(error, responseData) {
-    console.log(responseData);
-    var text = "";
+	console.log(responseData);
+	var text = "";
 
     // Get country for each artist
-    responseData.artists.artist.forEach(function(el, i) {
+	responseData.artists.artist.forEach(function(el, i) {
         // Get coutry from musicbrainz
         api.getCountry(el.name,function(data){
             console.log(data)
         });
-    })
+	})
 }
 
-// user = prompt("Input your user name, get top 20 artists")
-user = SESSION.name;
+user = prompt("Input your user name, get top 20 artists")
 api.lastfm.send("library.getartists", [["user", user], ["limit", 20]], cb);
