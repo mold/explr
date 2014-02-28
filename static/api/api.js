@@ -29,7 +29,12 @@ d3.csv("../static/countries.csv", function(err, data) {
 				console.log(responseData2)
 				responseData2.toptags.tag.forEach(function(t, i) {
 					if (data[t.name.toLowerCase()]) {
-						console.log("Match! ", t.name, data[t.name][0].id)
+						console.log("Match!", artist, t.name, data[t.name][0].id)
+						callback({
+							"artist": artist,
+							"id": data[t.name][0].id,
+							"tag": t.name
+						});
 					}
 				})
 			});
