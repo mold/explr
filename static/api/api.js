@@ -18,70 +18,54 @@ d3.csv("../static/countries.csv", function(err, data) {
 		.map(data);
 
 	api.getCountry = function(artist, callback) {
-		var artists = JSON.parse(window.localStorage.artists);
 		var running = true;
-		// Create object in localstorage (if needed)
-		artists[artist] = artists[artist] || {};
-		if (artists[artist].country) {
-			var returnObject = artists[artist].country;
-			returnObject.artist = artist;
-			callback(returnObject);
-		} else {
-			// Gotta save to localstorage because api calls take time
-			window.localStorage.artists = JSON.stringify(artists);
-
-			// Get artists country code here, from last.fm or whatever
-			api.lastfm.send("artist.gettoptags", [["artist", artist]], function(err,
-				responseData2) {
-				// Return if something failed
-				if (err || !responseData2.toptags || !responseData2.toptags.tag || !
-					responseData2.toptags.tag.length) {
-					// console.error("No or too few tags from last.fm. Err: " + err +
-					// 	" Response: ", responseData2);
-					callback({
-						"artist": artist
-					});
-					return;
-				}
-				responseData2.toptags.tag.forEach(function(t, i) {
-					if (running) {
-						var tname = t.name.toLowerCase();
-						try {
-							var cid = alias[tname][0].id || cname[tname][0].id;
-							var cname = alias[tname][0].name || cname[tname][0].name;
-							if (cid) {
-								// Save to localstorage
-								artists = JSON.parse(window.localStorage.artists); // gotta load again to get latest version
-								artists[artist].country = {
-									"id": cid,
-									"name": cname,
-								};
-								window.localStorage.artists = JSON.stringify(artists);
-
-								// Callback!
-								callback({
-									"artist": artist,
-									"id": cid,
-									"tag": t.name,
-									"name": cname,
-								});
-								running = false;
-							}
-						} catch (e) {
-							// console.log(artist, tname)
+		// Get artists country code here, from last.fm or whatever
+		api.lastfm.send("artist.gettoptags", [["artist", artist]], function(err,
+			responseData2) {
+			// Return if something failed
+			if (err || !responseData2.toptags || !responseData2.toptags.tag || !
+				responseData2.toptags.tag.length) {
+				// console.error("No or too few tags from last.fm. Err: " + err +
+				// 	" Response: ", responseData2);
+				callback({
+					"artist": artist
+				});
+				return;
+			}
+			responseData2.toptags.tag.forEach(function(t, i) {
+				if (running) {
+					var tname = t.name.toLowerCase();
+					try {
+						if (alias[tname][0].id) {
+							cid = alias[tname][0].id;
+							cname = alias[tname][0].name;
+						} else if (cname[tname][0].id) {
+							cid = cname[tname][0].id;
+							cname = cname[tname][0].name;
 						}
-
+						if (cid) {
+							callback({
+								"artist": artist,
+								"id": cid,
+								"tag": t.name,
+								"name": cname,
+							});
+							running = false;
+						}
+					} catch (e) {
+						// console.log(artist, tname)
 					}
 
-				})
-
-				if (running) { // We got no country :(
-					callback({
-						"artist": artist
-					})
 				}
-			});
-		}
+
+			})
+
+			if (running) { // We got no country :(
+				callback({
+					"artist": artist
+				})
+			}
+		});
 	}
 
 	/**
@@ -94,17 +78,39 @@ d3.csv("../static/countries.csv", function(err, data) {
 	api.getCountries = function(artists, callback) {
 		var returnList = [],
 			count = 0;
+		var storedArtists = JSON.parse(window.localStorage.artists);
+		var checkCount = function() {
+			count++;
+			if (count === artists.length) {
+				window.localStorage.artists = JSON.stringify(storedArtists);
+				callback(returnList);
+			}
+		}
 
 		artists.forEach(function(el, i) {
-			api.getCountry(el, function(data) {
-				if (data.name) {
-					returnList.push(data);
-				}
-				count++;
-				if (count === artists.length) {
-					callback(returnList);
-				}
-			})
+			if (storedArtists[el] && storedArtists[el].country) {
+				var returnObject = storedArtists[el].country;
+				returnObject.artist = el;
+				returnList.push(returnObject);
+				checkCount();
+			} else {
+				var start = new Date().getTime();
+				api.getCountry(el, function(data) {
+					storedArtists[el] = storedArtists[el] || {};
+
+					if (data.name) {
+						storedArtists[el].country = {
+							"id": data.id,
+							"name": data.name,
+						};
+						returnList.push(data);
+					}
+					console.log("apicall " + (new Date().getTime() - start) + " ms")
+
+					checkCount();
+				})
+			}
+
 		})
 	}
 })

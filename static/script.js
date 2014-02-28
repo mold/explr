@@ -2,16 +2,20 @@ var geocoder = new google.maps.Geocoder();
 var user, currPage = 1,
     maxPage;
 var countryCountObj = {};
+var times = [];
 
-
+//1291
+//1074
 // user = prompt("Input your user name, get top 20 artists")
 user = SESSION.name;
+var start = new Date().getTime();
 
 var getAllArtists = function() {
     api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
     ["page", currPage]],
         function(error, responseData) {
-            maxPage = +responseData.artists["@attr"].totalPages;
+            maxPage = 5;
+            // maxPage = +responseData.artists["@attr"].totalPages;
             if (currPage > maxPage) {
                 return;
             }
@@ -44,8 +48,12 @@ var getAllArtists = function() {
                             countryCountObj[id] = dataObj[id];
                         }
                     })
-
+                    var mapstart = new Date().getTime();
                     map.putCountryCount(countryCountObj);
+                    console.log("map update " + (new Date().getTime() -
+                            mapstart) +
+                        " ms")
+                    times.push(new Date().getTime() - start);
                     getAllArtists(); // more!!! more!!!!
 
                 });
