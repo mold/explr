@@ -3,13 +3,14 @@ var country;
 
 // This is run when we've got artists from last.fm
 var cb = function(error, responseData) {
-	console.log(responseData);
+	//console.log(responseData);
 	var text = "";
 
 	// Get country for each artist
 	responseData.artists.artist.forEach(function(el, i) {
 		// Get country from lastfm
 		api.getCountry(el.name, function(data) {
+			console.log(data.artist, data.id, data.tag)
 
 		});
 	})

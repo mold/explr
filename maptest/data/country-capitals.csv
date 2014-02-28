@@ -1,0 +1,13 @@
+CountryName,CapitalName,CapitalLatitude,CapitalLongitude,CountryCode,ContinentName
+Brazil,Brasilia,-15.783333333333333,-47.916667,BR,South America
+Colombia,Bogota,4.6,-74.083333,CO,South America
+Egypt,Cairo,30.05,31.250000,EG,Africa
+France,Paris,48.86666666666667,2.333333,FR,Europe
+Iraq,Baghdad,33.333333333333336,44.400000,IQ,Asia
+South Korea,Seoul,37.55,126.983333,KR,Asia
+Kosovo,Pristina,42.666666666666664,21.166667,KO,Europe
+Mexico,Mexico City,19.433333333333334,-99.133333,MX,Central America
+Nepal,Kathmandu,27.716666666666665,85.316667,NP,Asia
+Portugal,Lisbon,38.71666666666667,-9.133333,PT,Europe
+United States,Washington DC,38.883333,-77.000000,US,Central America
+Uruguay,Montevideo,-34.85,-56.166667,UY,South America
