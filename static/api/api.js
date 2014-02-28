@@ -24,7 +24,6 @@ d3.csv("../static/countries.csv", function(err, data) {
 			return ls.artists[artist].country_code;
 		} else {
 			// Get artists country code here, from last.fm or whatever
-			console.log(alias);
 
 			api.lastfm.send("artist.gettoptags", [["artist", artist]], function(err,
 				responseData2) {
@@ -37,32 +36,29 @@ d3.csv("../static/countries.csv", function(err, data) {
 				responseData2.toptags.tag.forEach(function(t, i) {
 
 					if (running) {
-
-						if (cname[t.name.toLowerCase()]) {
-							//console.log("Match!", artist, t.name, alias[t.name][0].id)
-
-							callback({
-								"artist": artist,
-								"id": cname[t.name.toLowerCase()][0].id,
-								"tag": t.name
-							});
-							running = false;
-
-						} else {
-							if (alias[t.name.toLowerCase()]) {
-								//console.log("Match!", artist, t.name, alias[t.name][0].id)
-
+						var tname = t.name.toLowerCase();
+						try {
+							var cid = alias[tname][0].id || cname[tname][0].id;
+							if (cid) {
 								callback({
 									"artist": artist,
-									"id": alias[t.name.toLowerCase()][0].id,
+									"id": cid,
 									"tag": t.name
 								});
 								running = false;
-							} else running = false;
+							}
+						} catch (e) {
+							// console.log(artist, tname)
 						}
+
 					}
 
 				})
+				if (running) {
+					callback({
+						"artist": artist
+					})
+				}
 			});
 		}
 	}
