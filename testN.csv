@@ -1,18 +1,13 @@
- Abkhazia[3],2,4,4, Georgia
- Venezuela (M)[20],,,, Russia
+ Abkhazia,2,4,4, Georgia
+,,,, Russia
 ,,,, Turkey (M)
 ,,,, Ukraine (M)
- Adélie Land[4][5] (France),1,1,1, Australian Antarctic Territory[4] (Australia)
  Afghanistan,6,0,6, China (L)
 ,,,, Iran (L)
 ,,,, Pakistan (L)
 ,,,, Tajikistan (L)
 ,,,, Turkmenistan (L)
 ,,,, Uzbekistan (L)[note]
- Akrotiri and Dhekelia[6] (United Kingdom),1 (2),3,3 (4), Cyprus
-,,,, Egypt (M)
-,,,, Lebanon (M)
-,,,, Turkish Republic of Northern Cyprus (L)
  Albania,4,4,6, Croatia (M)
 ,,,, Greece
 ,,,, Italy (M)
@@ -42,13 +37,6 @@
 ,,,, Republic of the Congo
 ,,,, Namibia
 ,,,, Zambia (L)
- Anguilla[6] (United Kingdom),0,4,4, Antigua and Barbuda (M)
-,,,, Netherlands (M)
-,,,, Saint Martin[13](France)(M)
-,,,, United States Virgin Islands[9](United States)(M)
- Antártica Chilena Province[4] (Chile),2,3,3, Argentine Antarctica[4][14](Argentina)
-,,,, British Antarctic Territory[4][14](United Kingdom)
-,,,, Peter I Island[4](Norway) (M)
  Antigua and Barbuda,0,3 (5),3 (5), France (M)
 ,,,, Saint Kitts and Nevis (M)
 ,,,, Anguilla[6](United Kingdom) (M)
@@ -67,32 +55,12 @@
 ,,,, Iran (L)
 ,,,, Turkey (L)
 ,,,, Nagorno-Karabakh (L)
- Aruba[16] (Netherlands),0,2,2, Dominican Republic (M)
-,,,, Venezuela (M)
- Ashmore and Cartier Islands[17] (Australia),0,1,1, Indonesia (M)
- Australia,0,6 (7),6 (7), East Timor (M)
-_includes:,,,, Indonesia (M)
-_,,,, New Zealand (M)
- Ashmore and Cartier Islands,,,, Papua New Guinea (M)
-_,,,, Solomon Islands (M)
- Christmas Island,,,, Kerguelen Islands[5](France) (M)
-_,,,, New Caledonia[18](France) (M)
- Cocos (Keeling) Islands,,,,
-_,,,,
- Heard Island and McDonald Islands,,,,
-_,,,,
- Macquarie Island,,,,
-_,,,,
- Norfolk Island,,,,
  Australia (excluding outlying islands),0,6,6, East Timor (M)
 ,,,, Indonesia (M)
 ,,,, New Zealand (M)
 ,,,, Papua New Guinea (M)
 ,,,, Solomon Islands (M)
 ,,,, New Caledonia[18](France) (M)
- Australian Antarctic Territory[4] (Australia),3,3,3, Adélie Land[4](France)
-,,,, Queen Maud Land[4](Norway)
-,,,, Ross Dependency[4](New Zealand)
  Austria,8,0,8, Czech Republic (L)
 ,,,, Germany (L)
 ,,,, Hungary (L)
@@ -115,17 +83,12 @@ _,,,,
  Bahrain,0,3,3, Iran (M)
 ,,,, Qatar (M)
 ,,,, Saudi Arabia (M)
- Baker Island[9] (United States),0,1,1, Kiribati (M)
  Bangladesh,2,2,2, Burma
 ,,,, India
  Barbados,0,5,6, France (M)
 ,,,, Guyana (M)
 ,,,, Saint Lucia (M)
 ,,,, Saint Vincent and the Grenadines (M)
-,,,,
-,,,,
-" Bassas da India, Europa Island, and Juan de Nova Island[5][21] (France)",0,2,2, Madagascar (M)
-,,,, Mauritius (M)
  Belarus,5,0,5, Latvia (L)
 ,,,, Lithuania (L)
 ,,,, Poland (L)
@@ -144,7 +107,7 @@ _,,,,
 ,,,, Niger (L)
 ,,,, Nigeria
 ,,,, Togo
- Bermuda[6] (United Kingdom),0,0,0,
+ Bermuda,0,0,0,
  Bhutan,2,0,2, China (L)
 ,,,, India (L)
  Bolivia,5,0,5, Argentina (L)
@@ -159,7 +122,7 @@ _,,,,
 ,,,, South Africa (L)
 ,,,, Zambia (L)
 ,,,, Zimbabwe (L)
- Bouvet Island[22],0,0,0,
+ Bouvet Island,0,0,0,
  Brazil,10,2,10, Argentina (L)
 ,,,, Bolivia (L)
 ,,,, Colombia (L)
@@ -170,67 +133,64 @@ _,,,,
 ,,,, Suriname (L)
 ,,,, Uruguay
 ,,,, Venezuela (L)
- British Antarctic Territory[4] (United Kingdom),3,3,3, Antártica Chilena Province[4][14](Chile)
-,,,, Argentine Antarctica[4][14](Argentina)
-,,,, Queen Maud Land[4](Norway)
- British Indian Ocean Territory[6] (United Kingdom),0,1,1, Maldives (M)
- British Virgin Islands[6] (United Kingdom),0,2 (1),2 (1), Puerto Rico[9](United States) (M)
-,,,, United States Virgin Islands[9](United States) (M)
- Brunei,1,1,1, Malaysia
- Bulgaria,5,2,5, Greece (L)
+ British Virgin Islands,0,1,1, Maldives (M)
+,0,2 (1),2 (1), Puerto Rico[9](United States) (M)
+ Brunei,,,, United States Virgin Islands[9](United States) (M)
+ Bulgaria,1,1,1, Malaysia
+,5,2,5, Greece (L)
 ,,,, Republic of Macedonia (L)
 ,,,, Romania
 ,,,, Serbia (L)
-,,,, Turkey
- Burkina Faso,6,0,6, Benin (L)
+ Burkina Faso,,,, Turkey
+,6,0,6, Benin (L)
 ,,,, Côte d'Ivoire (L)
 ,,,, Ghana (L)
 ,,,, Mali (L)
 ,,,, Niger (L)
-,,,, Togo (L)
- Burma,5,3,5, Bangladesh
+ Burma,,,, Togo (L)
+,5,3,5, Bangladesh
 ,,,, China (L)
 ,,,, India
 ,,,, Laos (L)
-,,,, Thailand
- Burundi,3,0,3, Democratic Republic of the Congo (L)
+ Burundi,,,, Thailand
+,3,0,3, Democratic Republic of the Congo (L)
 ,,,, Rwanda (L)
-,,,, Tanzania (L)
- Cambodia,3,2,3, Laos (L)
+ Cambodia,,,, Tanzania (L)
+,3,2,3, Laos (L)
 ,,,, Thailand
-,,,, Vietnam
- Cameroon,6,2,6, Central African Republic (L)
+ Cameroon,,,, Vietnam
+,6,2,6, Central African Republic (L)
 ,,,, Chad (L)
 ,,,, Republic of the Congo (L)
 ,,,, Equatorial Guinea
 ,,,, Gabon (L)
-,,,, Nigeria
- Canada,1,3,3, United States
+ Canada,,,, Nigeria
+,1,3,3, United States
 ,,,, Greenland[23](Denmark) (M)
-,,,, Saint Pierre and Miquelon[13](France) (M)
- Cape Verde,0,3,3, The Gambia (M)
+ Cape Verde,,,, Saint Pierre and Miquelon[13](France) (M)
+,0,3,3, The Gambia (M)
 ,,,, Mauritania (M)
-,,,, Senegal (M)
- Cayman Islands[6] (United Kingdom),0,4,4, Colombia (M)
+ Cayman Islands,,,, Senegal (M)
+,0,4,4, Colombia (M)
 ,,,, Cuba (M)
 ,,,, Honduras (M)
-,,,, Jamaica (M)
- Central African Republic,6,0,6, Cameroon (L)
+ Central African Republic,,,, Jamaica (M)
+,6,0,6, Cameroon (L)
 ,,,, Chad (L)
 ,,,, Democratic Republic of the Congo (L)
 ,,,, Republic of the Congo (L)
 ,,,, South Sudan (L)
-,,,, Sudan (L)
- Chad,6,0,6, Cameroon (L)
+ Chad,,,, Sudan (L)
+,6,0,6, Cameroon (L)
 ,,,, Central African Republic (L)
 ,,,, Libya (L)
 ,,,, Niger (L)
 ,,,, Nigeria (L)
-,,,, Sudan (L)
- Chile,3,2,3, Argentina
+ Chile,,,, Sudan (L)
+,3,2,3, Argentina
 ,,,, Bolivia (L)
-,,,, Peru
- China[24],14 (16),5 (8),17 (20), Afghanistan (L)
+ China,,,, Peru
+,14 (16),5 (8),17 (20), Afghanistan (L)
 ,,,, Bhutan (L)
 ,,,, Burma (L)
 ,,,, India (L)
@@ -249,11 +209,11 @@ _,,,,
 ,,,, Vietnam
 ,,,, Hong Kong(China)[25]
 ,,,, Macau(China)[26]
-,,,, Taiwan (M)
- Christmas Island[17] (Australia),0,1,1, Indonesia (M)
- Clipperton Island[27] (France),0,0,0,
- Cocos (Keeling) Islands[17] (Australia),0,0,0,
- Colombia,5,10,12, Brazil (L)
+ Christmas Island,,,, Taiwan (M)
+ Clipperton Island,0,1,1, Indonesia (M)
+ Cocos,0,0,0,
+ Colombia,0,0,0,
+,5,10,12, Brazil (L)
 ,,,, Costa Rica (M)
 ,,,, Dominican Republic (M)
 ,,,, Ecuador
@@ -264,15 +224,15 @@ _,,,,
 ,,,, Panama
 ,,,, Peru (L)
 ,,,, Venezuela
-,,,, Cayman Islands[6](United Kingdom) (M)
- Comoros,0,5 (7),5 (7), France (M)
+ Comoros,,,, Cayman Islands[6](United Kingdom) (M)
+,0,5 (7),5 (7), France (M)
 ,,,, Madagascar (M)
 ,,,, Mozambique (M)
 ,,,, Seychelles (M)
 ,,,, Tanzania (M)
 ,,,, French Southern and Antarctic Lands[5][28](France) (M)
-,,,, Mayotte[13](France) (M)
- Democratic Republic of the Congo,9,1,9, Angola
+ Democratic Republic of the Congo,,,, Mayotte[13](France) (M)
+,9,1,9, Angola
 ,,,, Burundi (L)
 ,,,, Central African Republic (L)
 ,,,, Republic of the Congo (L)
@@ -280,93 +240,93 @@ _,,,,
 ,,,, South Sudan (L)
 ,,,, Tanzania (L)
 ,,,, Uganda (L)
-,,,, Zambia (L)
- Republic of the Congo,5,2,5, Angola
+ Republic of the Congo,,,, Zambia (L)
+,5,2,5, Angola
 ,,,, Cameroon (L)
 ,,,, Central African Republic (L)
 ,,,, Democratic Republic of the Congo (L)
-,,,, Gabon
- Cook Islands[10] (New Zealand),0,3 (5),3 (5), Kiribati (M)
+ Cook Islands[10] (New Zealand),,,, Gabon
+,0,3 (5),3 (5), Kiribati (M)
 ,,,, American Samoa[9](United States) (M)
 ,,,, French Polynesia[13](France) (M)
 ,,,, Niue[11](New Zealand) (M)
-,,,, Tokelau[12](New Zealand) (M)
- Costa Rica,2,4,4, Colombia (M)
+ Costa Rica,,,, Tokelau[12](New Zealand) (M)
+,2,4,4, Colombia (M)
 ,,,, Ecuador (M)
 ,,,, Nicaragua
-,,,, Panama
- Côte d'Ivoire,5,2,5, Burkina Faso (L)
+ Côte d'Ivoire,,,, Panama
+,5,2,5, Burkina Faso (L)
 ,,,, Ghana
 ,,,, Guinea (L)
 ,,,, Liberia
-,,,, Mali (L)
- Croatia,5,4,6, Bosnia and Herzegovina
+ Croatia,,,, Mali (L)
+,5,4,6, Bosnia and Herzegovina
 ,,,, Hungary (L)
 ,,,, Italy (M)
 ,,,, Montenegro
 ,,,, Serbia (L)
-,,,, Slovenia
- Crozet Islands[5] (France),0,0,0,
- Cuba,0,7 (8),7 (8), Bahamas (M)
+ Crozet Islands[5] (France),,,, Slovenia
+ Cuba,0,0,0,
+,0,7 (8),7 (8), Bahamas (M)
 ,,,, Haiti (M)
 ,,,, Honduras (M)
 ,,,, Jamaica (M)
 ,,,, Mexico (M)
 ,,,, United States (M)
 ,,,, Cayman Islands[6](United Kingdom) (M)
-,,,, Navassa Island[9][29](United States) (M)
- Curaçao[16] (Netherlands),0,2,2, Dominican Republic (M)
-,,,, Venezuela (M)
- Cyprus,1,7 (8),7 (8), Egypt (M)
+ Curaçao[16] (Netherlands),,,, Navassa Island[9][29](United States) (M)
+,0,2,2, Dominican Republic (M)
+ Cyprus,,,, Venezuela (M)
+,1,7 (8),7 (8), Egypt (M)
 ,,,, Greece (M)
 ,,,, Israel (M)
 ,,,, Lebanon (M)
 ,,,, Syria (M)
 ,,,, Turkey (M)
 ,,,, Akrotiri and Dhekelia[6](United Kingdom)
-,,,, Northern Cyprus[30]
- Northern Cyprus[30],2,4,4, Cyprus
+ Northern Cyprus[30],,,, Northern Cyprus[30]
+,2,4,4, Cyprus
 ,,,, Syria (M)
 ,,,, Turkey (M)
-,,,, Akrotiri and Dhekelia[6](United Kingdom)
- Czech Republic,4,0,4, Austria (L)
+ Czech Republic,,,, Akrotiri and Dhekelia[6](United Kingdom)
+,4,0,4, Austria (L)
 ,,,, Germany (L)
 ,,,, Poland (L)
-,,,, Slovakia (L)
- Denmark[31],1,6,6, Germany
+ Denmark[31],,,, Slovakia (L)
+,1,6,6, Germany
 ,,,, Norway (M)
 ,,,, Poland (M)
 ,,,, Sweden (M)
-,,,, United Kingdom (M)
-" Denmark, Kingdom of",1,8 (9),8 (9), Canada (M)
-_includes:,,,, Germany
-_,,,, Iceland (M)
- Denmark,,,, Norway (M)
-_,,,, Poland (M)
- Faroe Islands,,,, Sweden (M)
-_,,,, United Kingdom (M)
- Greenland,,,, Svalbard (Norway) (M)
- Djibouti,3,3,4, Eritrea
+" Denmark, Kingdom of",,,, United Kingdom (M)
+_includes:,1,8 (9),8 (9), Canada (M)
+_,,,, Germany
+ Denmark,,,, Iceland (M)
+_,,,, Norway (M)
+ Faroe Islands,,,, Poland (M)
+_,,,, Sweden (M)
+ Greenland,,,, United Kingdom (M)
+ Djibouti,,,, Svalbard (Norway) (M)
+,3,3,4, Eritrea
 ,,,, Ethiopia (L)
 ,,,, Somalia
 ,,,, Yemen (M)
 ,,,, Somaliland
-,,,,"Djibouti borders Somaliland, who is considered by the international community to be part of Somalia"
- Dominica,0,2,2, France (M)
-,,,, Venezuela (M)
- Dominican Republic,1,6 (7),6 (7), Colombia (M)
+ Dominica,,,,"Djibouti borders Somaliland, who is considered by the international community to be part of Somalia"
+,0,2,2, France (M)
+ Dominican Republic,,,, Venezuela (M)
+,1,6 (7),6 (7), Colombia (M)
 ,,,, Haiti
 ,,,, Venezuela (M)
 ,,,, Aruba[16](Netherlands) (M)
 ,,,, Curaçao[16](Netherlands) (M)
 ,,,, Puerto Rico[9](United States) (M)
-,,,, Turks and Caicos Islands[6](United Kingdom) (M)
- East Timor,1,2,2, Australia (M)
-,,,, Indonesia
- Ecuador,2,3,3, Colombia
+ East Timor,,,, Turks and Caicos Islands[6](United Kingdom) (M)
+,1,2,2, Australia (M)
+ Ecuador,,,, Indonesia
+,2,3,3, Colombia
 ,,,, Costa Rica (M)
-,,,, Peru
- Egypt,4,9 (10),9 (10), Cyprus (M)
+ Egypt,,,, Peru
+,4,9 (10),9 (10), Cyprus (M)
 ,,,, Greece (M)
 ,,,, Israel
 ,,,, Jordan (M)
@@ -375,47 +335,47 @@ _,,,, United Kingdom (M)
 ,,,, Sudan
 ,,,, Turkey (M)
 ,,,, Akrotiri and Dhekelia[6](United Kingdom) (M)
-,,,, Gaza Strip (Palestinian territories)[32]
- El Salvador,2,3,3, Guatemala
+ El Salvador,,,, Gaza Strip (Palestinian territories)[32]
+,2,3,3, Guatemala
 ,,,, Honduras
-,,,, Nicaragua (M)
- Equatorial Guinea,2,4,4, Cameroon
+ Equatorial Guinea,,,, Nicaragua (M)
+,2,4,4, Cameroon
 ,,,, Gabon
 ,,,, Nigeria (M)
-,,,, São Tomé and Príncipe (M)
- Eritrea,3,4,5, Djibouti
+ Eritrea,,,, São Tomé and Príncipe (M)
+,3,4,5, Djibouti
 ,,,, Saudi Arabia (M)
 ,,,, Sudan
 ,,,, Ethiopia (L)
-,,,, Yemen (M)
- Estonia,2,4,4, Finland (M)
+ Estonia,,,, Yemen (M)
+,2,4,4, Finland (M)
 ,,,, Latvia
 ,,,, Russia
-,,,, Sweden (M)
- Ethiopia,6 (7),0,6 (7), Djibouti (L)
+ Ethiopia,,,, Sweden (M)
+,6 (7),0,6 (7), Djibouti (L)
 ,,,, Eritrea (L)
 ,,,, Kenya (L)
 ,,,, Somalia (L)
 ,,,, South Sudan (L)
 ,,,, Sudan (L)
-,,,, Somaliland (L)
-" Europa Island, Bassas da India, and Juan de Nova Island[5][21] (France)",0,2,2, Madagascar (M)
-,,,, Mauritius (M)
- Falkland Islands[6][15] (United Kingdom),0,1,1, Argentina (M)
- Faroe Islands[23] (Denmark),0,3,3, Iceland (M)
+" Europa Island, Bassas da India, and Juan de Nova Island[5][21] (France)",,,, Somaliland (L)
+,0,2,2, Madagascar (M)
+ Falkland Islands[6][15] (United Kingdom),,,, Mauritius (M)
+ Faroe Islands[23] (Denmark),0,1,1, Argentina (M)
+,0,3,3, Iceland (M)
 ,,,, Norway (M)
-,,,, United Kingdom (M)
- Fiji,0,5 (6),5 (6), New Zealand (M)
+ Fiji,,,, United Kingdom (M)
+,0,5 (6),5 (6), New Zealand (M)
 ,,,, Tonga (M)
 ,,,, Tuvalu (M)
 ,,,, Vanuatu (M)
 ,,,, New Caledonia[18](France) (M)
-,,,, Wallis and Futuna[13](France) (M)
- Finland,3,3,4, Estonia (M)
+ Finland,,,, Wallis and Futuna[13](France) (M)
+,3,3,4, Estonia (M)
 ,,,, Norway (L)
 ,,,, Russia
-,,,, Sweden
- France[33],10,16 (19),20 (23), Andorra (L)
+ France[33],,,, Sweden
+,10,16 (19),20 (23), Andorra (L)
 ,,,, Antigua and Barbuda (M)
 ,,,, Barbados (M)
 ,,,, Belgium
@@ -437,27 +397,27 @@ _,,,, United Kingdom (M)
 ,,,, Venezuela (M)
 ,,,, Guernsey[34](United Kingdom) (M)
 ,,,, Jersey[34](United Kingdom) (M)
-,,,, Montserrat[6](United Kingdom) (M)
- France (including French collectivities and territories),11,30 (39),34 (43), Andorra (L)
-_includes:,,,, Antigua and Barbuda (M)
-_,,,, Australia (M)
- Clipperton Island,,,, Barbados (M)
-_,,,, Belgium
- French Polynesia,,,, Brazil
-_,,,, Canada (M)
- French Southern and Antarctic Lands[35],,,, Comoros (M)
-_,,,, Dominica (M)
- Mayotte,,,, Fiji (M)
-_,,,, Germany (L)
- New Caledonia,,,, Italy
-_,,,, Kiribati (M)
- Saint Barthélemy,,,, Luxembourg (L)
-_,,,, Madagascar (M)
- Saint Martin,,,, Mauritius (M)
-_,,,, Monaco
- Saint Pierre and Miquelon,,,, Mozambique (M)
-_,,,, Netherlands (M)
- Wallis and Futuna,,,, Papua New Guinea (M)
+ France (including French collectivities and territories),,,, Montserrat[6](United Kingdom) (M)
+_includes:,11,30 (39),34 (43), Andorra (L)
+_,,,, Antigua and Barbuda (M)
+ Clipperton Island,,,, Australia (M)
+_,,,, Barbados (M)
+ French Polynesia,,,, Belgium
+_,,,, Brazil
+ French Southern and Antarctic Lands[35],,,, Canada (M)
+_,,,, Comoros (M)
+ Mayotte,,,, Dominica (M)
+_,,,, Fiji (M)
+ New Caledonia,,,, Germany (L)
+_,,,, Italy
+ Saint Barthélemy,,,, Kiribati (M)
+_,,,, Luxembourg (L)
+ Saint Martin,,,, Madagascar (M)
+_,,,, Mauritius (M)
+ Saint Pierre and Miquelon,,,, Monaco
+_,,,, Mozambique (M)
+ Wallis and Futuna,,,, Netherlands (M)
+,,,, Papua New Guinea (M)
 ,,,, Saint Kitts and Nevis (M)
 ,,,, Saint Lucia (M)
 ,,,, Samoa (M)
@@ -480,32 +440,32 @@ _,,,, Netherlands (M)
 ,,,, Sint Maarten[16](Netherlands)
 ,,,, Norfolk Island[17](Australia) (M)
 ,,,, Pitcairn Islands[6](United Kingdom) (M)
-,,,, Tokelau[12](New Zealand) (M)
- French Polynesia[13] (France),0,3,3, Kiribati (M)
+ French Polynesia[13] (France),,,, Tokelau[12](New Zealand) (M)
+,0,3,3, Kiribati (M)
 ,,,, Cook Islands[10](New Zealand) (M)
-,,,, Pitcairn Islands[6](United Kingdom) (M)
- French Southern and Antarctic Lands Excluding Adélie Land[35][36] (France),0,6,6, Comoros (M)
+ French Southern and Antarctic Lands Excluding Adélie Land[35][36] (France),,,, Pitcairn Islands[6](United Kingdom) (M)
+,0,6,6, Comoros (M)
 ,,,, Madagascar (M)
 ,,,, Mauritius (M)
 ,,,, Mozambique (M)
 ,,,, Seychelles (M)
-,,,, Heard Island and McDonald Islands[17](Australia) (M)
- Gabon,3,3,4, Cameroon (L)
+ Gabon,,,, Heard Island and McDonald Islands[17](Australia) (M)
+,3,3,4, Cameroon (L)
 ,,,, Republic of the Congo
 ,,,, Equatorial Guinea
-,,,, São Tomé and Príncipe (M)
- The Gambia,1,2,2, Cape Verde (M)
-,,,, Senegal
- Gaza Strip (Palestinian territories)[32],2,2,2, Egypt
-,,,, Israel
- Georgia,4 (6),3 (4),5 (7), Armenia (L)
+ The Gambia,,,, São Tomé and Príncipe (M)
+,1,2,2, Cape Verde (M)
+ Gaza Strip (Palestinian territories)[32],,,, Senegal
+,2,2,2, Egypt
+ Georgia,,,, Israel
+,4 (6),3 (4),5 (7), Armenia (L)
 ,,,, Azerbaijan (L)
 ,,,, Russia
 ,,,, Turkey
 ,,,, Ukraine (M)
 ,,,, Abkhazia
-,,,, South Ossetia (L)
- Germany,9,5,11, Austria (L)
+ Germany,,,, South Ossetia (L)
+,9,5,11, Austria (L)
 ,,,, Belgium (L)
 ,,,, Czech Republic (L)
 ,,,, Denmark
@@ -515,81 +475,81 @@ _,,,, Netherlands (M)
 ,,,, Poland
 ,,,, Sweden (M)
 ,,,,  Switzerland (L)
-,,,, United Kingdom (M)
- Ghana,3,4,5, Benin (M)
+ Ghana,,,, United Kingdom (M)
+,3,4,5, Benin (M)
 ,,,, Burkina Faso (L)
 ,,,, Côte d'Ivoire
 ,,,, Nigeria (M)
-,,,, Togo
- Gibraltar[6] (United Kingdom),1,2,2, Morocco (M)
-,,,, Spain
- Glorioso Islands[5][28] (France),0,3,3, Comoros (M)
+ Gibraltar[6] (United Kingdom),,,, Togo
+,1,2,2, Morocco (M)
+ Glorioso Islands[5][28] (France),,,, Spain
+,0,3,3, Comoros (M)
 ,,,, Madagascar (M)
-,,,, Seychelles (M)
- Greece,4,6,8, Albania
+ Greece,,,, Seychelles (M)
+,4,6,8, Albania
 ,,,, Bulgaria (L)
 ,,,, Cyprus (M)
 ,,,, Egypt (M)
 ,,,, Italy (M)
 ,,,, Libya (M)
 ,,,, Republic of Macedonia (L)
-,,,, Turkey
- Greenland[23] (Denmark),0,3 (4),3 (4), Canada (M)
+ Greenland[23] (Denmark),,,, Turkey
+,0,3 (4),3 (4), Canada (M)
 ,,,, Iceland (M)
 ,,,, Norway (M)
-,,,, Svalbard[22](Norway) (M)
- Grenada,0,2,2, Saint Vincent and the Grenadines (M)
-,,,, Trinidad and Tobago (M)
- Guam[9] (United States),0,1,1, Federated States of Micronesia (M)
- Guatemala,4,4,4, Belize
+ Grenada,,,, Svalbard[22](Norway) (M)
+,0,2,2, Saint Vincent and the Grenadines (M)
+ Guam[9] (United States),,,, Trinidad and Tobago (M)
+ Guatemala,0,1,1, Federated States of Micronesia (M)
+,4,4,4, Belize
 ,,,, El Salvador
 ,,,, Honduras
-,,,, Mexico
- Guernsey[34] (United Kingdom),0,1 (2),1 (2), France (M)
-,,,, Jersey[34] (United Kingdom) (M)
- Guinea,6,2,6, Côte d'Ivoire (L)
+ Guernsey[34] (United Kingdom),,,, Mexico
+,0,1 (2),1 (2), France (M)
+ Guinea,,,, Jersey[34] (United Kingdom) (M)
+,6,2,6, Côte d'Ivoire (L)
 ,,,, Guinea-Bissau
 ,,,, Liberia (L)
 ,,,, Mali (L)
 ,,,, Senegal (L)
-,,,, Sierra Leone
- Guinea-Bissau,2,2,2, Guinea
-,,,, Senegal
- Guyana,3,4,5, Barbados (M)[20][37]
+ Guinea-Bissau,,,, Sierra Leone
+,2,2,2, Guinea
+ Guyana,,,, Senegal
+,3,4,5, Barbados (M)[20][37]
 ,,,, Brazil (L)
 ,,,, Suriname
 ,,,, Trinidad and Tobago (M)
-,,,, Venezuela[20]
- Haiti,1,7,7, Bahamas (M)
+ Haiti,,,, Venezuela[20]
+,1,7,7, Bahamas (M)
 ,,,, Colombia (M)
 ,,,, Cuba (M)
 ,,,, Dominican Republic
 ,,,, Jamaica (M)
 ,,,, Navassa Island[9][29](United States) (M)
-,,,, Turks and Caicos Islands[6](United Kingdom) (M)
- Heard Island and McDonald Islands[17] (Australia),0,1,1, Kerguelen Islands[5](France) (M)
- Honduras,3,8,8, Belize (M)
+ Heard Island and McDonald Islands[17] (Australia),,,, Turks and Caicos Islands[6](United Kingdom) (M)
+ Honduras,0,1,1, Kerguelen Islands[5](France) (M)
+,3,8,8, Belize (M)
 ,,,, Colombia (M)
 ,,,, Cuba (M)
 ,,,, El Salvador
 ,,,, Guatemala
 ,,,, Mexico (M)
 ,,,, Nicaragua
-,,,, Cayman Islands[6](United Kingdom) (M)
- Hong Kong[25] (People's Republic of China),0,0,0,
- Howland Island[9],0,1,1, Kiribati (M)
- Hungary,7,0,7, Austria (L)
+ Hong Kong[25] (People's Republic of China),,,, Cayman Islands[6](United Kingdom) (M)
+ Howland Island[9],0,0,0,
+ Hungary,0,1,1, Kiribati (M)
+,7,0,7, Austria (L)
 ,,,, Croatia (L)
 ,,,, Romania (L)
 ,,,, Serbia (L)
 ,,,, Slovakia (L)
 ,,,, Slovenia (L)
-,,,, Ukraine (L)
- Iceland,0,3 (2),3 (2), Faroe Islands[23] (Denmark) (M)
+ Iceland,,,, Ukraine (L)
+,0,3 (2),3 (2), Faroe Islands[23] (Denmark) (M)
 ,,,, Greenland[23] (Denmark) (M)
-,,,, Jan Mayen[22] (Norway) (M)
- Île Saint-Paul and Amsterdam Island[5] (France),0,0,0,
- India,7,7,11, Afghanistan (L)[38]
+ Île Saint-Paul and Amsterdam Island[5] (France),,,, Jan Mayen[22] (Norway) (M)
+ India,0,0,0,
+,7,7,11, Afghanistan (L)[38]
 ,,,, Bangladesh
 ,,,, Bhutan (L)
 ,,,, Burma
@@ -599,8 +559,8 @@ _,,,, Netherlands (M)
 ,,,,   Nepal (L)
 ,,,, Pakistan
 ,,,, Sri Lanka (M)
-,,,, Thailand (M)
- Indonesia,3,10 (12),10 (12), Australia (M)
+ Indonesia,,,, Thailand (M)
+,3,10 (12),10 (12), Australia (M)
 ,,,, East Timor
 ,,,, India (M)
 ,,,, Malaysia
@@ -611,8 +571,8 @@ _,,,, Netherlands (M)
 ,,,, Thailand (M)
 ,,,, Vietnam (M)
 ,,,, Ashmore and Cartier Islands[17](Australia) (M)
-,,,, Christmas Island[17](Australia) (M)
- Iran,7 (8),10,13 (14), Afghanistan (L)
+ Iran,,,, Christmas Island[17](Australia) (M)
+,7 (8),10,13 (14), Afghanistan (L)
 ,,,, Armenia (L)
 ,,,, Azerbaijan[19]
 ,,,, Bahrain (M)
@@ -625,23 +585,23 @@ _,,,, Netherlands (M)
 ,,,, Saudi Arabia (M)
 ,,,, Turkey (L)
 ,,,, Turkmenistan[19]
-,,,, United Arab Emirates (M)
- Iraq,6,2,6, Iran
+ Iraq,,,, United Arab Emirates (M)
+,6,2,6, Iran
 ,,,, Jordan (L)
 ,,,, Kuwait
 ,,,, Saudi Arabia (L)
 ,,,, Syria (L)
-,,,, Turkey (L)
- Ireland,1,1,1, United Kingdom
- Isle of Man[34] (United Kingdom),0,0[39],0[39],
- Israel,4 (6),4 (5),5 (7), Cyprus (M)
+ Ireland,,,, Turkey (L)
+ Isle of Man[34] (United Kingdom),1,1,1, United Kingdom
+ Israel,0,0[39],0[39],
+,4 (6),4 (5),5 (7), Cyprus (M)
 ,,,, Egypt
 ,,,, Jordan
 ,,,, Lebanon
 ,,,, Syria (L)
 ,,,, Gaza Strip (Palestinian territories)[32]
-,,,, West Bank (Palestinian territories)[32] (L)
- Italy,6,11,15, Albania (M)
+ Italy,,,, West Bank (Palestinian territories)[32] (L)
+,6,11,15, Albania (M)
 ,,,, Algeria (M)
 ,,,, Austria (L)
 ,,,, Croatia (M)
@@ -655,44 +615,44 @@ _,,,, Netherlands (M)
 ,,,, Spain (M)
 ,,,,  Switzerland (L)
 ,,,, Tunisia (M)
-,,,,  Vatican City (L)
- Jamaica,0,5,5, Colombia (M)
+ Jamaica,,,,  Vatican City (L)
+,0,5,5, Colombia (M)
 ,,,, Cuba (M)
 ,,,, Haiti (M)
 ,,,, Cayman Islands[6](United Kingdom) (M)
-,,,, Navassa Island[9][29](United States) (M)
- Japan,0,6 (7),6 (7), China (M)
+ Japan,,,, Navassa Island[9][29](United States) (M)
+,0,6 (7),6 (7), China (M)
 ,,,, North Korea (M)
 ,,,, South Korea (M)
 ,,,, Philippines (M)
 ,,,, Russia (M)
 ,,,, Northern Mariana Islands[9](United States) (M)
-,,,, Taiwan (M)
- Jarvis Island[9] (United States),0,1,1, Kiribati (M)
- Jersey[34],0,1 (2),1 (2), France (M)
-,,,, Guernsey[34](United Kingdom) (M)
- Johnston Atoll[9] (United States),0,0,0,
- Jordan,4 (5),3,5 (6), Egypt (M)
+ Jarvis Island[9] (United States),,,, Taiwan (M)
+ Jersey[34],0,1,1, Kiribati (M)
+,0,1 (2),1 (2), France (M)
+ Johnston Atoll[9] (United States),,,, Guernsey[34](United Kingdom) (M)
+ Jordan,0,0,0,
+,4 (5),3,5 (6), Egypt (M)
 ,,,, Iraq (L)
 ,,,, Israel
 ,,,, Saudi Arabia
 ,,,, Syria (L)
-,,,, West Bank (Palestinian territories)[32] (L)
-" Juan de Nova Island, Bassas da India, and Europa Island[5][21] (France)",0,2,2, Madagascar (M)
-,,,, Mauritius (M)
- Kazakhstan,5,2[19],5, China (L)
+" Juan de Nova Island, Bassas da India, and Europa Island[5][21] (France)",,,, West Bank (Palestinian territories)[32] (L)
+,0,2,2, Madagascar (M)
+ Kazakhstan,,,, Mauritius (M)
+,5,2[19],5, China (L)
 ,,,, Kyrgyzstan (L)
 ,,,, Russia[19]
 ,,,, Turkmenistan[19]
-,,,, Uzbekistan (L)
- Kenya,5,2,5, Ethiopia (L)
+ Kenya,,,, Uzbekistan (L)
+,5,2,5, Ethiopia (L)
 ,,,, Somalia
 ,,,, South Sudan (L)
 ,,,, Tanzania
-,,,, Uganda (L)
- Kerguelen Islands[5] (France),0,1,1, Heard Island and McDonald Islands[17](Australia) (M)
- Kingman Reef[9],0,1,1, Kiribati (M)
- Kiribati,0,6 (9),6 (9), Marshall Islands (M)
+ Kerguelen Islands[5] (France),,,, Uganda (L)
+ Kingman Reef[9],0,1,1, Heard Island and McDonald Islands[17](Australia) (M)
+ Kiribati,0,1,1, Kiribati (M)
+,0,6 (9),6 (9), Marshall Islands (M)
 ,,,, Nauru (M)
 ,,,, Tuvalu (M)
 ,,,, Cook Islands[10](New Zealand) (M)
@@ -700,44 +660,44 @@ _,,,, Netherlands (M)
 ,,,, Howland Island[9](United States) (M)
 ,,,, Jarvis Island[9](United States) (M)
 ,,,, Kingman Reef(United States) (M)
-,,,, Tokelau[12](New Zealand) (M)
- North Korea,3,4,4, China
+ North Korea,,,, Tokelau[12](New Zealand) (M)
+,3,4,4, China
 ,,,, Japan (M)
 ,,,, South Korea
-,,,, Russia
- South Korea,1,3,3, China (M)
+ South Korea,,,, Russia
+,1,3,3, China (M)
 ,,,, Japan (M)
-,,,, North Korea
- Kosovo[7],4,0,4, Albania (L)
+ Kosovo[7],,,, North Korea
+,4,0,4, Albania (L)
 ,,,, Republic of Macedonia (L)
 ,,,, Montenegro (L)
-,,,, Serbia (L)
- Kuwait,2,3,3, Iran (M)
+ Kuwait,,,, Serbia (L)
+,2,3,3, Iran (M)
 ,,,, Iraq
-,,,, Saudi Arabia
- Kyrgyzstan,4,0,4, China (L)
+ Kyrgyzstan,,,, Saudi Arabia
+,4,0,4, China (L)
 ,,,, Kazakhstan (L)
 ,,,, Tajikistan (L)
-,,,, Uzbekistan (L)
- Laos,5,0,5, Burma (L)
+ Laos,,,, Uzbekistan (L)
+,5,0,5, Burma (L)
 ,,,, Cambodia (L)
 ,,,, China (L)
 ,,,, Thailand (L)
-,,,, Vietnam (L)
- Latvia,4,3,5, Belarus (L)
+ Latvia,,,, Vietnam (L)
+,4,3,5, Belarus (L)
 ,,,, Estonia
 ,,,, Lithuania
 ,,,, Russia (L)
-,,,, Sweden (M)
- Lebanon,2,4,4, Cyprus (M)
+ Lebanon,,,, Sweden (M)
+,2,4,4, Cyprus (M)
 ,,,, Israel
 ,,,, Syria
-,,,, Akrotiri and Dhekelia[6] (United Kingdom) (M)
- Lesotho,1,0,1, South Africa (L)
- Liberia,3,2,3, Côte d'Ivoire
+ Lesotho,,,, Akrotiri and Dhekelia[6] (United Kingdom) (M)
+ Liberia,1,0,1, South Africa (L)
+,3,2,3, Côte d'Ivoire
 ,,,, Guinea (L)
-,,,, Sierra Leone
- Libya,6,5,9, Algeria (L)
+ Libya,,,, Sierra Leone
+,6,5,9, Algeria (L)
 ,,,, Chad (L)
 ,,,, Egypt
 ,,,, Greece (M)
@@ -745,99 +705,99 @@ _,,,, Netherlands (M)
 ,,,, Malta (M)
 ,,,, Niger (L)
 ,,,, Sudan (L)
-,,,, Tunisia
- Liechtenstein,2,0,2, Austria (L)
-,,,,  Switzerland (L)
- Lithuania,4,4,5, Belarus (L)
+ Liechtenstein,,,, Tunisia
+,2,0,2, Austria (L)
+ Lithuania,,,,  Switzerland (L)
+,4,4,5, Belarus (L)
 ,,,, Latvia
 ,,,, Poland
 ,,,, Russia
-,,,, Sweden (M)
- Luxembourg,3,0,3, Belgium (L)
+ Luxembourg,,,, Sweden (M)
+,3,0,3, Belgium (L)
 ,,,, France (L)
-,,,, Germany (L)
- Macau[26] (People's Republic of China),0,0,0,
- Republic of Macedonia,4 (5),0,4 (5), Albania (L)
+ Macau[26] (People's Republic of China),,,, Germany (L)
+ Republic of Macedonia,0,0,0,
+,4 (5),0,4 (5), Albania (L)
 ,,,, Bulgaria (L)
 ,,,, Greece (L)
 ,,,, Serbia (L)
-,,,, Kosovo[7] (L)
- Madagascar,0,4 (6),4 (6), Comoros (M)
+ Madagascar,,,, Kosovo[7] (L)
+,0,4 (6),4 (6), Comoros (M)
 ,,,, France (M)
 ,,,, Mozambique (M)
 ,,,, Seychelles (M)
 ,,,, French Southern and Antarctic Lands[36][40](France) (M)
-,,,, Mayotte[13](France) (M)
- Malawi,3,0,3, Mozambique (L)
+ Malawi,,,, Mayotte[13](France) (M)
+,3,0,3, Mozambique (L)
 ,,,, Tanzania (L)
-,,,, Zambia (L)
- Malaysia,3,6,6, Brunei
+ Malaysia,,,, Zambia (L)
+,3,6,6, Brunei
 ,,,, Indonesia
 ,,,, Philippines (M)
 ,,,, Singapore (M)
 ,,,, Thailand
-,,,, Vietnam (M)
- Maldives,0,3,3, India (M)
+ Maldives,,,, Vietnam (M)
+,0,3,3, India (M)
 ,,,, Sri Lanka (M)
-,,,, British Indian Ocean Territory[6](United Kingdom) (M)
- Mali,7,0,7, Algeria (L)
+ Mali,,,, British Indian Ocean Territory[6](United Kingdom) (M)
+,7,0,7, Algeria (L)
 ,,,, Burkina Faso (L)
 ,,,, Côte d'Ivoire (L)
 ,,,, Guinea (L)
 ,,,, Mauritania (L)
 ,,,, Niger (L)
-,,,, Senegal (L)
- Malta,0,2,2, Italy (M)
-,,,, Libya (M)
- Marshall Islands,0,4,4, Kiribati (M)
+ Malta,,,, Senegal (L)
+,0,2,2, Italy (M)
+ Marshall Islands,,,, Libya (M)
+,0,4,4, Kiribati (M)
 ,,,, Federated States of Micronesia (M)
 ,,,, Nauru (M)
-,,,, Wake Island[41](United States) (M)
- Mauritania,4,3,5, Algeria (L)
+ Mauritania,,,, Wake Island[41](United States) (M)
+,4,3,5, Algeria (L)
 ,,,, Cape Verde (M)
 ,,,, Mali (L)
 ,,,, Morocco
 ,,,, Senegal
 ,,,, Western Sahara[8]
-,,,,"Mauritania borders the Western Sahara, which Morocco claims as its territory"
- Mauritius,0,2 (3),2 (3), France (M)
+ Mauritius,,,,"Mauritania borders the Western Sahara, which Morocco claims as its territory"
+,0,2 (3),2 (3), France (M)
 ,,,, Seychelles (M)
-,,,, French Southern and Antarctic Lands[5][42](France) (M)
- Mayotte[13] (France),0,2,2, Comoros (M)
-,,,, Madagascar (M)
- Mexico,3,5,5, Belize
+ Mayotte[13] (France),,,, French Southern and Antarctic Lands[5][42](France) (M)
+,0,2,2, Comoros (M)
+ Mexico,,,, Madagascar (M)
+,3,5,5, Belize
 ,,,, Cuba (M)
 ,,,, Guatemala
 ,,,, Honduras (M)
-,,,, United States
- Federated States of Micronesia,0,4,4, Marshall Islands (M)
+ Federated States of Micronesia,,,, United States
+,0,4,4, Marshall Islands (M)
 ,,,, Palau (M)
 ,,,, Papua New Guinea (M)
-,,,, Guam[9](United States) (M)
- Midway Atoll[9] (United States),0,0,0,
- Moldova,2 (3),0,2 (3), Romania (L)
+ Midway Atoll[9] (United States),,,, Guam[9](United States) (M)
+ Moldova,0,0,0,
+,2 (3),0,2 (3), Romania (L)
 ,,,, Ukraine (L)
-,,,, Transnistria (L)
- Monaco,1,1,1, France
- Mongolia,2,0,2, China (L)
-,,,, Russia (L)
- Montenegro,4 (5),3,5 (6), Albania
+ Monaco,,,, Transnistria (L)
+ Mongolia,1,1,1, France
+,2,0,2, China (L)
+ Montenegro,,,, Russia (L)
+,4 (5),3,5 (6), Albania
 ,,,, Bosnia and Herzegovina (L)
 ,,,, Croatia
 ,,,, Italy (M)
 ,,,, Serbia (L)
-,,,, Kosovo[7] (L)
- Montserrat[6] (United Kingdom),0,4,4, Antigua and Barbuda (M)
+ Montserrat[6] (United Kingdom),,,, Kosovo[7] (L)
+,0,4,4, Antigua and Barbuda (M)
 ,,,, France (M)
 ,,,, Saint Kitts and Nevis
-,,,, Venezuela (M)
- Morocco,2 (3),3 (4),3 (4), Algeria
+ Morocco,,,, Venezuela (M)
+,2 (3),3 (4),3 (4), Algeria
 ,,,, Portugal (M)
 ,,,, Spain
 ,,,, Mauritania
 ,,,, Western Sahara[8]
-,,,,"Morocco claims the Western Sahara, which claims independence. The Western Sahara borders Mauritania"
- Mozambique,6,5 (6),9 (10), Comoros (M)
+ Mozambique,,,,"Morocco claims the Western Sahara, which claims independence. The Western Sahara borders Mauritania"
+,6,5 (6),9 (10), Comoros (M)
 ,,,, France (M)
 ,,,, Madagascar (M)
 ,,,, Malawi (L)
@@ -846,22 +806,22 @@ _,,,, Netherlands (M)
 ,,,, Tanzania
 ,,,, Zambia (L)
 ,,,, Zimbabwe (L)
-,,,, French Southern and Antarctic Lands[36][43](France) (M)
- Nagorno-Karabakh[44],3,0,3, Armenia (L)
+ Nagorno-Karabakh[44],,,, French Southern and Antarctic Lands[36][43](France) (M)
+,3,0,3, Armenia (L)
 ,,,, Azerbaijan (L)
-,,,, Iran (L)
- Namibia,4,2,4, Angola
+ Namibia,,,, Iran (L)
+,4,2,4, Angola
 ,,,, Botswana (L)
 ,,,, South Africa
-,,,, Zambia (L)
- Nauru,0,2,2, Kiribati (M)
-,,,, Marshall Islands (M)
- Navassa Island[9][29] (United States),0,3,3, Cuba (M)
+ Nauru,,,, Zambia (L)
+,0,2,2, Kiribati (M)
+ Navassa Island[9][29] (United States),,,, Marshall Islands (M)
+,0,3,3, Cuba (M)
 ,,,, Haiti (M)
-,,,, Jamaica (M)
-   Nepal,2,0,2, India (L)
-,,,, China (L)
- Netherlands[45],2,8 (10),8 (10), Belgium
+   Nepal,,,, Jamaica (M)
+,2,0,2, India (L)
+ Netherlands[45],,,, China (L)
+,2,8 (10),8 (10), Belgium
 ,,,, Germany
 ,,,, Saint Kitts and Nevis (M)
 ,,,, United Kingdom (M)
@@ -869,119 +829,119 @@ _,,,, Netherlands (M)
 ,,,, Anguilla[6](United Kingdom) (M)
 ,,,, Saint Barthelemy[13](France) (M)
 ,,,, Saint Martin[13](France) (M)
-,,,, United States Virgin Islands[9](United States) (M)
-" Netherlands, Kingdom of the",3,9 (12),9 (12), Belgium
-_includes:,,,, Dominican Republic (M)
-_,,,, France (M)
- Aruba,,,, Germany
-_,,,, Saint Kitts and Nevis (M)
- Curaçao,,,, United Kingdom (M)
-_,,,, Venezuela (M)
- Netherlands,,,, Anguilla[6](United Kingdom) (M)
-_,,,, Saint Barthélemy[13](France) (M)
- Sint Maarten,,,, Saint Martin[13](France)
-,,,, United States Virgin Islands[9](United States) (M)
- New Caledonia[18] (France),0,5 (6),5 (6), Australia (M)
+" Netherlands, Kingdom of the",,,, United States Virgin Islands[9](United States) (M)
+_includes:,3,9 (12),9 (12), Belgium
+_,,,, Dominican Republic (M)
+ Aruba,,,, France (M)
+_,,,, Germany
+ Curaçao,,,, Saint Kitts and Nevis (M)
+_,,,, United Kingdom (M)
+ Netherlands,,,, Venezuela (M)
+_,,,, Anguilla[6](United Kingdom) (M)
+ Sint Maarten,,,, Saint Barthélemy[13](France) (M)
+,,,, Saint Martin[13](France)
+ New Caledonia[18] (France),,,, United States Virgin Islands[9](United States) (M)
+,0,5 (6),5 (6), Australia (M)
 ,,,, Fiji (M)
 ,,,, Papua New Guinea (M)
 ,,,, Solomon Islands (M)
 ,,,, Vanuatu (M)
-,,,, Norfolk Island(Australia) (M)
- New Zealand[46],0,3 (4),3 (4), Australia (M)
+ New Zealand[46],,,, Norfolk Island(Australia) (M)
+,0,3 (4),3 (4), Australia (M)
 ,,,, Fiji (M)
 ,,,, Tonga (M)
-,,,, Norfolk Island[17](Australia) (M)
-" New Zealand, Realm of",0,7 (9),7 (9), Australia (M)
-_includes:,,,, Fiji (M)
-_,,,, Kiribati (M)
- Cook Islands,,,, Samoa (M)
-_,,,, Tonga (M)
- New Zealand,,,, American Samoa[9](United States) (M)
-_,,,, French Polynesia[13](France) (M)
- Niue,,,, Norfolk Island[17](Australia) (M)
-_,,,, Wallis and Futuna[13](France) (M)
- Tokelau,,,,
- Nicaragua,2,4,4, Colombia (M)
+" New Zealand, Realm of",,,, Norfolk Island[17](Australia) (M)
+_includes:,0,7 (9),7 (9), Australia (M)
+_,,,, Fiji (M)
+ Cook Islands,,,, Kiribati (M)
+_,,,, Samoa (M)
+ New Zealand,,,, Tonga (M)
+_,,,, American Samoa[9](United States) (M)
+ Niue,,,, French Polynesia[13](France) (M)
+_,,,, Norfolk Island[17](Australia) (M)
+ Tokelau,,,, Wallis and Futuna[13](France) (M)
+ Nicaragua,,,,
+,2,4,4, Colombia (M)
 ,,,, Costa Rica
 ,,,, El Salvador (M)
-,,,, Honduras
- Niger,7,0,7, Algeria (L)
+ Niger,,,, Honduras
+,7,0,7, Algeria (L)
 ,,,, Benin (L)
 ,,,, Burkina Faso (L)
 ,,,, Chad (L)
 ,,,, Libya (L)
 ,,,, Mali (L)
-,,,, Nigeria (L)
- Nigeria,4,5,7, Benin
+ Nigeria,,,, Nigeria (L)
+,4,5,7, Benin
 ,,,, Cameroon
 ,,,, Chad (L)
 ,,,, Equatorial Guinea (M)
 ,,,, Ghana (M)
 ,,,, Niger (L)
-,,,, São Tomé and Príncipe (M)
- Niue[11] (New Zealand),0,2 (3),2 (3), Tonga (M)
+ Niue[11] (New Zealand),,,, São Tomé and Príncipe (M)
+,0,2 (3),2 (3), Tonga (M)
 ,,,, American Samoa[9](United States) (M)
-,,,, Cook Islands[10](New Zealand) (M)
- Norfolk Island[17] (Australia),0,2,2, New Zealand (M)
-,,,, New Caledonia[18](France) (M)
- Northern Mariana Islands[9] (United States),0,1,1, Japan (M)
- Norway[47],3,5 (7),6 (8), Denmark (M)
+ Norfolk Island[17] (Australia),,,, Cook Islands[10](New Zealand) (M)
+,0,2,2, New Zealand (M)
+ Northern Mariana Islands[9] (United States),,,, New Caledonia[18](France) (M)
+ Norway[47],0,1,1, Japan (M)
+,3,5 (7),6 (8), Denmark (M)
 ,,,, Finland (L)
 ,,,, Iceland (M)
 ,,,, Russia
 ,,,, Sweden
 ,,,, United Kingdom (M)
 ,,,, Greenland[23](Denmark) (M)
-,,,, Faroe Islands[23](Denmark) (M)
-" Norway, Kingdom of (plus dependent Norwegian territories)",3,5 (7),6 (8), Denmark (M)
-_includes:,,,, Finland (L)
-_,,,, Iceland (M)
- Bouvet Island,,,, Russia
-_,,,, Sweden
- Norway,,,, United Kingdom (M)
-_,,,, Faroe Islands[23](Denmark) (M)
- Svalbard,,,, Greenland[23](Denmark) (M)
- Oman,3,4,5, Iran (M)
+" Norway, Kingdom of (plus dependent Norwegian territories)",,,, Faroe Islands[23](Denmark) (M)
+_includes:,3,5 (7),6 (8), Denmark (M)
+_,,,, Finland (L)
+ Bouvet Island,,,, Iceland (M)
+_,,,, Russia
+ Norway,,,, Sweden
+_,,,, United Kingdom (M)
+ Svalbard,,,, Faroe Islands[23](Denmark) (M)
+ Oman,,,, Greenland[23](Denmark) (M)
+,3,4,5, Iran (M)
 ,,,, Pakistan (M)
 ,,,, Saudi Arabia (L)
 ,,,, United Arab Emirates
-,,,, Yemen
- Pakistan,4,3,5, Afghanistan (L)
+ Pakistan,,,, Yemen
+,4,3,5, Afghanistan (L)
 ,,,, China (L)
 ,,,, India
 ,,,, Iran
-,,,, Oman (M)
- Palau,0,3,3, Indonesia (M)
+ Palau,,,, Oman (M)
+,0,3,3, Indonesia (M)
 ,,,, Federated States of Micronesia (M)
-,,,, Philippines (M)
- Palestinian territories[32],3,2,3, Egypt
+ Palestinian territories[32],,,, Philippines (M)
+,3,2,3, Egypt
 ,,,, Israel
-,,,, Jordan (L)
- Panama,2,2,2, Colombia
-,,,, Costa Rica
- Papua New Guinea,1,5,5, Australia (M)
+ Panama,,,, Jordan (L)
+,2,2,2, Colombia
+ Papua New Guinea,,,, Costa Rica
+,1,5,5, Australia (M)
 ,,,, Indonesia
 ,,,, Federated States of Micronesia (M)
 ,,,, Solomon Islands (M)
-,,,, New Caledonia[18] (France) (M)
- Paraguay,3,0,3, Argentina (L)
+ Paraguay,,,, New Caledonia[18] (France) (M)
+,3,0,3, Argentina (L)
 ,,,, Bolivia (L)
-,,,, Brazil (L)
- Peru,5,2,5, Bolivia (L)
+ Peru,,,, Brazil (L)
+,5,2,5, Bolivia (L)
 ,,,, Brazil (L)
 ,,,, Chile
 ,,,, Colombia (L)
-,,,, Ecuador
- Peter I Island[4],0,1,1, Antártica Chilena Province[4](Chile) (M)
- Philippines,0,6 (7),6 (7), China (M)
+ Peter I Island[4],,,, Ecuador
+ Philippines,0,1,1, Antártica Chilena Province[4](Chile) (M)
+,0,6 (7),6 (7), China (M)
 ,,,, Indonesia (M)
 ,,,, Japan (M)
 ,,,, Malaysia (M)
 ,,,, Palau (M)
 ,,,, Vietnam (M)
-,,,, Taiwan (M)
- Pitcairn Islands[6] (United Kingdom),0,1,1, French Polynesia[13] (France) (M)
- Poland,7,4,9, Belarus (L)
+ Pitcairn Islands[6] (United Kingdom),,,, Taiwan (M)
+ Poland,0,1,1, French Polynesia[13] (France) (M)
+,7,4,9, Belarus (L)
 ,,,, Czech Republic (L)
 ,,,, Denmark (M)
 ,,,, Germany
@@ -989,26 +949,26 @@ _,,,, Faroe Islands[23](Denmark) (M)
 ,,,, Russia
 ,,,, Slovakia (L)
 ,,,, Sweden (M)
-,,,, Ukraine (L)
- Portugal[48],1,2,2, Morocco (M)
-,,,, Spain
- Puerto Rico[9] (United States),0,3,3, Dominican Republic (M)
+ Portugal[48],,,, Ukraine (L)
+,1,2,2, Morocco (M)
+ Puerto Rico[9] (United States),,,, Spain
+,0,3,3, Dominican Republic (M)
 ,,,, Venezuela (M)
-,,,, British Virgin Islands[6](United Kingdom) (M)
- Qatar,1,4,4, Bahrain (M)
+ Qatar,,,, British Virgin Islands[6](United Kingdom) (M)
+,1,4,4, Bahrain (M)
 ,,,, Iran (M)
 ,,,, Saudi Arabia
-,,,, United Arab Emirates (M)
- Queen Maud Land[4] (Norway),2,2,2, Australian Antarctic Territory[4](Australia)
-,,,, British Antarctic Territory[4](United Kingdom)
- Romania,5,3,6, Bulgaria
+ Queen Maud Land[4] (Norway),,,, United Arab Emirates (M)
+,2,2,2, Australian Antarctic Territory[4](Australia)
+ Romania,,,, British Antarctic Territory[4](United Kingdom)
+,5,3,6, Bulgaria
 ,,,, Hungary (L)
 ,,,, Moldova (L)
 ,,,, Serbia (L)
 ,,,, Turkey (M)
-,,,, Ukraine
- Ross Dependency[4] (New Zealand),1,1,1, Australian Antarctic Territory[4](Australia)
- Russia,14 (16),15 (16),18 (20), Azerbaijan[19]
+ Ross Dependency[4] (New Zealand),,,, Ukraine
+ Russia,1,1,1, Australian Antarctic Territory[4](Australia)
+,14 (16),15 (16),18 (20), Azerbaijan[19]
 ,,,, Belarus (L)
 ,,,, China
 ,,,, Estonia
@@ -1027,43 +987,43 @@ _,,,, Faroe Islands[23](Denmark) (M)
 ,,,, Ukraine
 ,,,, United States (M)
 ,,,, Abkhazia
-,,,, South Ossetia (L)
- Rwanda,4,0,4, Burundi (L)
+ Rwanda,,,, South Ossetia (L)
+,4,0,4, Burundi (L)
 ,,,, Democratic Republic of the Congo (L)
 ,,,, Tanzania (L)
-,,,, Uganda (L)
- Saint Barthélemy[13] (France),0,3 (4),3 (4), Antigua and Barbuda (M)
+ Saint Barthélemy[13] (France),,,, Uganda (L)
+,0,3 (4),3 (4), Antigua and Barbuda (M)
 ,,,, Netherlands (M)
 ,,,, Saint Kitts and Nevis (M)
-,,,, Sint Maarten[16](Netherlands) (M)
-" Saint Helena, Ascension and Tristan da Cunha[6](United Kingdom)",0,0,0,
- Saint Kitts and Nevis,0,5,5, Antigua and Barbuda (M)
+" Saint Helena, Ascension and Tristan da Cunha[6](United Kingdom)",,,, Sint Maarten[16](Netherlands) (M)
+ Saint Kitts and Nevis,0,0,0,
+,0,5,5, Antigua and Barbuda (M)
 ,,,, Netherlands (M)
 ,,,, Venezuela (M)
 ,,,, Montserrat[6](United Kingdom) (M)
-,,,, Saint Barthélemy[13](France) (M)
- Saint Lucia,0,4,4, Barbados (M)
+ Saint Lucia,,,, Saint Barthélemy[13](France) (M)
+,0,4,4, Barbados (M)
 ,,,, France (M)
 ,,,, Saint Vincent and the Grenadines (M)
-,,,, Venezuela (M)
- Saint Martin[13],1,2 (3),2 (3), Netherlands (M)
+ Saint Martin[13],,,, Venezuela (M)
+,1,2 (3),2 (3), Netherlands (M)
 ,,,, Anguilla[6](United Kingdom) (M)
-,,,, Sint Maarten[16](Netherlands)
- Saint Pierre and Miquelon[13] (France),0,1,1, Canada (M)
- Saint Vincent and the Grenadines,0,5,5, Barbados (M)
+ Saint Pierre and Miquelon[13] (France),,,, Sint Maarten[16](Netherlands)
+ Saint Vincent and the Grenadines,0,1,1, Canada (M)
+,0,5,5, Barbados (M)
 ,,,, Grenada (M)
 ,,,, Saint Lucia (M)
 ,,,, Trinidad and Tobago (M)
-,,,, Venezuela (M)
- Samoa,0,4,4, Tonga (M)
+ Samoa,,,, Venezuela (M)
+,0,4,4, Tonga (M)
 ,,,, American Samoa[9](United States) (M)
 ,,,, Tokelau[12](New Zealand) (M)
-,,,, Wallis and Futuna[13](France) (M)
- San Marino,1,0,1, Italy (L)
- São Tomé and Príncipe,0,3,3, Equatorial Guinea (M)
+ San Marino,,,, Wallis and Futuna[13](France) (M)
+ São Tomé and Príncipe,1,0,1, Italy (L)
+,0,3,3, Equatorial Guinea (M)
 ,,,, Gabon (M)
-,,,, Nigeria (M)
- Saudi Arabia,7,10,12, Bahrain (M)
+ Saudi Arabia,,,, Nigeria (M)
+,7,10,12, Bahrain (M)
 ,,,, Egypt (M)
 ,,,, Eritrea (M)
 ,,,, Iran (M)
@@ -1074,14 +1034,14 @@ _,,,, Faroe Islands[23](Denmark) (M)
 ,,,, Qatar
 ,,,, Sudan (M)
 ,,,, United Arab Emirates
-,,,, Yemen
- Senegal,5,4,6, Cape Verde (M)
+ Senegal,,,, Yemen
+,5,4,6, Cape Verde (M)
 ,,,, The Gambia
 ,,,, Guinea (L)
 ,,,, Guinea-Bissau
 ,,,, Mali (L)
-,,,, Mauritania
- Serbia,8,0,8, Albania (L)
+ Serbia,,,, Mauritania
+,8,0,8, Albania (L)
 ,,,, Bosnia and Herzegovina (L)
 ,,,, Bulgaria (L)
 ,,,, Croatia (L)
@@ -1090,82 +1050,82 @@ _,,,, Faroe Islands[23](Denmark) (M)
 ,,,, Montenegro (L)
 ,,,, Romania (L)
 ,,,, Kosovo[7] (L)
-,,,,"Kosovo, which some countries consider part of Serbia, borders Albania"
- Seychelles,0,5,5, Comoros (M)
+ Seychelles,,,,"Kosovo, which some countries consider part of Serbia, borders Albania"
+,0,5,5, Comoros (M)
 ,,,, Madagascar (M)
 ,,,, Mauritius (M)
 ,,,, Tanzania (M)
-,,,,[5][28](France) (M)
- Sierra Leone,2,2,2, Guinea
-,,,, Liberia
- Singapore,0,2,2, Indonesia (M)
-,,,, Malaysia (M)
- Sint Maarten[16] (Netherlands),1,1 (2),1 (2), Saint Barthélemy[13](France) (M)
-,,,, Saint Martin[13](France)
- Slovakia,5,0,5, Austria (L)
+ Sierra Leone,,,,[5][28](France) (M)
+,2,2,2, Guinea
+ Singapore,,,, Liberia
+,0,2,2, Indonesia (M)
+ Sint Maarten[16] (Netherlands),,,, Malaysia (M)
+,1,1 (2),1 (2), Saint Barthélemy[13](France) (M)
+ Slovakia,,,, Saint Martin[13](France)
+,5,0,5, Austria (L)
 ,,,, Czech Republic (L)
 ,,,, Hungary (L)
 ,,,, Poland (L)
-,,,, Ukraine (L)
- Slovenia,4,2,4, Austria (L)
+ Slovenia,,,, Ukraine (L)
+,4,2,4, Austria (L)
 ,,,, Croatia
 ,,,, Italy
-,,,, Hungary (L)
- Solomon Islands,0,4,4, Australia (M)
+ Solomon Islands,,,, Hungary (L)
+,0,4,4, Australia (M)
 ,,,, Papua New Guinea (M)
 ,,,, Vanuatu (M)
-,,,, New Caledonia[18](France) (M)
- Somalia,3,3,4, Djibouti
+ Somalia,,,, New Caledonia[18](France) (M)
+,3,3,4, Djibouti
 ,,,, Ethiopia (L)
 ,,,, Kenya
 ,,,, Yemen (M)
 ,,,, Somaliland
-,,,,"Somaliland, which considers itself independent, is the only part of Somalia to border Djibouti"
- Somaliland[49],3,3,4, Djibouti
+ Somaliland[49],,,,"Somaliland, which considers itself independent, is the only part of Somalia to border Djibouti"
+,3,3,4, Djibouti
 ,,,, Ethiopia (L)
 ,,,, Somalia
-,,,, Yemen (M)
- South Africa,6,2,6, Botswana (L)
+ South Africa,,,, Yemen (M)
+,6,2,6, Botswana (L)
 ,,,, Lesotho (L)
 ,,,, Mozambique
 ,,,, Namibia
 ,,,, Swaziland (L)
-,,,, Zimbabwe (L)
- South Georgia and the South Sandwich Islands[6](United Kingdom),0,0,0,
- South Ossetia[50],2,0,2, Georgia (L)
-,,,, Russia (L)
- South Sudan,6,0,6, Central African Republic (L)
+ South Georgia and the South Sandwich Islands[6](United Kingdom),,,, Zimbabwe (L)
+ South Ossetia[50],0,0,0,
+,2,0,2, Georgia (L)
+ South Sudan,,,, Russia (L)
+,6,0,6, Central African Republic (L)
 ,,,, Democratic Republic of the Congo (L)
 ,,,, Ethiopia (L)
 ,,,, Kenya (L)
 ,,,, Sudan (L)
-,,,, Uganda (L)
- Spain,5,6 (7),7 (8), Algeria (M)
+ Spain,,,, Uganda (L)
+,5,6 (7),7 (8), Algeria (M)
 ,,,, Andorra (L)
 ,,,, France
 ,,,, Italy (M)
 ,,,, Morocco
 ,,,, Portugal
 ,,,, Gibraltar[6](United Kingdom)
-,,,, Western Sahara[8] (M)
- Sri Lanka,0,2,2, India (M)
-,,,, Maldives (M)
- Sudan,7,3,8, Central African Republic (L)
+ Sri Lanka,,,, Western Sahara[8] (M)
+,0,2,2, India (M)
+ Sudan,,,, Maldives (M)
+,7,3,8, Central African Republic (L)
 ,,,, Chad (L)
 ,,,, Egypt
 ,,,, Eritrea
 ,,,, Ethiopia (L)
 ,,,, Libya (L)
 ,,,, Saudi Arabia (M)
-,,,, South Sudan (L)
- Suriname,3,2,3, Brazil (L)
+ Suriname,,,, South Sudan (L)
+,3,2,3, Brazil (L)
 ,,,, France
-,,,, Guyana
- Svalbard[22] (Norway),0,2,2, Russia (M)[51]
-,,,, Greenland[23](Denmark) (M)
- Swaziland,2,0,2, Mozambique (L)
-,,,, South Africa (L)
- Sweden,2,9,9, Denmark (M)
+ Svalbard[22] (Norway),,,, Guyana
+,0,2,2, Russia (M)[51]
+ Swaziland,,,, Greenland[23](Denmark) (M)
+,2,0,2, Mozambique (L)
+ Sweden,,,, South Africa (L)
+,2,9,9, Denmark (M)
 ,,,, Estonia (M)
 ,,,, Finland
 ,,,, Germany (M)
@@ -1173,27 +1133,27 @@ _,,,, Faroe Islands[23](Denmark) (M)
 ,,,, Lithuania (M)
 ,,,, Norway
 ,,,, Poland (M)
-,,,, Russia (M)
-  Switzerland,5,0,5, Austria (L)
+  Switzerland,,,, Russia (M)
+,5,0,5, Austria (L)
 ,,,, France (L)
 ,,,, Italy (L)
 ,,,, Liechtenstein (L)
-,,,, Germany (L)
- Syria,5,3 (4),6 (7), Cyprus (M)
+ Syria,,,, Germany (L)
+,5,3 (4),6 (7), Cyprus (M)
 ,,,, Iraq (L)
 ,,,, Israel (L)
 ,,,, Jordan (L)
 ,,,, Lebanon
 ,,,, Turkey
-,,,, Northern Cyprus (M)
- Taiwan[52],0,3,3, China (M)
+ Taiwan[52],,,, Northern Cyprus (M)
+,0,3,3, China (M)
 ,,,, Japan (M)
-,,,, Philippines (M)
- Tajikistan,4,0,4, Afghanistan (L)
+ Tajikistan,,,, Philippines (M)
+,4,0,4, Afghanistan (L)
 ,,,, China (L)
 ,,,, Kyrgyzstan (L)
-,,,, Uzbekistan (L)
- Tanzania,8,4,10, Burundi (L)
+ Tanzania,,,, Uzbekistan (L)
+,8,4,10, Burundi (L)
 ,,,, Comoros (M)
 ,,,, Democratic Republic of the Congo (L)
 ,,,, Kenya
@@ -1202,40 +1162,40 @@ _,,,, Faroe Islands[23](Denmark) (M)
 ,,,, Rwanda (L)
 ,,,, Seychelles (M)
 ,,,, Uganda (L)
-,,,, Zambia (L)
- Thailand,4,6,7, Burma
+ Thailand,,,, Zambia (L)
+,4,6,7, Burma
 ,,,, Cambodia
 ,,,, India (M)
 ,,,, Indonesia (M)
 ,,,, Laos (L)
 ,,,, Malaysia
-,,,, Vietnam (M)
- Togo,3,2,3, Benin
+ Togo,,,, Vietnam (M)
+,3,2,3, Benin
 ,,,, Burkina Faso (L)
-,,,, Ghana
- Tokelau[12] (New Zealand),0,4 (5),4 (5), Kiribati (M)
+ Tokelau[12] (New Zealand),,,, Ghana
+,0,4 (5),4 (5), Kiribati (M)
 ,,,, Samoa (M)
 ,,,, American Samoa[9](United States) (M)
 ,,,, Cook Islands[10](New Zealand) (M)
-,,,, Wallis and Futuna[13](France) (M)
- Tonga,0,5 (6),5 (6), Fiji (M)
+ Tonga,,,, Wallis and Futuna[13](France) (M)
+,0,5 (6),5 (6), Fiji (M)
 ,,,, New Zealand (M)
 ,,,, Samoa (M)
 ,,,, American Samoa[9](United States) (M)
 ,,,, Niue[11](New Zealand) (M)
-,,,, Wallis and Futuna[13](France) (M)
- Transnistria[53],2,0,2, Moldova (L)
-,,,, Ukraine (L)
- Tromelin Island[5][42] (France),0,2,2, Madagascar (M)
-,,,, Mauritius (M)
- Trinidad and Tobago,0,4,4, Barbados (M)
+ Transnistria[53],,,, Wallis and Futuna[13](France) (M)
+,2,0,2, Moldova (L)
+ Tromelin Island[5][42] (France),,,, Ukraine (L)
+,0,2,2, Madagascar (M)
+ Trinidad and Tobago,,,, Mauritius (M)
+,0,4,4, Barbados (M)
 ,,,, Grenada (M)
 ,,,, Guyana (M)
-,,,, Venezuela (M)
- Tunisia,2,3,3, Algeria
+ Tunisia,,,, Venezuela (M)
+,2,3,3, Algeria
 ,,,, Italy (M)
-,,,, Libya
- Turkey,8,9,13, Armenia (L)
+ Turkey,,,, Libya
+,8,9,13, Armenia (L)
 ,,,, Azerbaijan (L)
 ,,,, Bulgaria
 ,,,, Cyprus (M)
@@ -1249,24 +1209,24 @@ _,,,, Faroe Islands[23](Denmark) (M)
 ,,,, Syria
 ,,,, Ukraine (M)
 ,,,, Northern Cyprus (M)
-,,,,"Turkey has a Maritime border with Northern Cyprus, which all other countries consider to be part of Cyprus"
- Turkmenistan,4,3[19],5, Afghanistan (L)
+ Turkmenistan,,,,"Turkey has a Maritime border with Northern Cyprus, which all other countries consider to be part of Cyprus"
+,4,3[19],5, Afghanistan (L)
 ,,,, Azerbaijan (M)[19]
 ,,,, Iran[19]
 ,,,, Kazakhstan[19]
-,,,, Uzbekistan (L)
- Turks and Caicos Islands[6] (United Kingdom),0,3,3, Bahamas (M)
+ Turks and Caicos Islands[6] (United Kingdom),,,, Uzbekistan (L)
+,0,3,3, Bahamas (M)
 ,,,, Dominican Republic (M)
-,,,, Haiti (M)
- Tuvalu,0,3,3, Fiji (M)
+ Tuvalu,,,, Haiti (M)
+,0,3,3, Fiji (M)
 ,,,, Kiribati (M)
-,,,, Wallis and Futuna[13](France) (M)
- Uganda,5,0,5, Democratic Republic of the Congo (L)
+ Uganda,,,, Wallis and Futuna[13](France) (M)
+,5,0,5, Democratic Republic of the Congo (L)
 ,,,, Kenya (L)
 ,,,, Rwanda (L)
 ,,,, South Sudan (L)
-,,,, Tanzania (L)
- Ukraine,7 (8),4,9 (10), Belarus (L)
+ Ukraine,,,, Tanzania (L)
+,7 (8),4,9 (10), Belarus (L)
 ,,,, Hungary (L)
 ,,,, Georgia (M)
 ,,,, Moldova (L)
@@ -1275,81 +1235,80 @@ _,,,, Faroe Islands[23](Denmark) (M)
 ,,,, Russia
 ,,,, Slovakia (L)
 ,,,, Turkey (M)
-,,,, Transnistria (L)
- United Arab Emirates,2,4,4, Iran (M)
+ United Arab Emirates,,,, Transnistria (L)
+,2,4,4, Iran (M)
 ,,,, Oman
 ,,,, Qatar (M)
-,,,, Saudi Arabia
- United Kingdom[54],1,7 (8),7 (8), Belgium (M)
+ United Kingdom[54],,,, Saudi Arabia
+,1,7 (8),7 (8), Belgium (M)
 ,,,, Denmark (M)
 ,,,, France (M)
 ,,,, Germany (M)
 ,,,, Ireland
 ,,,, Netherlands (M)
 ,,,, Norway (M)
-,,,, Faroe Islands[23](Denmark) (M)
- United Kingdom (plus British overseas territoriesand Crown dependencies),3 (4),25 (29),25 (30), Antigua and Barbuda (M)
-_including:,,,, Argentina (M)
-_,,,, Bahamas (M)
- Akrotiri and Dhekelia,,,, Belgium (M)
-_,,,, Colombia (M)
- Anguilla,,,, Cuba (M)
-_,,,, Cyprus
- Bermuda,,,, Denmark (M)
-_,,,, Dominican Republic (M)
- British Indian Ocean Territory,,,, Egypt (M)
-_,,,, France (M)
- British Virgin Islands,,,, Germany (M)
-_,,,, Haiti (M)
- Cayman Islands,,,, Honduras (M)
-_,,,, Ireland
- Falkland Islands,,,, Jamaica (M)
-_,,,, Lebanon (M)
- Gibraltar,,,, Maldives (M)
-_,,,, Morocco (M)
- Guernsey,,,, Netherlands (M)
-_,,,, Norway (M)
- Isle of Man,,,, Saint Kitts and Nevis (M)
-_,,,, Spain
- Jersey,,,, Venezuela (M)
-_,,,, Faroe Islands[23](Denmark) (M)
- Montserrat,,,, French Polynesia[13](France) (M)
-_,,,, Puerto Rico[9](United States) (M)
- Pitcairn Islands,,,, Saint Martin[13](France) (M)
-_,,,, Northern Cyprus (L)
-" Saint Helena, Ascension and Tristan da Cunha",,,, United States Virgin Islands[9](United States) (M)
-_,,,,
+ United Kingdom (plus British overseas territoriesand Crown dependencies),,,, Faroe Islands[23](Denmark) (M)
+_including:,3 (4),25 (29),25 (30), Antigua and Barbuda (M)
+_,,,, Argentina (M)
+ Akrotiri and Dhekelia,,,, Bahamas (M)
+_,,,, Belgium (M)
+ Anguilla,,,, Colombia (M)
+_,,,, Cuba (M)
+ Bermuda,,,, Cyprus
+_,,,, Denmark (M)
+ British Indian Ocean Territory,,,, Dominican Republic (M)
+_,,,, Egypt (M)
+ British Virgin Islands,,,, France (M)
+_,,,, Germany (M)
+ Cayman Islands,,,, Haiti (M)
+_,,,, Honduras (M)
+ Falkland Islands,,,, Ireland
+_,,,, Jamaica (M)
+ Gibraltar,,,, Lebanon (M)
+_,,,, Maldives (M)
+ Guernsey,,,, Morocco (M)
+_,,,, Netherlands (M)
+ Isle of Man,,,, Norway (M)
+_,,,, Saint Kitts and Nevis (M)
+ Jersey,,,, Spain
+_,,,, Venezuela (M)
+ Montserrat,,,, Faroe Islands[23](Denmark) (M)
+_,,,, French Polynesia[13](France) (M)
+ Pitcairn Islands,,,, Puerto Rico[9](United States) (M)
+_,,,, Saint Martin[13](France) (M)
+" Saint Helena, Ascension and Tristan da Cunha",,,, Northern Cyprus (L)
+_,,,, United States Virgin Islands[9](United States) (M)
  South Georgia and the South Sandwich Islands,,,,
 _,,,,
  Turks and Caicos Islands,,,,
- United States[55],2,6,6, Bahamas (M)
+ United States[55],,,,
+,2,6,6, Bahamas (M)
 ,,,, Canada
 ,,,, Cuba (M)
 ,,,, Kiribati (M)
 ,,,, Mexico
-,,,, Russia (M)
- United States (including insular areas),2,18 (21),18 (21), Bahamas (M)
-_includes:,,,, Canada
-_,,,, Cuba (M)
- American Samoa,,,, Dominican Republic (M)
-_,,,, Haiti (M)
- Baker Island,,,, Jamaica (M)
-_,,,, Japan (M)
- Guam,,,, Kiribati (M)
-_,,,, Marshall Islands (M)
- Howland Island,,,, Mexico
-_,,,, Federated States of Micronesia (M)
- Jarvis Island,,,, Netherlands (M)
-_,,,, Russia (M)
- Johnston Atoll,,,, Samoa (M)
-_,,,, Tonga (M)
- Kingman Reef,,,, Venezuela (M)
-_,,,, Anguilla[6](United Kingdom) (M)
- Midway Atoll,,,, British Virgin Islands[6](United Kingdom) (M)
-_,,,, Cook Islands[10](New Zealand) (M)
- Navassa Island,,,, Niue[11](New Zealand) (M)
-_,,,, Tokelau[12](New Zealand) (M)
- Northern Mariana Islands,,,,
+ United States (including insular areas),,,, Russia (M)
+_includes:,2,18 (21),18 (21), Bahamas (M)
+_,,,, Canada
+ American Samoa,,,, Cuba (M)
+_,,,, Dominican Republic (M)
+ Baker Island,,,, Haiti (M)
+_,,,, Jamaica (M)
+ Guam,,,, Japan (M)
+_,,,, Kiribati (M)
+ Howland Island,,,, Marshall Islands (M)
+_,,,, Mexico
+ Jarvis Island,,,, Federated States of Micronesia (M)
+_,,,, Netherlands (M)
+ Johnston Atoll,,,, Russia (M)
+_,,,, Samoa (M)
+ Kingman Reef,,,, Tonga (M)
+_,,,, Venezuela (M)
+ Midway Atoll,,,, Anguilla[6](United Kingdom) (M)
+_,,,, British Virgin Islands[6](United Kingdom) (M)
+ Navassa Island,,,, Cook Islands[10](New Zealand) (M)
+_,,,, Niue[11](New Zealand) (M)
+ Northern Mariana Islands,,,, Tokelau[12](New Zealand) (M)
 _,,,,
  Palmyra Atoll,,,,
 _,,,,
@@ -1358,22 +1317,23 @@ _,,,,
  United States Virgin Islands,,,,
 _,,,,
  Wake Island,,,,
- United States Virgin Islands[9] (United States),0,3 (4),3 (4), Netherlands (M)
+ United States Virgin Islands[9] (United States),,,,
+,0,3 (4),3 (4), Netherlands (M)
 ,,,, Venezuela (M)
 ,,,, Anguilla[6](United Kingdom) (M)
-,,,, British Virgin Islands[6](United Kingdom) (M)
- Uruguay,2,2,2, Argentina
-,,,, Brazil
- Uzbekistan,5,0,5, Afghanistan (L)
+ Uruguay,,,, British Virgin Islands[6](United Kingdom) (M)
+,2,2,2, Argentina
+ Uzbekistan,,,, Brazil
+,5,0,5, Afghanistan (L)
 ,,,, Kazakhstan (L)
 ,,,, Kyrgyzstan (L)
 ,,,, Tajikistan (L)
-,,,, Turkmenistan (L)
- Vanuatu,0,3,3, Fiji (M)
+ Vanuatu,,,, Turkmenistan (L)
+,0,3,3, Fiji (M)
 ,,,, Solomon Islands (M)
-,,,, New Caledonia[18](France) (M)
-  Vatican City,1,0,1, Italy (L)
- Venezuela,3,13 (15),14 (16), Barbados (M)[20]
+  Vatican City,,,, New Caledonia[18](France) (M)
+ Venezuela,1,0,1, Italy (L)
+,3,13 (15),14 (16), Barbados (M)[20]
 ,,,, Brazil (L)
 ,,,, Colombia
 ,,,, Dominica (M)
@@ -1389,41 +1349,41 @@ _,,,,
 ,,,, Curaçao[16](Netherlands) (M)
 ,,,, Montserrat[6](United Kingdom) (M)
 ,,,, Puerto Rico[9](United States) (M)
-,,,, United States Virgin Islands[9](United States) (M)
- Vietnam,3,6,7, Cambodia
+ Vietnam,,,, United States Virgin Islands[9](United States) (M)
+,3,6,7, Cambodia
 ,,,, China
 ,,,, Indonesia (M)
 ,,,, Laos (L)
 ,,,, Malaysia (M)
 ,,,, Philippines (M)
-,,,, Thailand (M)
- Wake Island[41] (United States),0,1,1, Marshall Islands (M)
- Wallis and Futuna[13] (France),0,5,5, Fiji (M)
+ Wake Island[41] (United States),,,, Thailand (M)
+ Wallis and Futuna[13] (France),0,1,1, Marshall Islands (M)
+,0,5,5, Fiji (M)
 ,,,, Samoa (M)
 ,,,, Tonga (M)
 ,,,, Tuvalu (M)
-,,,, Tokelau[12](New Zealand) (M)
- West Bank (Palestinian territories)[32],2,0,2, Israel (L)
-,,,, Jordan (L)
- Western Sahara[8],3,3,4, Algeria (L)
+ West Bank (Palestinian territories)[32],,,, Tokelau[12](New Zealand) (M)
+,2,0,2, Israel (L)
+ Western Sahara[8],,,, Jordan (L)
+,3,3,4, Algeria (L)
 ,,,, Mauritania
 ,,,, Morocco
-,,,, Spain (M)
- Yemen,2,5 (6),5 (6), Djibouti (M)
+ Yemen,,,, Spain (M)
+,2,5 (6),5 (6), Djibouti (M)
 ,,,, Eritrea (M)
 ,,,, Oman
 ,,,, Saudi Arabia
 ,,,, Somalia (M)
-,,,, Somaliland (M)
- Zambia,8,0,8, Angola (L)
+ Zambia,,,, Somaliland (M)
+,8,0,8, Angola (L)
 ,,,, Botswana (L)
 ,,,, Democratic Republic of the Congo (L)
 ,,,, Malawi (L)
 ,,,, Mozambique (L)
 ,,,, Namibia (L)
 ,,,, Tanzania (L)
-,,,, Zimbabwe (L)
- Zimbabwe,4,0,4, Botswana (L)
+ Zimbabwe,,,, Zimbabwe (L)
+,4,0,4, Botswana (L)
 ,,,, Mozambique (L)
 ,,,, South Africa (L)
 ,,,, Zambia (L)
