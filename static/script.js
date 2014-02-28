@@ -1,30 +1,58 @@
 var geocoder = new google.maps.Geocoder();
-var user;
+var user, currPage = 1,
+    maxPage;
+var countryCountObj = {};
+
 
 // user = prompt("Input your user name, get top 20 artists")
 user = SESSION.name;
-api.lastfm.send("library.getartists", [["user", user], ["limit", 200]],
-    function(
-        error, responseData) {
 
-        console.log("Artists done, getting tags")
-        var artistNames = responseData.artists.artist.map(function(el) {
-            return el.name;
-        });
+var getAllArtists = function() {
+    api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
+    ["page", currPage]],
+        function(error, responseData) {
+            maxPage = +responseData.artists["@attr"].totalPages;
+            if (currPage > maxPage) {
+                return;
+            }
 
-        // Get country for all artists
-        api.getCountries(artistNames,
-            function(data) {
-                // Count plays for each country?
-                var countryCount = d3.nest()
-                    .key(function(d) {
-                        return d.name;
-                    })
-                    .rollup(function(leaves) {
-                        return leaves.length;
-                    })
-                    .map(data);
+            currPage += 1;
 
-                console.log("Number of artists per country ", countryCount);
+            console.log("Artists done, countries")
+            var artistNames = responseData.artists.artist.map(function(el) {
+                return el.name;
             });
-    });
+            // Get country for all artists
+            api.getCountries(artistNames,
+                function(data) {
+                    // Count plays for each country?
+                    // countryCountList = countryCountList.concat(data);
+                    var dataObj = d3.nest()
+                        .key(function(d) {
+                            return d.id;
+                        })
+                        .rollup(function(leaves) {
+                            return leaves;
+                        })
+                        .map(data);
+
+                    d3.keys(dataObj).forEach(function(id) {
+                        if (countryCountObj[id]) {
+                            console.log("New from same")
+                            console.log(countryCountObj[id], dataObj[id])
+                            countryCountObj[id] = countryCountObj[id].concat(
+                                dataObj[id]);
+                        } else {
+                            console.log("Country new")
+                            countryCountObj[id] = dataObj[id];
+                        }
+                    })
+
+                    map.putCountryCount(countryCountObj);
+                    getAllArtists(); // more!!! more!!!!
+
+                });
+        });
+}
+
+getAllArtists();

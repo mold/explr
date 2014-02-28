@@ -34,9 +34,10 @@ d3.csv("../static/countries.csv", function(err, data) {
 			api.lastfm.send("artist.gettoptags", [["artist", artist]], function(err,
 				responseData2) {
 				// Return if something failed
-				if (err || !responseData2.toptags.tag || !responseData2.toptags.tag.length) {
-					console.error("No or too few tags from last.fm. Err: " + err +
-						" Response: ", responseData2);
+				if (err || !responseData2.toptags || !responseData2.toptags.tag || !
+					responseData2.toptags.tag.length) {
+					// console.error("No or too few tags from last.fm. Err: " + err +
+					// 	" Response: ", responseData2);
 					callback({
 						"artist": artist
 					});
