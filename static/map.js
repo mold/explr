@@ -14,8 +14,8 @@ var map = {};
     countryCount = {};
 
   var color = d3.scale.threshold()
-    .domain([0, 5, 10, 15, 20])
-    .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
+    .domain([0, 1, 5, 20, 100])
+    .range(["#f2f0f7", "#f7f7f7", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
 
   //var graticule = d3.geo.graticule();
 
