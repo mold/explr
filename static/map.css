@@ -12,11 +12,11 @@
 }
 #map-container {
   margin:10px 10%;
-  border:2px solid #000;
+  border:1px solid #000;
   border-radius: 5px;
   height:100%;
   overflow:hidden;
-  background: #F0F8FF;
+  background: white;
 }
 .hidden { 
   display: none; 
