@@ -34,8 +34,11 @@ d3.csv("../static/countries.csv", function(err, data) {
 			api.lastfm.send("artist.gettoptags", [["artist", artist]], function(err,
 				responseData2) {
 				// Return if something failed
-				if (err || !responseData2.toptags.tag) {
+				if (err || !responseData2.toptags.tag || !responseData2.toptags.tag.length) {
 					console.error("Couldn't get top tags from lastfm", err, responseData2);
+					callback({
+						"artist": artist
+					});
 					return;
 				}
 				responseData2.toptags.tag.forEach(function(t, i) {
@@ -69,6 +72,7 @@ d3.csv("../static/countries.csv", function(err, data) {
 					}
 
 				})
+
 				if (running) { // We got no country :(
 					callback({
 						"artist": artist
@@ -76,6 +80,30 @@ d3.csv("../static/countries.csv", function(err, data) {
 				}
 			});
 		}
+	}
+
+	/**
+	 * Returns a list of country objects for a list of artist names.
+	 * @param  {Array}   artists  Array of artist names (String)
+	 * @param  {Function} callback Callback function. Argument is a list of country objects,
+	 *                             containing only those artists that have a country
+	 *                             associated with them.
+	 */
+	api.getCountries = function(artists, callback) {
+		var returnList = [],
+			count = 0;
+
+		artists.forEach(function(el, i) {
+			api.getCountry(el, function(data) {
+				if (data.name) {
+					returnList.push(data);
+				}
+				count++;
+				if (count === artists.length) {
+					callback(returnList);
+				}
+			})
+		})
 	}
 })
 
