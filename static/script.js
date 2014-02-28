@@ -14,8 +14,8 @@ var getAllArtists = function() {
     api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
     ["page", currPage]],
         function(error, responseData) {
-            maxPage = 5;
-            // maxPage = +responseData.artists["@attr"].totalPages;
+            // maxPage = 5;
+            maxPage = +responseData.artists["@attr"].totalPages;
             if (currPage > maxPage) {
                 return;
             }
