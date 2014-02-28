@@ -8,13 +8,6 @@ api.lastfm.send("library.getartists", [["user", user], ["limit", 200]],
         error, responseData) {
 
         console.log("Artists done, getting tags")
-        // Get country for each artist
-        // responseData.artists.artist.forEach(function(el, i) {
-        //     // Get country from lastfm
-        //     api.getCountry(el.name, function(data) {
-        //         console.log(data.artist, data.id, data.tag)
-        //     });
-        // })
         var artistNames = responseData.artists.artist.map(function(el) {
             return el.name;
         });
@@ -22,6 +15,16 @@ api.lastfm.send("library.getartists", [["user", user], ["limit", 200]],
         // Get country for all artists
         api.getCountries(artistNames,
             function(data) {
-                console.log(data);
-            })
+                // Count plays for each country?
+                var countryCount = d3.nest()
+                    .key(function(d) {
+                        return d.name;
+                    })
+                    .rollup(function(leaves) {
+                        return leaves.length;
+                    })
+                    .map(data);
+
+                console.log("Number of artists per country ", countryCount);
+            });
     });
