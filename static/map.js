@@ -14,7 +14,7 @@ var map = {};
     countryCount = {};
 
   var color = d3.scale.threshold()
-    .domain([0, 1, 5, 20, 100])
+    .domain([0, 1, 10, 50, 200])
     .range(["#f2f0f7", "#f7f7f7", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
 
   //var graticule = d3.geo.graticule();
@@ -142,7 +142,14 @@ var map = {};
             offsetT) + "px")
           .html("<strong>" + name + "</strong>" + (countryCount[d.id] ? "<br>1. " + countryCount[d.id][0].artist: "")
             + (countryCount[d.id][1] ? "<br>2. " + countryCount[d.id][1].artist: "")
-            + (countryCount[d.id][2] ? "<br>3. " + countryCount[d.id][2].artist: ""));
+            + (countryCount[d.id][2] ? "<br>3. " + countryCount[d.id][2].artist: "")
+            + (countryCount[d.id][3] ? "<br>4. " + countryCount[d.id][3].artist: "")
+            + (countryCount[d.id][4] ? "<br>5. " + countryCount[d.id][4].artist: "")
+            + (countryCount[d.id][5] ? "<br>6. " + countryCount[d.id][5].artist: "")
+            + (countryCount[d.id][6] ? "<br>7. " + countryCount[d.id][6].artist: "")
+            + (countryCount[d.id][7] ? "<br>8. " + countryCount[d.id][7].artist: "")
+            + (countryCount[d.id][8] ? "<br>9. " + countryCount[d.id][8].artist: "")
+            + (countryCount[d.id][9] ? "<br>10. " + countryCount[d.id][9].artist: ""));
       })
 
     detailsDiv
