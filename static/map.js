@@ -140,7 +140,14 @@ var map = {};
             mouse[
               1] +
             offsetT) + "px")
-          .html(d.id + " HEEEJ " + name + ", " + tag);
+          .html("<strong>" + name + "</strong>" + (countryCount[d.id] ? "<br>1. " + countryCount[d.id][0].artist: "")
+            + (countryCount[d.id][1] ? "<br>2. " + countryCount[d.id][1].artist: "")
+            + (countryCount[d.id][2] ? "<br>3. " + countryCount[d.id][2].artist: ""));
+      })
+
+    detailsDiv
+      .on("click", function(d, i){
+        detailsDiv.classed("hidden", true);
       })
   }
 
