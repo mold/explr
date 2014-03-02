@@ -21,6 +21,10 @@
 .hidden { 
   display: none; 
 }
+.legend {
+  font-size: 12px;
+}
+
 div.tooltip {
   color: #222; 
   background: #fff; 

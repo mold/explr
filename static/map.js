@@ -14,10 +14,12 @@ var map = {};
     countryCount = {};
 
   var color = d3.scale.threshold()
-    .domain([0, 1, 10, 50, 200])
-    .range(["#f2f0f7", "#f7f7f7", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
-
-  //var graticule = d3.geo.graticule();
+    .domain([0, 1, 5, 10, 50, 100])
+    .range(["#f2f0f7", "#f6f6f6", "#fdd0a2", "#fdae6b", "#fd8d3c", "#e6550d",
+      "#a63603"]);
+  //Variables for color legend
+  var ext_color_domain = [0, 1, 5, 10, 50, 100]
+  var legend_labels = ["0", "1-4", "5-9", "10-49", "50-99", "100+"]
 
   var tooltip = d3.select("#map-container").append("div").attr("class",
     "tooltip hidden");
@@ -43,8 +45,8 @@ var map = {};
       .append("g");
 
     g = svg.append("g");
-
   }
+
   //Load country aliases and names
   d3.csv("../static/countries.csv", function(err, countries) {
     test = countries;
@@ -60,7 +62,6 @@ var map = {};
       rateById[d.id] = +d.count;
     });
 
-
   });
   //Load map
   d3.json("../static/world-50m.json", function(error, world) {
@@ -72,11 +73,12 @@ var map = {};
 
   });
 
+
+
   function draw(topo) {
     var country = g.selectAll(".country").data(topo);
 
-    var c1;
-
+    //Draw countries
     country.enter().insert("path")
       .attr("class", "country")
       .attr("d", path)
@@ -86,6 +88,7 @@ var map = {};
       .attr("title", function(d, i) {
         return d.properties.name;
       });
+    //Color countries
     country.style("fill", function(d) {
       return countryCount[d.id] ? color(countryCount[d.id].length) :
         color(0);
@@ -121,41 +124,82 @@ var map = {};
         tooltip.classed("hidden", true);
       });
 
+    //Show div with top 10 artists for country when clicked
     country
       .on("click", function(d, i) {
         var name;
         var tag;
+        var id;
         test.forEach(function(e, i) {
           if (e.id === d.id) {
             name = e.name;
             tag = e.tag;
+            id = d.id;
           };
         })
         var mouse = d3.mouse(svg.node()).map(function(d) {
           return parseInt(d);
         });
 
-        detailsDiv.classed("hidden", false)
+        detailsDiv.classed("hidden", function(d) {
+          console.log(countryCount[id])
+          return (countryCount[id] ? false : true)
+        })
           .attr("style", "left:" + (mouse[0] + offsetL) + "px;top:" + (
             mouse[
               1] +
             offsetT) + "px")
-          .html("<strong>" + name + "</strong>" + (countryCount[d.id] ? "<br>1. " + countryCount[d.id][0].artist: "")
-            + (countryCount[d.id][1] ? "<br>2. " + countryCount[d.id][1].artist: "")
-            + (countryCount[d.id][2] ? "<br>3. " + countryCount[d.id][2].artist: "")
-            + (countryCount[d.id][3] ? "<br>4. " + countryCount[d.id][3].artist: "")
-            + (countryCount[d.id][4] ? "<br>5. " + countryCount[d.id][4].artist: "")
-            + (countryCount[d.id][5] ? "<br>6. " + countryCount[d.id][5].artist: "")
-            + (countryCount[d.id][6] ? "<br>7. " + countryCount[d.id][6].artist: "")
-            + (countryCount[d.id][7] ? "<br>8. " + countryCount[d.id][7].artist: "")
-            + (countryCount[d.id][8] ? "<br>9. " + countryCount[d.id][8].artist: "")
-            + (countryCount[d.id][9] ? "<br>10. " + countryCount[d.id][9].artist: ""));
+          .html("<strong>" + name + "</strong>" + (countryCount[d.id] ?
+            "<br>1. " + countryCount[d.id][0].artist : "") + (
+            countryCount[d.id][1] ? "<br>2. " + countryCount[d.id][1].artist :
+            "") + (countryCount[d.id][2] ? "<br>3. " + countryCount[d.id]
+            [2].artist : "") + (countryCount[d.id][3] ? "<br>4. " +
+            countryCount[d.id][3].artist : "") + (countryCount[d.id][4] ?
+            "<br>5. " + countryCount[d.id][4].artist : "") + (
+            countryCount[d.id][5] ? "<br>6. " + countryCount[d.id][5].artist :
+            "") + (countryCount[d.id][6] ? "<br>7. " + countryCount[d.id]
+            [6].artist : "") + (countryCount[d.id][7] ? "<br>8. " +
+            countryCount[d.id][7].artist : "") + (countryCount[d.id][8] ?
+            "<br>9. " + countryCount[d.id][8].artist : "") + (
+            countryCount[d.id][9] ? "<br>10. " + countryCount[d.id][9].artist :
+            ""));
       })
-
+    //Hide div when clicked
     detailsDiv
-      .on("click", function(d, i){
+      .on("click", function(d, i) {
         detailsDiv.classed("hidden", true);
       })
+
+    //Create Legend
+    var legend = svg.selectAll("g.legend")
+      .data(ext_color_domain)
+      .enter().append("g")
+      .attr("class", "legend");
+
+    //Color box sizes
+    var ls_w = 20,
+      ls_h = 20;
+    //Adds color box to legend
+    legend.append("rect")
+      .attr("x", 20)
+      .attr("y", function(d, i) {
+        return height - (i * ls_h) - 2 * ls_h;
+      })
+      .attr("width", ls_w)
+      .attr("height", ls_h)
+      .style("fill", function(d, i) {
+        return color(d);
+      })
+      .style("opacity", 0.8);
+    //Add legend text
+    legend.append("text")
+      .attr("x", 50)
+      .attr("y", function(d, i) {
+        return height - (i * ls_h) - ls_h - 4;
+      })
+      .text(function(d, i) {
+        return legend_labels[i];
+      });
   }
 
   function redraw() {
