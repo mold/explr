@@ -4,8 +4,6 @@ var user, currPage = 1,
 var countryCountObj = {};
 var times = [];
 
-//1291
-//1074
 // user = prompt("Input your user name, get top 20 artists")
 user = SESSION.name;
 var start = new Date().getTime();
@@ -14,8 +12,8 @@ var getAllArtists = function() {
     api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
     ["page", currPage]],
         function(error, responseData) {
-            maxPage = 2;
-            //maxPage = +responseData.artists["@attr"].totalPages;
+            // maxPage = 2;
+            maxPage = +responseData.artists["@attr"].totalPages;
             if (currPage > maxPage) {
                 return;
             }
@@ -45,9 +43,9 @@ var getAllArtists = function() {
                     // Count plays for each country?
                     // countryCountList = countryCountList.concat(data);
                     var dataObj = d3.nest() //Gör så att man kan slå upp på land-id och få upp en lista på artister.
-                        .key(function(d) {
-                            return d.id;
-                        })
+                    .key(function(d) {
+                        return d.id;
+                    })
                         .rollup(function(leaves) { //gör så att man får en lista på alla artister för ett land.
                             return leaves;
                         })
@@ -64,17 +62,12 @@ var getAllArtists = function() {
 
                     })
 
-                                        console.log(dataObj, countryCountObj);
-
-
                     var mapstart = new Date().getTime();
                     map.putCountryCount(countryCountObj);
                     // console.log("map update " + (new Date().getTime() -
                     //         mapstart) +
                     //     " ms");
                     times.push(new Date().getTime() - start);
-
-
 
                     getAllArtists(); // more!!! more!!!!
 
