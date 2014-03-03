@@ -25,7 +25,11 @@ var getAllArtists = function() {
             console.log("Artists done, get countries")
             var artistNames = responseData.artists.artist.map(function(el) {
                 return el.name;
+
             });
+
+
+
             // Get country for all artists
             api.getCountries(artistNames,
                 function(data) {
