@@ -27,7 +27,10 @@ var map = {};
     "tooltip hidden");
 
   var detailsDiv = d3.select("#map-container").append("div").attr("class",
-    "detailsDiv hidden");
+    "detailsDiv hidden").attr("id", "details");
+
+  
+
 
   setup(width, height);
 
@@ -127,10 +130,10 @@ var map = {};
         tooltip.classed("hidden", true);
       });
 
+ 
+
     //Show div with top 10 artists for country when clicked
-    country
-    //.on("click", clicked)
-    .on("click", function(d, i) {
+    country.on("click", function(d, i) {    //.on("click", clicked)
       var name;
       var tag;
       var id;
@@ -148,7 +151,29 @@ var map = {};
         return parseInt(d);
       });
 
-      //var img = $("<img>");
+      //var bild = d3.select("#details").append("img").attr("src", "http://userserve-ak.last.fm/serve/64/27768421.jpg");
+
+      
+
+      for (i=0; i <10; i++){
+        if (countryCount[d.id][i]){
+          console.log("inne i if: " + countryCount[d.id][i].image);
+          var img = d3.select("#details").append("img").attr("src", countryCount[d.id][i].image);
+          //var hej = countryCount[d.id][i].image;
+        }
+        else{
+          i=10;
+          console.log("inne i else");
+        }
+      }
+      
+      /*
+      var img = $("<img>");
+      img.attr("src", "http://userserve-ak.last.fm/serve/64/27768421.jpg");
+      $(".details").append("<p>TEZT</p>");
+      */
+
+
 
       detailsDiv
         .classed("hidden", function(d) {
@@ -156,8 +181,8 @@ var map = {};
         })
         .attr("style", "left:" + (width / 2) +
           "px;top:" + (height / 2 - offsetT) + "px")
-        .html("<strong>" + name + "</strong>" +
-          (countryCount[d.id] ? "<br>1. <image src='" + countryCount[d.id][0].image+"'>" : "") +
+        /*.html("<strong>" + name + "</strong>" +
+          //(countryCount[d.id] ? "<br>1. <image src='" + countryCount[d.id][0].image+"'>" : "") +
           (countryCount[d.id][1] ? "<br>2. " + countryCount[d.id][1].artist : "") +
           (countryCount[d.id][2] ? "<br>3. " + countryCount[d.id][2].artist : "") +
           (countryCount[d.id][3] ? "<br>4. " + countryCount[d.id][3].artist : "") +
@@ -166,13 +191,27 @@ var map = {};
           (countryCount[d.id][6] ? "<br>7. " + countryCount[d.id][6].artist : "") +
           (countryCount[d.id][7] ? "<br>8. " + countryCount[d.id][7].artist : "") +
           (countryCount[d.id][8] ? "<br>9. " + countryCount[d.id][8].artist : "") +
-          (countryCount[d.id][9] ? "<br>10. " + countryCount[d.id][9].artist : ""));
+          (countryCount[d.id][9] ? "<br>10. " + countryCount[d.id][9].artist : ""));*/
+        
       //Hide div when clicked
+
+
       detailsDiv
         .on("click", function(d, i) {
           detailsDiv.classed("hidden", true);
+          for (i=0; i <10; i++){
+            if (countryCount[d.id][i]){
+              console.log("tar bort imgs");
+              d3.select("#details").remove("img");
+              //var hej = countryCount[d.id][i].image;
+            }
+            else{
+              i=10;
+              console.log("elseelseesle");
+            }
+      }
         })
-    })
+    })// on click slutar
 
 
     //Create Legend
