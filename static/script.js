@@ -22,10 +22,23 @@ var getAllArtists = function() {
 
             currPage += 1;
 
-            console.log("Artists done, get countries")
-            var artistNames = responseData.artists.artist.map(function(el) {
-                return el.name;
-            });
+            console.log("Artists done, get countries");
+
+            // Save artist data to localStorage (and create a list of artist names)
+            var artistNames = []
+            var storedArtists = JSON.parse(window.localStorage.artists);
+            responseData.artists.artist.forEach(function(newArtist) {
+                var a = storedArtists[newArtist.name] || {};
+
+                a.playcount = +newArtist.playcount;
+                a.url = newArtist.url;
+                a.image = newArtist.image;
+
+                storedArtists[newArtist.name] = a;
+                artistNames.push(newArtist.name);
+            })
+            window.localStorage.artists = JSON.stringify(storedArtists);
+
             // Get country for all artists
             api.getCountries(artistNames,
                 function(data) {
@@ -57,6 +70,9 @@ var getAllArtists = function() {
                     //         mapstart) +
                     //     " ms");
                     times.push(new Date().getTime() - start);
+
+
+
                     getAllArtists(); // more!!! more!!!!
 
                 });
