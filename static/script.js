@@ -14,8 +14,8 @@ var getAllArtists = function() {
     api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
     ["page", currPage]],
         function(error, responseData) {
-            // maxPage = 5;
-            maxPage = +responseData.artists["@attr"].totalPages;
+            maxPage = 2;
+            //maxPage = +responseData.artists["@attr"].totalPages;
             if (currPage > maxPage) {
                 return;
             }
@@ -44,14 +44,14 @@ var getAllArtists = function() {
                 function(data) {
                     // Count plays for each country?
                     // countryCountList = countryCountList.concat(data);
-                    var dataObj = d3.nest()
+                    var dataObj = d3.nest() //Gör så att man kan slå upp på land-id och få upp en lista på artister.
                         .key(function(d) {
                             return d.id;
                         })
-                        .rollup(function(leaves) {
+                        .rollup(function(leaves) { //gör så att man får en lista på alla artister för ett land.
                             return leaves;
                         })
-                        .map(data);
+                        .map(data); //Skickar in en lista med ett objekt för varje artist.
 
                     d3.keys(dataObj).forEach(function(id) {
                         if (countryCountObj[id]) {
@@ -63,6 +63,9 @@ var getAllArtists = function() {
 
 
                     })
+
+                                        console.log(dataObj, countryCountObj);
+
 
                     var mapstart = new Date().getTime();
                     map.putCountryCount(countryCountObj);
