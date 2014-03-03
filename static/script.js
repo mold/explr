@@ -47,12 +47,15 @@ var getAllArtists = function() {
                         } else {
                             countryCountObj[id] = dataObj[id];
                         }
+
+
                     })
+
                     var mapstart = new Date().getTime();
                     map.putCountryCount(countryCountObj);
-                    console.log("map update " + (new Date().getTime() -
-                            mapstart) +
-                        " ms")
+                    // console.log("map update " + (new Date().getTime() -
+                    //         mapstart) +
+                    //     " ms");
                     times.push(new Date().getTime() - start);
                     getAllArtists(); // more!!! more!!!!
 

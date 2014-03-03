@@ -105,7 +105,7 @@ d3.csv("../static/countries.csv", function(err, data) {
 						};
 						returnList.push(data);
 					}
-					console.log("apicall " + (new Date().getTime() - start) + " ms")
+					console.log("apicall " + (new Date().getTime() - start) + " ms");
 
 					checkCount();
 				})

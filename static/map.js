@@ -3,6 +3,8 @@ var map = {};
 (function(window, document) {
   d3.select(window).on("resize", throttle);
 
+  var doThrottle = false;
+
   var zoom = d3.behavior.zoom()
     .scaleExtent([1, 9])
     .on("zoom", move);
@@ -69,30 +71,31 @@ var map = {};
     var countries = topojson.feature(world, world.objects.countries).features;
 
     topo = countries;
-    draw(topo);
+    draw(topo, true);
 
   });
 
-
-
-  function draw(topo) {
+  function draw(topo, redrawMap) {
     var country = g.selectAll(".country").data(topo);
 
     //Draw countries
-    country.enter().insert("path")
-      .attr("class", "country")
-      .attr("d", path)
-      .attr("id", function(d, i) {
-        return d.id;
-      })
-      .attr("title", function(d, i) {
-        return d.properties.name;
-      });
+    if (redrawMap) {
+      country.enter().insert("path")
+        .attr("class", "country")
+        .attr("d", path)
+        .attr("id", function(d, i) {
+          return d.id;
+        })
+        .attr("title", function(d, i) {
+          return d.properties.name;
+        });
+    }
     //Color countries
     country.style("fill", function(d) {
       return countryCount[d.id] ? color(countryCount[d.id].length) :
         color(0);
     })
+
     //offsets for tooltips
     var offsetL = document.getElementById('map-container').offsetLeft + 20;
     var offsetT = document.getElementById('map-container').offsetTop + 10;
@@ -202,12 +205,14 @@ var map = {};
       });
   }
 
-  function redraw() {
+  function redraw(redrawMap) {
     width = document.getElementById('map-container').offsetWidth;
     height = width / 2;
-    d3.select('svg').remove();
-    setup(width, height);
-    draw(topo);
+    if (redrawMap) {
+      d3.select('svg').remove();
+      setup(width, height);
+    }
+    draw(topo, redrawMap);
   }
   //Ny funktion WIP:
 
@@ -246,7 +251,7 @@ var map = {};
   function throttle() {
     window.clearTimeout(throttleTimer);
     throttleTimer = window.setTimeout(function() {
-      redraw();
+      redraw(true);
     }, 200);
   }
 
