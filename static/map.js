@@ -12,7 +12,7 @@ var map = {};
   var width = document.getElementById('map-container').offsetWidth;
   var height = width / 1.8;
 
-  var topo, projection, path, svg, g, test, test2, c2, rateById,
+  var topo, projection, path, svg, g, test, test2, c2, rateById, centered,
     countryCount = {};
 
   var color = d3.scale.threshold()
@@ -129,49 +129,49 @@ var map = {};
 
     //Show div with top 10 artists for country when clicked
     country
-      .on("click", function(d, i) {
-        var name;
-        var tag;
-        var id;
-        test.forEach(function(e, i) {
-          if (e.id === d.id) {
-            name = e.name;
-            tag = e.tag;
-            id = d.id;
-          };
-        })
-        var mouse = d3.mouse(svg.node()).map(function(d) {
-          return parseInt(d);
-        });
+    //.on("click", clicked)
+    .on("click", function(d, i) {
+      var name;
+      var tag;
+      var id;
 
-        detailsDiv.classed("hidden", function(d) {
-          console.log(countryCount[id])
+      clicked(d);
+
+      test.forEach(function(e, i) {
+        if (e.id === d.id) {
+          name = e.name;
+          tag = e.tag;
+          id = d.id;
+        };
+      })
+      var mouse = d3.mouse(svg.node()).map(function(d) {
+        return parseInt(d);
+      });
+
+      detailsDiv
+        .classed("hidden", function(d) {
           return (countryCount[id] ? false : true)
         })
-          .attr("style", "left:" + (mouse[0] + offsetL) + "px;top:" + (
-            mouse[
-              1] +
-            offsetT) + "px")
-          .html("<strong>" + name + "</strong>" + (countryCount[d.id] ?
-            "<br>1. " + countryCount[d.id][0].artist : "") + (
-            countryCount[d.id][1] ? "<br>2. " + countryCount[d.id][1].artist :
-            "") + (countryCount[d.id][2] ? "<br>3. " + countryCount[d.id]
-            [2].artist : "") + (countryCount[d.id][3] ? "<br>4. " +
-            countryCount[d.id][3].artist : "") + (countryCount[d.id][4] ?
-            "<br>5. " + countryCount[d.id][4].artist : "") + (
-            countryCount[d.id][5] ? "<br>6. " + countryCount[d.id][5].artist :
-            "") + (countryCount[d.id][6] ? "<br>7. " + countryCount[d.id]
-            [6].artist : "") + (countryCount[d.id][7] ? "<br>8. " +
-            countryCount[d.id][7].artist : "") + (countryCount[d.id][8] ?
-            "<br>9. " + countryCount[d.id][8].artist : "") + (
-            countryCount[d.id][9] ? "<br>10. " + countryCount[d.id][9].artist :
-            ""));
-      })
-    //Hide div when clicked
-    detailsDiv
-      .on("click", function(d, i) {
-        detailsDiv.classed("hidden", true);
-      })
+        .attr("style", "left:" + (width / 2) +
+          "px;top:" + (height / 2 - offsetT) + "px")
+        .html("<strong>" + name + "</strong>" +
+          (countryCount[d.id] ? "<br>1. " + countryCount[d.id][0].artist : "") +
+          (countryCount[d.id][1] ? "<br>2. " + countryCount[d.id][1].artist : "") +
+          (countryCount[d.id][2] ? "<br>3. " + countryCount[d.id][2].artist : "") +
+          (countryCount[d.id][3] ? "<br>4. " + countryCount[d.id][3].artist : "") +
+          (countryCount[d.id][4] ? "<br>5. " + countryCount[d.id][4].artist : "") +
+          (countryCount[d.id][5] ? "<br>6. " + countryCount[d.id][5].artist : "") +
+          (countryCount[d.id][6] ? "<br>7. " + countryCount[d.id][6].artist : "") +
+          (countryCount[d.id][7] ? "<br>8. " + countryCount[d.id][7].artist : "") +
+          (countryCount[d.id][8] ? "<br>9. " + countryCount[d.id][8].artist : "") +
+          (countryCount[d.id][9] ? "<br>10. " + countryCount[d.id][9].artist : ""));
+      //Hide div when clicked
+      detailsDiv
+        .on("click", function(d, i) {
+          detailsDiv.classed("hidden", true);
+        })
+    })
+
 
     //Create Legend
     var legend = svg.selectAll("g.legend")
@@ -260,6 +260,42 @@ var map = {};
   function click() {
     var latlon = projection.invert(d3.mouse(this));
     console.log(latlon);
+  }
+
+  function clicked(d) {
+    var x, y, k, op;
+    var zoomoffset = 0;
+
+    if (d && centered !== d) {
+      var centroid = path.centroid(d);
+      x = centroid[0];
+      y = centroid[1];
+      k = 3;
+      zoomoffset = width / 3;
+      centered = d;
+      op = 0.3;
+    } else {
+      x = width / 2;
+      y = height / 2;
+      k = 1;
+      centered = null;
+    }
+
+    g.selectAll("path")
+      .classed("active", centered && function(d) {
+        return d === centered;
+      });
+
+    g.transition()
+      .duration(750)
+      .attr("transform", "translate(" + (width / 2 - zoomoffset) + "," +
+        height / 2 +
+        ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+    //scale stroke width to zoom
+    d3.selectAll(".country").style("stroke-width", 1.5 / k);
+    //sets opaciy
+    //d3.selectAll(".country").style("opacity", op);
+
   }
 
 
