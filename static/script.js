@@ -50,6 +50,8 @@ var getAllArtists = function() {
                             return leaves;
                         })
                         .map(data); //Skickar in en lista med ett objekt för varje artist.
+                        
+                    var localArtists = JSON.parse(window.localStorage.artists);
 
                     d3.keys(dataObj).forEach(function(id) {
                         if (countryCountObj[id]) {
@@ -59,10 +61,9 @@ var getAllArtists = function() {
                         } else {
                             countryCountObj[id] = dataObj[id];
                         }
-
+                        
                         countryCountObj[id].forEach(function(el, i){
                             //Här lägger vi till ett fält image med artistens bild-url som ett fält till det "inre" objektet.
-                            var localArtists = JSON.parse(window.localStorage.artists);
                             countryCountObj[id][i].image= localArtists[el.artist].image[1]["#text"];
                         });
                     //countryCountObj är en lista med "country"-objekt. 
