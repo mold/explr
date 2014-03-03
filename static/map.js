@@ -148,6 +148,8 @@ var map = {};
         return parseInt(d);
       });
 
+      //var img = $("<img>");
+
       detailsDiv
         .classed("hidden", function(d) {
           return (countryCount[id] ? false : true)
@@ -155,7 +157,7 @@ var map = {};
         .attr("style", "left:" + (width / 2) +
           "px;top:" + (height / 2 - offsetT) + "px")
         .html("<strong>" + name + "</strong>" +
-          (countryCount[d.id] ? "<br>1. " + countryCount[d.id][0].artist : "") +
+          (countryCount[d.id] ? "<br>1. <image src='" + countryCount[d.id][0].image+"'>" : "") +
           (countryCount[d.id][1] ? "<br>2. " + countryCount[d.id][1].artist : "") +
           (countryCount[d.id][2] ? "<br>3. " + countryCount[d.id][2].artist : "") +
           (countryCount[d.id][3] ? "<br>4. " + countryCount[d.id][3].artist : "") +
