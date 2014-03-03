@@ -53,12 +53,22 @@ var getAllArtists = function() {
 
                     d3.keys(dataObj).forEach(function(id) {
                         if (countryCountObj[id]) {
-                            countryCountObj[id] = countryCountObj[id].concat(
+                            countryCountObj[id] = countryCountObj[id].concat( 
                                 dataObj[id]);
+                            //Lägger på de nya dataObj-elementen i countryCountObj-listan.
                         } else {
                             countryCountObj[id] = dataObj[id];
                         }
 
+                        countryCountObj[id].forEach(function(el, i){
+                            //Här lägger vi till ett fält image med artistens bild-url som ett fält till det "inre" objektet.
+                            var localArtists = JSON.parse(window.localStorage.artists);
+                            countryCountObj[id][i].image= localArtists[el.artist].image[1]["#text"];
+                            console.log("countryCountObj.image: " + countryCountObj[id][i].image);
+                        });
+                    //countryCountObj är en lista med "country"-objekt. 
+                    //Varje country-objekt innehåller en lista med "inre" objekt med artistnamn, lands-id och landsnamn.
+                    //dataObj är typ samma som countryCountObj, fast är bara för de tillfälligt sparade artisterna (intervallet).
 
                     })
 
