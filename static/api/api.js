@@ -119,7 +119,7 @@ d3.csv("../static/countries.csv", function(err, data) {
 
 				api.getCountry(el, function(data) {
 					STORED_ARTISTS[el] = STORED_ARTISTS[el] || {};
-					console.error(data)
+					// console.error(data)
 
 					if (data.name) {
 						STORED_ARTISTS[el].country = {
