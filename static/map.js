@@ -12,8 +12,8 @@ var map = {};
   var width = document.getElementById('map-container').offsetWidth;
   var height = width / 1.8;
 
-  var topo, projection, path, svg, g, test, test2, c2, rateById, centered,
-    countryCount = {};
+  var topo, projection, path, svg, g, test, test2, c2, rateById, centered, active;
+  countryCount = {};
 
   var color = d3.scale.threshold()
     .domain([0, 1, 5, 10, 50, 100])
@@ -29,7 +29,6 @@ var map = {};
   var detailsDiv = d3.select("#map-container").append("div").attr("class",
     "detailsDiv hidden").attr("id", "details");
 
-  
 
 
   setup(width, height);
@@ -130,10 +129,10 @@ var map = {};
         tooltip.classed("hidden", true);
       });
 
- 
+
 
     //Show div with top 10 artists for country when clicked
-    country.on("click", function(d, i) {    //.on("click", clicked)
+    country.on("click", function(d, i) { //.on("click", clicked)
       var name;
       var tag;
       var id;
@@ -153,20 +152,19 @@ var map = {};
 
       //var bild = d3.select("#details").append("img").attr("src", "http://userserve-ak.last.fm/serve/64/27768421.jpg");
 
-      
 
-      for (i=0; i <10; i++){
-        if (countryCount[d.id][i]){
+
+      for (i = 0; i < 10; i++) {
+        if (countryCount[d.id][i]) {
           console.log("inne i if: " + countryCount[d.id][i].image);
           var img = d3.select("#details").append("img").attr("src", countryCount[d.id][i].image);
           //var hej = countryCount[d.id][i].image;
-        }
-        else{
-          i=10;
+        } else {
+          i = 10;
           console.log("inne i else");
         }
       }
-      
+
       /*
       var img = $("<img>");
       img.attr("src", "http://userserve-ak.last.fm/serve/64/27768421.jpg");
@@ -181,37 +179,22 @@ var map = {};
         })
         .attr("style", "left:" + (width / 2) +
           "px;top:" + (height / 2 - offsetT) + "px")
-        /*.html("<strong>" + name + "</strong>" +
-          //(countryCount[d.id] ? "<br>1. <image src='" + countryCount[d.id][0].image+"'>" : "") +
-          (countryCount[d.id][1] ? "<br>2. " + countryCount[d.id][1].artist : "") +
-          (countryCount[d.id][2] ? "<br>3. " + countryCount[d.id][2].artist : "") +
-          (countryCount[d.id][3] ? "<br>4. " + countryCount[d.id][3].artist : "") +
-          (countryCount[d.id][4] ? "<br>5. " + countryCount[d.id][4].artist : "") +
-          (countryCount[d.id][5] ? "<br>6. " + countryCount[d.id][5].artist : "") +
-          (countryCount[d.id][6] ? "<br>7. " + countryCount[d.id][6].artist : "") +
-          (countryCount[d.id][7] ? "<br>8. " + countryCount[d.id][7].artist : "") +
-          (countryCount[d.id][8] ? "<br>9. " + countryCount[d.id][8].artist : "") +
-          (countryCount[d.id][9] ? "<br>10. " + countryCount[d.id][9].artist : ""));*/
-        
-      //Hide div when clicked
-
 
       detailsDiv
         .on("click", function(d, i) {
           detailsDiv.classed("hidden", true);
-          for (i=0; i <10; i++){
-            if (countryCount[d.id][i]){
+          for (i = 0; i < 10; i++) {
+            if (countryCount[d.id][i]) {
               console.log("tar bort imgs");
               d3.select("#details").remove("img");
               //var hej = countryCount[d.id][i].image;
-            }
-            else{
-              i=10;
+            } else {
+              i = 10;
               console.log("elseelseesle");
             }
-      }
+          }
         })
-    })// on click slutar
+    }) // on click slutar
 
 
     //Create Legend
@@ -304,41 +287,40 @@ var map = {};
   }
 
   function clicked(d) {
-    var x, y, k, op;
-    var zoomoffset = 0;
+    //Zoom-to-bounds
+    //Status: FUNKAR att zooma in, knas när man zoomar ut
 
+    var x, y, k;
+    var b = path.bounds(d);
+    //Set scale
+    k = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
+
+    //Landet är inte centrerat redan
     if (d && centered !== d) {
       var centroid = path.centroid(d);
-      x = centroid[0];
-      y = centroid[1];
-      k = 3;
-      zoomoffset = width / 3;
       centered = d;
-      op = 0.3;
+      x = -(b[1][0] + b[0][0]) / 2;
+      y = -(b[1][1] + b[0][1]) / 2;
+
+      //Landet är redan centrerat
     } else {
-      x = width / 2;
-      y = height / 2;
-      k = 1;
+      x = -width / 2;
+      y = -height / 2;
+      k = 1
+
       centered = null;
     }
 
-    g.selectAll("path")
-      .classed("active", centered && function(d) {
-        return d === centered;
-      });
 
-    g.transition()
-      .duration(750)
-      .attr("transform", "translate(" + (width / 2 - zoomoffset) + "," +
-        height / 2 +
-        ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-    //scale stroke width to zoom
+    g.transition().duration(750).attr("transform",
+      "translate(" + projection.translate() + ")" +
+      "scale(" + k + ")" +
+      "translate(" + x + "," + y + ")");
+
     d3.selectAll(".country").style("stroke-width", 1.5 / k);
-    //sets opaciy
-    //d3.selectAll(".country").style("opacity", op);
+
 
   }
-
 
   //function to add points and text to the map (used in plotting capitals)
   function addpoint(lat, lon, text) {
