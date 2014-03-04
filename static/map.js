@@ -251,8 +251,6 @@ var map = {};
 
   }
 
-
-
   var throttleTimer;
 
   function throttle() {
@@ -274,16 +272,12 @@ var map = {};
   //Skapar "details-on-demand"-divarna.
   function makeArtistDiv(d) {
 
-
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
-
 
       detailsDiv
         .classed("hidden", false)
         .attr("style", "left:" + (width / 2) +
           "px;top:" + (height / 2 - offsetT) + "px");
-
-
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
       for (i = 0; i < 5; i++) {
@@ -294,7 +288,6 @@ var map = {};
           artistDiv.append("p").html(countryCount[d.id][i].artist);
         } else {
           i = 5;
-          // console.log("inne i else");
         }
       }
     } else { //Om landet vi klickat på inte har några lyssnade artister... 
@@ -303,8 +296,6 @@ var map = {};
     }
   }
 
-
-
   function removeArtistDiv() {
     detailsDiv.classed("hidden", true);
     d3.selectAll(".artist-div").remove("div");
@@ -312,11 +303,7 @@ var map = {};
 
   }
 
-
-
   function clicked(d) { //d är det en har klickat på
-    //Zoom-to-bounds
-    //Status: FUNKAR att zooma in, knas när man zoomar ut
 
     var x, y, k;
     var b = path.bounds(d);
@@ -328,18 +315,46 @@ var map = {};
     if (modscaleX < 70)
       modscaleX = 70;
 
-    console.log(modscaleX, modscaleY);
-    k = .55 / Math.max(modscaleX / width, modscaleY / height);
-
     //Landet är inte centrerat redan
     if (d && centered !== d) {
-      var centroid = path.centroid(d);
       centered = d;
-      x = -(b[1][0] + b[0][0]) / 2 - (width / k) / 4;
-      y = -(b[1][1] + b[0][1]) / 2;
-      //detailsDiv.classed("hidden", false);
       removeArtistDiv();
       makeArtistDiv(d);
+
+      //Special rules for special countries:
+      switch (d.id) {
+        case 840: //US
+          k = 2.577;
+          x = -385.508
+          y = -197.821
+          break;
+        case 250: //France
+          k = 7.012;
+          x = -707.271;
+          y = -174.830;
+          break;
+        case 528: //Netherlands
+          k = 9.0124;
+          x = -707.271;
+          y = -134.830;
+          break;
+        case 643: //Russia
+          k = 1.9;
+          x = -1057.271
+          y = -134.830
+          break;
+        case 554: //New Zeeland
+          k = 4;
+          x = -1320.271
+          y = -564.830
+          break;
+
+        default: //Everybody else
+          k = .55 / Math.max(modscaleX / width, modscaleY / height);
+          x = -(b[1][0] + b[0][0]) / 2 - (width / k) / 4;
+          y = -(b[1][1] + b[0][1]) / 2;
+          break;
+      }
 
       //Landet är redan centrerat
     } else {
@@ -349,10 +364,10 @@ var map = {};
       removeArtistDiv();
 
       centered = null;
-      detailsDiv.classed("hidden", true);
+      //detailsDiv.classed("hidden", true);
     }
 
-    g.transition().duration(750).attr("transform",
+    g.transition().duration(950).attr("transform",
       "translate(" + projection.translate() + ")" +
       "scale(" + k + ")" +
       "translate(" + x + "," + y + ")");
