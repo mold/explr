@@ -29,8 +29,10 @@ var map = {};
   var detailsDiv = d3.select("#map-container").append("div").attr("class",
     "detailsDiv hidden").attr("id", "details");
 
+  var closeButton;
 
-   var closeButton = d3.select('#details').append("button").attr("type","button").attr("class", "close-button").html("X");
+
+   
 
   
 
@@ -159,28 +161,6 @@ var map = {};
 
 
 
-      for (i=0; i <3; i++){
-        if (countryCount[d.id][i]){
-
-          console.log("inne i if: " + countryCount[d.id][i].image);
-          var artistDiv =d3.select("#details").append("div").attr("class","artist-div");
-          artistDiv.append("img").attr("src", countryCount[d.id][i].image);
-          artistDiv.append("p").html(countryCount[d.id][i].artist);
-          //var img = d3.select("#details").append("img").attr("src", countryCount[d.id][i].image);
-          //d3.select("#details").append("p").html(countryCount[d.id][i].artist);
-          //var hej = countryCount[d.id][i].image;
-        } else {
-          i = 10;
-          console.log("inne i else");
-        }
-      }
-
-      /*
-      var img = $("<img>");
-      img.attr("src", "http://userserve-ak.last.fm/serve/64/27768421.jpg");
-      $(".details").append("<p>TEZT</p>");
-      */
-
 
 
       detailsDiv
@@ -192,9 +172,11 @@ var map = {};
 
       closeButton
         .on("click", function(d, i) {
-          detailsDiv.classed("hidden", true);
+          //detailsDiv.classed("hidden", true);
+          removeArtistDiv();
 
-          d3.selectAll(".artist-div").remove("div");
+
+          //d3.selectAll(".artist-div").remove("div");
 
         }) //"stäng" onclick slutar
 
@@ -232,7 +214,16 @@ var map = {};
         return legend_labels[i];
       });
   }
+/*draw slutar här*/
 
+
+
+
+  /*------------------------här börjar alla functioner--------------------------*/
+
+
+/*-------redraw----*/
+//den kallas varje gång datan uppdateras. redrawMap är en boolean 
   function redraw(redrawMap) {
     width = document.getElementById('map-container').offsetWidth;
     height = width / 2;
@@ -242,8 +233,7 @@ var map = {};
     }
     draw(topo, redrawMap);
   }
-  //Ny funktion WIP:
-
+ 
 
 
   function move() {
@@ -252,7 +242,6 @@ var map = {};
     var s = d3.event.scale;
     zscale = s;
     var h = height / 4;
-
 
     t[0] = Math.min(
       (width / height) * (s - 1),
@@ -290,7 +279,43 @@ var map = {};
     console.log(latlon);
   }
 
-  function clicked(d) {
+
+/*-------makeArtistDiv----------*/
+//Skapar "details-on-demand"-divarna.
+  function makeArtistDiv(d){
+    if (countryCount[d.id]){ //Om landet vi klickat på har lyssnade artister.
+      closeButton = d3.select('#details').append("button").attr("type","button").attr("class", "close-button").html("X");
+      for (i=0; i <3; i++){
+          if (countryCount[d.id][i]){
+
+          var artistDiv =d3.select("#details").append("div").attr("class","artist-div");
+          artistDiv.append("img").attr("src", countryCount[d.id][i].image);
+          artistDiv.append("p").html(countryCount[d.id][i].artist);
+          } else {
+              i = 3;
+             // console.log("inne i else");
+            }
+          }
+      }
+      else { //Om landet vi klickat på inte har några lyssnade artister... 
+        //Här ska vi skapa rekommendations-div.
+        console.log("landet har inga lyssnade artister");
+      }
+      }
+
+
+
+
+    function removeArtistDiv(){
+      detailsDiv.classed("hidden", true);
+      d3.selectAll(".artist-div").remove("div");
+
+    }
+
+
+
+
+  function clicked(d) {//d är det en har klickat på
     //Zoom-to-bounds
     //Status: FUNKAR att zooma in, knas när man zoomar ut
 
@@ -305,13 +330,16 @@ var map = {};
       centered = d;
       x = -(b[1][0] + b[0][0]) / 2;
       y = -(b[1][1] + b[0][1]) / 2;
+      //detailsDiv.classed("hidden", false);
+      removeArtistDiv();
+      makeArtistDiv(d);
 
       //Landet är redan centrerat
     } else {
       x = -width / 2;
       y = -height / 2;
       k = 1
-
+      removeArtistDiv();
       centered = null;
     }
 
@@ -325,6 +353,8 @@ var map = {};
 
 
   }
+
+
 
   //function to add points and text to the map (used in plotting capitals)
   function addpoint(lat, lon, text) {
