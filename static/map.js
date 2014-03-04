@@ -36,8 +36,6 @@ var map = {};
 
 
 
-
-
   setup(width, height);
 
   function setup(width, height) {
@@ -107,7 +105,7 @@ var map = {};
 
     //offsets for tooltips
     offsetL = document.getElementById('map-container').offsetLeft + 20;
-    offsetT= document.getElementById('map-container').offsetTop + 10;
+    offsetT = document.getElementById('map-container').offsetTop + 10;
 
     //tooltips
     country
@@ -144,7 +142,7 @@ var map = {};
       var tag;
       var id;
 
-     
+
 
       clicked(d);
 
@@ -160,9 +158,6 @@ var map = {};
       });
 
       //var bild = d3.select("#details").append("img").attr("src", "http://userserve-ak.last.fm/serve/64/27768421.jpg");
-
-
-
 
 
 
@@ -210,16 +205,15 @@ var map = {};
         return legend_labels[i];
       });
   }
-/*draw slutar här*/
-
+  /*draw slutar här*/
 
 
 
   /*------------------------här börjar alla functioner--------------------------*/
 
 
-/*-------redraw----*/
-//den kallas varje gång datan uppdateras. redrawMap är en boolean 
+  /*-------redraw----*/
+  //den kallas varje gång datan uppdateras. redrawMap är en boolean 
   function redraw(redrawMap) {
     width = document.getElementById('map-container').offsetWidth;
     height = width / 2;
@@ -229,7 +223,7 @@ var map = {};
     }
     draw(topo, redrawMap);
   }
- 
+
 
 
   function move() {
@@ -276,61 +270,66 @@ var map = {};
   }
 
 
-/*----------------------------makeArtistDiv------------------------------------------------*/
-//Skapar "details-on-demand"-divarna.
-  function makeArtistDiv(d){
+  /*----------------------------makeArtistDiv------------------------------------------------*/
+  //Skapar "details-on-demand"-divarna.
+  function makeArtistDiv(d) {
 
 
-    if (countryCount[d.id]){ //Om landet vi klickat på har lyssnade artister.
+    if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
 
 
- detailsDiv
+      detailsDiv
         .classed("hidden", false)
         .attr("style", "left:" + (width / 2) +
           "px;top:" + (height / 2 - offsetT) + "px");
 
 
 
-      closeButton = d3.select('#details').append("button").attr("type","button").attr("class", "close-button").html("X");
-      for (i=0; i <5; i++){
-          if (countryCount[d.id][i]){
+      closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
+      for (i = 0; i < 5; i++) {
+        if (countryCount[d.id][i]) {
 
-          var artistDiv =d3.select("#details").append("div").attr("class","artist-div");
+          var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
           artistDiv.append("img").attr("src", countryCount[d.id][i].image);
           artistDiv.append("p").html(countryCount[d.id][i].artist);
-          } else {
-              i = 5;
-             // console.log("inne i else");
-            }
-          }
+        } else {
+          i = 5;
+          // console.log("inne i else");
+        }
       }
-      else { //Om landet vi klickat på inte har några lyssnade artister... 
-        //Här ska vi skapa rekommendations-div.
-        console.log("landet har inga lyssnade artister");
-      }
-      }
-
-
-
-
-    function removeArtistDiv(){
-      detailsDiv.classed("hidden", true);
-      d3.selectAll(".artist-div").remove("div");
-      d3.select("button").remove("button");
-
+    } else { //Om landet vi klickat på inte har några lyssnade artister... 
+      //Här ska vi skapa rekommendations-div.
+      console.log("landet har inga lyssnade artister");
     }
+  }
 
 
 
+  function removeArtistDiv() {
+    detailsDiv.classed("hidden", true);
+    d3.selectAll(".artist-div").remove("div");
+    d3.select("button").remove("button");
 
-  function clicked(d) {//d är det en har klickat på
+  }
+
+
+
+  function clicked(d) { //d är det en har klickat på
     //Zoom-to-bounds
     //Status: FUNKAR att zooma in, knas när man zoomar ut
 
     var x, y, k;
     var b = path.bounds(d);
     //Set scale
-    k = .60 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
+    var modscaleX = (b[1][0] - b[0][0]);
+    var modscaleY = (b[1][1] - b[0][1]);
+
+    //Dom't zoom too far with small countries!
+    if (modscaleX < 70)
+      modscaleX = 70;
+
+    console.log(modscaleX, modscaleY);
+    k = .55 / Math.max(modscaleX / width, modscaleY / height);
 
     //Landet är inte centrerat redan
     if (d && centered !== d) {
