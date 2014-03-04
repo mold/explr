@@ -1,9 +1,5 @@
 var api = api || {};
 
-if (!window.localStorage.artists) {
-	window.localStorage.artists = "{}";
-}
-
 d3.csv("../static/countries.csv", function(err, data) {
 	alias = d3.nest()
 		.key(function(d) {
@@ -96,9 +92,6 @@ d3.csv("../static/countries.csv", function(err, data) {
 	api.getCountries = function(artists, callback) {
 		var returnList = [],
 			count = 0;
-		// Load artists from localStorage
-		var storedArtists = JSON.parse(window.localStorage.artists);
-
 		/**
 		 * Increases a count and checks if we've tried
 		 * to get country for all artists
@@ -107,7 +100,7 @@ d3.csv("../static/countries.csv", function(err, data) {
 			count++;
 			if (count === artists.length) {
 				// We done, save artists and call back
-				window.localStorage.artists = JSON.stringify(storedArtists);
+				window.localStorage.artists = JSON.stringify(STORED_ARTISTS);
 				callback(returnList);
 			}
 		}
@@ -115,25 +108,27 @@ d3.csv("../static/countries.csv", function(err, data) {
 		// Get countries for all artists
 		artists.forEach(function(el, i) {
 			// first check stored artists to see if we've already checked this artist
-			if (storedArtists[el] && storedArtists[el].country) {
-				var returnObject = storedArtists[el].country;
+			if (STORED_ARTISTS[el] && STORED_ARTISTS[el].country) {
+				var returnObject = STORED_ARTISTS[el].country;
 				returnObject.artist = el;
 				returnList.push(returnObject);
 				checkCount();
 			} else {
+
 				var start = new Date().getTime();
 
 				api.getCountry(el, function(data) {
-					storedArtists[el] = storedArtists[el] || {};
+					STORED_ARTISTS[el] = STORED_ARTISTS[el] || {};
+					// console.error(data)
 
 					if (data.name) {
-						storedArtists[el].country = {
+						STORED_ARTISTS[el].country = {
 							"id": data.id,
 							"name": data.name,
 						};
 						returnList.push(data);
 					}
-					console.log("apicall " + (new Date().getTime() - start) + " ms");
+					// console.log("apicall " + (new Date().getTime() - start) + " ms");
 
 					checkCount();
 				})
@@ -150,24 +145,21 @@ d3.csv("../static/countries.csv", function(err, data) {
  *                             of tag objects (see the last.fm api doc for tag object structure)
  */
 api.getTags = function(artist, callback) {
-	var artists = JSON.parse(window.localStorage.artists);
 	// Check if artist tags are already saved, if so return them
-	if (artists[artist] && artists[artist].tags) {
+	if (STORED_ARTISTS[artist] && STORED_ARTISTS[artist].tags) {
 		// console.log("Had in store, no api call");
-		callback(artists[artist].tags);
+		callback(STORED_ARTISTS[artist].tags);
 	} else {
 		// Create object in localstorage
-		artists[artist] = artists[artist] || {};
-		artists[artist].tags = [];
-		window.localStorage.artists = JSON.stringify(artists); // Gotta save because lastfm.sen takes time
+		STORED_ARTISTS[artist] = STORED_ARTISTS[artist] || {};
+		STORED_ARTISTS[artist].tags = [];
 
 		// Get from lastfm
 		api.lastfm.send("artist.gettoptags", [["artist", artist]],
 			function(err, responseData2) {
-				artists = JSON.parse(window.localStorage.artists);
-				artists[artist].tags = responseData2.toptags.tag;
-				window.localStorage.artists = JSON.stringify(artists);
-				callback(artists[artist].tags);
+				STORED_ARTISTS[artist].tags = responseData2.toptags.tag;
+				window.localStorage.artists = JSON.stringify(STORED_ARTISTS);
+				callback(STORED_ARTISTS[artist].tags);
 			});
 	}
 }
