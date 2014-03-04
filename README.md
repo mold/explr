@@ -27,3 +27,9 @@ For ubuntu etc:
 ```
 - Start the server by running ```python server.py```
 - Go to ```http://localhost:5000/``` 
+
+Running without flask
+-----
+
+- Go to the project folder in the terminal, run ```python -m SimpleHTTPServer 5000```
+- Go to ```http://localhost:5000/index_noflask.html``` 

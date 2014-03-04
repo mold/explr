@@ -183,8 +183,11 @@ var map = {};
       detailsDiv
         .on("click", function(d, i) {
           detailsDiv.classed("hidden", true);
-          for (i = 0; i < 10; i++) {
-            if (countryCount[d.id][i]) {
+
+          d3.selectAll("img").remove("img");
+          /*          for (i=0; i <10; i++){
+            if (countryCount[d.id][i]){
+
               console.log("tar bort imgs");
               d3.select("#details").remove("img");
               //var hej = countryCount[d.id][i].image;
@@ -192,8 +195,10 @@ var map = {};
               i = 10;
               console.log("elseelseesle");
             }
-          }
-        })
+
+      }*/
+        }) //"stäng" onclick slutar
+
     }) // on click slutar
 
 
