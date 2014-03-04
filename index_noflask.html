@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>
+	</title>
+	<link rel="stylesheet" type="text/css" href="static/map.css">
+</head>
+<body>
+	<div id="map-container"></div>
+	
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="http://d3js.org/topojson.v1.min.js"></script>
+	<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+
+	<script>
+		// init
+		var SESSION = {};
+		SESSION.name = prompt("What is your user name???");
+	</script>
+
+	<script src="static/api/lastfm.js"></script>
+	<script src="static/api/musicbrainz.js"></script>
+	<script src="static/api/api.js"></script>
+	
+	<script src="static/script.js"></script>
+	<script src="static/map.js"></script>
+</body>
+</html>
