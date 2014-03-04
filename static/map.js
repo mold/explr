@@ -297,7 +297,7 @@ var map = {};
     var x, y, k;
     var b = path.bounds(d);
     //Set scale
-    k = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
+    k = .70 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
 
     //Landet är inte centrerat redan
     if (d && centered !== d) {
@@ -314,7 +314,7 @@ var map = {};
 
       centered = null;
     }
-
+    d3.selectAll(".country").style("stroke-width", 1.5 / k);
 
     g.transition().duration(750).attr("transform",
       "translate(" + projection.translate() + ")" +
