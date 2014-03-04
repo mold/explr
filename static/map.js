@@ -292,14 +292,14 @@ var map = {};
 
 
       closeButton = d3.select('#details').append("button").attr("type","button").attr("class", "close-button").html("X");
-      for (i=0; i <3; i++){
+      for (i=0; i <5; i++){
           if (countryCount[d.id][i]){
 
           var artistDiv =d3.select("#details").append("div").attr("class","artist-div");
           artistDiv.append("img").attr("src", countryCount[d.id][i].image);
           artistDiv.append("p").html(countryCount[d.id][i].artist);
           } else {
-              i = 3;
+              i = 5;
              // console.log("inne i else");
             }
           }
