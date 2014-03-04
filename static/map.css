@@ -56,3 +56,9 @@ div.detailsDiv {
   stroke: #ccc;
   stroke-width: 1px;
 }
+
+button.close-button{
+  top: 0px;
+  right: 0px;
+  position: absolute;
+}

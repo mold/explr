@@ -29,6 +29,8 @@ var map = {};
   var detailsDiv = d3.select("#map-container").append("div").attr("class",
     "detailsDiv hidden").attr("id", "details");
 
+   var closeButton = d3.select('#details').append("button").attr("type","button").attr("class", "close-button").html("X");
+
   
 
 
@@ -153,12 +155,17 @@ var map = {};
 
       //var bild = d3.select("#details").append("img").attr("src", "http://userserve-ak.last.fm/serve/64/27768421.jpg");
 
-      
+      //<button type="button">Click Me!</button>
 
-      for (i=0; i <10; i++){
+
+      for (i=0; i <3; i++){
         if (countryCount[d.id][i]){
           console.log("inne i if: " + countryCount[d.id][i].image);
-          var img = d3.select("#details").append("img").attr("src", countryCount[d.id][i].image);
+          var artistDiv =d3.select("#details").append("div").attr("class","artist-div");
+          artistDiv.append("img").attr("src", countryCount[d.id][i].image);
+          artistDiv.append("p").html(countryCount[d.id][i].artist);
+          //var img = d3.select("#details").append("img").attr("src", countryCount[d.id][i].image);
+          //d3.select("#details").append("p").html(countryCount[d.id][i].artist);
           //var hej = countryCount[d.id][i].image;
         }
         else{
@@ -196,10 +203,10 @@ var map = {};
       //Hide div when clicked
 
 
-      detailsDiv
+      closeButton
         .on("click", function(d, i) {
           detailsDiv.classed("hidden", true);
-          d3.selectAll("img").remove("img");
+          d3.selectAll(".artist-div").remove("div");
 /*          for (i=0; i <10; i++){
             if (countryCount[d.id][i]){
               console.log("tar bort imgs");
