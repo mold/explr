@@ -109,13 +109,11 @@ d3.csv("../static/countries.csv", function(err, data) {
 		artists.forEach(function(el, i) {
 			// first check stored artists to see if we've already checked this artist
 			if (STORED_ARTISTS[el] && STORED_ARTISTS[el].country) {
-				console.info("found in cache: " + el)
 				var returnObject = STORED_ARTISTS[el].country;
 				returnObject.artist = el;
 				returnList.push(returnObject);
 				checkCount();
 			} else {
-				console.error("did not found in cache: " + el)
 
 				var start = new Date().getTime();
 
