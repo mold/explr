@@ -32,9 +32,6 @@ var map = {};
   var closeButton;
 
 
-   
-
-  
 
 
 
@@ -322,13 +319,13 @@ var map = {};
     var x, y, k;
     var b = path.bounds(d);
     //Set scale
-    k = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
+    k = .70 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height);
 
     //Landet är inte centrerat redan
     if (d && centered !== d) {
       var centroid = path.centroid(d);
       centered = d;
-      x = -(b[1][0] + b[0][0]) / 2;
+      x = -(b[1][0] + b[0][0]) / 2 - (width / k) / 4;
       y = -(b[1][1] + b[0][1]) / 2;
       //detailsDiv.classed("hidden", false);
       removeArtistDiv();
@@ -342,7 +339,7 @@ var map = {};
       removeArtistDiv();
       centered = null;
     }
-
+    d3.selectAll(".country").style("stroke-width", 1.5 / k);
 
     g.transition().duration(750).attr("transform",
       "translate(" + projection.translate() + ")" +
