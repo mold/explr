@@ -31,6 +31,9 @@ var map = {};
 
   var closeButton;
 
+  var offsetL;
+  var offsetT;
+
 
 
 
@@ -103,8 +106,8 @@ var map = {};
     })
 
     //offsets for tooltips
-    var offsetL = document.getElementById('map-container').offsetLeft + 20;
-    var offsetT = document.getElementById('map-container').offsetTop + 10;
+    offsetL = document.getElementById('map-container').offsetLeft + 20;
+    offsetT= document.getElementById('map-container').offsetTop + 10;
 
     //tooltips
     country
@@ -141,6 +144,8 @@ var map = {};
       var tag;
       var id;
 
+     
+
       clicked(d);
 
       test.forEach(function(e, i) {
@@ -160,12 +165,6 @@ var map = {};
 
 
 
-      detailsDiv
-        .classed("hidden", function(d) {
-          return (countryCount[id] ? false : true)
-        })
-        .attr("style", "left:" + (width / 2) +
-          "px;top:" + (height / 2 - offsetT) + "px")
 
       closeButton
         .on("click", function(d, i) {
@@ -277,10 +276,21 @@ var map = {};
   }
 
 
-/*-------makeArtistDiv----------*/
+/*----------------------------makeArtistDiv------------------------------------------------*/
 //Skapar "details-on-demand"-divarna.
   function makeArtistDiv(d){
+
+
     if (countryCount[d.id]){ //Om landet vi klickat på har lyssnade artister.
+
+
+ detailsDiv
+        .classed("hidden", false)
+        .attr("style", "left:" + (width / 2) +
+          "px;top:" + (height / 2 - offsetT) + "px");
+
+
+
       closeButton = d3.select('#details').append("button").attr("type","button").attr("class", "close-button").html("X");
       for (i=0; i <3; i++){
           if (countryCount[d.id][i]){
@@ -306,6 +316,7 @@ var map = {};
     function removeArtistDiv(){
       detailsDiv.classed("hidden", true);
       d3.selectAll(".artist-div").remove("div");
+      d3.select("button").remove("button");
 
     }
 
@@ -337,7 +348,9 @@ var map = {};
       y = -height / 2;
       k = 1
       removeArtistDiv();
+
       centered = null;
+      detailsDiv.classed("hidden", true);
     }
 
     g.transition().duration(750).attr("transform",
