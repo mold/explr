@@ -24,6 +24,9 @@
 .legend {
   font-size: 12px;
 }
+.active {
+  
+}
 
 div.tooltip {
   color: #222; 
@@ -55,4 +58,10 @@ div.detailsDiv {
 .equator {
   stroke: #ccc;
   stroke-width: 1px;
+}
+
+button.close-button{
+  top: 0px;
+  right: 0px;
+  position: absolute;
 }
