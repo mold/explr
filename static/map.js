@@ -30,9 +30,7 @@ var map = {};
     "detailsDiv hidden").attr("id", "details");
 
 
-   var closeButton = d3.select('#details').append("button").attr("type","button").attr("class", "close-button").html("X");
-
-  
+  var closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
 
 
 
@@ -159,11 +157,11 @@ var map = {};
 
 
 
-      for (i=0; i <3; i++){
-        if (countryCount[d.id][i]){
+      for (i = 0; i < 3; i++) {
+        if (countryCount[d.id][i]) {
 
           console.log("inne i if: " + countryCount[d.id][i].image);
-          var artistDiv =d3.select("#details").append("div").attr("class","artist-div");
+          var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
           artistDiv.append("img").attr("src", countryCount[d.id][i].image);
           artistDiv.append("p").html(countryCount[d.id][i].artist);
           //var img = d3.select("#details").append("img").attr("src", countryCount[d.id][i].image);
@@ -303,7 +301,7 @@ var map = {};
     if (d && centered !== d) {
       var centroid = path.centroid(d);
       centered = d;
-      x = -(b[1][0] + b[0][0]) / 2;
+      x = -(b[1][0] + b[0][0]) / 2 - (width / k) / 4;
       y = -(b[1][1] + b[0][1]) / 2;
 
       //Landet är redan centrerat
