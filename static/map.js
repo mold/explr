@@ -12,7 +12,7 @@ var map = {};
   var width = document.getElementById('map-container').offsetWidth;
   var height = width / 1.8;
 
-  var topo, projection, path, svg, g, test, test2, c2, rateById, centered, active;
+  var topo, projection, path, svg, g, test, rateById, centered, active;
   countryCount = {};
 
   var color = d3.scale.threshold()
@@ -157,18 +157,10 @@ var map = {};
         return parseInt(d);
       });
 
-      //var bild = d3.select("#details").append("img").attr("src", "http://userserve-ak.last.fm/serve/64/27768421.jpg");
-
-
-
       closeButton
         .on("click", function(d, i) {
           //detailsDiv.classed("hidden", true);
           removeArtistDiv();
-
-
-          //d3.selectAll(".artist-div").remove("div");
-
         }) //"stäng" onclick slutar
 
     }) // on click slutar
@@ -277,7 +269,7 @@ var map = {};
       detailsDiv
         .classed("hidden", false)
         .attr("style", "left:" + (width / 2) +
-          "px;top:" + (height / 2 - offsetT) + "px");
+          "px;top:" + (offsetT) + "px");
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
       for (i = 0; i < 5; i++) {
@@ -306,14 +298,15 @@ var map = {};
   function clicked(d) { //d är det en har klickat på
 
     var x, y, k;
+    //bounding box for clicked country
     var b = path.bounds(d);
     //Set scale
     var modscaleX = (b[1][0] - b[0][0]);
     var modscaleY = (b[1][1] - b[0][1]);
 
     //Dom't zoom too far with small countries!
-    if (modscaleX < 70)
-      modscaleX = 70;
+    if (modscaleX < 80)
+      modscaleX = 80;
 
     //Landet är inte centrerat redan
     if (d && centered !== d) {
@@ -321,32 +314,33 @@ var map = {};
       removeArtistDiv();
       makeArtistDiv(d);
 
+
       //Special rules for special countries:
       switch (d.id) {
         case 840: //US
-          k = 2.577;
-          x = -385.508
-          y = -197.821
+          k = 2.2;
+          x = -(b[1][0] + b[0][0]) / 3;
+          y = -(b[1][1] + b[0][1]) / 1.6;
           break;
         case 250: //France
           k = 7.012;
-          x = -707.271;
-          y = -174.830;
+          x = -(b[1][0] + b[0][0]) / 1.8;
+          y = -(b[1][1] + b[0][1]) / 3.4;
           break;
         case 528: //Netherlands
           k = 9.0124;
-          x = -707.271;
-          y = -134.830;
+          x = -(b[1][0] + b[0][0]) / 1.5;
+          y = -(b[1][1] + b[0][1]) / 3.3;
           break;
         case 643: //Russia
           k = 1.9;
-          x = -1057.271
-          y = -134.830
+          x = -(b[1][0] + b[0][0]) / 1.25;
+          y = -(b[1][1] + b[0][1]) / 2;
           break;
         case 554: //New Zeeland
           k = 4;
-          x = -1320.271
-          y = -564.830
+          x = -(b[1][0] + b[0][0]) / 0.98;
+          y = -(b[1][1] + b[0][1]) / 1.8;
           break;
 
         default: //Everybody else
@@ -376,8 +370,6 @@ var map = {};
 
 
   }
-
-
 
   //function to add points and text to the map (used in plotting capitals)
   function addpoint(lat, lon, text) {
