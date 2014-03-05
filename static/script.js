@@ -32,8 +32,10 @@ var getAllArtists = function() {
 
                 a.playcount = +newArtist.playcount;
                 a.url = newArtist.url;
+
                 a.image = [newArtist.image[2]];
                 console.log(a.image)
+
 
                 STORED_ARTISTS[newArtist.name] = a;
                 artistNames.push(newArtist.name);
