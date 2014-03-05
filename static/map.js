@@ -17,21 +17,31 @@ var map = {};
 
   //"Nästan" dynamisk logaritmisk skala!
   var mydomain = [];
-  var maxartists = 1000;
-  for (i = 0; i < 5; i++) {
-    mydomain[i] = Math.pow(Math.E, (Math.log(maxartists) / 6) * (i + 1))
-  }
-  mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
+  var maxartists = 0;
+  var color;
+  var legend_labels;
 
+  function updateScale() {
 
-
-  var color = d3.scale.threshold()
-    .domain(mydomain)
-    .range(["#f2f0f7", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497",
+    for (i = 0; i < 5; i++) {
+      mydomain[i] = Math.pow(Math.E, (Math.log(maxartists) / 6) * (i + 1))
+    }
+    mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
+    //Scale color
+    color = d3.scale.threshold()
+      .domain(mydomain)
+      .range(["#f2f0f7", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497",
       "#ae017e", "#7a0177"]);
+    //Scale tooltip
+    console.log(mydomain);
+    mydomain.map(function(el) {
+      return Math.round(el);
+    })
+    legend_labels = [mydomain[0] + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + (mydomain[5] - 1), mydomain[5] + "-" + (mydomain[6] - 1), mydomain[6] + "+"]
+
+
+  }
   //Variables for color legend
-  var ext_color_domain = mydomain
-  var legend_labels = ["0", "1-2", "3-9", "10-31", "32-101", "102-322", "323+"]
 
   var tooltip = d3.select("#map-container").append("div").attr("class",
     "tooltip hidden");
@@ -176,7 +186,7 @@ var map = {};
 
     //Create Legend
     var legend = svg.selectAll("g.legend")
-      .data(ext_color_domain)
+      .data(mydomain)
       .enter().append("g")
       .attr("class", "legend");
 
@@ -221,6 +231,12 @@ var map = {};
       d3.select('svg').remove();
       setup(width, height);
     }
+
+    maxartists = d3.max(d3.keys(countryCount), function(cname) {
+      return countryCount[cname].length;
+    });
+    updateScale();
+    //console.log(maxartists)
     draw(topo, redrawMap);
   }
 
@@ -450,6 +466,8 @@ var map = {};
   /** "PUBLUC" FUNCTIONS **/
   map.putCountryCount = function(list) {
     countryCount = list;
+
+
     redraw();
   }
 })(window, document)
