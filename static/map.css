@@ -2,12 +2,9 @@
   fill: pink;
 }
 
-/**
- * Countries that are not currently highlighted when a user
- * has clicked on a country.
- */
-.country.faded{
-  opacity:0.3;
+.country.highlighted, .country.highlighted:hover{
+  stroke:#444;
+  stroke-width: 4px;
 }
 
 .country:hover{

@@ -14,8 +14,8 @@ var getAllArtists = function() {
     api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
     ["page", currPage]],
         function(error, responseData) {
-            // maxPage = 2;
-            maxPage = +responseData.artists["@attr"].totalPages;
+            maxPage = 2;
+            // maxPage = +responseData.artists["@attr"].totalPages;
             if (currPage > maxPage) {
                 return;
             }
@@ -32,7 +32,8 @@ var getAllArtists = function() {
 
                 a.playcount = +newArtist.playcount;
                 a.url = newArtist.url;
-                a.image = newArtist.image;
+                a.image = [newArtist.image[0]];
+                console.log(a.image)
 
                 STORED_ARTISTS[newArtist.name] = a;
                 artistNames.push(newArtist.name);
@@ -66,7 +67,7 @@ var getAllArtists = function() {
 
                         countryCountObj[id].forEach(function(el, i) {
                             //Här lägger vi till ett fält image med artistens bild-url som ett fält till det "inre" objektet.
-                            countryCountObj[id][i].image = STORED_ARTISTS[el.artist].image[2]["#text"];
+                            countryCountObj[id][i].image = STORED_ARTISTS[el.artist].image[0]["#text"];
                         });
                         //countryCountObj är en lista med "country"-objekt. 
                         //Varje country-objekt innehåller en lista med "inre" objekt med artistnamn, lands-id och landsnamn.

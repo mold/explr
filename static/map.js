@@ -236,7 +236,7 @@ var map = {};
     var s = sc || (d3.event ? d3.event.scale : false) || zoom.scale();
 
     // If move was not initiated by clicking on a country, deselect the selected country
-    if (!tr && !sc) {
+    if (!tr && !sc && centered) {
       highlightCountry(false);
       centered = null;
     }
@@ -267,7 +267,7 @@ var map = {};
     //adjust the country hover stroke width based on zoom level
     d3.selectAll(".country").style("stroke-width", 1.5 / s);
   }
-  map.move = move;
+
   var throttleTimer;
 
   function throttle() {
@@ -299,9 +299,6 @@ var map = {};
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
-
-
-
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
           artistDiv.append("img").attr("src", countryCount[d.id][i].image).attr("class", "details-img");
           artistDiv.append("p").html(countryCount[d.id][i].artist).attr("class", "details-p");
@@ -328,17 +325,23 @@ var map = {};
    * @param  {Object} countryElement The country element to highlight (needs to have an "id" property)
    */
   function highlightCountry(highlight, countryElement) {
+    d3.selectAll(".country").classed("highlighted", false);
+
     if (highlight) {
       // Fade out all other countries
-      d3.selectAll(".country").transition().style("opacity", function() {
-        return (+this.id === +countryElement.id ? 1.0 : 0.3);
-      })
+      d3.selectAll(".country").transition()
+        .style("opacity", function() {
+          return (+this.id === +countryElement.id ? 1.0 : 0.3);
+        })
+
+      var ce = d3.select(document.getElementById("" + countryElement.id)); // d3 can't select ids that are only numbers
+      ce.classed("highlighted", true);
     } else {
       // Fade in all countries
-      d3.selectAll(".country").transition().style("opacity", function() {
-        return 1.0;
-      })
+      d3.selectAll(".country").transition()
+        .style("opacity", 1.0)
     }
+
   }
 
   function clicked(d) { //d är det en har klickat på
