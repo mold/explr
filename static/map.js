@@ -50,7 +50,7 @@ var map = {};
     }
     //Array of text
     legend_labels = [mydomain[0] + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + (mydomain[5] - 1), mydomain[5] + "-" + (mydomain[6] - 1), mydomain[6] + "+"];
-    console.log(mydomain)
+    // console.log(mydomain)
 
     //Create Legend
     legend = svg.selectAll("g.legend")
