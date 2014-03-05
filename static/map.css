@@ -69,11 +69,13 @@ div.artist-div{
 
 }
 
-
+*{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 
 p.details-p{
-  font-size: 75%;
-  font-family: Arial;
+  font-size: 0.8em;
+
   font-style: #000;
 
 }
@@ -84,7 +86,7 @@ div.image-div{
   background-position:center top;
   border:2px solid #444;
   border-radius:2px;
-    margin-left: auto;
+  margin-left: auto;
   margin-right: auto;
 
 

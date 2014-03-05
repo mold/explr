@@ -68,6 +68,7 @@ var getAllArtists = function() {
                         countryCountObj[id].forEach(function(el, i) {
                             //Här lägger vi till ett fält image med artistens bild-url som ett fält till det "inre" objektet.
                             countryCountObj[id][i].image = STORED_ARTISTS[el.artist].image[0]["#text"];
+                            countryCountObj[id][i].url = STORED_ARTISTS[el.artist].url;
                         });
                         //countryCountObj är en lista med "country"-objekt. 
                         //Varje country-objekt innehåller en lista med "inre" objekt med artistnamn, lands-id och landsnamn.

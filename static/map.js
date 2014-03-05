@@ -334,8 +334,10 @@ var map = {};
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
-          artistDiv.append("div")
-            .attr("class", "image-div").style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
+          var artistLink = artistDiv.append("a").style("display", "block").attr("href", countryCount[d.id][i].url);
+          artistLink.append("div")
+            .attr("class", "image-div")
+            .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
 
           artistDiv.append("p").html(countryCount[d.id][i].artist).attr("class", "details-p");
         } else {
