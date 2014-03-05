@@ -18,14 +18,12 @@ var map = {};
   //Variables needed to update scale and legend
   var mydomain = [];
   var maxartists = 0;
-  var legend_labels;
+  var legend_labels = [];
   var legend;
 
   //Setting color and range to be used
-  var color = d3.scale.threshold()
-    .domain(mydomain)
-    .range(["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497",
-      "#ae017e", "#7a0177"]);
+  var color;
+
 
   function updateScale() {
 
@@ -33,6 +31,11 @@ var map = {};
       mydomain[i] = Math.pow(Math.E, (Math.log(maxartists) / 6) * (i + 1))
     }
     mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
+
+    color = d3.scale.threshold()
+      .domain(mydomain)
+      .range(["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497",
+      "#ae017e", "#7a0177"]);
     //Scale color
   }
 
@@ -51,7 +54,6 @@ var map = {};
     //Array of text
     legend_labels = [mydomain[0] + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + (mydomain[5] - 1), mydomain[5] + "-" + (mydomain[6] - 1), mydomain[6] + "+"];
     // console.log(mydomain)
-
     //Create Legend
     legend = svg.selectAll("g.legend")
       .data(mydomain)
@@ -82,6 +84,8 @@ var map = {};
       .text(function(d, i) {
         return legend_labels[i];
       });
+
+
 
   }
 
