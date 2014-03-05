@@ -49,6 +49,25 @@ div.detailsDiv {
   opacity: 0.9; 
   position: absolute;
 }
+
+
+
+
+div.artist-div{
+  float: left;
+
+}
+
+
+img.details-img{
+  height: 70px;
+}
+
+p.details-p{
+  font-size: x-small;
+}
+
+
 .graticule {
   fill: none;
   stroke: #bbb;
