@@ -303,7 +303,6 @@ var map = {};
           artistDiv.append("div")
             .attr("class", "image-div").style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
 
-          //artistDiv.append("img").attr("src", countryCount[d.id][i].image).attr("class", "details-img");
           artistDiv.append("p").html(countryCount[d.id][i].artist).attr("class", "details-p");
         } else {
           i = 5;

@@ -66,10 +66,6 @@ div.artist-div{
 }
 
 
-img.details-img{
-  height: 4em;
-
-}
 
 p.details-p{
   font-size: x-small;
@@ -78,6 +74,8 @@ p.details-p{
 div.image-div{
   height: 4em;
   width: 4em;
+  background-position:center top;
+
 }
 
 
