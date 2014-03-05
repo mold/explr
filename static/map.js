@@ -12,7 +12,7 @@ var map = {};
   var width = document.getElementById('map-container').offsetWidth;
   var height = width / 1.8;
 
-  var topo, projection, path, svg, g, test, rateById, centered, active;
+  var topo, projection, path, svg, g, countryNames, rateById, centered, active;
   countryCount = {};
 
   //"Nästan" dynamisk logaritmisk skala!
@@ -68,7 +68,7 @@ var map = {};
 
   //Load country aliases and names
   d3.csv("../static/countries.csv", function(err, countries) {
-    test = countries;
+    countryNames = countries;
     rateById = {};
 
     countries.forEach(function(i) {
@@ -122,7 +122,7 @@ var map = {};
       .on("mousemove", function(d, i) {
         var name;
         var tag;
-        test.forEach(function(e, i) {
+        countryNames.forEach(function(e, i) {
           if (e.id === d.id) {
             name = e.name;
             tag = e.tag;
@@ -154,7 +154,7 @@ var map = {};
 
       clicked(d);
 
-      test.forEach(function(e, i) {
+      countryNames.forEach(function(e, i) {
         if (e.id === d.id) {
           name = e.name;
           tag = e.tag;
@@ -300,7 +300,10 @@ var map = {};
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
-          artistDiv.append("img").attr("src", countryCount[d.id][i].image).attr("class", "details-img");
+          artistDiv.append("div")
+            .attr("class", "image-div").style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
+
+          //artistDiv.append("img").attr("src", countryCount[d.id][i].image).attr("class", "details-img");
           artistDiv.append("p").html(countryCount[d.id][i].artist).attr("class", "details-p");
         } else {
           i = 5;

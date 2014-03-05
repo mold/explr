@@ -60,16 +60,24 @@ div.detailsDiv {
 
 div.artist-div{
   float: left;
+  min-width: 3em;
+  text-align: center;
 
 }
 
 
 img.details-img{
-  height: 70px;
+  height: 4em;
+
 }
 
 p.details-p{
   font-size: x-small;
+}
+
+div.image-div{
+  height: 4em;
+  width: 4em;
 }
 
 
