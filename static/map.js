@@ -15,13 +15,23 @@ var map = {};
   var topo, projection, path, svg, g, test, rateById, centered, active;
   countryCount = {};
 
+  //"Nästan" dynamisk logaritmisk skala!
+  var mydomain = [];
+  var maxartists = 1000;
+  for (i = 0; i < 5; i++) {
+    mydomain[i] = Math.pow(Math.E, (Math.log(maxartists) / 6) * (i + 1))
+  }
+  mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
+
+
+
   var color = d3.scale.threshold()
-    .domain([0, 1, 5, 10, 50, 100])
-    .range(["#f2f0f7", "#f6f6f6", "#fdd0a2", "#fdae6b", "#fd8d3c", "#e6550d",
-      "#a63603"]);
+    .domain(mydomain)
+    .range(["#f2f0f7", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497",
+      "#ae017e", "#7a0177"]);
   //Variables for color legend
-  var ext_color_domain = [0, 1, 5, 10, 50, 100]
-  var legend_labels = ["0", "1-4", "5-9", "10-49", "50-99", "100+"]
+  var ext_color_domain = mydomain
+  var legend_labels = ["0", "1-2", "3-9", "10-31", "32-101", "102-322", "323+"]
 
   var tooltip = d3.select("#map-container").append("div").attr("class",
     "tooltip hidden");
@@ -236,7 +246,7 @@ var map = {};
 
     t[0] = Math.min(
       (width / height) * (s - 1),
-      Math.max(width * (1 - s), t[0])
+      Math.max((width * 1.2) * (1 - s), t[0])
     );
 
     t[1] = Math.min(
@@ -376,7 +386,7 @@ var map = {};
           break;
         case 554: //New Zeeland
           k = 4;
-          x = -(b[1][0] + b[0][0]) / 0.98;
+          x = -(b[1][0] + b[0][0]) / 0.90;
           y = -(b[1][1] + b[0][1]) / 1.8;
           break;
 
