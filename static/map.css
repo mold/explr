@@ -53,6 +53,8 @@ div.detailsDiv {
   box-shadow: 0px 0px 2px 0px #a6a6a6; 
   opacity: 0.9; 
   position: absolute;
+  text-align: center;
+
 }
 
 
@@ -60,22 +62,36 @@ div.detailsDiv {
 
 div.artist-div{
   float: left;
-  min-width: 3em;
   text-align: center;
+  width: 7em;
+  padding-top: 3em;
+
 
 }
 
 
 
 p.details-p{
-  font-size: x-small;
+  font-size: 75%;
+  font-family: Arial;
+  font-style: #000;
+
 }
 
 div.image-div{
-  height: 4em;
-  width: 4em;
+  height: 6em;
+  width: 6em;
   background-position:center top;
+  border:2px solid #444;
+  border-radius:2px;
+    margin-left: auto;
+  margin-right: auto;
 
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 
