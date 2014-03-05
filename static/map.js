@@ -290,9 +290,11 @@ var map = {};
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
 
+
+
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
-          artistDiv.append("img").attr("src", countryCount[d.id][i].image);
-          artistDiv.append("p").html(countryCount[d.id][i].artist);
+          artistDiv.append("img").attr("src", countryCount[d.id][i].image).attr("class", "details-img");
+          artistDiv.append("p").html(countryCount[d.id][i].artist).attr("class", "details-p");
         } else {
           i = 5;
         }
