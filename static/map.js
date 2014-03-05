@@ -7,10 +7,7 @@ var map = {};
 
   var zoom = d3.behavior.zoom()
     .scaleExtent([1, 9])
-    .on("zoom", function(e) {
-      // console.log(d3.event);
-      move();
-    }); //move);
+    .on("zoom", move);
 
   var width = document.getElementById('map-container').offsetWidth;
   var height = width / 1.8;
@@ -145,8 +142,6 @@ var map = {};
       var tag;
       var id;
 
-
-
       clicked(d);
 
       test.forEach(function(e, i) {
@@ -232,6 +227,7 @@ var map = {};
 
     // If move was not initiated by clicking on a country, deselect the selected country
     if (!tr && !sc) {
+      highlightCountry(false);
       centered = null;
     }
 
@@ -314,6 +310,25 @@ var map = {};
 
   }
 
+  /**
+   * Toggles highlight of a specified country
+   * @param  {Boolean} highlight      Specifies whether to highlight or "dehighlight"
+   * @param  {Object} countryElement The country element to highlight (needs to have an "id" property)
+   */
+  function highlightCountry(highlight, countryElement) {
+    if (highlight) {
+      // Fade out all other countries
+      d3.selectAll(".country").transition().style("opacity", function() {
+        return (+this.id === +countryElement.id ? 1.0 : 0.3);
+      })
+    } else {
+      // Fade in all countries
+      d3.selectAll(".country").transition().style("opacity", function() {
+        return 1.0;
+      })
+    }
+  }
+
   function clicked(d) { //d är det en har klickat på
 
     var x, y, k;
@@ -332,6 +347,7 @@ var map = {};
       centered = d;
       removeArtistDiv();
       makeArtistDiv(d);
+      highlightCountry(true, d);
 
 
       //Special rules for special countries:
@@ -375,7 +391,7 @@ var map = {};
       y = -height / 2;
       k = 1
       removeArtistDiv();
-
+      highlightCountry(false);
       centered = null;
       //detailsDiv.classed("hidden", true);
     }
