@@ -15,11 +15,17 @@ var map = {};
   var topo, projection, path, svg, g, countryNames, rateById, centered, active;
   countryCount = {};
 
-  //"Nästan" dynamisk logaritmisk skala!
+  //Variables needed to update scale and legend
   var mydomain = [];
   var maxartists = 0;
-  var color;
   var legend_labels;
+  var legend;
+
+  //Setting color and range to be used
+  var color = d3.scale.threshold()
+    .domain(mydomain)
+    .range(["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497",
+      "#ae017e", "#7a0177"]);
 
   function updateScale() {
 
@@ -28,19 +34,57 @@ var map = {};
     }
     mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
     //Scale color
-    color = d3.scale.threshold()
-      .domain(mydomain)
-      .range(["#f2f0f7", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497",
-      "#ae017e", "#7a0177"]);
-    //Scale tooltip
-    console.log(mydomain);
-    mydomain.map(function(el) {
-      return Math.round(el);
-    })
-    legend_labels = [mydomain[0] + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + (mydomain[5] - 1), mydomain[5] + "-" + (mydomain[6] - 1), mydomain[6] + "+"]
+  }
 
+  function updateLegend() {
+    //console.log(mydomain);
+
+
+    //Remove decimals from domain
+
+    var x = 0;
+    var len = mydomain.length
+    while (x < len) {
+      mydomain[x] = Math.floor(mydomain[x]);
+      x++
+    }
+    //Array of text
+    legend_labels = [mydomain[0] + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + (mydomain[5] - 1), mydomain[5] + "-" + (mydomain[6] - 1), mydomain[6] + "+"];
+    console.log(mydomain)
+
+    //Create Legend
+    legend = svg.selectAll("g.legend")
+      .data(mydomain)
+      .enter().append("g")
+      .attr("class", "legend");
+
+    //Color box sizes
+    var ls_w = 20,
+      ls_h = 20;
+    //Adds color box to legend
+    legend.append("rect")
+      .attr("x", 20)
+      .attr("y", function(d, i) {
+        return height - (i * ls_h) - 2 * ls_h;
+      })
+      .attr("width", ls_w)
+      .attr("height", ls_h)
+      .style("fill", function(d, i) {
+        return color(d);
+      })
+      .style("opacity", 0.8);
+    //Add legend text
+    legend.append("text")
+      .attr("x", 50)
+      .attr("y", function(d, i) {
+        return height - (i * ls_h) - ls_h - 4;
+      })
+      .text(function(d, i) {
+        return legend_labels[i];
+      });
 
   }
+
   //Variables for color legend
 
   var tooltip = d3.select("#map-container").append("div").attr("class",
@@ -183,37 +227,6 @@ var map = {};
 
     }) // on click slutar
 
-
-    //Create Legend
-    var legend = svg.selectAll("g.legend")
-      .data(mydomain)
-      .enter().append("g")
-      .attr("class", "legend");
-
-    //Color box sizes
-    var ls_w = 20,
-      ls_h = 20;
-    //Adds color box to legend
-    legend.append("rect")
-      .attr("x", 20)
-      .attr("y", function(d, i) {
-        return height - (i * ls_h) - 2 * ls_h;
-      })
-      .attr("width", ls_w)
-      .attr("height", ls_h)
-      .style("fill", function(d, i) {
-        return color(d);
-      })
-      .style("opacity", 0.8);
-    //Add legend text
-    legend.append("text")
-      .attr("x", 50)
-      .attr("y", function(d, i) {
-        return height - (i * ls_h) - ls_h - 4;
-      })
-      .text(function(d, i) {
-        return legend_labels[i];
-      });
   }
   /*draw slutar här*/
 
@@ -236,6 +249,7 @@ var map = {};
       return countryCount[cname].length;
     });
     updateScale();
+    updateLegend();
     //console.log(maxartists)
     draw(topo, redrawMap);
   }

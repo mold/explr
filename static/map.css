@@ -1,10 +1,10 @@
 .country{
-  fill: pink;
+  fill: #feebe2;
 }
 
 .country.highlighted, .country.highlighted:hover{
   stroke:#444;
-  stroke-width: 4px;
+  stroke-width: 2.5px;
 }
 
 .country:hover{
