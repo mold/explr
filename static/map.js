@@ -7,7 +7,10 @@ var map = {};
 
   var zoom = d3.behavior.zoom()
     .scaleExtent([1, 9])
-    .on("zoom", move);
+    .on("zoom", function(e) {
+      // console.log(d3.event);
+      move();
+    }); //move);
 
   var width = document.getElementById('map-container').offsetWidth;
   var height = width / 1.8;
@@ -217,12 +220,22 @@ var map = {};
   }
 
 
+  /**
+   * Moves the map to the specified location or based on the current zoom event
+   * @param  {Array} tr      Optional: Translation tuple [x, y]
+   * @param  {Number} sc      Optional: Scale factor
+   * @param  {Boolean} animate Optional: Decides whether to animate the map movement
+   */
+  function move(tr, sc, animate) {
+    var t = tr || (d3.event ? d3.event.translate : false) || zoom.translate();
+    var s = sc || (d3.event ? d3.event.scale : false) || zoom.scale();
 
-  function move() {
+    // If move was not initiated by clicking on a country, deselect the selected country
+    if (!tr && !sc) {
+      centered = null;
+    }
 
-    var t = d3.event.translate;
-    var s = d3.event.scale;
-    zscale = s;
+    var zscale = s;
     var h = height / 4;
 
     t[0] = Math.min(
@@ -236,13 +249,19 @@ var map = {};
     );
 
     zoom.translate(t);
-    g.attr("transform", "translate(" + t + ")scale(" + s + ")");
+    zoom.scale(s);
+
+    if (animate) {
+      g.transition().duration(950).attr("transform", "translate(" + t + ")scale(" + s + ")");
+
+    } else {
+      g.attr("transform", "translate(" + t + ")scale(" + s + ")");
+    }
 
     //adjust the country hover stroke width based on zoom level
     d3.selectAll(".country").style("stroke-width", 1.5 / s);
-
   }
-
+  map.move = move;
   var throttleTimer;
 
   function throttle() {
@@ -256,7 +275,7 @@ var map = {};
   //geo translation on mouse click in map
   function click() {
     var latlon = projection.invert(d3.mouse(this));
-    console.log(latlon);
+    // console.log(latlon);
   }
 
 
@@ -361,13 +380,11 @@ var map = {};
       //detailsDiv.classed("hidden", true);
     }
 
-    g.transition().duration(950).attr("transform",
-      "translate(" + projection.translate() + ")" +
-      "scale(" + k + ")" +
-      "translate(" + x + "," + y + ")");
-
-    d3.selectAll(".country").style("stroke-width", 1.5 / k);
-
+    var pt = projection.translate();
+    // Tell map to move with animation
+    // Basically does the same as before: translate to middle,
+    // then to x and y with respect to scale
+    move([pt[0] + x * k, pt[1] + y * k], k, true);
 
   }
 
