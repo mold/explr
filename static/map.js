@@ -272,6 +272,7 @@ var map = {};
     // If move was not initiated by clicking on a country, deselect the selected country
     if (!tr && !sc && centered) {
       highlightCountry(false);
+      removeArtistDiv();
       centered = null;
     }
 
