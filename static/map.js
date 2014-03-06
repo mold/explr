@@ -96,6 +96,9 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
       });
   }
 
+    var themeButton = d3.select("#map-container").append("button").attr("class",
+    "theme-button").html("Change theme");
+
   //Variables for color legend
 
   var tooltip = d3.select("#map-container").append("div").attr("class",
@@ -353,7 +356,9 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
           "px;top:" + (offsetT) + "px");
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
-      d3.select("#details").append("p").html(name).attr("class", "details-h");
+      d3.select("#details").append("h3")
+        .html("You have visited " + name + " through " + countryCount[d.id].length + " artists").attr("class", "details-h");
+      d3.select("#details").append("h4").html("Your top 5 artists from " + name + " are:").attr("class", "details-h2");
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
@@ -362,7 +367,8 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
             .attr("class", "image-div")
             .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
 
-          artistDiv.append("p").html(countryCount[d.id][i].artist + " playcount: " + countryCount[d.id][i].playcount).attr("class", "details-p");
+          artistDiv.append("p")
+            .html(countryCount[d.id][i].artist + " playcount: " + countryCount[d.id][i].playcount).attr("class", "details-p");
         } else {
           i = 5;
         }
@@ -378,6 +384,7 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
     d3.selectAll(".artist-div").remove("div");
     d3.select("button").remove("button");
     d3.select(".details-h").remove("p");
+    d3.select(".details-h2").remove("h4");
 
   }
 
