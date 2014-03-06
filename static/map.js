@@ -32,12 +32,15 @@ var theme = "white";
 
   //Returns total number of plays for country
   function getCountryPlaycount(c) {
-    var count = 0;
-    for (i = 0; i < countryCount[c.id].length; i++) {
-      count += countryCount[c.id][i].playcount;
-    }
-    console.log(count);
-    return count;
+    if (countryCount[c.id]) {
+      var count = 0;
+      for (i = 0; i < countryCount[c.id].length; i++) {
+        count += countryCount[c.id][i].playcount;
+      }
+      return count;
+    } else return 0;
+
+
   }
   //Function to format numbers over 1000 with a space
   function numbersWithSpace(x) {
@@ -437,7 +440,7 @@ var theme = "white";
   function click() {
     var latlon = projection.invert(d3.mouse(this));
     // console.log(latlon);
-    console.log(countryCount);
+    //console.log(countryCount);
   }
 
 
@@ -460,29 +463,21 @@ var theme = "white";
     //Show country name and info div on left hand side
     infoContainer
       .classed("hidden", false);
-    // .attr("style", "left:" + (width / 10) +
-    //   "px;top:" + (height / 14) + "px")
+
     cnameDiv
       .append("div").attr("class", "cnameContainer").attr("id", "cnameCont")
       .append("h1").html(name);
     d3.select("#cnameCont").append("h5")
-      .html(numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " plays")
-
+      .html(function() {
+        if (countryCount[d.id])
+          return numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " plays"
+        else return "No artists :-("
+      })
 
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
 
-      //Show details about the country
-      /*detailsDiv
-        .classed("hidden", false)
-        attr("style", "left:" + (width / 2) +
-          "px;top:" + (offsetT + 70) + "px");*/
-      //Show country name
-
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
 
-      /*d3.select("#details").append("h3")
-        .html("You have visited " + name + " through " + countryCount[d.id].length + " artists")
-        .attr("class", "details-h");*/
       d3.select("#details").append("h4")
         .html("Top artists: ")
         .attr("class", "details-h2");
@@ -623,6 +618,7 @@ var theme = "white";
       removeArtistDiv();
       highlightCountry(false);
       centered = null;
+
       //detailsDiv.classed("hidden", true);
     }
 
