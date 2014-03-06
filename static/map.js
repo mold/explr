@@ -120,9 +120,12 @@ var theme = "white";
 
     "theme-button").html("Paint it black"); */
 
-  var changeTheme = d3.select("#changeTheme").append("button").attr("class",
+  /*var changeTheme = d3.select("#changeTheme").append("button").attr("class",
 
-    "theme-button").html("Paint it blaaaack");
+    "theme-button").html("Paint it black");*/
+
+  var changeTheme = d3.select("#changeTheme").append("div").attr("id", "paintIt").html("Paint it black");
+
 
 
   //Variables for color legend
@@ -153,6 +156,7 @@ var theme = "white";
   function toBlackTheme() {
     d3.select("body").classed("black-theme", true);
     changeTheme.html("Paint it white");
+    changeTheme.style("color", "white");
     colorArray = ["#211f1D", "#211f1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
     toPinkBlack();
     theme = "black";
@@ -162,6 +166,7 @@ var theme = "white";
   function toWhiteTheme() {
     d3.select("body").classed("black-theme", false);
     changeTheme.html("Paint it black");
+    changeTheme.style("color", "black");
     colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
     //toRedWhite();
     theme = "white";

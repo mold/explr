@@ -31,7 +31,11 @@ width: 107px;
 height: 67px;
 }
 
-
+#paintIt{
+	/*padding:1em;*/
+	cursor: pointer;
+	color: #211f1D;
+}
 
 .colorChange span {
 /*display: inline-block;*/
