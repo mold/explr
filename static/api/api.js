@@ -101,7 +101,6 @@ d3.csv("../static/countries.csv", function(err, data) {
 			count++;
 			superCount++;
 			d3.select("#loading-text").html("Loading artists...<br>(" + superCount + "/" + SESSION.total_artists + ")");
-
 			if (count === artists.length) {
 				// We done, save artists and call back
 				window.localStorage.artists = JSON.stringify(STORED_ARTISTS);
@@ -111,7 +110,6 @@ d3.csv("../static/countries.csv", function(err, data) {
 
 		// Get countries for all artists
 		artists.forEach(function(el, i) {
-
 			// first check stored artists to see if we've already checked this artist
 			if (STORED_ARTISTS[el] && STORED_ARTISTS[el].country) {
 				var returnObject = STORED_ARTISTS[el].country;
@@ -169,4 +167,70 @@ api.getTags = function(artist, callback) {
 				callback(STORED_ARTISTS[artist].tags);
 			});
 	}
+}
+
+/**
+ * Gets a list of artists with tags similar to the user's top tags, sorted in descending order.
+ * Also included are which tags matched.
+ * @param  {String}   country  Name of country or country alias (sweden, swedish, your choice)
+ * @param  {Function} callback Callback function. Argument is a list of artists.
+ */
+api.getRecommendations = function(country, callback) {
+	var recommendations = [];
+
+	// get top tags for user
+	var toptags = USER_TAGS.slice(0, 50);
+	// make tag list to an object (back n forthss)
+	var userTagObj = d3.nest().key(function(d) {
+		return d.tag;
+	}).rollup(function(d) {
+		return d[0].count;
+	}).map(toptags);
+
+	// Get top artists for tag country
+	api.lastfm.send("tag.topartists", [["tag", country], ["limit", 100]], function(err, data1) {
+		// Gotta count matching tags to then sort
+		var tagCounts = {};
+
+		// Get the tags for these artists
+		var artists = data1.topartists.artist;
+		artists.forEach(function(a, num) {
+			tagCounts[a.name] = [];
+			api.lastfm.send("artist.gettoptags", [["artist", a.name]], function(err, data2) {
+				// Compare top 10 tags to user tags
+				var tags = d3.nest().key(function(d) {
+					return d.name;
+				}).map(data2.toptags.tag);
+
+				// Get rid of justin bieber
+				if (!tags[country]) {
+					return;
+				}
+
+				for (var i = data2.toptags.tag.length - 1; i >= 0; i--) {
+					if (userTagObj[data2.toptags.tag[i].name] && data2.toptags.tag[i].count > 5) {
+						tagCounts[a.name].push(data2.toptags.tag[i].name);
+					}
+				};
+
+				if (num === artists.length - 1) {
+					// We've gotten tag counts for all artists, make a list!
+					d3.keys(tagCounts).forEach(function(d) {
+						recommendations.push({
+							name: d,
+							count: tagCounts[d].length,
+							tags: tagCounts[d]
+						})
+					});
+
+					recommendations.sort(function(a, b) {
+						return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
+					})
+
+					callback(recommendations);
+				}
+
+			})
+		})
+	})
 }
