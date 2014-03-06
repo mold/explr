@@ -1,4 +1,6 @@
 var map = {};
+//White theme default:
+var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#dd3497", "#ae017e", "#7a0177"];
 
 (function(window, document) {
   d3.select(window).on("resize", throttle);
@@ -30,10 +32,23 @@ var map = {};
     }
     mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
 
+
+    function toBlackTheme() {
+      d3.select("body").classed("black-theme", true);
+      colorArray = ["#feebe2", "#211F1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"]
+    }
+
+    function toWhiteTheme() {
+      d3.select("body").classed("black-theme", false);
+      colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#dd3497", "#ae017e", "#7a0177"];
+    }
+
+    toBlackTheme();
+    //toWhiteTheme();
+
     color = d3.scale.threshold()
       .domain(mydomain)
-      .range(["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497",
-      "#ae017e", "#7a0177"]);
+      .range(colorArray);
   }
 
   function updateLegend() {
@@ -316,6 +331,20 @@ var map = {};
   //Skapar "details-on-demand"-divarna.
   function makeArtistDiv(d) {
 
+
+    //lägga till namn till detailseDiv
+    var name;
+    var tag;
+    //var id;
+    countryNames.forEach(function(e, i) {
+      if (e.id === d.id) {
+        name = e.name;
+        tag = e.tag;
+        //id = d.id;
+      };
+    })
+
+
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
 
       detailsDiv
@@ -324,6 +353,7 @@ var map = {};
           "px;top:" + (offsetT) + "px");
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
+      d3.select("#details").append("p").html(name).attr("class", "details-h");
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
@@ -332,7 +362,7 @@ var map = {};
             .attr("class", "image-div")
             .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
 
-          artistDiv.append("p").html(countryCount[d.id][i].artist).attr("class", "details-p");
+          artistDiv.append("p").html(countryCount[d.id][i].artist + " playcount: " + countryCount[d.id][i].playcount).attr("class", "details-p");
         } else {
           i = 5;
         }
@@ -347,6 +377,7 @@ var map = {};
     detailsDiv.classed("hidden", true);
     d3.selectAll(".artist-div").remove("div");
     d3.select("button").remove("button");
+    d3.select(".details-h").remove("p");
 
   }
 
