@@ -1,3 +1,15 @@
 body {
 	background-color: white;
 }
+
+.loader{
+	position: absolute;
+	z-index: 1000;
+	top: 50px;
+	padding: 25px 40px;
+	left: 80%;
+	background: rgba(255,255,255,0.5);
+	border-radius: 40px;
+	color: white;
+	text-align: center;
+}

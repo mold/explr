@@ -1,4 +1,5 @@
 var api = api || {};
+var superCount = 0;
 
 d3.csv("../static/countries.csv", function(err, data) {
 	alias = d3.nest()
@@ -98,6 +99,9 @@ d3.csv("../static/countries.csv", function(err, data) {
 		 */
 		var checkCount = function() {
 			count++;
+			superCount++;
+			d3.select("#loading-text").html("Loading artists...<br>(" + superCount + "/" + SESSION.total_artists + ")");
+
 			if (count === artists.length) {
 				// We done, save artists and call back
 				window.localStorage.artists = JSON.stringify(STORED_ARTISTS);
@@ -107,6 +111,7 @@ d3.csv("../static/countries.csv", function(err, data) {
 
 		// Get countries for all artists
 		artists.forEach(function(el, i) {
+
 			// first check stored artists to see if we've already checked this artist
 			if (STORED_ARTISTS[el] && STORED_ARTISTS[el].country) {
 				var returnObject = STORED_ARTISTS[el].country;
@@ -114,7 +119,6 @@ d3.csv("../static/countries.csv", function(err, data) {
 				returnList.push(returnObject);
 				checkCount();
 			} else {
-
 				var start = new Date().getTime();
 
 				api.getCountry(el, function(data) {
@@ -129,6 +133,9 @@ d3.csv("../static/countries.csv", function(err, data) {
 						returnList.push(data);
 					}
 					// console.log("apicall " + (new Date().getTime() - start) + " ms");
+
+					// Update loading div, whoah ugly code yeah whaddayagonnado
+
 
 					checkCount();
 				})

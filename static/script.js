@@ -14,9 +14,17 @@ var getAllArtists = function() {
     api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
     ["page", currPage]],
         function(error, responseData) {
+            SESSION.total_artists = +responseData.artists["@attr"].total;
+
             // maxPage = 3;
             maxPage = +responseData.artists["@attr"].totalPages;
             if (currPage > maxPage) {
+                var loader = d3.select(".loader");
+                loader.transition().duration(2000)
+                    .style("opacity", 0)
+                    .each("end", function() {
+                        loader.remove();
+                    });
                 return;
             }
 
