@@ -22,6 +22,7 @@ api.lastfm.send = function(method, options, callback) {
 			(el[1] + "")
 			.replace("&", "%26")
 			.replace("/", "%2F")
+			.replace("+", "%2B")
 			.replace("\\", "%5C");
 	});
 
