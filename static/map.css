@@ -50,37 +50,36 @@ div.tooltip {
 }
 
 .infoContainer{
-  margin-left: 2%;
-  width: 100%;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+  width: 99%;
   height: 150px;
   position: absolute;
-  top:7.5%;
-  background: rgba(255, 255, 255, 0.3);
+  top: 7.5%;
+  background: rgba(255, 255, 255, 0.5);
   border-top: 1px solid black;
+  z-index: 4;
 
 }
 
 
 div.detailsDiv {
- display:inline-block;
- color: #222; 
- float:right;
- margin-right: 15%;
- /* margin-left: 50%; */
- background: rgba(255, 255, 255, 0.3);
- padding: .5em;
-/* text-shadow: #f5f5f5 0 1px 0;
- border-radius: 2px; 
- box-shadow: 0px 0px 2px 0px #a6a6a6; */
- opacity: 0.9; 
- vertical-align: top;
- /* z-index: 3; */
+  display: inline-block;
+  color: #222;
+  float: right;
+  /* margin-right: 5%; */
+  padding: 0 30px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: px;
+  opacity: 0.9;
+  vertical-align: top;
+ 
 }
 
 div.cnameDiv {
   display: inline-block;
   /*background: rgba(255, 255, 255, 1.0);*/
-  margin-left: 15%;
+  margin-left: 5%;
   /*padding: .5em;
   text-shadow: #f5f5f5 0 1px 0;
   border-radius: 2px; 
@@ -112,7 +111,7 @@ div.artist-div{
   float: left;
   text-align: center;
   width: 7em;
-  padding-top: 3em;
+  padding-top: 0;
 
 
 }
@@ -156,8 +155,37 @@ div.image-div{
   stroke-width: 1px;
 }
 
-button.close-button{
-  top: 0px;
-  right: 0px;
-  position: absolute;
+
+.close-button{
+width:25px;
+height:25px;
+display:block;
+text-transform:uppercase;
+color:#444;
+background:#fff;
+border:0.1em solid #444;
+border-radius:0.2em;
+text-align:center;
+font-size:16px;
+font-weight: bold;
+line-height:1.1em;
+top: 0.1em;
+right: 0;
+position: absolute;
+cursor:pointer;
 }
+
+.close-button:hover{
+  color:#fff;
+  background: #aaa;
+}
+.close-button:active{
+  color:#444;
+  background: #fff;
+}
+
+
+
+
+
+

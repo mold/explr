@@ -478,7 +478,7 @@ var theme = "white";
           "px;top:" + (offsetT + 70) + "px");*/
       //Show country name
 
-      closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
+      closeButton = d3.select('#infoContainer').append("button").attr("type", "button").attr("class", "close-button").html("X");
 
       /*d3.select("#details").append("h3")
         .html("You have visited " + name + " through " + countryCount[d.id].length + " artists")
