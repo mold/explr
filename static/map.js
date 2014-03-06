@@ -35,6 +35,7 @@ var theme = "white";
     mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
 
 
+
     //toBlackTheme();
     //toWhiteTheme();
 
@@ -89,7 +90,7 @@ var theme = "white";
   }
 
     var themeButton = d3.select("#map-container").append("button").attr("class",
-    "theme-button").html("Change theme");
+    "theme-button").html("Paint it black");
 
   //Variables for color legend
 
@@ -104,17 +105,23 @@ var theme = "white";
   var offsetL;
   var offsetT;
 
-function toBlackTheme() {
+    function toBlackTheme() {
       
       d3.select("body").classed("black-theme", true);
-      colorArray = ["#feebe2", "#211F1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+      themeButton.html("Paint it white");
+      colorArray = ["#211F1D", "#211F1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
       theme = "black";
+      d3.select(".country").style("fill","#211F1D");
+      updateScale();
     }
 
     function toWhiteTheme() {
       d3.select("body").classed("black-theme", false);
-      colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#dd3497", "#ae017e", "#7a0177"];
+      themeButton.html("Paint it black");
+      colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
       theme = "white";
+      d3.select(".country").style("fill","#feebe2");
+      updateScale();
     }
 
 //-----------THEME BUTTON---------------------//
