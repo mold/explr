@@ -76,9 +76,27 @@ p.details-p{
 
 
 .details-h{
-  
-
 }
+
+.close-button{
+width:25px;
+height:25px;
+display:block;
+text-transform:uppercase;
+color:#444;
+background:#fff;
+border:0.1em solid #444;
+border-radius:0.2em;
+text-align:center;
+font-size:16px;
+font-weight: bold;
+line-height:1.1em;
+top: 0.3em;
+right: 0.3em;
+position: absolute;
+}
+
+
 
 div.image-div{
   height: 6em;
@@ -106,9 +124,9 @@ div.image-div{
   stroke: #ccc;
   stroke-width: 1px;
 }*/
-
+/*
 button.close-button{
   top: 0px;
   right: 0px;
   position: absolute;
-}
+}*/

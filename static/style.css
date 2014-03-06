@@ -15,7 +15,9 @@ body {
 }
 
 .theme-button {
-	height: 3em;
-	width: 3em;
-	background: yellow;
+	font-size: 14px;
+	background: white;
+	position: fixed;
+	left: 150px;
+	bottom: 45px;
 }
