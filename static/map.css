@@ -53,15 +53,13 @@ div.detailsDiv {
   box-shadow: 0px 0px 2px 0px #a6a6a6; 
   opacity: 0.9; 
   position: absolute;
-  text-align: center;
-
 }
 
 div.artist-div{
   float: left;
   text-align: center;
   width: 7em;
-  padding-top: 3em;
+  padding-top: 1em;
 
 }
 
@@ -75,7 +73,8 @@ p.details-p{
 }
 
 
-.details-h{
+h4.details-h2{
+  margin-bottom: 0;
 }
 
 .close-button{

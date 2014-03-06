@@ -92,7 +92,7 @@ var theme = "white";
       });
   }
 
-    var themeButton = d3.select("#map-container").append("button").attr("class",
+  var themeButton = d3.select("#map-container").append("button").attr("class",
     "theme-button").html("Paint it black");
 
   //Variables for color legend
@@ -108,24 +108,24 @@ var theme = "white";
   var offsetL;
   var offsetT;
 
-    function toBlackTheme() {
-      
-      d3.select("body").classed("black-theme", true);
-      themeButton.html("Paint it white");
-      colorArray = ["#211F1D", "#211F1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
-      theme = "black";
-      d3.select(".country").style("fill","#211F1D");
-      updateScale();
-    }
+  function toBlackTheme() {
 
-    function toWhiteTheme() {
-      d3.select("body").classed("black-theme", false);
-      themeButton.html("Paint it black");
-      colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
-      theme = "white";
-      d3.select(".country").style("fill","#feebe2");
-      updateScale();
-    }
+    d3.select("body").classed("black-theme", true);
+    themeButton.html("Paint it white");
+    colorArray = ["#211F1D", "#211F1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+    theme = "black";
+    d3.select(".country").style("fill", "#211F1D");
+    updateScale();
+  }
+
+  function toWhiteTheme() {
+    d3.select("body").classed("black-theme", false);
+    themeButton.html("Paint it black");
+    colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+    theme = "white";
+    d3.select(".country").style("fill", "#feebe2");
+    updateScale();
+  }
 
   //-----------THEME BUTTON---------------------//
   themeButton.on("click", function(d, i) {
@@ -389,7 +389,7 @@ var theme = "white";
         .html("You have visited " + name + " through " + countryCount[d.id].length + " artists")
         .attr("class", "details-h");*/
       d3.select("#details").append("h4")
-        .html("Your top 5 artists from " + name)
+        .html("Your top 5 scrobeled artists: ")
         .attr("class", "details-h2");
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
