@@ -29,6 +29,20 @@ var theme = "white";
   //Setting color and range to be used
   var color;
 
+  //Returns total number of plays for country
+  function getCountryPlaycount(c) {
+    var count = 0;
+    for (i = 0; i < countryCount[c.id].length; i++) {
+      count += countryCount[c.id][i].playcount;
+    }
+    console.log(count);
+    return count;
+  }
+  //Function to format numbers over 1000 with a space
+  function numbersWithSpace(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
+
 
   function updateScale() {
 
@@ -88,6 +102,7 @@ var theme = "white";
   }
 
   var themeButton = d3.select("#map-container").append("button").attr("class",
+
     "theme-button").html("Paint it black");
 
   //Variables for color legend
@@ -98,10 +113,16 @@ var theme = "white";
   var detailsDiv = d3.select("#map-container").append("div").attr("class",
     "detailsDiv hidden").attr("id", "details");
 
+  var cnameDiv = d3.select("#map-container").append("div").attr("class",
+    "cnameDiv hidden").attr("id", "cname");
+
+
+
   var closeButton;
 
   var offsetL;
   var offsetT;
+
 
 
   //-----------THEME FUNCTIONS---------------------//
@@ -109,7 +130,8 @@ var theme = "white";
   function toBlackTheme() {
     d3.select("body").classed("black-theme", true);
     themeButton.html("Paint it white");
-    colorArray = ["#211F1D", "#211F1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+    colorArray = ["#211f1D", "#211f1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+    toPinkBlack();
     theme = "black";
     redraw(true);
   }
@@ -118,8 +140,33 @@ var theme = "white";
     d3.select("body").classed("black-theme", false);
     themeButton.html("Paint it black");
     colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+    //toRedWhite();
     theme = "white";
     redraw(true);
+  }
+
+  function toBlueBlack() {
+    colorArray = ["#03020D", "#140E1F", "#2A075A", "#321C78", "#362688", "#3E3CA7", "#4651C5", "#5371F4"];
+  }
+
+  function toGreenBlack() {
+    colorArray = ["#03020D", "#08120C", "#032F30", "#064137", "#0E6745", "#158C54", "#1CB162", "#28EA78"];
+  }
+
+  function toPinkBlack() {
+    colorArray = ["#03020D", "#211f1D", "#4B0627", "#5C1138", "#7E285C", "#A13F80", "#C355A4", "#F778DA"];
+  }
+
+  function toPinkWhite() {
+    colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+  }
+
+  function toGreenWhite() {
+    colorArray = ["#ece2f0", "#F6EBFA", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c"];
+  }
+
+  function toRedWhite() {
+    colorArray = ["#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"];
   }
 
   //-----------THEME BUTTON---------------------//
@@ -205,8 +252,8 @@ var theme = "white";
     })
 
     //offsets for tooltips
-    offsetL = document.getElementById('map-container').offsetLeft + 20;
-    offsetT = document.getElementById('map-container').offsetTop + 10;
+    offsetL = document.getElementById('map-container').offsetLeft;
+    offsetT = document.getElementById('map-container').offsetTop;
 
     //tooltips
     country
@@ -224,9 +271,9 @@ var theme = "white";
         });
 
         tooltip.classed("hidden", false)
-          .attr("style", "left:" + (mouse[0] + offsetL) + "px;top:" + (
+          .attr("style", "left:" + (mouse[0] + offsetL + 20) + "px;top:" + (
             mouse[1] +
-            offsetT) + "px")
+            offsetT + 10) + "px")
           .html(name + (countryCount[d.id] ? ", number of artists: " +
             countryCount[d.id].length : ""));
 
@@ -350,6 +397,7 @@ var theme = "white";
   function click() {
     var latlon = projection.invert(d3.mouse(this));
     // console.log(latlon);
+    console.log(countryCount);
   }
 
 
@@ -369,14 +417,26 @@ var theme = "white";
         //id = d.id;
       };
     })
+    //Show country name and info div on left hand side
+
 
 
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
 
+      //Show details about the country
       detailsDiv
         .classed("hidden", false)
         .attr("style", "left:" + (width / 2) +
-          "px;top:" + (offsetT) + "px");
+          "px;top:" + (offsetT + 70) + "px");
+      //Show country name
+      cnameDiv
+        .classed("hidden", false)
+        .attr("style", "left:" + (width / 10) +
+          "px;top:" + (height / 14) + "px")
+        .append("div").attr("class", "cnameContainer").attr("id", "cnameCont")
+        .append("h1").html(name);
+      d3.select("#cnameCont").append("h5")
+        .html(numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " plays")
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
 
@@ -384,18 +444,21 @@ var theme = "white";
         .html("You have visited " + name + " through " + countryCount[d.id].length + " artists")
         .attr("class", "details-h");*/
       d3.select("#details").append("h4")
-        .html("Your top 5 artists from " + name)
+        .html("Top artists: ")
         .attr("class", "details-h2");
 
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
-          var artistLink = artistDiv.append("a").style("display", "block").attr("href", countryCount[d.id][i].url);
+          var artistLink = artistDiv.append("a").style("display", "block").attr("href", countryCount[d.id][i].url)
+            .attr("target", "_blank");
           artistLink.append("div")
             .attr("class", "image-div")
             .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
 
-          artistDiv.append("p")
+          var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
+
+          playCountDiv.append("p")
             .html(countryCount[d.id][i].artist + " playcount: " + countryCount[d.id][i].playcount)
             .attr("class", "details-p");
         } else {
@@ -415,6 +478,10 @@ var theme = "white";
     d3.select(".details-h").remove("p");
     d3.select(".details-h2").remove("h4");
 
+
+    cnameDiv.classed("hidden", true);
+    d3.select("#cnameCont").remove("h1");
+    d3.select("#cnameCont").remove("h5");
   }
 
   /**
@@ -447,6 +514,9 @@ var theme = "white";
     var x, y, k;
     //bounding box for clicked country
     var b = path.bounds(d);
+
+    getCountryPlaycount(d);
+
     //Set scale
     var modscaleX = (b[1][0] - b[0][0]);
     var modscaleY = (b[1][1] - b[0][1]);
@@ -466,9 +536,9 @@ var theme = "white";
       //Special rules for special countries:
       switch (d.id) {
         case 840: //US
-          k = 2.2;
+          k = 3;
           x = -(b[1][0] + b[0][0]) / 3;
-          y = -(b[1][1] + b[0][1]) / 1.6;
+          y = -(b[1][1] + b[0][1]) / 1.7;
           break;
         case 250: //France
           k = 7.012;
@@ -489,6 +559,11 @@ var theme = "white";
           k = 4;
           x = -(b[1][0] + b[0][0]) / 0.90;
           y = -(b[1][1] + b[0][1]) / 1.8;
+          break;
+        case 36: //Australia
+          k = 3.3;
+          x = -(b[1][0] + b[0][0]) / 1.8;
+          y = -(b[1][1] + b[0][1]) / 2.1;
           break;
 
         default: //Everybody else
