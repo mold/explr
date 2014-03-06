@@ -42,6 +42,7 @@ div.tooltip {
   box-shadow: 0px 0px 2px 0px #a6a6a6; 
   opacity: 0.9; 
   position: absolute;
+  z-index:2;
 }
 
 div.detailsDiv {
@@ -54,7 +55,7 @@ div.detailsDiv {
   opacity: 0.9; 
   position: absolute;
   text-align: center;
-
+  z-index: 3;
 }
 
 div.artist-div{

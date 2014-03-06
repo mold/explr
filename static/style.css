@@ -5,7 +5,7 @@ body {
 
 .loader{
 	position: absolute;
-	z-index: 1000;
+	z-index: 1;
 	top: 50px;
 	padding: 25px 40px;
 	left: 80%;
@@ -13,6 +13,7 @@ body {
 	border-radius: 40px;
 	color: white;
 	text-align: center;
+	pointer-events:none;
 }
 
 .theme-button {
