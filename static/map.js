@@ -324,6 +324,20 @@ var map = {};
   //Skapar "details-on-demand"-divarna.
   function makeArtistDiv(d) {
 
+
+    //lägga till namn till detailseDiv
+    var name;
+    var tag;
+    //var id;
+    countryNames.forEach(function(e, i) {
+      if (e.id === d.id) {
+        name = e.name;
+        tag = e.tag;
+        //id = d.id;
+      };
+    })
+
+
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
 
       detailsDiv
@@ -332,6 +346,7 @@ var map = {};
           "px;top:" + (offsetT) + "px");
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
+      d3.select("#details").append("p").html(name).attr("class", "details-h");
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
@@ -355,6 +370,7 @@ var map = {};
     detailsDiv.classed("hidden", true);
     d3.selectAll(".artist-div").remove("div");
     d3.select("button").remove("button");
+    d3.select(".details-h").remove("p");
 
   }
 
