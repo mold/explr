@@ -4,15 +4,15 @@
 
 .country.highlighted, .country.highlighted:hover{
   stroke:#444;
-  stroke-width: 2.5px;
+  stroke-width: 0.5em;
 }
 
 .country:hover{
   stroke: #FFF7EE;
-  stroke-width: 1.5px;
+  stroke-width: 0.25em;
 }
 .text{
-  font-size:10px;
+  font-size:1em;
   text-transform:capitalize;
 }
 #map-container {
@@ -30,10 +30,7 @@
   display: none; 
 }
 .legend {
-  font-size: 12px;
-}
-.active {
-  
+  font-size: 1em;
 }
 
 div.tooltip {
@@ -60,15 +57,11 @@ div.detailsDiv {
 
 }
 
-
-
-
 div.artist-div{
   float: left;
   text-align: center;
   width: 7em;
   padding-top: 3em;
-
 
 }
 
@@ -98,8 +91,7 @@ div.image-div{
   -o-background-size: cover;
   background-size: cover;
 }
-
-
+/*
 .graticule {
   fill: none;
   stroke: #bbb;
@@ -109,7 +101,7 @@ div.image-div{
 .equator {
   stroke: #ccc;
   stroke-width: 1px;
-}
+}*/
 
 button.close-button{
   top: 0px;
