@@ -455,7 +455,9 @@ var theme = "white";
             .attr("class", "image-div")
             .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
 
-          artistDiv.append("p")
+          var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
+
+          playCountDiv.append("p")
             .html(countryCount[d.id][i].artist + " playcount: " + countryCount[d.id][i].playcount)
             .attr("class", "details-p");
         } else {
@@ -535,7 +537,7 @@ var theme = "white";
         case 840: //US
           k = 3;
           x = -(b[1][0] + b[0][0]) / 3;
-          y = -(b[1][1] + b[0][1]) / 1.6;
+          y = -(b[1][1] + b[0][1]) / 1.7;
           break;
         case 250: //France
           k = 7.012;
