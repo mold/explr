@@ -1,3 +1,22 @@
+/**
+ * The loader div (contains bubbles and text)
+ */
+.loader{
+	position: absolute;
+	z-index: 1;
+	top: 50px;
+	padding: 25px 40px;
+	left: 80%;
+	background: rgba(255,255,255,0.5);
+	border-radius: 40px;
+	color: white;
+	text-align: center;
+	pointer-events:none;
+}
+
+/**
+ * THE BUBBLES!!!!
+ */
 .bubblingG {
 text-align: center;
 width:107px;
@@ -131,3 +150,4 @@ transform: translateY(-28px);
 }
 
 }
+
