@@ -108,14 +108,15 @@ var theme = "white";
   var offsetL;
   var offsetT;
 
+
+  //-----------THEME FUNCTIONS---------------------//
+  
     function toBlackTheme() {
-      
       d3.select("body").classed("black-theme", true);
       themeButton.html("Paint it white");
       colorArray = ["#211F1D", "#211F1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
       theme = "black";
-      d3.select(".country").style("fill","#211F1D");
-      updateScale();
+      redraw(true);
     }
 
     function toWhiteTheme() {
@@ -123,8 +124,7 @@ var theme = "white";
       themeButton.html("Paint it black");
       colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
       theme = "white";
-      d3.select(".country").style("fill","#feebe2");
-      updateScale();
+      redraw(true);
     }
 
   //-----------THEME BUTTON---------------------//
