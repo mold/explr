@@ -127,9 +127,11 @@ cursor:pointer;
 }
 
 .close-button:hover{
+  color:#fff;
   background: #aaa;
 }
 .close-button:active{
+  color:#444;
   background: #fff;
 }
 
