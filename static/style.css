@@ -4,10 +4,46 @@ body {
 }
 
 .theme-button {
-	font-size: 14px;
+	/*font-size: 14px;
 	background: white;
 	position: fixed;
 	left: 150px;
-	bottom: 45px;
+	bottom: 45px;*/
+	z-index: 2;
 
+}
+
+#colors{
+pointer-events: all;
+position: fixed;
+left: 150px;
+bottom: 30px;
+top: 450px;
+/*width: 107px;
+height: 67px;*/
+}
+div.colorChange{
+text-align: center;
+/*position: fixed; */
+/*left: 150px;
+bottom: 45px;*/
+width: 107px;
+height: 67px;
+}
+
+
+
+.colorChange span {
+/*display: inline-block;*/
+vertical-align: bottom;
+
+width: 13px;
+height: 13px;
+margin: 33px auto;
+background: rgba(255,255,255,1);
+/*-moz-border-radius: 67px;
+-webkit-border-radius: 67px;
+-ms-border-radius: 67px;
+-o-border-radius: 67px;*/
+border-radius: 67px;
 }

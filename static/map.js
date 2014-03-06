@@ -1,6 +1,7 @@
 var map = {};
 //White theme default:
 var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+var legend;
 
 var theme = "white";
 
@@ -55,8 +56,22 @@ var theme = "white";
     var legend_labels = [mydomain[0] + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + (mydomain[5] - 1), mydomain[5] + "-" + (mydomain[6] - 1), mydomain[6] + "+"];
 
     //Create Legend
-    var legend = svg.selectAll("g.legend")
+    legend = svg.selectAll("g.legend")
       .data(mydomain);
+
+    // Change colors on click.
+    legend.on("click", function(d, i) {
+      if (theme == "white") {
+        toGreenWhite();
+        redraw();
+        return;
+      }
+      if (theme == "black") {
+        toBlueBlack();
+        redraw();
+        return;
+      }
+    });
 
     //Color box sizes
     var ls_w = 20,
@@ -87,9 +102,14 @@ var theme = "white";
       });
   }
 
-  var themeButton = d3.select("#map-container").append("button").attr("class",
+  /*var themeButton = d3.select("#map-container").append("button").attr("class",
 
-    "theme-button").html("Paint it black");
+    "theme-button").html("Paint it black"); */
+
+  var changeTheme = d3.select("#changeTheme").append("button").attr("class",
+
+    "theme-button").html("Paint it blaaaack");
+
 
   //Variables for color legend
 
@@ -112,51 +132,63 @@ var theme = "white";
 
 
   //-----------THEME FUNCTIONS---------------------//
-  
-    function toBlackTheme() {
-      d3.select("body").classed("black-theme", true);
-      themeButton.html("Paint it white");
-      colorArray = ["#211f1D", "#211f1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
-      toPinkBlack();
-      theme = "black";
-      redraw(true);
-    }
 
-    function toWhiteTheme() {
-      d3.select("body").classed("black-theme", false);
-      themeButton.html("Paint it black");
-      colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
-      //toRedWhite();
-      theme = "white";
-      redraw(true);
-    }
+  function toBlackTheme() {
+    d3.select("body").classed("black-theme", true);
+    changeTheme.html("Paint it white");
+    colorArray = ["#211f1D", "#211f1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+    toPinkBlack();
+    theme = "black";
+    redraw(true);
+  }
 
-    function toBlueBlack(){
-      colorArray = ["#03020D", "#140E1F", "#2A075A", "#321C78", "#362688", "#3E3CA7", "#4651C5", "#5371F4"];
-    }
+  function toWhiteTheme() {
+    d3.select("body").classed("black-theme", false);
+    changeTheme.html("Paint it black");
+    colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+    //toRedWhite();
+    theme = "white";
+    redraw(true);
+  }
 
-    function toGreenBlack(){
-      colorArray = ["#03020D", "#08120C", "#032F30", "#064137", "#0E6745", "#158C54", "#1CB162", "#28EA78"];
-    }
+  //---------------------- Color preferences -------------//
+  function toBlueBlack() {
+    colorArray = ["#03020D", "#140E1F", "#2A075A", "#321C78", "#362688", "#3E3CA7", "#4651C5", "#5371F4"];
+  }
 
-    function toPinkBlack(){
-      colorArray = ["#03020D", "#211f1D", "#4B0627", "#5C1138", "#7E285C", "#A13F80", "#C355A4", "#F778DA"];
-    }
+  function toGreenBlack() {
+    colorArray = ["#03020D", "#08120C", "#032F30", "#064137", "#0E6745", "#158C54", "#1CB162", "#28EA78"];
+  }
 
-    function toPinkWhite(){
-      colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
-    }
+  function toPinkBlack() {
+    colorArray = ["#03020D", "#211f1D", "#4B0627", "#5C1138", "#7E285C", "#A13F80", "#C355A4", "#F778DA"];
+  }
 
-    function toGreenWhite(){
-      colorArray = ["#ece2f0", "#F6EBFA", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c"];
-    }
+  function toPinkWhite() {
+    colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+  }
 
-    function toRedWhite(){
-      colorArray = ["#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"];
-    }
+  function toGreenWhite() {
+    colorArray = ["#ece2f0", "#F6EBFA", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c"];
+  }
+
+  function toRedWhite() {
+    colorArray = ["#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"];
+  }
 
   //-----------THEME BUTTON---------------------//
-  themeButton.on("click", function(d, i) {
+  /*themeButton.on("click", function(d, i) {
+    if (theme == "white") {
+      toBlackTheme();
+      return;
+    }
+    if (theme == "black") {
+      toWhiteTheme();
+      return;
+    }
+  }); */
+
+  changeTheme.on("click", function(d, i) {
     if (theme == "white") {
       toBlackTheme();
       return;
@@ -166,7 +198,6 @@ var theme = "white";
       return;
     }
   });
-
 
   setup(width, height);
 
