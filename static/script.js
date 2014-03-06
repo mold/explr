@@ -113,7 +113,6 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
         }).rollup(function(d) {
             return d[0];
         }).map(countriesList);
-        console.log(USER_TAGS);
         // Get "all" artists from one country
         // countriesList.forEach(function(country){
 
@@ -137,12 +136,11 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
     }
 
     var getUserTags = function(err, data) {
-        var t = 50,
-            c = 0;
+        var c = 0;
 
         var tagCount = {};
 
-        var top50 = data.topartists.artist;
+        var topArtists = data.topartists.artist;
         var done = function() {
             // make list of tags to sort
             USER_TAGS = [];
@@ -155,11 +153,10 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
             USER_TAGS.sort(function(a, b) {
                 return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
             });
-
             window.localStorage.user_tags = JSON.stringify(USER_TAGS);
         }
 
-        top50.forEach(function(el, i) {
+        topArtists.forEach(function(el, i) {
             // get top ten tags and save to users tag count....
             setTimeout(function() { // Set timeout to not stop artists from loading...
                 api.lastfm.send("artist.gettoptags", [["artist", el.name]], function(err, data) {
@@ -176,7 +173,8 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
                         }
                     }
                     c++;
-                    if (c == t) {
+                    console.log(c, topArtists.length)
+                    if (c == topArtists.length - 1) {
                         done();
                     }
                 });
@@ -184,7 +182,6 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
         });
 
     }
-
     if (USER_TAGS.length === 0) {
         api.lastfm.send("user.gettopartists", [["user", user], ["period", "12months"]], getUserTags);
     }
