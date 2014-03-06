@@ -115,7 +115,8 @@ var theme = "white";
     function toBlackTheme() {
       d3.select("body").classed("black-theme", true);
       themeButton.html("Paint it white");
-      colorArray = ["#211F1D", "#211F1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+      colorArray = ["#211f1D", "#211f1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+      toPinkBlack();
       theme = "black";
       redraw(true);
     }
@@ -124,8 +125,33 @@ var theme = "white";
       d3.select("body").classed("black-theme", false);
       themeButton.html("Paint it black");
       colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+      //toRedWhite();
       theme = "white";
       redraw(true);
+    }
+
+    function toBlueBlack(){
+      colorArray = ["#03020D", "#140E1F", "#2A075A", "#321C78", "#362688", "#3E3CA7", "#4651C5", "#5371F4"];
+    }
+
+    function toGreenBlack(){
+      colorArray = ["#03020D", "#08120C", "#032F30", "#064137", "#0E6745", "#158C54", "#1CB162", "#28EA78"];
+    }
+
+    function toPinkBlack(){
+      colorArray = ["#03020D", "#211f1D", "#4B0627", "#5C1138", "#7E285C", "#A13F80", "#C355A4", "#F778DA"];
+    }
+
+    function toPinkWhite(){
+      colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+    }
+
+    function toGreenWhite(){
+      colorArray = ["#ece2f0", "#F6EBFA", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c"];
+    }
+
+    function toRedWhite(){
+      colorArray = ["#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"];
     }
 
   //-----------THEME BUTTON---------------------//
