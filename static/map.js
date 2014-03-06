@@ -43,8 +43,8 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
       colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#dd3497", "#ae017e", "#7a0177"];
     }
 
-    toBlackTheme();
-    //toWhiteTheme();
+    //toBlackTheme();
+    toWhiteTheme();
 
     color = d3.scale.threshold()
       .domain(mydomain)
@@ -96,7 +96,7 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
       });
   }
 
-    var themeButton = d3.select("#map-container").append("button").attr("class",
+  var themeButton = d3.select("#map-container").append("button").attr("class",
     "theme-button").html("Change theme");
 
   //Variables for color legend
@@ -106,6 +106,11 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
 
   var detailsDiv = d3.select("#map-container").append("div").attr("class",
     "detailsDiv hidden").attr("id", "details");
+
+  var cnameDiv = d3.select("#map-container").append("div").attr("class",
+    "cnameDiv hidden").attr("id", "cname");
+
+
 
   var closeButton;
 
@@ -346,14 +351,26 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
         //id = d.id;
       };
     })
+    //Show country name and info div on left hand side
+
 
 
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
 
+      //Show details about the country
       detailsDiv
         .classed("hidden", false)
         .attr("style", "left:" + (width / 2) +
           "px;top:" + (offsetT) + "px");
+      //Show country name
+      cnameDiv
+        .classed("hidden", false)
+        .attr("style", "left:" + (width / 10) +
+          "px;top:" + (height / 14) + "px")
+        .append("div").attr("class", "cnameContainer").attr("id", "cnameCont")
+        .append("h1").html(name);
+      d3.select("#cnameCont").append("h5")
+        .html(countryCount[d.id].length + " artists")
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
       d3.select("#details").append("h3")
@@ -386,6 +403,10 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
     d3.select(".details-h").remove("p");
     d3.select(".details-h2").remove("h4");
 
+
+    cnameDiv.classed("hidden", true);
+    d3.select("#cnameCont").remove("h1");
+    d3.select("#cnameCont").remove("h5");
   }
 
   /**
