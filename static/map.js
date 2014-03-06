@@ -501,7 +501,7 @@ var theme = "white";
           var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
 
           playCountDiv.append("p")
-            .html(countryCount[d.id][i].artist + " playcount: " + countryCount[d.id][i].playcount)
+            .html(countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " plays")
             .attr("class", "details-p");
         } else {
           i = 5;
