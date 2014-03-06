@@ -126,48 +126,48 @@ var theme = "white";
 
 
   //-----------THEME FUNCTIONS---------------------//
-  
-    function toBlackTheme() {
-      d3.select("body").classed("black-theme", true);
-      themeButton.html("Paint it white");
-      colorArray = ["#211f1D", "#211f1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
-      toPinkBlack();
-      theme = "black";
-      redraw(true);
-    }
 
-    function toWhiteTheme() {
-      d3.select("body").classed("black-theme", false);
-      themeButton.html("Paint it black");
-      colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
-      //toRedWhite();
-      theme = "white";
-      redraw(true);
-    }
+  function toBlackTheme() {
+    d3.select("body").classed("black-theme", true);
+    themeButton.html("Paint it white");
+    colorArray = ["#211f1D", "#211f1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+    toPinkBlack();
+    theme = "black";
+    redraw(true);
+  }
 
-    function toBlueBlack(){
-      colorArray = ["#03020D", "#140E1F", "#2A075A", "#321C78", "#362688", "#3E3CA7", "#4651C5", "#5371F4"];
-    }
+  function toWhiteTheme() {
+    d3.select("body").classed("black-theme", false);
+    themeButton.html("Paint it black");
+    colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+    //toRedWhite();
+    theme = "white";
+    redraw(true);
+  }
 
-    function toGreenBlack(){
-      colorArray = ["#03020D", "#08120C", "#032F30", "#064137", "#0E6745", "#158C54", "#1CB162", "#28EA78"];
-    }
+  function toBlueBlack() {
+    colorArray = ["#03020D", "#140E1F", "#2A075A", "#321C78", "#362688", "#3E3CA7", "#4651C5", "#5371F4"];
+  }
 
-    function toPinkBlack(){
-      colorArray = ["#03020D", "#211f1D", "#4B0627", "#5C1138", "#7E285C", "#A13F80", "#C355A4", "#F778DA"];
-    }
+  function toGreenBlack() {
+    colorArray = ["#03020D", "#08120C", "#032F30", "#064137", "#0E6745", "#158C54", "#1CB162", "#28EA78"];
+  }
 
-    function toPinkWhite(){
-      colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
-    }
+  function toPinkBlack() {
+    colorArray = ["#03020D", "#211f1D", "#4B0627", "#5C1138", "#7E285C", "#A13F80", "#C355A4", "#F778DA"];
+  }
 
-    function toGreenWhite(){
-      colorArray = ["#ece2f0", "#F6EBFA", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c"];
-    }
+  function toPinkWhite() {
+    colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+  }
 
-    function toRedWhite(){
-      colorArray = ["#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"];
-    }
+  function toGreenWhite() {
+    colorArray = ["#ece2f0", "#F6EBFA", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c"];
+  }
+
+  function toRedWhite() {
+    colorArray = ["#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"];
+  }
 
   //-----------THEME BUTTON---------------------//
   themeButton.on("click", function(d, i) {
@@ -251,8 +251,8 @@ var theme = "white";
     })
 
     //offsets for tooltips
-    offsetL = document.getElementById('map-container').offsetLeft + 20;
-    offsetT = document.getElementById('map-container').offsetTop + 70;
+    offsetL = document.getElementById('map-container').offsetLeft;
+    offsetT = document.getElementById('map-container').offsetTop;
 
     //tooltips
     country
@@ -270,9 +270,9 @@ var theme = "white";
         });
 
         tooltip.classed("hidden", false)
-          .attr("style", "left:" + (mouse[0] + offsetL) + "px;top:" + (
+          .attr("style", "left:" + (mouse[0] + offsetL + 20) + "px;top:" + (
             mouse[1] +
-            offsetT) + "px")
+            offsetT + 10) + "px")
           .html(name + (countryCount[d.id] ? ", number of artists: " +
             countryCount[d.id].length : ""));
 
@@ -426,7 +426,7 @@ var theme = "white";
       detailsDiv
         .classed("hidden", false)
         .attr("style", "left:" + (width / 2) +
-          "px;top:" + (offsetT) + "px");
+          "px;top:" + (offsetT + 70) + "px");
       //Show country name
       cnameDiv
         .classed("hidden", false)
