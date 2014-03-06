@@ -434,7 +434,8 @@ var theme = "white";
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
-          var artistLink = artistDiv.append("a").style("display", "block").attr("href", countryCount[d.id][i].url);
+          var artistLink = artistDiv.append("a").style("display", "block").attr("href", countryCount[d.id][i].url)
+            .attr("target", "_blank");
           artistLink.append("div")
             .attr("class", "image-div")
             .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
