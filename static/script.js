@@ -17,10 +17,10 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
             function(error, responseData) {
                 if (currPage === 1) {
                     SESSION.total_artists = +responseData.artists["@attr"].total;
+                    maxPage = +responseData.artists["@attr"].totalPages;
                 }
 
                 // maxPage = 7;
-                maxPage = +responseData.artists["@attr"].totalPages;
                 if (currPage > maxPage) {
                     var loader = d3.select(".loader");
                     loader.transition().duration(2000)
@@ -164,7 +164,11 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
             setTimeout(function() { // Set timeout to not stop artists from loading...
                 api.lastfm.send("artist.gettoptags", [["artist", el.name]], function(err, data) {
                     taglist = data.toptags.tag;
-                    for (var i = 0; i < Math.min(taglist.length, 10); i++) {
+                    if (!taglist) {
+                        return;
+                    }
+                    var lim = Math.min(taglist.length, 10);
+                    for (var i = 0; i < lim; i++) {
                         if (tagCount[taglist[i].name]) {
                             tagCount[taglist[i].name]++;
                         } else {

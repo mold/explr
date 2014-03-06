@@ -1,6 +1,7 @@
 var map = {};
 //White theme default:
 var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+var legend;
 
 var theme = "white";
 
@@ -69,8 +70,22 @@ var theme = "white";
     var legend_labels = [mydomain[0] + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + (mydomain[5] - 1), mydomain[5] + "-" + (mydomain[6] - 1), mydomain[6] + "+"];
 
     //Create Legend
-    var legend = svg.selectAll("g.legend")
+    legend = svg.selectAll("g.legend")
       .data(mydomain);
+
+    // Change colors on click.
+    legend.on("click", function(d, i) {
+      if (theme == "white") {
+        toGreenWhite();
+        redraw();
+        return;
+      }
+      if (theme == "black") {
+        toBlueBlack();
+        redraw();
+        return;
+      }
+    });
 
     //Color box sizes
     var ls_w = 20,
@@ -101,23 +116,31 @@ var theme = "white";
       });
   }
 
-  var themeButton = d3.select("#map-container").append("button").attr("class",
+  /*var themeButton = d3.select("#map-container").append("button").attr("class",
 
-    "theme-button").html("Paint it black");
+    "theme-button").html("Paint it black"); */
+
+  /*var changeTheme = d3.select("#changeTheme").append("button").attr("class",
+
+    "theme-button").html("Paint it black");*/
+
+  var changeTheme = d3.select("#changeTheme").append("div").attr("id", "paintIt").html("Paint it black");
+
+
 
   //Variables for color legend
 
   var tooltip = d3.select("#map-container").append("div").attr("class",
     "tooltip hidden");
 
-  var infoContainer = d3.select("#map-container").append("div").attr("class",
-    "infoContainer").attr("id", "infoContainer");
-
-  var detailsDiv = d3.select("#infoContainer").append("div").attr("class",
-    "detailsDiv hidden").attr("id", "details");
+  var infoContainer = d3.select("body").append("div").attr("class",
+    "infoContainer hidden").attr("id", "infoContainer");
 
   var cnameDiv = d3.select("#infoContainer").append("div").attr("class",
-    "cnameDiv hidden").attr("id", "cname");
+    "cnameDiv").attr("id", "cname");
+
+  var detailsDiv = d3.select("#infoContainer").append("div").attr("class",
+    "detailsDiv").attr("id", "details");
 
 
 
@@ -132,7 +155,8 @@ var theme = "white";
 
   function toBlackTheme() {
     d3.select("body").classed("black-theme", true);
-    themeButton.html("Paint it white");
+    changeTheme.html("Paint it white");
+    changeTheme.style("color", "white");
     colorArray = ["#211f1D", "#211f1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
     toPinkBlack();
     theme = "black";
@@ -141,13 +165,16 @@ var theme = "white";
 
   function toWhiteTheme() {
     d3.select("body").classed("black-theme", false);
-    themeButton.html("Paint it black");
+    changeTheme.html("Paint it black");
+    changeTheme.style("color", "black");
     colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
     //toRedWhite();
     theme = "white";
     redraw(true);
   }
 
+
+  //---------------------- Color preferences -------------//
   function toBlueBlack() {
     colorArray = ["#03020D", "#140E1F", "#2A075A", "#321C78", "#362688", "#3E3CA7", "#4651C5", "#5371F4"];
   }
@@ -173,7 +200,18 @@ var theme = "white";
   }
 
   //-----------THEME BUTTON---------------------//
-  themeButton.on("click", function(d, i) {
+  /*themeButton.on("click", function(d, i) {
+    if (theme == "white") {
+      toBlackTheme();
+      return;
+    }
+    if (theme == "black") {
+      toWhiteTheme();
+      return;
+    }
+  }); */
+
+  changeTheme.on("click", function(d, i) {
     if (theme == "white") {
       toBlackTheme();
       return;
@@ -183,7 +221,6 @@ var theme = "white";
       return;
     }
   });
-
 
   setup(width, height);
 
@@ -421,10 +458,11 @@ var theme = "white";
       };
     })
     //Show country name and info div on left hand side
+    infoContainer
+      .classed("hidden", false);
+    // .attr("style", "left:" + (width / 10) +
+    //   "px;top:" + (height / 14) + "px")
     cnameDiv
-      .classed("hidden", false)
-      .attr("style", "left:" + (width / 10) +
-        "px;top:" + (height / 14) + "px")
       .append("div").attr("class", "cnameContainer").attr("id", "cnameCont")
       .append("h1").html(name);
     d3.select("#cnameCont").append("h5")
@@ -434,10 +472,10 @@ var theme = "white";
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
 
       //Show details about the country
-      detailsDiv
+      /*detailsDiv
         .classed("hidden", false)
-        .attr("style", "left:" + (width / 2) +
-          "px;top:" + (offsetT + 70) + "px");
+        attr("style", "left:" + (width / 2) +
+          "px;top:" + (offsetT + 70) + "px");*/
       //Show country name
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
@@ -476,14 +514,14 @@ var theme = "white";
   }
 
   function removeArtistDiv() {
-    detailsDiv.classed("hidden", true);
+    infoContainer.classed("hidden", true);
     d3.selectAll(".artist-div").remove("div");
     d3.select(".close-button").remove("button");
     d3.select(".details-h").remove("p");
     d3.select(".details-h2").remove("h4");
 
 
-    cnameDiv.classed("hidden", true);
+    //cnameDiv.classed("hidden", true);
     d3.select("#cnameCont").remove("h1");
     d3.select("#cnameCont").remove("h5");
   }
