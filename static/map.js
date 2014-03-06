@@ -110,6 +110,7 @@ var theme = "white";
   var offsetT;
 
 
+
   //-----------THEME FUNCTIONS---------------------//
 
   function toBlackTheme() {
@@ -211,7 +212,7 @@ var theme = "white";
 
     //offsets for tooltips
     offsetL = document.getElementById('map-container').offsetLeft + 20;
-    offsetT = document.getElementById('map-container').offsetTop + 10;
+    offsetT = document.getElementById('map-container').offsetTop + 70;
 
     //tooltips
     country
@@ -401,7 +402,7 @@ var theme = "white";
         .html("You have visited " + name + " through " + countryCount[d.id].length + " artists")
         .attr("class", "details-h");*/
       d3.select("#details").append("h4")
-        .html("Your top 5 artists from " + name)
+        .html("Your top 5 scrobeled artists: ")
         .attr("class", "details-h2");
 
       for (i = 0; i < 5; i++) {
