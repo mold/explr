@@ -1,7 +1,7 @@
 var map = {};
 //White theme default:
 var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#dd3497", "#ae017e", "#7a0177"];
-//var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#9DAEF6", "#5371F4", "#4259C1", "#3C487C", "#283674"];
+
 var theme = "white";
 
 (function(window, document) {
@@ -16,7 +16,7 @@ var theme = "white";
   // var width = document.getElementById('map-container').offsetWidth;
   // var height = width / 1.8;
 
-  var height = window.innerHeight;
+  var height = window.innerHeight - 10;
   var width = document.getElementById('map-container').offsetWidth;
 
   var topo, projection, path, svg, g, countryNames, rateById, centered, active;
@@ -36,11 +36,6 @@ var theme = "white";
       mydomain[i] = Math.pow(Math.E, (Math.log(maxartists) / 6) * (i + 1))
     }
     mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
-
-
-
-    //toBlackTheme();
-    //toWhiteTheme();
 
     color = d3.scale.threshold()
       .domain(mydomain)
@@ -92,7 +87,7 @@ var theme = "white";
       });
   }
 
-    var themeButton = d3.select("#map-container").append("button").attr("class",
+  var themeButton = d3.select("#map-container").append("button").attr("class",
     "theme-button").html("Paint it black");
 
   //Variables for color legend
@@ -139,8 +134,7 @@ var theme = "white";
     }
   });
 
-
-
+    
   setup(width, height);
 
   function setup(width, height) {
@@ -280,7 +274,7 @@ var theme = "white";
   /*-------redraw----*/
   //den kallas varje gång datan uppdateras. redrawMap är en boolean 
   function redraw(redrawMap) {
-    height = window.innerHeight;
+    height = window.innerHeight - 10;
     width = document.getElementById('map-container').offsetWidth;
     if (redrawMap) {
       d3.select('svg').remove();
@@ -391,6 +385,7 @@ var theme = "white";
       d3.select("#details").append("h4")
         .html("Your top 5 artists from " + name)
         .attr("class", "details-h2");
+
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");

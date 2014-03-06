@@ -16,7 +16,7 @@
   text-transform:capitalize;
 }
 #map-container {
-  margin:5px 2%;
+  margin:5px 2% 0 2%;
   /*border:1px solid #000;
   border-radius: 2px;*/
   height:100%;
@@ -94,9 +94,15 @@ line-height:1.1em;
 top: 0.3em;
 right: 0.3em;
 position: absolute;
+cursor:pointer;
 }
 
-
+.close-button:hover{
+  background: #aaa;
+}
+.close-button:active{
+  background: #fff;
+}
 
 div.image-div{
   height: 6em;
