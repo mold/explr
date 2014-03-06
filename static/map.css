@@ -16,7 +16,7 @@
   text-transform:capitalize;
 }
 #map-container {
-  margin:5px 2%;
+  margin:5px 2% 0 2%;
   /*border:1px solid #000;
   border-radius: 2px;*/
   height:100%;
@@ -42,6 +42,7 @@ div.tooltip {
   box-shadow: 0px 0px 2px 0px #a6a6a6; 
   opacity: 0.9; 
   position: absolute;
+  z-index:2;
 }
 
 div.detailsDiv {
@@ -53,6 +54,33 @@ div.detailsDiv {
   box-shadow: 0px 0px 2px 0px #a6a6a6; 
   opacity: 0.9; 
   position: absolute;
+  text-align: center;
+  z-index: 3;
+}
+div.cnameDiv {
+  color: rgba(55, 55, 55, 0.45); 
+  background: rgba(55, 55, 55, 0.0); 
+  /*padding: .5em;
+  text-shadow: #f5f5f5 0 1px 0;
+  border-radius: 2px; 
+  box-shadow: 0px 0px 2px 0px #a6a6a6;
+  opacity: 0.8; */
+  position: absolute;
+  text-align: left;
+  pointer-events: none;
+
+
+}
+
+.cnameDiv h1 {
+  font-size: 5em;
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+.cnameDiv h5 {
+  font-size: 2.5em;
+  margin-top: 0;
+  text-transform: lowercase;
 }
 
 div.artist-div{
@@ -93,9 +121,15 @@ line-height:1.1em;
 top: 0.3em;
 right: 0.3em;
 position: absolute;
+cursor:pointer;
 }
 
-
+.close-button:hover{
+  background: #aaa;
+}
+.close-button:active{
+  background: #fff;
+}
 
 div.image-div{
   height: 6em;

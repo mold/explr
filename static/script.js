@@ -1,4 +1,3 @@
-var geocoder = new google.maps.Geocoder();
 var user, currPage = 1,
     maxPage;
 var countryCountObj = {};

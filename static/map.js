@@ -1,7 +1,7 @@
 var map = {};
 //White theme default:
-var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#dd3497", "#ae017e", "#7a0177"];
-//var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#9DAEF6", "#5371F4", "#4259C1", "#3C487C", "#283674"];
+var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+
 var theme = "white";
 
 (function(window, document) {
@@ -16,7 +16,7 @@ var theme = "white";
   // var width = document.getElementById('map-container').offsetWidth;
   // var height = width / 1.8;
 
-  var height = window.innerHeight;
+  var height = window.innerHeight - 10;
   var width = document.getElementById('map-container').offsetWidth;
 
   var topo, projection, path, svg, g, countryNames, rateById, centered, active;
@@ -36,11 +36,6 @@ var theme = "white";
       mydomain[i] = Math.pow(Math.E, (Math.log(maxartists) / 6) * (i + 1))
     }
     mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
-
-
-
-    //toBlackTheme();
-    //toWhiteTheme();
 
     color = d3.scale.threshold()
       .domain(mydomain)
@@ -93,6 +88,7 @@ var theme = "white";
   }
 
   var themeButton = d3.select("#map-container").append("button").attr("class",
+
     "theme-button").html("Paint it black");
 
   //Variables for color legend
@@ -103,19 +99,26 @@ var theme = "white";
   var detailsDiv = d3.select("#map-container").append("div").attr("class",
     "detailsDiv hidden").attr("id", "details");
 
+  var cnameDiv = d3.select("#map-container").append("div").attr("class",
+    "cnameDiv hidden").attr("id", "cname");
+
+
+
   var closeButton;
 
   var offsetL;
   var offsetT;
 
-  function toBlackTheme() {
 
+
+  //-----------THEME FUNCTIONS---------------------//
+
+  function toBlackTheme() {
     d3.select("body").classed("black-theme", true);
     themeButton.html("Paint it white");
     colorArray = ["#211F1D", "#211F1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
     theme = "black";
-    d3.select(".country").style("fill", "#211F1D");
-    updateScale();
+    redraw(true);
   }
 
   function toWhiteTheme() {
@@ -123,9 +126,9 @@ var theme = "white";
     themeButton.html("Paint it black");
     colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
     theme = "white";
-    d3.select(".country").style("fill", "#feebe2");
-    updateScale();
+    redraw(true);
   }
+
 
   //-----------THEME BUTTON---------------------//
   themeButton.on("click", function(d, i) {
@@ -138,7 +141,6 @@ var theme = "white";
       return;
     }
   });
-
 
 
   setup(width, height);
@@ -280,7 +282,7 @@ var theme = "white";
   /*-------redraw----*/
   //den kallas varje gång datan uppdateras. redrawMap är en boolean 
   function redraw(redrawMap) {
-    height = window.innerHeight;
+    height = window.innerHeight - 10;
     width = document.getElementById('map-container').offsetWidth;
     if (redrawMap) {
       d3.select('svg').remove();
@@ -374,14 +376,26 @@ var theme = "white";
         //id = d.id;
       };
     })
+    //Show country name and info div on left hand side
+
 
 
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
 
+      //Show details about the country
       detailsDiv
         .classed("hidden", false)
         .attr("style", "left:" + (width / 2) +
           "px;top:" + (offsetT) + "px");
+      //Show country name
+      cnameDiv
+        .classed("hidden", false)
+        .attr("style", "left:" + (width / 10) +
+          "px;top:" + (height / 14) + "px")
+        .append("div").attr("class", "cnameContainer").attr("id", "cnameCont")
+        .append("h1").html(name);
+      d3.select("#cnameCont").append("h5")
+        .html(countryCount[d.id].length + " artists")
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
 
@@ -391,6 +405,7 @@ var theme = "white";
       d3.select("#details").append("h4")
         .html("Your top 5 scrobeled artists: ")
         .attr("class", "details-h2");
+
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
@@ -419,6 +434,10 @@ var theme = "white";
     d3.select(".details-h").remove("p");
     d3.select(".details-h2").remove("h4");
 
+
+    cnameDiv.classed("hidden", true);
+    d3.select("#cnameCont").remove("h1");
+    d3.select("#cnameCont").remove("h5");
   }
 
   /**
