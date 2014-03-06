@@ -110,10 +110,13 @@ var theme = "white";
   var tooltip = d3.select("#map-container").append("div").attr("class",
     "tooltip hidden");
 
-  var detailsDiv = d3.select("#map-container").append("div").attr("class",
+  var infoContainer = d3.select("#map-container").append("div").attr("class",
+    "infoContainer").attr("id", "infoContainer");
+
+  var detailsDiv = d3.select("#infoContainer").append("div").attr("class",
     "detailsDiv hidden").attr("id", "details");
 
-  var cnameDiv = d3.select("#map-container").append("div").attr("class",
+  var cnameDiv = d3.select("#infoContainer").append("div").attr("class",
     "cnameDiv hidden").attr("id", "cname");
 
 
@@ -334,7 +337,7 @@ var theme = "white";
     });
     updateScale();
     updateLegend();
-    //console.log(maxartists)
+
     draw(topo, redrawMap);
   }
 
@@ -418,7 +421,14 @@ var theme = "white";
       };
     })
     //Show country name and info div on left hand side
-
+    cnameDiv
+      .classed("hidden", false)
+      .attr("style", "left:" + (width / 10) +
+        "px;top:" + (height / 14) + "px")
+      .append("div").attr("class", "cnameContainer").attr("id", "cnameCont")
+      .append("h1").html(name);
+    d3.select("#cnameCont").append("h5")
+      .html(numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " plays")
 
 
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
@@ -429,14 +439,6 @@ var theme = "white";
         .attr("style", "left:" + (width / 2) +
           "px;top:" + (offsetT + 70) + "px");
       //Show country name
-      cnameDiv
-        .classed("hidden", false)
-        .attr("style", "left:" + (width / 10) +
-          "px;top:" + (height / 14) + "px")
-        .append("div").attr("class", "cnameContainer").attr("id", "cnameCont")
-        .append("h1").html(name);
-      d3.select("#cnameCont").append("h5")
-        .html(numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " plays")
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
 
@@ -446,6 +448,8 @@ var theme = "white";
       d3.select("#details").append("h4")
         .html("Top artists: ")
         .attr("class", "details-h2");
+
+
 
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
