@@ -28,9 +28,6 @@
   background: black;
 }
 
-body.black-theme #map-container
-body.white-theme #map-container
-
 .hidden { 
   display: none; 
 }
