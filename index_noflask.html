@@ -6,12 +6,24 @@
 	</title>
 	<link rel="stylesheet" type="text/css" href="static/style.css">
 	<link rel="stylesheet" type="text/css" href="static/map.css">
+	<link rel="stylesheet" type="text/css" href="static/loader.css">
+
 </head>
 <body>
 	<div id="map-container"></div>
+	<div class="loader">
+		<div class="bubblingG">
+		<span id="bubblingG_1">
+		</span>
+		<span id="bubblingG_2">
+		</span>
+		<span id="bubblingG_3">
+		</span>
+		</div>
+	<div id="loading-text"></div>
+	</div>	
 	
 	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
 	<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
