@@ -1,5 +1,6 @@
 body {
 	background-color: white;
+	margin:0;
 }
 
 .loader{
@@ -20,4 +21,5 @@ body {
 	position: fixed;
 	left: 150px;
 	bottom: 45px;
+
 }
