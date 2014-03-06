@@ -226,7 +226,6 @@ api.getRecommendations = function(country, callback) {
 					recommendations.sort(function(a, b) {
 						return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
 					})
-
 					callback(recommendations);
 				}
 
