@@ -13,8 +13,11 @@ var theme = "white";
     .scaleExtent([1, 9])
     .on("zoom", move);
 
+  // var width = document.getElementById('map-container').offsetWidth;
+  // var height = width / 1.8;
+
+  var height = window.innerHeight;
   var width = document.getElementById('map-container').offsetWidth;
-  var height = width / 1.8;
 
   var topo, projection, path, svg, g, countryNames, rateById, centered, active;
   countryCount = {};
@@ -124,13 +127,13 @@ var theme = "white";
       updateScale();
     }
 
-//-----------THEME BUTTON---------------------//
-  themeButton.on("click", function(d, i){ 
-    if (theme=="white"){
+  //-----------THEME BUTTON---------------------//
+  themeButton.on("click", function(d, i) {
+    if (theme == "white") {
       toBlackTheme();
       return;
     }
-    if (theme=="black"){
+    if (theme == "black") {
       toWhiteTheme();
       return;
     }
@@ -151,6 +154,7 @@ var theme = "white";
     svg = d3.select("#map-container").append("svg")
       .attr("width", width)
       .attr("height", height)
+      .style("margin-left", document.getElementById("map-container").offsetWidth / 2 - width / 2)
       .call(zoom)
       .on("click", click)
       .append("g");
@@ -276,8 +280,8 @@ var theme = "white";
   /*-------redraw----*/
   //den kallas varje gång datan uppdateras. redrawMap är en boolean 
   function redraw(redrawMap) {
+    height = window.innerHeight;
     width = document.getElementById('map-container').offsetWidth;
-    height = width / 2;
     if (redrawMap) {
       d3.select('svg').remove();
       setup(width, height);
@@ -380,9 +384,13 @@ var theme = "white";
           "px;top:" + (offsetT) + "px");
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
-      d3.select("#details").append("h3")
-        .html("You have visited " + name + " through " + countryCount[d.id].length + " artists").attr("class", "details-h");
-      d3.select("#details").append("h4").html("Your top 5 artists from " + name + " are:").attr("class", "details-h2");
+
+      /*d3.select("#details").append("h3")
+        .html("You have visited " + name + " through " + countryCount[d.id].length + " artists")
+        .attr("class", "details-h");*/
+      d3.select("#details").append("h4")
+        .html("Your top 5 artists from " + name)
+        .attr("class", "details-h2");
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
@@ -392,7 +400,8 @@ var theme = "white";
             .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
 
           artistDiv.append("p")
-            .html(countryCount[d.id][i].artist + " playcount: " + countryCount[d.id][i].playcount).attr("class", "details-p");
+            .html(countryCount[d.id][i].artist + " playcount: " + countryCount[d.id][i].playcount)
+            .attr("class", "details-p");
         } else {
           i = 5;
         }
@@ -406,7 +415,7 @@ var theme = "white";
   function removeArtistDiv() {
     detailsDiv.classed("hidden", true);
     d3.selectAll(".artist-div").remove("div");
-    d3.select("button").remove("button");
+    d3.select(".close-button").remove("button");
     d3.select(".details-h").remove("p");
     d3.select(".details-h2").remove("h4");
 
