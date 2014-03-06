@@ -107,26 +107,26 @@ var theme = "white";
   var offsetL;
   var offsetT;
 
-function toBlackTheme() {
-      
-      d3.select("body").classed("black-theme", true);
-      colorArray = ["#feebe2", "#211F1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
-      theme = "black";
-    }
+  function toBlackTheme() {
 
-    function toWhiteTheme() {
-      d3.select("body").classed("black-theme", false);
-      colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#dd3497", "#ae017e", "#7a0177"];
-      theme = "white";
-    }
+    d3.select("body").classed("black-theme", true);
+    colorArray = ["#feebe2", "#211F1D", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
+    theme = "black";
+  }
 
-//-----------THEME BUTTON---------------------//
-  themeButton.on("click", function(d, i){ 
-    if (theme=="white"){
+  function toWhiteTheme() {
+    d3.select("body").classed("black-theme", false);
+    colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#dd3497", "#ae017e", "#7a0177"];
+    theme = "white";
+  }
+
+  //-----------THEME BUTTON---------------------//
+  themeButton.on("click", function(d, i) {
+    if (theme == "white") {
       toBlackTheme();
       return;
     }
-    if (theme=="black"){
+    if (theme == "black") {
       toWhiteTheme();
       return;
     }
@@ -377,11 +377,13 @@ function toBlackTheme() {
           "px;top:" + (offsetT) + "px");
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
-      //<a href="#" class="square">&#10006;</a>
 
-      d3.select("#details").append("h3")
-        .html("You have visited " + name + " through " + countryCount[d.id].length + " artists").attr("class", "details-h");
-      d3.select("#details").append("h4").html("Your top 5 artists from " + name + " are:").attr("class", "details-h2");
+      /*d3.select("#details").append("h3")
+        .html("You have visited " + name + " through " + countryCount[d.id].length + " artists")
+        .attr("class", "details-h");*/
+      d3.select("#details").append("h4")
+        .html("Your top 5 artists from " + name)
+        .attr("class", "details-h2");
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
@@ -391,7 +393,8 @@ function toBlackTheme() {
             .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
 
           artistDiv.append("p")
-            .html(countryCount[d.id][i].artist + " playcount: " + countryCount[d.id][i].playcount).attr("class", "details-p");
+            .html(countryCount[d.id][i].artist + " playcount: " + countryCount[d.id][i].playcount)
+            .attr("class", "details-p");
         } else {
           i = 5;
         }
@@ -405,7 +408,7 @@ function toBlackTheme() {
   function removeArtistDiv() {
     detailsDiv.classed("hidden", true);
     d3.selectAll(".artist-div").remove("div");
-    d3.select("button").remove("button");
+    d3.select(".close-button").remove("button");
     d3.select(".details-h").remove("p");
     d3.select(".details-h2").remove("h4");
 
