@@ -533,7 +533,7 @@ var theme = "white";
       //Special rules for special countries:
       switch (d.id) {
         case 840: //US
-          k = 2.2;
+          k = 3;
           x = -(b[1][0] + b[0][0]) / 3;
           y = -(b[1][1] + b[0][1]) / 1.6;
           break;
