@@ -11,8 +11,11 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
     .scaleExtent([1, 9])
     .on("zoom", move);
 
+  // var width = document.getElementById('map-container').offsetWidth;
+  // var height = width / 1.8;
+
+  var height = window.innerHeight;
   var width = document.getElementById('map-container').offsetWidth;
-  var height = width / 1.8;
 
   var topo, projection, path, svg, g, countryNames, rateById, centered, active;
   countryCount = {};
@@ -96,7 +99,7 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
       });
   }
 
-    var themeButton = d3.select("#map-container").append("button").attr("class",
+  var themeButton = d3.select("#map-container").append("button").attr("class",
     "theme-button").html("Change theme");
 
   //Variables for color legend
@@ -127,6 +130,7 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
     svg = d3.select("#map-container").append("svg")
       .attr("width", width)
       .attr("height", height)
+      .style("margin-left", document.getElementById("map-container").offsetWidth / 2 - width / 2)
       .call(zoom)
       .on("click", click)
       .append("g");
@@ -252,8 +256,8 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
   /*-------redraw----*/
   //den kallas varje gång datan uppdateras. redrawMap är en boolean 
   function redraw(redrawMap) {
+    height = window.innerHeight;
     width = document.getElementById('map-container').offsetWidth;
-    height = width / 2;
     if (redrawMap) {
       d3.select('svg').remove();
       setup(width, height);
