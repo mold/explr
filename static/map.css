@@ -47,18 +47,17 @@ div.tooltip {
 
 div.detailsDiv {
   color: #222; 
-  background: #fff; 
+  background: rgba(255,255,255,0.70); 
   padding: .5em;
-  text-shadow: #f5f5f5 0 1px 0;
+ /* text-shadow: #f5f5f5 0 1px 0;
   border-radius: 2px; 
-  box-shadow: 0px 0px 2px 0px #a6a6a6; 
+  box-shadow: 0px 0px 2px 0px #a6a6a6; */
   opacity: 0.9; 
   position: absolute;
-  text-align: center;
   z-index: 3;
 }
 div.cnameDiv {
-  color: rgba(55, 55, 55, 0.45); 
+
   background: rgba(55, 55, 55, 0.0); 
   /*padding: .5em;
   text-shadow: #f5f5f5 0 1px 0;
@@ -68,17 +67,28 @@ div.cnameDiv {
   position: absolute;
   text-align: left;
   pointer-events: none;
+}
+body.black-theme .cnameDiv h1 {
+  color: rgba(255, 255, 255, 0.6);
+}
+body.black-theme .cnameDiv h5 {
+  color: rgba(255, 255, 255, 0.4);
+
 
 }
+
 
 .cnameDiv h1 {
-  font-size: 5em;
-  margin-bottom: 0;
-  text-transform: uppercase;
+<<<<<<< HEAD
+  color: rgba(55, 55, 55, 0.7); 
+  font-size: 3em;
+  margin-bottom: 0em;
+  text-transform: capitalize;
 }
 .cnameDiv h5 {
-  font-size: 2.5em;
-  margin-top: 0;
+  color: rgba(55, 55, 55, 0.5); 
+  font-size: 1.5em;
+  margin-top: 0em;
   text-transform: lowercase;
 }
 
@@ -86,7 +96,7 @@ div.artist-div{
   float: left;
   text-align: center;
   width: 7em;
-  padding-top: 3em;
+  padding-top: 1em;
 
 }
 
@@ -100,7 +110,11 @@ p.details-p{
 }
 
 
-.details-h{
+h4.details-h2{
+  margin-bottom: 0;
+  color:#444;
+
+
 }
 
 .close-button{
@@ -123,9 +137,11 @@ cursor:pointer;
 }
 
 .close-button:hover{
+  color:#fff;
   background: #aaa;
 }
 .close-button:active{
+  color:#444;
   background: #fff;
 }
 

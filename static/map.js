@@ -110,6 +110,7 @@ var theme = "white";
   var offsetT;
 
 
+
   //-----------THEME FUNCTIONS---------------------//
   
     function toBlackTheme() {
@@ -166,7 +167,7 @@ var theme = "white";
     }
   });
 
-    
+
   setup(width, height);
 
   function setup(width, height) {
@@ -237,7 +238,7 @@ var theme = "white";
 
     //offsets for tooltips
     offsetL = document.getElementById('map-container').offsetLeft + 20;
-    offsetT = document.getElementById('map-container').offsetTop + 10;
+    offsetT = document.getElementById('map-container').offsetTop + 70;
 
     //tooltips
     country
@@ -427,7 +428,7 @@ var theme = "white";
         .html("You have visited " + name + " through " + countryCount[d.id].length + " artists")
         .attr("class", "details-h");*/
       d3.select("#details").append("h4")
-        .html("Your top 5 artists from " + name)
+        .html("Your top 5 scrobeled artists: ")
         .attr("class", "details-h2");
 
       for (i = 0; i < 5; i++) {
@@ -536,6 +537,11 @@ var theme = "white";
           k = 4;
           x = -(b[1][0] + b[0][0]) / 0.90;
           y = -(b[1][1] + b[0][1]) / 1.8;
+          break;
+        case 36: //Australia
+          k = 3.3;
+          x = -(b[1][0] + b[0][0]) / 1.8;
+          y = -(b[1][1] + b[0][1]) / 2.1;
           break;
 
         default: //Everybody else
