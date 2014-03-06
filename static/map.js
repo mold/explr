@@ -173,7 +173,7 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
         });
     }
     //Color countries
-    country.style("fill", function(d) {
+    country.transition().style("fill", function(d) {
       return countryCount[d.id] ? color(countryCount[d.id].length) :
         color(0);
     })
