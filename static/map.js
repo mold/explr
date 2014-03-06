@@ -355,7 +355,7 @@ var map = {};
             .attr("class", "image-div")
             .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
 
-          artistDiv.append("p").html(countryCount[d.id][i].artist).attr("class", "details-p");
+          artistDiv.append("p").html(countryCount[d.id][i].artist + " playcount: " + countryCount[d.id][i].playcount).attr("class", "details-p");
         } else {
           i = 5;
         }
