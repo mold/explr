@@ -88,7 +88,7 @@ var theme = "white";
       });
   }
 
-    var themeButton = d3.select("#map-container").append("button").attr("class",
+  var themeButton = d3.select("#map-container").append("button").attr("class",
     "theme-button").html("Change theme");
 
   //Variables for color legend
@@ -373,6 +373,8 @@ function toBlackTheme() {
           "px;top:" + (offsetT) + "px");
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
+      //<a href="#" class="square">&#10006;</a>
+
       d3.select("#details").append("h3")
         .html("You have visited " + name + " through " + countryCount[d.id].length + " artists").attr("class", "details-h");
       d3.select("#details").append("h4").html("Your top 5 artists from " + name + " are:").attr("class", "details-h2");
