@@ -96,6 +96,9 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
       });
   }
 
+    var themeButton = d3.select("#map-container").append("button").attr("class",
+    "theme-button").html("Change theme");
+
   //Variables for color legend
 
   var tooltip = d3.select("#map-container").append("div").attr("class",
