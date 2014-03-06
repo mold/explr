@@ -56,7 +56,7 @@ div.tooltip {
   height: 150px;
   position: absolute;
   top: 7.5%;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.6);
   border-top: 1px solid black;
   z-index: 4;
 
