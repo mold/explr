@@ -29,6 +29,20 @@ var theme = "white";
   //Setting color and range to be used
   var color;
 
+  //Returns total number of plays for country
+  function getCountryPlaycount(c) {
+    var count = 0;
+    for (i = 0; i < countryCount[c.id].length; i++) {
+      count += countryCount[c.id][i].playcount;
+    }
+    console.log(count);
+    return count;
+  }
+  //Function to format numbers over 1000 with a space
+  function numbersWithSpace(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
+
 
   function updateScale() {
 
@@ -382,6 +396,7 @@ var theme = "white";
   function click() {
     var latlon = projection.invert(d3.mouse(this));
     // console.log(latlon);
+    console.log(countryCount);
   }
 
 
@@ -420,7 +435,7 @@ var theme = "white";
         .append("div").attr("class", "cnameContainer").attr("id", "cnameCont")
         .append("h1").html(name);
       d3.select("#cnameCont").append("h5")
-        .html(countryCount[d.id].length + " artists")
+        .html(numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " plays")
 
       closeButton = d3.select('#details').append("button").attr("type", "button").attr("class", "close-button").html("X");
 
@@ -428,7 +443,7 @@ var theme = "white";
         .html("You have visited " + name + " through " + countryCount[d.id].length + " artists")
         .attr("class", "details-h");*/
       d3.select("#details").append("h4")
-        .html("Your top 5 scrobeled artists: ")
+        .html("Top artists: ")
         .attr("class", "details-h2");
 
       for (i = 0; i < 5; i++) {
@@ -496,6 +511,9 @@ var theme = "white";
     var x, y, k;
     //bounding box for clicked country
     var b = path.bounds(d);
+
+    getCountryPlaycount(d);
+
     //Set scale
     var modscaleX = (b[1][0] - b[0][0]);
     var modscaleY = (b[1][1] - b[0][1]);
