@@ -213,7 +213,7 @@ var theme = "white";
 
     //offsets for tooltips
     offsetL = document.getElementById('map-container').offsetLeft + 20;
-    offsetT = document.getElementById('map-container').offsetTop + 10;
+    offsetT = document.getElementById('map-container').offsetTop + 70;
 
     //tooltips
     country
