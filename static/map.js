@@ -1,4 +1,6 @@
 var map = {};
+//White theme default:
+var colorArray = ["#feebe2","#feebe2","#fcc5c0","#fa9fb5","#f768a1","#dd3497","#dd3497","#ae017e","#7a0177"]; 
 
 (function(window, document) {
   d3.select(window).on("resize", throttle);
@@ -32,10 +34,23 @@ var map = {};
     }
     mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
 
+
+  function toBlackTheme(){
+    d3.select("body").classed("black-theme", true);
+    colorArray = ["#feebe2","#211F1D","#fcc5c0","#fa9fb5","#f768a1","#dd3497","#ae017e","#7a0177"]
+  }
+
+  function toWhiteTheme(){
+    d3.select("body").classed("black-theme", false);
+    colorArray = ["#feebe2","#feebe2","#fcc5c0","#fa9fb5","#f768a1","#dd3497","#dd3497","#ae017e","#7a0177"];
+  }
+
+  toBlackTheme();
+  //toWhiteTheme();
+
     color = d3.scale.threshold()
       .domain(mydomain)
-      .range(["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497",
-      "#ae017e", "#7a0177"]);
+      .range(colorArray);
     //Scale color
   }
 
