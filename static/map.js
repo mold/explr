@@ -17,8 +17,7 @@ var theme = "white";
   // var width = document.getElementById('map-container').offsetWidth;
   // var height = width / 1.8;
 
-  var height = window.innerHeight - 10;
-  var width = document.getElementById('map-container').offsetWidth;
+  var height, width;
 
   var topo, projection, path, svg, g, countryNames, rateById, centered, active;
   countryCount = {};
@@ -29,6 +28,14 @@ var theme = "white";
 
   //Setting color and range to be used
   var color;
+
+  /**
+   * Sets width/height, i.e. changes the global variables "width" and "height"
+   */
+  function updateDimensions() {
+    height = window.innerHeight - 5;
+    width = document.getElementById('map-container').offsetWidth;
+  }
 
   //Returns total number of plays for country
   function getCountryPlaycount(c) {
@@ -93,14 +100,16 @@ var theme = "white";
     //Color box sizes
     var ls_w = 20,
       ls_h = 20;
+    var x = width * 0.03;
+    var y = height * 0.03;
 
     var enter = legend.enter()
       .append("g")
       .attr("class", "legend");
     enter.append("rect")
-      .attr("x", 20)
+      .attr("x", x)
       .attr("y", function(d, i) {
-        return height - (i * ls_h) - 2 * ls_h;
+        return height - (i * ls_h) - 2 * ls_h - y;
       })
       .attr("width", ls_w)
       .attr("height", ls_h)
@@ -108,9 +117,9 @@ var theme = "white";
         return color(d);
       });
     enter.append("text")
-      .attr("x", 50)
+      .attr("x", x + 30)
       .attr("y", function(d, i) {
-        return height - (i * ls_h) - ls_h - 4;
+        return height - (i * ls_h) - ls_h - 4 - y;
       });
 
     legend.selectAll("text").data(mydomain)
@@ -225,6 +234,7 @@ var theme = "white";
     }
   });
 
+  updateDimensions();
   setup(width, height);
 
   function setup(width, height) {
@@ -350,6 +360,8 @@ var theme = "white";
         .on("click", function(d, i) {
           //detailsDiv.classed("hidden", true);
           removeArtistDiv();
+          // zoom out map, fulhack
+          clicked(centered);
         }) //"stäng" onclick slutar
 
     }) // on click slutar
@@ -365,8 +377,8 @@ var theme = "white";
   /*-------redraw----*/
   //den kallas varje gång datan uppdateras. redrawMap är en boolean 
   function redraw(redrawMap) {
-    height = window.innerHeight - 10;
-    width = document.getElementById('map-container').offsetWidth;
+    updateDimensions();
+
     if (redrawMap) {
       d3.select('svg').remove();
       setup(width, height);
@@ -432,6 +444,7 @@ var theme = "white";
     window.clearTimeout(throttleTimer);
     throttleTimer = window.setTimeout(function() {
       redraw(true);
+      move([0, 0], 1); // Reset position
     }, 200);
   }
 

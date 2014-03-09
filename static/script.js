@@ -15,6 +15,10 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
         api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
     ["page", currPage]],
             function(error, responseData) {
+                if (error) {
+                    console.error(error);
+                }
+
                 if (currPage === 1) {
                     SESSION.total_artists = +responseData.artists["@attr"].total;
                     maxPage = +responseData.artists["@attr"].totalPages;
