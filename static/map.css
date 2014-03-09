@@ -122,10 +122,17 @@ div.artist-div{
 
 p.details-p{
   font-size: 0.8em;
-
   font-style: #000;
-
 }
+
+.detailsDiv h5 {
+  color: rgba(55, 55, 55, 0.5); 
+  font-size: 0.9em;
+  margin-top: 0em;
+  text-transform: lowercase;
+}
+
+
 
 div.image-div{
   height: 6em;

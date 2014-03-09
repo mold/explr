@@ -483,8 +483,8 @@ var theme = "white";
     d3.select("#cnameCont").append("h5")
       .html(function() {
         if (countryCount[d.id])
-          return numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " plays"
-        else return "No artists :-("
+          return numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " scrobbles"
+        else return "No artists yet :-("
       })
 
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
@@ -495,8 +495,8 @@ var theme = "white";
 
 
       d3.select("#details").append("h4")
-        .html("Top artists: ")
-        .attr("class", "details-h2");
+        .html("Your top artists tagged with #" + name + " and #" + tag + ": ")
+        .attr("class", "details-h4");
 
 
 
