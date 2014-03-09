@@ -529,7 +529,7 @@ var theme = "white";
     d3.selectAll(".artist-div").remove("div");
     d3.select(".close-button").remove("button");
     d3.select(".details-h").remove("p");
-    d3.select(".details-h2").remove("h4");
+    d3.select(".details-h4").remove("h4");
 
 
     //cnameDiv.classed("hidden", true);
