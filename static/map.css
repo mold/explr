@@ -1,5 +1,10 @@
+svg:active{
+  cursor:move;
+}
+
 .country{
   fill: #feebe2;
+  cursor: pointer;
 }
 
 .country.highlighted, .country.highlighted:hover{
