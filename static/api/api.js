@@ -123,13 +123,13 @@ d3.csv("../static/countries.csv", function(err, data) {
 					STORED_ARTISTS[el] = STORED_ARTISTS[el] || {};
 					// console.error(data)
 
-					if (data.name) {
-						STORED_ARTISTS[el].country = {
-							"id": data.id,
-							"name": data.name,
-						};
-						returnList.push(data);
-					}
+					// if (data.name) {
+					STORED_ARTISTS[el].country = {
+						"id": data.id,
+						"name": data.name,
+					};
+					returnList.push(data);
+					// }
 					// console.log("apicall " + (new Date().getTime() - start) + " ms");
 
 					// Update loading div, whoah ugly code yeah whaddayagonnado

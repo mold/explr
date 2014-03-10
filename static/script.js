@@ -11,27 +11,42 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
     var start = new Date().getTime();
     var count = 0;
 
+
+
     var getAllArtists = function() {
-        api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
+        api.lastfm.send("library.getartists", [["user", user], ["limit", 100],
     ["page", currPage]],
             function(error, responseData) {
-                if (error) {
+                if (error || responseData.error) {
                     console.error(error);
+                    // Try again
+                    getAllArtists();
+                    return;
                 }
 
                 if (currPage === 1) {
                     SESSION.total_artists = +responseData.artists["@attr"].total;
                     maxPage = +responseData.artists["@attr"].totalPages;
+
+                    if (d3.keys(STORED_ARTISTS).length === SESSION.total_artists) {
+                        console.log("No new artists on last.fm!");
+                        countryCountObj = JSON.parse(window.localStorage.countryCountObj);
+                        map.putCountryCount(countryCountObj);
+                        currPage = maxPage + 1; // Fulhack to get loader to fade out
+                    }
                 }
 
                 // maxPage = 7;
                 if (currPage > maxPage) {
+                    // We're done, fade out loader
                     var loader = d3.select(".loader");
                     loader.transition().duration(2000)
                         .style("opacity", 0)
                         .each("end", function() {
                             loader.remove();
                         });
+
+                    window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
                     return;
                 }
 
@@ -41,7 +56,6 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
 
                 // Save artist data to localStorage (and create a list of artist names)
                 var artistNames = []
-
                 responseData.artists.artist.forEach(function(newArtist) {
                     var a = STORED_ARTISTS[newArtist.name] || {};
 
@@ -55,7 +69,6 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
                 })
                 window.localStorage.artists = JSON.stringify(STORED_ARTISTS);
                 // var n = count++;
-                getAllArtists(); // more!!! more!!!!
 
 
 
@@ -103,6 +116,9 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
 
                         // console.log(n);
                     });
+
+                getAllArtists(); // more!!! more!!!!
+
             });
     }
 
@@ -177,7 +193,7 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
                         }
                     }
                     c++;
-                    console.log(c, topArtists.length)
+                    // console.log(c, topArtists.length)
                     if (c == topArtists.length - 1) {
                         done();
                     }
