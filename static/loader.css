@@ -12,6 +12,8 @@
 	color: white;
 	text-align: center;
 	pointer-events:none;
+
+	opacity:0; /* Fade in later */
 }
 body.black-theme .loader{
 	background: rgba(80,80,80,0.4);

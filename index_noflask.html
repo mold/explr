@@ -11,6 +11,18 @@
 
 </head>
 <body>
+	<div id="welcome-container">
+		<div id="welcome-message">
+			<h1>Welcome!</h1>
+			<p class="info">
+				A bunch of text and information about this page. Wow! You are so interested right now!
+			</p>
+			<form id="start">
+				<input name="username" placeholder="Last.fm username" type="text" autofocus required>
+				<input type="submit" value="Go!">
+			</form>
+		</div>
+	</div>
 	<div id="map-container"></div>
 	<div class="loader">
 		<div class="bubblingG">
@@ -42,12 +54,12 @@
 	<script>
 		// init
 		var SESSION = JSON.parse(window.localStorage.session||"{}");
-		if(!SESSION.name){
-			SESSION.name = prompt("What is your user name???\n\n"+
-				"(Your username will be stored so you won't have to enter it again :)\n"+
-				"To change user, clear localstorage)");
-			window.localStorage.session=JSON.stringify(SESSION);
-		}
+		// if(!SESSION.name){
+		// 	SESSION.name = prompt("What is your user name???\n\n"+
+		// 		"(Your username will be stored so you won't have to enter it again :)\n"+
+		// 		"To change user, clear localstorage)");
+		// 	window.localStorage.session=JSON.stringify(SESSION);
+		// }
 	</script>
 
 	<script src="static/api/lastfm.js"></script>

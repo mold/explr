@@ -1,26 +1,27 @@
 var STORED_ARTISTS = JSON.parse(window.localStorage.artists || "{}");
-var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
+var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
 
 (function() {
     // user = prompt("Input your user name, get top 20 artists")
     var user, currPage = 1,
         maxPage;
     var countryCountObj = {};
-    var times = [];
-    user = SESSION.name;
-    var start = new Date().getTime();
     var count = 0;
-
-
+    var tries = 0;
 
     var getAllArtists = function() {
-        api.lastfm.send("library.getartists", [["user", user], ["limit", 100],
+        api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
     ["page", currPage]],
             function(error, responseData) {
                 if (error || responseData.error) {
                     console.error(error);
-                    // Try again
-                    getAllArtists();
+
+                    // Try again, but not forever
+                    if (tries++ < 5) {
+                        getAllArtists();
+
+                        // TODO: Show erorr message ;)
+                    }
                     return;
                 }
 
@@ -36,22 +37,7 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
                     }
                 }
 
-                // maxPage = 7;
-                if (currPage > maxPage) {
-                    // We're done, fade out loader
-                    var loader = d3.select(".loader");
-                    loader.transition().duration(2000)
-                        .style("opacity", 0)
-                        .each("end", function() {
-                            loader.remove();
-                        });
-
-                    window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
-                    return;
-                }
-
-                currPage += 1;
-
+                currPage++;
                 console.log("Artists done, get countries");
 
                 // Save artist data to localStorage (and create a list of artist names)
@@ -69,8 +55,6 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
                 })
                 window.localStorage.artists = JSON.stringify(STORED_ARTISTS);
                 // var n = count++;
-
-
 
                 // Get country for all artists
                 api.getCountries(artistNames,
@@ -107,18 +91,23 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
 
                         })
 
-                        var mapstart = new Date().getTime();
                         map.putCountryCount(countryCountObj);
-                        // console.log("map update " + (new Date().getTime() -
-                        //         mapstart) +
-                        //     " ms");
-                        times.push(new Date().getTime() - start);
 
-                        // console.log(n);
+                        if (currPage > maxPage) {
+                            // We're done, fade out loader
+                            var loader = d3.select(".loader");
+                            loader.transition().duration(2000)
+                                .style("opacity", 0)
+                                .each("end", function() {
+                                    loader.remove();
+                                });
+
+                            window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
+                            return;
+                        }
+
+                        getAllArtists();
                     });
-
-                getAllArtists(); // more!!! more!!!!
-
             });
     }
 
@@ -202,9 +191,34 @@ var USER_TAGS = JSON.parse(window.localStorage.user_tags || "[]");
         });
 
     }
-    if (USER_TAGS.length === 0) {
-        api.lastfm.send("user.gettopartists", [["user", user], ["period", "12months"]], getUserTags);
-    }
-    getAllArtists();
 
+    var begin = function() {
+        // fade out username input box
+        var welcomeOverlay = d3.select("#welcome-container");
+        welcomeOverlay.transition().duration(2000)
+            .style("opacity", 0)
+            .each("end", function() {
+                welcomeOverlay.remove();
+            });
+
+        // Fade in loader
+        d3.select(".loader").transition().duration(2000).style("opacity", 1);
+
+        // Get user tags
+        if (USER_TAGS.length === 0) {
+            api.lastfm.send("user.gettopartists", [["user", user], ["period", "12months"]], getUserTags);
+        }
+        getAllArtists();
+    }
+
+    // Try to get username from url
+    var param = window.location.href.split("username=")[1];
+
+    if (param) { // We already have a user
+        user = param
+        begin();
+    } else {
+        d3.select("#welcome-container").style("visibility", "visible");
+
+    }
 })();
