@@ -144,6 +144,8 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
 
         var tagCount = {};
 
+        console.log("Gotta get tags")
+
         var topArtists = data.topartists.artist;
         var done = function() {
             // make list of tags to sort
@@ -157,6 +159,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
             USER_TAGS.sort(function(a, b) {
                 return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
             });
+            console.log("Done getting tags, saved to localStorage.user_tags")
             window.localStorage.user_tags = JSON.stringify(USER_TAGS);
         }
 
@@ -165,19 +168,19 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
             setTimeout(function() { // Set timeout to not stop artists from loading...
                 api.lastfm.send("artist.gettoptags", [["artist", el.name]], function(err, data) {
                     taglist = data.toptags.tag;
-                    if (!taglist) {
-                        return;
-                    }
-                    var lim = Math.min(taglist.length, 10);
-                    for (var i = 0; i < lim; i++) {
-                        if (tagCount[taglist[i].name]) {
-                            tagCount[taglist[i].name]++;
-                        } else {
-                            tagCount[taglist[i].name] = 1;
+                    if (taglist) {
+                        var lim = Math.min(taglist.length, 10);
+                        for (var i = 0; i < lim; i++) {
+                            if (tagCount[taglist[i].name]) {
+                                tagCount[taglist[i].name]++;
+                            } else {
+                                tagCount[taglist[i].name] = 1;
+                            }
                         }
+                        // console.log(c, topArtists.length)
                     }
+
                     c++;
-                    // console.log(c, topArtists.length)
                     if (c == topArtists.length - 1) {
                         done();
                     }
@@ -200,9 +203,8 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
         d3.select(".loader").transition().duration(2000).style("opacity", 1);
 
         // Get user tags
-        if (USER_TAGS.length === 0) {
-            api.lastfm.send("user.gettopartists", [["user", user], ["period", "12months"]], getUserTags);
-        }
+        api.lastfm.send("user.gettopartists", [["user", user], ["period", "12months"]], getUserTags);
+
 
         if (CACHED_USERS[user]) {
             // TODO: use timestamp
