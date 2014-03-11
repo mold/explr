@@ -66,16 +66,38 @@ div.tooltip {
   z-index: 4;
 
 }
-
-
-div.detailsDiv {
-  display: inline-block;
-  color: #222;
+.artistContainer{
   float: right;
+  display: block;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.artistContainer h4 {
+  font-size: 1em;
+  margin-top: 1em;
+}
+
+.recoDiv {
+  /*display: table;*/
+  color: #222;
+  /*float: right;*/
   /* margin-right: 5%; */
   padding: 0 30px;
-  background: rgba(255, 255, 255, 0.5);
-  padding: px;
+  /*background: rgba(255, 255, 255, 0.5);*/
+  padding: 0px;
+  opacity: 0.9;
+  vertical-align: top;
+ 
+}
+
+.detailsDiv {
+  display: table;
+  color: #222;
+  /*float: right;*/
+  /* margin-right: 5%; */
+  padding: 0 30px;
+  /*background: rgba(255, 255, 255, 0.5);*/
+  padding: 0px;
   opacity: 0.9;
   vertical-align: top;
  
