@@ -48,25 +48,27 @@ d3.csv("../static/countries.csv", function(err, data) {
 			responseData2.toptags.tag.forEach(function(t, i) {
 				if (running) {
 					var tname = t.name.toLowerCase();
+					var cid;
 					try {
-						if (alias[tname][0].id) { // swedish->sweden
-							cid = alias[tname][0].id;
-							cname = alias[tname][0].name;
-						} else if (cname[tname][0].id) { // sweden->sweden
+
+						if (cname[tname] && cname[tname][0].id) { // sweden->sweden
 							cid = cname[tname][0].id;
-							cname = cname[tname][0].name;
+							countryName = cname[tname][0].name;
+						} else if (alias[tname] && alias[tname][0].id) { // swedish->sweden
+							cid = alias[tname][0].id;
+							countryName = alias[tname][0].name;
 						}
 						if (cid) { // We found a country!
 							callback({ // Call callback method
 								"artist": artist,
 								"id": cid,
 								"tag": t.name,
-								"name": cname,
+								"name": countryName,
 							});
 							running = false; // Stop searching for country-tags
 						}
 					} catch (e) {
-						// console.log(artist, tname)
+						//console.log(artist, tname)
 					}
 
 				}
