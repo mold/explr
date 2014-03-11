@@ -33,7 +33,8 @@ var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
                         console.log("No new artists on last.fm!");
                         countryCountObj = JSON.parse(window.localStorage.countryCountObj);
                         map.putCountryCount(countryCountObj);
-                        currPage = maxPage + 1; // Fulhack to get loader to fade out
+                        end();
+                        return;
                     }
                 }
 
@@ -94,19 +95,11 @@ var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
                         map.putCountryCount(countryCountObj);
 
                         if (currPage > maxPage) {
-                            // We're done, fade out loader
-                            var loader = d3.select(".loader");
-                            loader.transition().duration(2000)
-                                .style("opacity", 0)
-                                .each("end", function() {
-                                    loader.remove();
-                                });
-
-                            window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
+                            end();
                             return;
+                        } else {
+                            getAllArtists();
                         }
-
-                        getAllArtists();
                     });
             });
     }
@@ -211,14 +204,25 @@ var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
         getAllArtists();
     }
 
+    var end = function() {
+        // We're done, fade out loader
+        var loader = d3.select(".loader");
+        loader.transition().duration(2000)
+            .style("opacity", 0)
+            .each("end", function() {
+                loader.remove();
+            });
+
+        window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
+    }
+
     // Try to get username from url
     var param = window.location.href.split("username=")[1];
 
     if (param) { // We already have a user
-        user = param
+        user = param;
         begin();
     } else {
         d3.select("#welcome-container").style("visibility", "visible");
-
     }
 })();
