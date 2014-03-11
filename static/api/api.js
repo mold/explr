@@ -189,8 +189,10 @@ api.getRecommendations = function(country, callback) {
 		return d[0].count;
 	}).map(toptags);
 
+	console.log("Got top tags for user!")
+
 	// Get top artists for tag country
-	api.lastfm.send("tag.topartists", [["tag", country], ["limit", 100]], function(err, data1) {
+	api.lastfm.send("tag.topartists", [["tag", country], ["limit", 10]], function(err, data1) {
 		// Gotta count matching tags to then sort
 		var tagCounts = {};
 
@@ -205,18 +207,17 @@ api.getRecommendations = function(country, callback) {
 				}).map(data2.toptags.tag);
 
 				// Get rid of justin bieber
-				if (!tags[country]) {
-					return;
+				if (tags[country]) {
+					for (var i = data2.toptags.tag.length - 1; i >= 0; i--) {
+						if (userTagObj[data2.toptags.tag[i].name] && data2.toptags.tag[i].count > 5) {
+							tagCounts[a.name].push(data2.toptags.tag[i].name);
+						}
+					};
+
 				}
 
-				for (var i = data2.toptags.tag.length - 1; i >= 0; i--) {
-					if (userTagObj[data2.toptags.tag[i].name] && data2.toptags.tag[i].count > 5) {
-						tagCounts[a.name].push(data2.toptags.tag[i].name);
-					}
-				};
-
 				if (num === artists.length - 1) {
-					// We've gotten tag counts for all artists, make a list!
+					console.log("We've gotten tag counts for all artists, make a list!")
 					d3.keys(tagCounts).forEach(function(d) {
 						recommendations.push({
 							name: d,

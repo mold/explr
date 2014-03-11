@@ -58,7 +58,7 @@ var theme = "white";
   function updateScale() {
 
     for (i = 0; i < 5; i++) {
-      mydomain[i] = Math.pow(Math.E, (Math.log(maxartists) / 6) * (i + 1))
+      mydomain[i] = Math.pow(Math.E, (Math.log(maxartists) / 5) * (i + 1))
     }
     mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
 
@@ -148,11 +148,18 @@ var theme = "white";
   var infoContainer = d3.select("body").append("div").attr("class",
     "infoContainer hidden").attr("id", "infoContainer");
 
+  var artistContainer = d3.select("#infoContainer").append("div").attr("class",
+    "artistContainer").attr("id", "artistContainer");
+
+
   var cnameDiv = d3.select("#infoContainer").append("div").attr("class",
     "cnameDiv").attr("id", "cname");
 
-  var detailsDiv = d3.select("#infoContainer").append("div").attr("class",
+  var detailsDiv = d3.select("#artistContainer").append("div").attr("class",
     "detailsDiv").attr("id", "details");
+
+  var recoDiv = d3.select("#artistContainer").append("div").attr("class",
+    "recoDiv").attr("id", "recommendations");
 
 
 
@@ -461,10 +468,10 @@ var theme = "white";
   //Skapar "details-on-demand"-divarna.
   function makeArtistDiv(d) {
 
-
     //lägga till namn till detailseDiv
     var name;
     var tag;
+    var recoms;
     //var id;
     countryNames.forEach(function(e, i) {
       if (e.id === d.id) {
@@ -473,10 +480,14 @@ var theme = "white";
         //id = d.id;
       };
     })
+
     //Show country name and info div on left hand side
     infoContainer
       .classed("hidden", false);
 
+    closeButton = d3.select('#infoContainer').append("button").attr("type", "button").attr("class", "close-button").html("X");
+
+    //Populate country information div
     cnameDiv
       .append("div").attr("class", "cnameContainer").attr("id", "cnameCont")
       .append("h1").html(name);
@@ -487,19 +498,15 @@ var theme = "white";
         else return "No artists yet :-("
       })
 
+
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
-
-
-
-      closeButton = d3.select('#infoContainer').append("button").attr("type", "button").attr("class", "close-button").html("X");
 
 
       d3.select("#details").append("h4")
         .html("Your top artists tagged with #" + name + " and #" + tag + ": ")
         .attr("class", "details-h4");
 
-
-
+      //Show top 5 artists
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
@@ -519,9 +526,40 @@ var theme = "white";
         }
       }
     } else { //Om landet vi klickat på inte har några lyssnade artister... 
-      //Här ska vi skapa rekommendations-div.
       console.log("landet har inga lyssnade artister");
     }
+    //"Recommended"-heading
+    d3.select("#recommendations").append("h4")
+      .html("Recommended for you: ")
+      .attr("class", "recom-h4");
+
+    //Get list of recommendations for country!
+    api.getRecommendations(tag, function(taglist) {
+      //Run once we get a response!
+      api.getRecommendations(name, function(namelist) {
+
+        var list = taglist.concat(namelist);
+        list.sort(function(a, b) {
+          return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
+        });
+
+        for (i = 0; i < 5; i++) {
+          var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
+          var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", "http://nosuchlink.com")
+            .attr("target", "_blank");
+          recoArtistLink.append("div")
+            .attr("class", "image-div")
+            .style("background-image", "url(" + "'http://userserve-ak.last.fm/serve/252/326329.jpg'" + " )");
+
+          var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
+
+          recoArtistInfoDiv.append("p")
+            .html(list[i].name + "<br>" + list[i].count + " counts")
+            .attr("class", "details-p");
+        }
+      })
+    });
+
   }
 
   function removeArtistDiv() {
@@ -530,9 +568,12 @@ var theme = "white";
     d3.select(".close-button").remove("button");
     d3.select(".details-h").remove("p");
     d3.select(".details-h4").remove("h4");
+    d3.select(".recom-h4").remove("h4");
 
 
-    //cnameDiv.classed("hidden", true);
+
+    / /
+    cnameDiv.classed("hidden", true);
     d3.select("#cnameCont").remove("h1");
     d3.select("#cnameCont").remove("h5");
   }
@@ -674,8 +715,6 @@ var theme = "white";
   /** "PUBLUC" FUNCTIONS **/
   map.putCountryCount = function(list) {
     countryCount = list;
-
-
     redraw();
   }
 })(window, document)
