@@ -1,11 +1,12 @@
 var STORED_ARTISTS = JSON.parse(window.localStorage.artists || "{}");
 var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
+var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
 
 (function() {
     // user = prompt("Input your user name, get top 20 artists")
     var user, currPage = 1,
         maxPage;
-    var countryCountObj = {};
+    var countryCountObj = JSON.parse(window.localStorage.countryCountObj || "{}");
     var count = 0;
     var tries = 0;
 
@@ -28,14 +29,6 @@ var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
                 if (currPage === 1) {
                     SESSION.total_artists = +responseData.artists["@attr"].total;
                     maxPage = +responseData.artists["@attr"].totalPages;
-
-                    if (d3.keys(STORED_ARTISTS).length === SESSION.total_artists) {
-                        console.log("No new artists on last.fm!");
-                        countryCountObj = JSON.parse(window.localStorage.countryCountObj);
-                        map.putCountryCount(countryCountObj);
-                        end();
-                        return;
-                    }
                 }
 
                 currPage++;
@@ -72,24 +65,33 @@ var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
                             .map(data); //Skickar in en lista med ett objekt för varje artist.
 
                         d3.keys(dataObj).forEach(function(id) {
-                            if (countryCountObj[id]) {
-                                countryCountObj[id] = countryCountObj[id].concat(
-                                    dataObj[id]);
-                                //Lägger på de nya dataObj-elementen i countryCountObj-listan.
-                            } else {
-                                countryCountObj[id] = dataObj[id];
-                            }
+                            countryCountObj[id] = countryCountObj[id] || {};
+                            countryCountObj[id][user] = countryCountObj[id][user] || [];
+                            var artistList = countryCountObj[id][user]; // list of artists for a country
 
-                            countryCountObj[id].forEach(function(el, i) {
+                            // if (artistList) {
+                            artistList = artistList.concat(dataObj[id]);
+
+                            //Lägger på de nya dataObj-elementen i countryCountObj-listan.
+                            // } else {
+                            //     artistList = dataObj[id];
+                            // }
+
+                            artistList.forEach(function(el, i) {
                                 //Här lägger vi till ett fält image med artistens bild-url som ett fält till det "inre" objektet.
-                                countryCountObj[id][i].image = STORED_ARTISTS[el.artist].image[0]["#text"];
-                                countryCountObj[id][i].url = STORED_ARTISTS[el.artist].url;
-                                countryCountObj[id][i].playcount = STORED_ARTISTS[el.artist].playcount;
+                                artistList[i].image = STORED_ARTISTS[el.artist].image[0]["#text"];
+                                artistList[i].url = STORED_ARTISTS[el.artist].url;
+                                artistList[i].playcount = STORED_ARTISTS[el.artist].playcount;
+                                // if (artistList[i].users) {
+                                //     artistList[i].users.push(user);
+                                // } else {
+                                //     artistList[i].users = [user];
+                                // }
                             });
                             //countryCountObj är en lista med "country"-objekt. 
                             //Varje country-objekt innehåller en lista med "inre" objekt med artistnamn, lands-id och landsnamn.
                             //dataObj är typ samma som countryCountObj, fast är bara för de tillfälligt sparade artisterna (intervallet).
-
+                            countryCountObj[id][user] = artistList;
                         })
 
                         map.putCountryCount(countryCountObj);
@@ -201,7 +203,19 @@ var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
         if (USER_TAGS.length === 0) {
             api.lastfm.send("user.gettopartists", [["user", user], ["period", "12months"]], getUserTags);
         }
-        getAllArtists();
+
+        if (CACHED_USERS[user]) {
+            // TODO: use timestamp
+            console.log("No new artists on last.fm!");
+
+            setTimeout(function() {
+                map.putCountryCount(countryCountObj);
+                end();
+            }, 1000)
+        } else {
+
+            getAllArtists();
+        }
     }
 
     var end = function() {
@@ -213,6 +227,8 @@ var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
                 loader.remove();
             });
 
+        CACHED_USERS[user] = new Date().getTime();
+        window.localStorage.cached_users = JSON.stringify(CACHED_USERS);
         window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
     }
 
@@ -221,6 +237,7 @@ var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
 
     if (param) { // We already have a user
         user = param;
+        SESSION.name = param;
         begin();
     } else {
         d3.select("#welcome-container").style("visibility", "visible");

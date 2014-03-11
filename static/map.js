@@ -672,9 +672,17 @@ var theme = "white";
   }
 
   /** "PUBLUC" FUNCTIONS **/
-  map.putCountryCount = function(list) {
-    countryCount = list;
+  map.putCountryCount = function(object) {
+    countryCount = JSON.parse(JSON.stringify(object));
 
+    // Extract info for the current user
+    d3.keys(countryCount).forEach(function(id) {
+      if (countryCount[id][SESSION.name]) {
+        countryCount[id] = countryCount[id][SESSION.name];
+      } else {
+        // delete countryCount[id];
+      }
+    })
 
     redraw();
   }
