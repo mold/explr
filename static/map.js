@@ -567,7 +567,7 @@ var theme = "white";
           artistname = art[0].name;
 
           var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
-          var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", "http://nosuchlink.com")
+          var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", artisturl)
             .attr("target", "_blank");
           recoArtistLink.append("div")
             .attr("class", "image-div")
