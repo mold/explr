@@ -192,7 +192,7 @@ api.getRecommendations = function(country, callback) {
 	console.log("Got top tags for user!")
 
 	// Get top artists for tag country
-	api.lastfm.send("tag.topartists", [["tag", country], ["limit", 10]], function(err, data1) {
+	api.lastfm.send("tag.topartists", [["tag", country], ["limit", 25]], function(err, data1) {
 		// Gotta count matching tags to then sort
 		var tagCounts = {};
 

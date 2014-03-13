@@ -54,11 +54,25 @@ var theme = "white";
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
 
+  /**
+   * Randomize array element order in-place.
+   * Using Fisher-Yates shuffle algorithm.
+   */
+  function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  }
+
 
   function updateScale() {
 
     for (i = 0; i < 5; i++) {
-      mydomain[i] = Math.pow(Math.E, (Math.log(maxartists) / 5) * (i + 1))
+      mydomain[i] = Math.pow(Math.E, (Math.log(maxartists) / 6) * (i + 1))
     }
     mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
 
@@ -88,12 +102,12 @@ var theme = "white";
       if (theme == "white") {
         toGreenWhite();
         redraw();
-        return;
+        //return;
       }
       if (theme == "black") {
         toBlueBlack();
         redraw();
-        return;
+        //return;
       }
     });
 
@@ -139,21 +153,17 @@ var theme = "white";
   var changeTheme = d3.select("#changeTheme").append("div").attr("id", "paintIt").html("Paint it black");
 
 
-
-  //Variables for color legend
-
   var tooltip = d3.select("#map-container").append("div").attr("class",
     "tooltip hidden");
 
   var infoContainer = d3.select("body").append("div").attr("class",
     "infoContainer hidden").attr("id", "infoContainer");
 
-  var artistContainer = d3.select("#infoContainer").append("div").attr("class",
-    "artistContainer").attr("id", "artistContainer");
-
-
   var cnameDiv = d3.select("#infoContainer").append("div").attr("class",
     "cnameDiv").attr("id", "cname");
+
+  var artistContainer = d3.select("#infoContainer").append("div").attr("class",
+    "artistContainer").attr("id", "artistContainer");
 
   var detailsDiv = d3.select("#artistContainer").append("div").attr("class",
     "detailsDiv").attr("id", "details");
@@ -530,34 +540,35 @@ var theme = "white";
     }
     //"Recommended"-heading
     d3.select("#recommendations").append("h4")
-      .html("Recommended for you: ")
+      .html("You may like: ")
       .attr("class", "recom-h4");
 
     //Get list of recommendations for country!
     api.getRecommendations(tag, function(taglist) {
       //Run once we get a response!
-      api.getRecommendations(name, function(namelist) {
 
-        var list = taglist.concat(namelist);
-        list.sort(function(a, b) {
-          return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
-        });
+      /*var list = taglist.concat(namelist);
+      list.sort(function(a, b) {
+        return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
+      });*/
+      var list = shuffleArray(taglist);
 
-        for (i = 0; i < 5; i++) {
-          var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
-          var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", "http://nosuchlink.com")
-            .attr("target", "_blank");
-          recoArtistLink.append("div")
-            .attr("class", "image-div")
-            .style("background-image", "url(" + "'http://userserve-ak.last.fm/serve/252/326329.jpg'" + " )");
 
-          var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
+      for (i = 0; i < 5; i++) {
+        var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
+        var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", "http://nosuchlink.com")
+          .attr("target", "_blank");
+        recoArtistLink.append("div")
+          .attr("class", "image-div")
+          .style("background-image", "url(" + "'http://userserve-ak.last.fm/serve/252/326329.jpg'" + " )");
 
-          recoArtistInfoDiv.append("p")
-            .html(list[i].name + "<br>" + list[i].count + " counts")
-            .attr("class", "details-p");
-        }
-      })
+        var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
+
+        recoArtistInfoDiv.append("p")
+          .html(taglist[i].name + "<br>" + taglist[i].count + " counts")
+          .attr("class", "details-p");
+      }
+
     });
 
   }

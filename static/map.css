@@ -17,7 +17,7 @@ svg:active{
   stroke-width: 1.5px;
 }
 .text{
-  font-size:10px;
+  font-size:13px;
   text-transform:capitalize;
 }
 #map-container {
@@ -68,6 +68,9 @@ div.tooltip {
 }
 .artistContainer{
   float: right;
+/* display:inline-block; */
+  margin-right: 6%;
+  width:37em;
   display: block;
   background-color: rgba(255, 255, 255, 0.5);
 }
@@ -78,10 +81,9 @@ div.tooltip {
 }
 
 .recoDiv {
-  /*display: table;*/
+  display: table;
   color: #222;
-  /*float: right;*/
-  /* margin-right: 5%; */
+  margin-left: 1em;
   padding: 0 30px;
   /*background: rgba(255, 255, 255, 0.5);*/
   padding: 0px;
@@ -93,8 +95,7 @@ div.tooltip {
 .detailsDiv {
   display: table;
   color: #222;
-  /*float: right;*/
-  /* margin-right: 5%; */
+  margin-left:1em;
   padding: 0 30px;
   /*background: rgba(255, 255, 255, 0.5);*/
   padding: 0px;
@@ -104,9 +105,10 @@ div.tooltip {
 }
 
 div.cnameDiv {
-  display: inline-block;
+  display:block;
   /*background: rgba(255, 255, 255, 1.0);*/
   margin-left: 5%;
+  float:left;
   /*padding: .5em;
   text-shadow: #f5f5f5 0 1px 0;
   border-radius: 2px; 
@@ -121,13 +123,14 @@ body.black-theme .cnameDiv h5 {
   color: rgba(255, 255, 255, 0.5);
 }
 
-.cnameDiv h1 {
+h1 {
   color: rgba(55, 55, 55, 0.8); 
   font-size: 3em;
   margin-bottom: 0em;
   text-transform: capitalize;
+  font-family: "Patua One";
 }
-.cnameDiv h5 {
+h5 {
   color: rgba(55, 55, 55, 0.5); 
   font-size: 1.5em;
   margin-top: 0em;
@@ -144,7 +147,7 @@ div.artist-div{
 }
 
 *{
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Didact Gothic"
 }
 
 p.details-p{
