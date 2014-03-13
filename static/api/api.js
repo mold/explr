@@ -171,6 +171,22 @@ api.getTags = function(artist, callback) {
 	}
 }
 
+api.getArtistInfo = function(artist, callback) {
+	var artistInfo = [];
+
+	api.lastfm.send("artist.getinfo", [["artist", artist]], function(err, data1) {
+		artistInfo.push({
+			name: artist,
+			url: data1.artist.url,
+			image: data1.artist.image[3]["#text"]
+		})
+		callback(artistInfo);
+	})
+
+
+
+}
+
 /**
  * Gets a list of artists with tags similar to the user's top tags, sorted in descending order.
  * Also included are which tags matched.

@@ -469,6 +469,9 @@ var theme = "white";
   //geo translation on mouse click in map
   function click() {
     var latlon = projection.invert(d3.mouse(this));
+    api.getArtistInfo("Mando Diao", function(art) {
+      //console.log(art[0].image)
+    })
     // console.log(latlon);
     //console.log(countryCount);
   }
@@ -529,7 +532,7 @@ var theme = "white";
           var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
 
           playCountDiv.append("p")
-            .html(countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " plays")
+            .html(countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " scrobbles")
             .attr("class", "details-p");
         } else {
           i = 5;
@@ -555,18 +558,27 @@ var theme = "white";
 
 
       for (i = 0; i < 5; i++) {
-        var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
-        var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", "http://nosuchlink.com")
-          .attr("target", "_blank");
-        recoArtistLink.append("div")
-          .attr("class", "image-div")
-          .style("background-image", "url(" + "'http://userserve-ak.last.fm/serve/252/326329.jpg'" + " )");
+        var artisturl, artistimg, artistname;
 
-        var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
+        //Get url and images for recommended artists!
+        api.getArtistInfo(taglist[i].name, function(art) {
+          artisturl = art[0].url;
+          artistimg = art[0].image;
+          artistname = art[0].name;
 
-        recoArtistInfoDiv.append("p")
-          .html(taglist[i].name + "<br>" + taglist[i].count + " counts")
-          .attr("class", "details-p");
+          var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
+          var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", "http://nosuchlink.com")
+            .attr("target", "_blank");
+          recoArtistLink.append("div")
+            .attr("class", "image-div")
+            .style("background-image", "url(" + "'" + artistimg + "'" + ")");
+
+          var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
+
+          recoArtistInfoDiv.append("p")
+            .html(artistname + "<br>" + taglist[i].count + " counts")
+            .attr("class", "details-p");
+        })
       }
 
     });
