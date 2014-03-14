@@ -536,7 +536,7 @@ var theme = "white";
           var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
 
           playCountDiv.append("p")
-            .html(function(){
+            .html(function() {
               if (countryCount[d.id][i].playcount > 1)
                 return countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " scrobbles"
               else return countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " scrobble"
@@ -562,17 +562,25 @@ var theme = "white";
 
         //Join the two lists
         var list = taglist.concat(namelist);
-        //Remove duplicates
-        list = list.filter(onlyUnique);
-        console.log(list);
-        /*
-      list.sort(function(a, b) {
-        return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
-      });*/
 
+        //Removing duplicates from the list!
+        var arr = {};
+        for (var i = 0; i < list.length; i++)
+          arr[list[i]['name']] = list[i];
+
+        list = new Array();
+        for (key in arr)
+          list.push(arr[key]);
+
+        list.sort(function(a, b) {
+          return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
+        });
+
+        //Get the first 15 artists
+        list = list.slice(0, 15);
         //Randomize list
         list = shuffleArray(list);
-
+        console.log(list);
 
         for (i = 0; i < 5; i++) {
           var artisturl, artistimg, artistname;

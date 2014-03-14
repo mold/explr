@@ -197,7 +197,7 @@ api.getRecommendations = function(country, callback) {
 	var recommendations = [];
 
 	// get top tags for user
-	var toptags = USER_TAGS.slice(0, 50);
+	var toptags = USER_TAGS.slice(0, 15);
 	// make tag list to an object (back n forthss)
 	var userTagObj = d3.nest().key(function(d) {
 		return d.tag;
@@ -205,16 +205,17 @@ api.getRecommendations = function(country, callback) {
 		return d[0].count;
 	}).map(toptags);
 
+
 	console.log("Got top tags for user!")
 
 	// Get top artists for tag country
-	api.lastfm.send("tag.topartists", [["tag", country], ["limit", 25]], function(err, data1) {
+	api.lastfm.send("tag.topartists", [["tag", country], ["limit", 75]], function(err, data1) {
 		// Gotta count matching tags to then sort
 		var tagCounts = {};
 
 		// Get the tags for these artists
-		console.log(data1, err)
-		if (err || data1.error || !data1.topartists.artist){
+		//console.log(data1, err)
+		if (err || data1.error || !data1.topartists.artist) {
 			callback([]);
 			return;
 		}
@@ -223,16 +224,16 @@ api.getRecommendations = function(country, callback) {
 		artists.forEach(function(a, num) {
 			tagCounts[a.name] = [];
 			api.lastfm.send("artist.gettoptags", [["artist", a.name]], function(err, data2) {
-				var hasTags = (data2.toptags.tag ? true:false);
+				var hasTags = (data2.toptags.tag ? true : false);
 
-				if(hasTags){
-								// Compare top 10 tags to user tags
-								var tags = d3.nest().key(function(d) {
-									return d.name;
-								}).map(data2.toptags.tag);
+				if (hasTags) {
+					// Compare top 10 tags to user tags
+					var tags = d3.nest().key(function(d) {
+						return d.name;
+					}).map(data2.toptags.tag);
 
-				// Get rid of justin bieber
-				//if (tags[country]) {
+					// Get rid of justin bieber
+					//if (tags[country]) {
 					for (var i = data2.toptags.tag.length - 1; i >= 0; i--) {
 						if (userTagObj[data2.toptags.tag[i].name] && data2.toptags.tag[i].count > 5) {
 							tagCounts[a.name].push(data2.toptags.tag[i].name);
@@ -243,19 +244,20 @@ api.getRecommendations = function(country, callback) {
 
 				if (num === artists.length - 1) {
 					console.log("We've gotten tag counts for all artists, make a list!")
-					if(hasTags){
-										d3.keys(tagCounts).forEach(function(d) {
-											recommendations.push({
-												name: d,
-												count: tagCounts[d].length,
-												tags: tagCounts[d]
-											})
-										});
+					if (hasTags) {
+						d3.keys(tagCounts).forEach(function(d) {
+							recommendations.push({
+								name: d,
+								count: tagCounts[d].length,
+								tags: tagCounts[d]
+							})
+						});
 					}
-					
+
 					recommendations.sort(function(a, b) {
 						return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
 					})
+					//console.log(recommendations)
 					callback(recommendations);
 				}
 
