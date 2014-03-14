@@ -67,6 +67,10 @@ var theme = "white";
     }
     return array;
   }
+  //Function to remove duplicates from arrays
+  function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+  }
 
 
   function updateScale() {
@@ -532,7 +536,11 @@ var theme = "white";
           var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
 
           playCountDiv.append("p")
-            .html(countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " scrobbles")
+            .html(function(){
+              if (countryCount[d.id][i].playcount > 1)
+                return countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " scrobbles"
+              else return countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " scrobble"
+            })
             .attr("class", "details-p");
         } else {
           i = 5;
@@ -546,41 +554,50 @@ var theme = "white";
       .html("You may like: ")
       .attr("class", "recom-h4");
 
-    //Get list of recommendations for country!
+    //Get list of recommendations for country based on tags!
     api.getRecommendations(tag, function(taglist) {
-      //Run once we get a response!
 
-      /*var list = taglist.concat(namelist);
+      //Get list of recommendations for country based on country name!
+      api.getRecommendations(name, function(namelist) {
+
+        //Join the two lists
+        var list = taglist.concat(namelist);
+        //Remove duplicates
+        list = list.filter(onlyUnique);
+        console.log(list);
+        /*
       list.sort(function(a, b) {
         return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
       });*/
-      var list = shuffleArray(taglist);
+
+        //Randomize list
+        list = shuffleArray(list);
 
 
-      for (i = 0; i < 5; i++) {
-        var artisturl, artistimg, artistname;
+        for (i = 0; i < 5; i++) {
+          var artisturl, artistimg, artistname;
 
-        //Get url and images for recommended artists!
-        api.getArtistInfo(taglist[i].name, function(art) {
-          artisturl = art[0].url;
-          artistimg = art[0].image;
-          artistname = art[0].name;
+          //Get url and images for recommended artists!
+          api.getArtistInfo(list[i].name, function(art) {
+            artisturl = art[0].url;
+            artistimg = art[0].image;
+            artistname = art[0].name;
 
-          var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
-          var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", artisturl)
-            .attr("target", "_blank");
-          recoArtistLink.append("div")
-            .attr("class", "image-div")
-            .style("background-image", "url(" + "'" + artistimg + "'" + ")");
+            var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
+            var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", artisturl)
+              .attr("target", "_blank");
+            recoArtistLink.append("div")
+              .attr("class", "image-div")
+              .style("background-image", "url(" + "'" + artistimg + "'" + ")");
 
-          var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
+            var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
 
-          recoArtistInfoDiv.append("p")
-            .html(artistname + "<br>" + taglist[i].count + " counts")
-            .attr("class", "details-p");
-        })
-      }
-
+            recoArtistInfoDiv.append("p")
+              .html(artistname + "<br>" + list[i].count + " counts")
+              .attr("class", "details-p");
+          })
+        }
+      })
     });
 
   }
@@ -744,7 +761,7 @@ var theme = "white";
       if (countryCount[id][SESSION.name]) {
         countryCount[id] = countryCount[id][SESSION.name];
       } else {
-        // delete countryCount[id];
+        delete countryCount[id];
       }
     })
     redraw();
