@@ -39,6 +39,11 @@ svg:active{
 .legend {
   font-size: 12px;
 }
+.legend#filter{
+  cursor:pointer;
+  text-decoration: underline;
+  font-style: italic;
+}
 .active {
   
 }

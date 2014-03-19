@@ -9,6 +9,7 @@ var theme = "white";
   d3.select(window).on("resize", throttle);
 
   var doThrottle = false;
+  var filter = "artists"; // filter by artists or plays
 
   var zoom = d3.behavior.zoom()
     .scaleExtent([1, 9])
@@ -24,10 +25,16 @@ var theme = "white";
 
   //Variables needed to update scale and legend
   var mydomain = [];
-  var maxartists = 0;
+  var maxartists = 0,
+    maxplaycount = 0;
 
   //Setting color and range to be used
   var color;
+
+  map.drawPlays = function() {
+    filter = "scrobbles";
+    redraw();
+  }
 
   /**
    * Sets width/height, i.e. changes the global variables "width" and "height"
@@ -47,38 +54,31 @@ var theme = "white";
       return count;
     } else return 0;
 
-
   }
   //Function to format numbers over 1000 with a space
   function numbersWithSpace(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
 
-  /**
-   * Randomize array element order in-place.
-   * Using Fisher-Yates shuffle algorithm.
-   */
-  function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1));
-      var temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
-    }
-    return array;
-  }
-  //Function to remove duplicates from arrays
-  function onlyUnique(value, index, self) {
-    return self.indexOf(value) === index;
-  }
-
 
   function updateScale() {
-
-    for (i = 0; i < 5; i++) {
-      mydomain[i] = Math.pow(Math.E, (Math.log(maxartists) / 6) * (i + 1))
+    var max = -1;
+    switch (filter) {
+      case "artists":
+        max = maxartists;
+        for (i = 0; i < 5; i++) {
+          mydomain[i] = Math.pow(Math.E, (Math.log(max) / 6) * (i + 1))
+        }
+        mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
+        break;
+      case "scrobbles":
+        max = maxplaycount;
+        for (i = 0; i < 7; i++) {
+          mydomain[i] = Math.pow(Math.E, (Math.log(max) / 7) * (i + 1))
+        }
+        mydomain = [0, 1, mydomain[1], mydomain[2], mydomain[3], mydomain[4], mydomain[5]];
+        break;
     }
-    mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
 
     color = d3.scale.threshold()
       .domain(mydomain)
@@ -98,7 +98,7 @@ var theme = "white";
     var legend_labels = [mydomain[0] + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + (mydomain[5] - 1), mydomain[5] + "-" + (mydomain[6] - 1), mydomain[6] + "+"];
 
     //Create Legend
-    legend = svg.selectAll("g.legend")
+    legend = svg.select("g#legend").selectAll("g.legend")
       .data(mydomain);
 
     // Change colors on click.
@@ -106,12 +106,12 @@ var theme = "white";
       if (theme == "white") {
         toGreenWhite();
         redraw();
-        //return;
+        return;
       }
       if (theme == "black") {
         toBlueBlack();
         redraw();
-        //return;
+        return;
       }
     });
 
@@ -121,9 +121,25 @@ var theme = "white";
     var x = width * 0.03;
     var y = height * 0.03;
 
+    // Add legend filter text
+    var text1 = svg.select("#filter-text")
+      .attr("x", x)
+      .attr("y", height - y - mydomain.length * ls_h - 1.5 * ls_h)
+      .text("Number of ");
+    var text2 = svg.select("#filter")
+      .attr("x", x + text1[0][0].offsetWidth)
+      .attr("y", height - y - mydomain.length * ls_h - 1.5 * ls_h)
+      .text(filter);
+    text2.on("click", function() {
+      // Toggle filter method
+      filter = (filter === "artists" ? "scrobbles" : "artists");
+      redraw();
+    })
+
     var enter = legend.enter()
       .append("g")
       .attr("class", "legend");
+
     enter.append("rect")
       .attr("x", x)
       .attr("y", function(d, i) {
@@ -157,17 +173,21 @@ var theme = "white";
   var changeTheme = d3.select("#changeTheme").append("div").attr("id", "paintIt").html("Paint it black");
 
 
+
+  //Variables for color legend
+
   var tooltip = d3.select("#map-container").append("div").attr("class",
     "tooltip hidden");
 
   var infoContainer = d3.select("body").append("div").attr("class",
     "infoContainer hidden").attr("id", "infoContainer");
 
-  var cnameDiv = d3.select("#infoContainer").append("div").attr("class",
-    "cnameDiv").attr("id", "cname");
-
   var artistContainer = d3.select("#infoContainer").append("div").attr("class",
     "artistContainer").attr("id", "artistContainer");
+
+
+  var cnameDiv = d3.select("#infoContainer").append("div").attr("class",
+    "cnameDiv").attr("id", "cname");
 
   var detailsDiv = d3.select("#artistContainer").append("div").attr("class",
     "detailsDiv").attr("id", "details");
@@ -275,6 +295,15 @@ var theme = "white";
       .append("g");
 
     g = svg.append("g");
+    svg.append("g").attr("id", "legend")
+    svg.append("text").attr({
+      id: "filter-text",
+      class: "legend"
+    });
+    svg.append("text").attr({
+      id: "filter",
+      class: "legend"
+    });
   }
 
   //Load country aliases and names
@@ -321,8 +350,17 @@ var theme = "white";
     }
     //Color countries
     country.transition().style("fill", function(d) {
-      return countryCount[d.id] ? color(countryCount[d.id].length) :
-        color(0);
+      switch (filter) {
+        case "artists":
+          return countryCount[d.id] ? color(countryCount[d.id].length) :
+            color(0);
+          break;
+        case "scrobbles":
+          return color(getCountryPlaycount(d));
+          break;
+      }
+      // return countryCount[d.id] ? color(countryCount[d.id].length) :
+      //   color(0);
     })
 
     //offsets for tooltips
@@ -408,6 +446,11 @@ var theme = "white";
     maxartists = d3.max(d3.keys(countryCount), function(cname) {
       return countryCount[cname].length;
     });
+    maxplaycount = d3.max(d3.keys(countryCount), function(cname) {
+      return getCountryPlaycount({
+        id: cname
+      });
+    })
     updateScale();
     updateLegend();
 
@@ -473,9 +516,6 @@ var theme = "white";
   //geo translation on mouse click in map
   function click() {
     var latlon = projection.invert(d3.mouse(this));
-    api.getArtistInfo("Mando Diao", function(art) {
-      //console.log(art[0].image)
-    })
     // console.log(latlon);
     //console.log(countryCount);
   }
@@ -536,11 +576,7 @@ var theme = "white";
           var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
 
           playCountDiv.append("p")
-            .html(function() {
-              if (countryCount[d.id][i].playcount > 1)
-                return countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " scrobbles"
-              else return countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " scrobble"
-            })
+            .html(countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " plays")
             .attr("class", "details-p");
         } else {
           i = 5;
@@ -551,59 +587,32 @@ var theme = "white";
     }
     //"Recommended"-heading
     d3.select("#recommendations").append("h4")
-      .html("You may like: ")
+      .html("Recommended for you: ")
       .attr("class", "recom-h4");
 
-    //Get list of recommendations for country based on tags!
+    //Get list of recommendations for country!
     api.getRecommendations(tag, function(taglist) {
-
-      //Get list of recommendations for country based on country name!
+      //Run once we get a response!
       api.getRecommendations(name, function(namelist) {
 
-        //Join the two lists
         var list = taglist.concat(namelist);
-
-        //Removing duplicates from the list!
-        var arr = {};
-        for (var i = 0; i < list.length; i++)
-          arr[list[i]['name']] = list[i];
-
-        list = new Array();
-        for (key in arr)
-          list.push(arr[key]);
-
         list.sort(function(a, b) {
           return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
         });
 
-        //Get the first 15 artists
-        list = list.slice(0, 15);
-        //Randomize list
-        list = shuffleArray(list);
-        console.log(list);
-
         for (i = 0; i < 5; i++) {
-          var artisturl, artistimg, artistname;
+          var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
+          var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", "http://nosuchlink.com")
+            .attr("target", "_blank");
+          recoArtistLink.append("div")
+            .attr("class", "image-div")
+            .style("background-image", "url(" + "'http://userserve-ak.last.fm/serve/252/326329.jpg'" + " )");
 
-          //Get url and images for recommended artists!
-          api.getArtistInfo(list[i].name, function(art) {
-            artisturl = art[0].url;
-            artistimg = art[0].image;
-            artistname = art[0].name;
+          var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
 
-            var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
-            var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", artisturl)
-              .attr("target", "_blank");
-            recoArtistLink.append("div")
-              .attr("class", "image-div")
-              .style("background-image", "url(" + "'" + artistimg + "'" + ")");
-
-            var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
-
-            recoArtistInfoDiv.append("p")
-              .html(artistname + "<br>" + list[i].count + " counts")
-              .attr("class", "details-p");
-          })
+          recoArtistInfoDiv.append("p")
+            .html(list[i].name + "<br>" + list[i].count + " counts")
+            .attr("class", "details-p");
         }
       })
     });
@@ -769,7 +778,7 @@ var theme = "white";
       if (countryCount[id][SESSION.name]) {
         countryCount[id] = countryCount[id][SESSION.name];
       } else {
-        delete countryCount[id];
+        // delete countryCount[id];
       }
     })
     redraw();
