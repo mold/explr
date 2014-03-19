@@ -185,19 +185,6 @@ div.image-div{
   background-size: cover;
 }
 
-
-.graticule {
-  fill: none;
-  stroke: #bbb;
-  stroke-width: .5px;
-  stroke-opacity: .5;
-}
-.equator {
-  stroke: #ccc;
-  stroke-width: 1px;
-}
-
-
 .close-button{
 width:25px;
 height:25px;

@@ -213,6 +213,9 @@ var theme = "white";
   var recoDiv = d3.select("#artistContainer").append("div").attr("class",
     "recoDiv").attr("id", "recommendations");
 
+  var artistSummaryDiv = d3.select("#artistContainer").append("div").attr("class",
+    "artistSummaryDiv").attr("id", "summary");
+
 
 
   var closeButton;
@@ -668,20 +671,26 @@ var theme = "white";
             artistimg = art[0].image;
             artistname = art[0].name;
 
+
             var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
             var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", artisturl)
               .attr("target", "_blank");
             recoArtistLink.append("div")
               .attr("class", "image-div")
-              .style("background-image", "url(" + "'" + artistimg + "'" + ")");
-
+              .style("background-image", "url(" + "'" + artistimg + "'" + ")")
+              .on("click", function() {
+                makeSummaryDiv(artistname)
+              });
             var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
 
             recoArtistInfoDiv.append("p")
               .html(artistname + "<br>" + list[i].count + " counts")
               .attr("class", "details-p");
+
           })
         }
+
+
       })
     });
 
@@ -697,10 +706,19 @@ var theme = "white";
 
 
 
-    / /
     cnameDiv.classed("hidden", true);
     d3.select("#cnameCont").remove("h1");
     d3.select("#cnameCont").remove("h5");
+  }
+
+  function makeSummaryDiv(artistname) {
+    api.getArtistInfo(artistname, function(art) {
+      var text = art[0].description;
+
+      d3.select("#recommendations").append("div").attr("class", "summaryText").append("p").html(text);
+
+    })
+
   }
 
   /**
