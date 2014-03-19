@@ -188,6 +188,10 @@ var theme = "white";
 
     "theme-button").html("Paint it black");*/
 
+
+
+  //var progress = d3.select("#progress").style({"width : 60%"});
+
   var changeTheme = d3.select("#changeTheme").append("div").attr("id", "paintIt").html("Paint it black");
 
 
@@ -581,7 +585,7 @@ var theme = "white";
 
 
       d3.select("#details").append("h4")
-        .html("Your top artists tagged with #" + name + " and #" + tag + ": ")
+        .html("Your top artists tagged with #" + name + " or #" + tag + ": ")
         .attr("class", "details-h4");
 
       //Show top 5 artists
@@ -625,7 +629,7 @@ var theme = "white";
       })
       .style({
         display: "block",
-        margin: "auto"
+        margin: "0 auto 10px auto"
       });
 
 
@@ -664,7 +668,19 @@ var theme = "white";
         //Randomize list
         list = shuffleArray(list);
 
-        for (i = 0; i < 5; i++) {
+        if (list.length === 0) {
+          d3.select("#rec-loading").remove();
+          d3.select("#rec-loading-img").remove();
+          d3.select("#recommendations").append("p")
+            .html("We couldn't find any good " + tag + " recommendations for you :-( ");
+          d3.select("#recommendations").append("a").attr({
+            href: "http://www.last.fm/tag/" + name,
+            target: "_blank",
+          }).html("Try searching last.fm yourself!");
+        }
+
+        for (i = 0; i < Math.min(list.length, 5); i++) {
+          var artisturl, artistimg, artistname;
 
           //Get url and images for recommended artists!
           api.getArtistInfo(list[i].name, function(art) {
