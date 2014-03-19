@@ -188,6 +188,10 @@ var theme = "white";
 
     "theme-button").html("Paint it black");*/
 
+
+
+  //var progress = d3.select("#progress").style({"width : 60%"});
+
   var changeTheme = d3.select("#changeTheme").append("div").attr("id", "paintIt").html("Paint it black");
 
 
