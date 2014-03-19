@@ -179,7 +179,8 @@ api.getArtistInfo = function(artist, callback) {
 			name: artist,
 			url: data1.artist.url,
 			image: data1.artist.image[3]["#text"],
-			description: data1.artist.bio.summary
+			description: data1.artist.bio.summary,
+			tags: data1.artist.tags
 		})
 		callback(artistInfo);
 	})

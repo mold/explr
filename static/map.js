@@ -587,12 +587,17 @@ var theme = "white";
       //Show top 5 artists
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
+          var index = i;
           var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
-          var artistLink = artistDiv.append("a").style("display", "block").attr("href", countryCount[d.id][i].url)
-            .attr("target", "_blank");
+          var artistLink = artistDiv.append("a").style("display", "block")
+          //.attr("href", countryCount[d.id][i].url)
+          //.attr("target", "_blank");
           artistLink.append("div")
             .attr("class", "image-div")
-            .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
+            .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )")
+            .on("click", function() {
+              //makeSummaryDiv(countryCount[d.id][index].artist)
+            });
 
           var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
 
@@ -654,27 +659,26 @@ var theme = "white";
           return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
         });
 
-        //Get the first 15 artists
-        list = list.slice(0, 15);
+        //Get the first 20 artists
+        list = list.slice(0, 20);
         //Randomize list
         list = shuffleArray(list);
-        console.log(list);
 
         for (i = 0; i < 5; i++) {
-          var artisturl, artistimg, artistname;
 
           //Get url and images for recommended artists!
           api.getArtistInfo(list[i].name, function(art) {
             d3.select("#rec-loading").remove();
             d3.select("#rec-loading-img").remove();
-            artisturl = art[0].url;
-            artistimg = art[0].image;
-            artistname = art[0].name;
+            var artisturl = art[0].url;
+            var artistimg = art[0].image;
+            var artistname = art[0].name;
 
 
             var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
-            var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", artisturl)
-              .attr("target", "_blank");
+            var recoArtistLink = recoArtistDiv.append("a").style("display", "block")
+            //.attr("href", artisturl)
+            //.attr("target", "_blank");
             recoArtistLink.append("div")
               .attr("class", "image-div")
               .style("background-image", "url(" + "'" + artistimg + "'" + ")")
@@ -684,7 +688,7 @@ var theme = "white";
             var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
 
             recoArtistInfoDiv.append("p")
-              .html(artistname + "<br>" + list[i].count + " counts")
+              .html(artistname)
               .attr("class", "details-p");
 
           })
@@ -712,10 +716,22 @@ var theme = "white";
   }
 
   function makeSummaryDiv(artistname) {
+    //Remove any old content
+    d3.select("#summaryText").remove();
+    //Get artist info from Lastfm
     api.getArtistInfo(artistname, function(art) {
       var text = art[0].description;
-
-      d3.select("#recommendations").append("div").attr("class", "summaryText").append("p").html(text);
+      //Create containing div
+      var summaryText = d3.select("#recommendations").append("div").attr("class", "summaryText").attr("id", "summaryText");
+      summaryText.append("h4").html(artistname);
+      //Show top 5 tags
+      for (i = 0; i < 5; i++) {
+        summaryText.append("div").attr("class", "tagdiv").append("h4").html(function() {
+          return art[0].tags.tag[i].name
+        })
+      }
+      //Display artist summary
+      summaryText.append("p").html(text);
 
     })
 
