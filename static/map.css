@@ -94,7 +94,7 @@ div.tooltip {
   padding: 0px;
   opacity: 0.9;
   vertical-align: top;
- 
+ width: 100%;
 }
 
 .detailsDiv {

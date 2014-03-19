@@ -607,12 +607,33 @@ var theme = "white";
     d3.select("#recommendations").append("h4")
       .html("You may like: ")
       .attr("class", "recom-h4");
+    d3.select("#recommendations").append("p")
+      .attr("id", "rec-loading")
+      .html("Getting artists tagged #" + tag + "...");
+    d3.select("#recommendations").append("img")
+      .attr({
+        id: "rec-loading-img",
+        src: "../static/img/loader_horizontal.gif"
+      })
+      .style({
+        display: "block",
+        margin: "auto"
+      });
+
+
 
     //Get list of recommendations for country based on tags!
     api.getRecommendations(tag, function(taglist) {
-
+      if (centered.id !== d.id) {
+        return;
+      }
+      d3.select("#rec-loading").html("Getting artists tagged #" + name + "...")
       //Get list of recommendations for country based on country name!
       api.getRecommendations(name, function(namelist) {
+        if (centered.id !== d.id) {
+          return;
+        }
+        d3.select("#rec-loading").html("Getting images for recommended artists...");
 
         //Join the two lists
         var list = taglist.concat(namelist);
@@ -641,6 +662,8 @@ var theme = "white";
 
           //Get url and images for recommended artists!
           api.getArtistInfo(list[i].name, function(art) {
+            d3.select("#rec-loading").remove();
+            d3.select("#rec-loading-img").remove();
             artisturl = art[0].url;
             artistimg = art[0].image;
             artistname = art[0].name;
