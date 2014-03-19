@@ -59,6 +59,24 @@ var theme = "white";
   function numbersWithSpace(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
   }
+  /**
+   * Randomize array element order in-place.
+   * Using Fisher-Yates shuffle algorithm.
+   */
+  function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  }
+  //Function to remove duplicates from arrays
+  function onlyUnique(value, index, self) {
+    return self.indexOf(value) === index;
+  }
+
 
 
   function updateScale() {
@@ -576,7 +594,7 @@ var theme = "white";
           var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
 
           playCountDiv.append("p")
-            .html(countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " plays")
+            .html(countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " scrobbles")
             .attr("class", "details-p");
         } else {
           i = 5;
@@ -587,32 +605,59 @@ var theme = "white";
     }
     //"Recommended"-heading
     d3.select("#recommendations").append("h4")
-      .html("Recommended for you: ")
+      .html("You may like: ")
       .attr("class", "recom-h4");
 
-    //Get list of recommendations for country!
+    //Get list of recommendations for country based on tags!
     api.getRecommendations(tag, function(taglist) {
-      //Run once we get a response!
+
+      //Get list of recommendations for country based on country name!
       api.getRecommendations(name, function(namelist) {
 
+        //Join the two lists
         var list = taglist.concat(namelist);
+
+        //Removing duplicates from the list!
+        var arr = {};
+        for (var i = 0; i < list.length; i++)
+          arr[list[i]['name']] = list[i];
+
+        list = new Array();
+        for (key in arr)
+          list.push(arr[key]);
+
         list.sort(function(a, b) {
           return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
         });
 
+        //Get the first 15 artists
+        list = list.slice(0, 15);
+        //Randomize list
+        list = shuffleArray(list);
+        console.log(list);
+
         for (i = 0; i < 5; i++) {
-          var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
-          var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", "http://nosuchlink.com")
-            .attr("target", "_blank");
-          recoArtistLink.append("div")
-            .attr("class", "image-div")
-            .style("background-image", "url(" + "'http://userserve-ak.last.fm/serve/252/326329.jpg'" + " )");
+          var artisturl, artistimg, artistname;
 
-          var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
+          //Get url and images for recommended artists!
+          api.getArtistInfo(list[i].name, function(art) {
+            artisturl = art[0].url;
+            artistimg = art[0].image;
+            artistname = art[0].name;
 
-          recoArtistInfoDiv.append("p")
-            .html(list[i].name + "<br>" + list[i].count + " counts")
-            .attr("class", "details-p");
+            var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
+            var recoArtistLink = recoArtistDiv.append("a").style("display", "block").attr("href", artisturl)
+              .attr("target", "_blank");
+            recoArtistLink.append("div")
+              .attr("class", "image-div")
+              .style("background-image", "url(" + "'" + artistimg + "'" + ")");
+
+            var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
+
+            recoArtistInfoDiv.append("p")
+              .html(artistname + "<br>" + list[i].count + " counts")
+              .attr("class", "details-p");
+          })
         }
       })
     });
