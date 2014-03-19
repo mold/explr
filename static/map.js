@@ -555,7 +555,7 @@ var theme = "white";
         //id = d.id;
       };
     })
-
+    d3.select("#recommendations").html("");
     //Show country name and info div on left hand side
     infoContainer
       .classed("hidden", false);
