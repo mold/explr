@@ -6,7 +6,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
     // user = prompt("Input your user name, get top 20 artists")
     var user, currPage = 1,
         maxPage;
-    var countryCountObj = JSON.parse(window.localStorage.countryCountObj || "{}");
+    var countryCountObj = {};
     var count = 0;
     var tries = 0;
 
@@ -219,16 +219,14 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
         if (CACHED_USERS[user]) {
             // TODO: use timestamp
             console.log("No new artists on last.fm!");
+            countryCountObj = JSON.parse(window.localStorage.countryCountObj);
 
             setTimeout(function() {
                 map.putCountryCount(countryCountObj);
                 end();
             }, 1000)
         } else {
-            d3.keys(window.localStorage).forEach(function(key) {
-                console.log(key)
-                delete window.localStorage[key];
-            });
+            window.localStorage.clear();
             getAllArtists();
         }
     }

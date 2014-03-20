@@ -235,8 +235,6 @@ api.getRecommendations = function(country, callback) {
 			tagCounts[a.name] = [];
 			api.lastfm.send("artist.gettoptags", [["artist", a.name]], function(err, data2) {
 				var hasTags = !data2.error && (data2.toptags.tag ? true : false);
-				console.log(err, data2, hasTags)
-
 				if (hasTags) {
 					// Compare top 10 tags to user tags
 					var tags = d3.nest().key(function(d) {

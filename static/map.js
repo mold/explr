@@ -58,13 +58,13 @@ var theme = "white";
   }
 
 
- function updateProgressBar(){
-    var progressPro = (countryScore/199) * 100  + "%";
+  function updateProgressBar() {
+    var progressPro = (countryScore / 199) * 100 + "%";
     console.log(progressPro);
 
     return progressPro;
 
-    }
+  }
 
 
 
@@ -204,7 +204,7 @@ var theme = "white";
 
 
   //progressbar...
-  
+
 
 
   var changeTheme = d3.select("#changeTheme").append("div").attr("id", "paintIt").html("Paint it black");
@@ -986,13 +986,14 @@ var theme = "white";
     d3.keys(countryCount).forEach(function(id) {
       if (countryCount[id][SESSION.name]) {
         countryCount[id] = countryCount[id][SESSION.name];
-        countryScore = countryScore +1;
+        countryScore = countryScore + 1;
         countryList.push(+id)
       } else {
         // delete countryCount[id];
       }
     })
-    
-    redraw();
+
+    if (topo) redraw();
+
   }
 })(window, document)
