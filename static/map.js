@@ -722,7 +722,7 @@ var theme = "white";
             recoArtistDiv.on("click", function() {
               d3.selectAll(".artist-div").classed("lowlight", true); // Lowlight not selected artists
               d3.select(this).classed("higlight", true).classed("lowlight", false); // Highlight selected artist
-              makeSummaryDiv(artistname, list);
+              makeSummaryDiv(artistname);
             });
 
           })
@@ -750,14 +750,10 @@ var theme = "white";
     d3.select("#cnameCont").remove("h5");
   }
 
-  function makeSummaryDiv(artistname, list) {
+  function makeSummaryDiv(artistname) {
     var usertaglist = [];
+    //console.log(usertaglist);
     var artisttaglist = [];
-    //Create list of user tags for artist
-    for (y = 0; y < list.length; y++) {
-      if (list[y].name === artistname)
-        usertaglist = list[y].tags
-    }
 
     d3.select("#summaryText").remove();
     var summaryText = d3.select("#recommendations").append("div").attr("class", "summaryText").attr("id", "summaryText");
@@ -769,6 +765,17 @@ var theme = "white";
       // console.log(text)
       //Get artist's top tags
       artisttaglist = art[0].tags;
+      //Create list of user tags
+
+      //Make list of artist tags which are also user's top tags:
+      for (y = 0; y < 15; y++) {
+        for (z = 0; z < artisttaglist.length; z++) {
+          if (artisttaglist[z] === USER_TAGS[y].tag) {
+            usertaglist.push(USER_TAGS[y].tag)
+          }
+        }
+      }
+
       //Create combined tag list and remove duplicates
       var taglist = usertaglist.concat(artisttaglist);
       taglist = taglist.filter(function(elem, pos) {
