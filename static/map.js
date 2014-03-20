@@ -22,6 +22,7 @@ var theme = "pink_white";
 
   var topo, projection, path, svg, g, countryNames, rateById, centered, active;
   countryCount = {};
+  var countryScore = 0;
 
   //Variables needed to update scale and legend
   var mydomain = [];
@@ -55,6 +56,18 @@ var theme = "pink_white";
     } else return 0;
 
   }
+
+
+  function updateProgressBar() {
+    var progressPro = (countryScore / 199) * 100 + "%";
+    console.log(progressPro);
+
+    return progressPro;
+
+  }
+
+
+
   //Function to format numbers over 1000 with a space
   function numbersWithSpace(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -177,7 +190,9 @@ var theme = "pink_white";
 
 
 
-  //var progress = d3.select("#progress").style({"width : 60%"});
+  //progressbar...
+
+
 
   var changeTheme = d3.select("#changeTheme").append("div").attr("id", "paintIt").html("Paint it black");
 
@@ -334,6 +349,10 @@ var theme = "pink_white";
 
   function draw(topo, redrawMap) {
     var country = g.selectAll(".country").data(topo);
+
+    console.log(countryScore);
+    var progress = d3.select("#progress").style("width", updateProgressBar());
+    //updateProgressBar()
 
     //Draw countries
     if (redrawMap) {
@@ -936,15 +955,21 @@ var theme = "pink_white";
   /** "PUBLUC" FUNCTIONS **/
   map.putCountryCount = function(object) {
     countryCount = JSON.parse(JSON.stringify(object));
+    countryScore = 0;
+    var countryList = [];
 
     // Extract info for the current user
     d3.keys(countryCount).forEach(function(id) {
       if (countryCount[id][SESSION.name]) {
         countryCount[id] = countryCount[id][SESSION.name];
+        countryScore = countryScore + 1;
+        countryList.push(+id)
       } else {
         // delete countryCount[id];
       }
     })
+
     if (topo) redraw();
+
   }
 })(window, document)

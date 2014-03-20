@@ -239,7 +239,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
             .each("end", function() {
                 loader.remove();
             });
-
+        console.log(countryCountObj);
         CACHED_USERS[user] = new Date().getTime();
         window.localStorage.cached_users = JSON.stringify(CACHED_USERS);
         window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
