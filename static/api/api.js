@@ -235,8 +235,6 @@ api.getRecommendations = function(country, callback) {
 			tagCounts[a.name] = [];
 			api.lastfm.send("artist.gettoptags", [["artist", a.name]], function(err, data2) {
 				var hasTags = !data2.error && (data2.toptags.tag ? true : false);
-				console.log(err, data2, hasTags)
-
 				if (hasTags) {
 					// Compare top 10 tags to user tags
 					var tags = d3.nest().key(function(d) {
@@ -244,13 +242,13 @@ api.getRecommendations = function(country, callback) {
 					}).map(data2.toptags.tag);
 
 					// Get rid of justin bieber
-					//if (tags[country]) {
-					for (var i = data2.toptags.tag.length - 1; i >= 0; i--) {
-						if (userTagObj[data2.toptags.tag[i].name] && data2.toptags.tag[i].count > 5) {
-							tagCounts[a.name].push(data2.toptags.tag[i].name);
-						}
-					};
-					//}
+					if (tags[country]) {
+						for (var i = data2.toptags.tag.length - 1; i >= 0; i--) {
+							if (userTagObj[data2.toptags.tag[i].name] && data2.toptags.tag[i].count > 5) {
+								tagCounts[a.name].push(data2.toptags.tag[i].name);
+							}
+						};
+					}
 				}
 
 				if (num === artists.length - 1) {

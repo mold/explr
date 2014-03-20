@@ -6,7 +6,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
     // user = prompt("Input your user name, get top 20 artists")
     var user, currPage = 1,
         maxPage;
-    var countryCountObj = JSON.parse(window.localStorage.countryCountObj || "{}");
+    var countryCountObj = {};
     var count = 0;
     var tries = 0;
 
@@ -150,11 +150,21 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
         var done = function() {
             // make list of tags to sort
             USER_TAGS = [];
+            //Remove specific tags from user's top tags
+            forbidden = ["american", "swedish", "british", "female vocalists", "male vocalists", "german"];
             d3.keys(tagCount).forEach(function(el) {
-                USER_TAGS.push({
-                    tag: el,
-                    count: tagCount[el]
-                });
+                var nogood = false
+                for (i = 0; i < forbidden.length; i++) {
+                    if (el === forbidden[i]) {
+                        nogood = true;
+                    }
+                }
+                if (!nogood) {
+                    USER_TAGS.push({
+                        tag: el,
+                        count: tagCount[el]
+                    });
+                }
             })
             USER_TAGS.sort(function(a, b) {
                 return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
@@ -209,16 +219,14 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
         if (CACHED_USERS[user]) {
             // TODO: use timestamp
             console.log("No new artists on last.fm!");
+            countryCountObj = JSON.parse(window.localStorage.countryCountObj);
 
             setTimeout(function() {
                 map.putCountryCount(countryCountObj);
                 end();
             }, 1000)
         } else {
-            d3.keys(window.localStorage).forEach(function(key) {
-                console.log(key)
-                delete window.localStorage[key];
-            });
+            window.localStorage.clear();
             getAllArtists();
         }
     }
