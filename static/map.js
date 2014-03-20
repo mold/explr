@@ -639,7 +639,8 @@ var theme = "white";
     var recLoadingDiv = d3.select("#recommendations").append("div").attr("class", "recLoadingDiv");
     var recLoadingMessage = recLoadingDiv.append("span")
       .attr("id", "rec-loading")
-      .html("Loading artists tagged #" + tag);
+      .html("Looking for artists tagged #" + tag);
+    // recLoadingDiv.append("span").attr("id", "rec-loading-current");
     recLoadingDiv.append("img")
       .attr({
         id: "rec-loading-img",
@@ -648,7 +649,8 @@ var theme = "white";
       .style({
         display: "inline-block",
         margin: "0 5px"
-      });
+      })
+    recLoadingDiv.append("span").attr("id", "rec-loading-current");
 
 
 
@@ -659,7 +661,7 @@ var theme = "white";
         return;
       }
       // Show loading message
-      recLoadingMessage.html("Loading artists tagged #" + name)
+      recLoadingMessage.html("Looking for artists tagged #" + name)
 
       //Get list of recommendations for country based on country name!
       api.getRecommendations(name, function(namelist) {
