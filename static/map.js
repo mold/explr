@@ -706,14 +706,13 @@ var theme = "white";
 
           //Get url and images for recommended artists!
           api.getArtistInfo(list[i].name, function(art) {
-            d3.select("#rec-loading").remove();
-            d3.select("#rec-loading-img").remove();
+            recLoadingDiv.remove();
             var artisturl = art[0].url;
             var artistimg = art[0].image;
             var artistname = art[0].name;
 
 
-            var recoArtistDiv = d3.select("#recommendations").insert("div", "#summaryText").attr("class", "artist-div");
+            var recoArtistDiv = d3.select("#recommendations").insert("div", "#summaryText").attr("class", "artist-div lowlight");
             var recoArtistLink = recoArtistDiv.append("a").style("display", "block")
             //.attr("href", artisturl)
             //.attr("target", "_blank");
@@ -803,7 +802,7 @@ var theme = "white";
       d3.select("#summaryText").html("");
       //Create containing div
       // Calculate height of infotextbox (so the scrollbar is inside the box and not on body)
-      var h = window.innerHeight * 0.92 - document.getElementById("artistContainer").offsetHeight;
+      var h = window.innerHeight * 0.90 - document.getElementById("artistContainer").offsetHeight;
       summaryText.style("max-height", h + "px");
 
       summaryText.append("h4").html(artistname);

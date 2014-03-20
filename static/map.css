@@ -198,9 +198,7 @@ div.artist-div{
   padding-top: 0;
   cursor: pointer;
 }
-.artist-div.highlight:hover{
-  opacity: 0.5;
-}
+
 .artist-div.lowlight{
   opacity: 0.5;
 }
