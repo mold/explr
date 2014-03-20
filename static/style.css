@@ -17,6 +17,35 @@ a:active{
   font-weight: normal;
 }
 
+#change-user-button{
+	position: absolute;
+	right:20px;
+	top: 20px;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px;
+	z-index: 1000;
+	background: pink;
+	cursor: pointer;
+	overflow:hidden;
+}
+#change-user-button:hover{
+	overflow: visible;
+	background: #a0a;
+}	
+#change-user-button:active{
+	overflow: visible;
+	background: #cac;
+}	
+#change-user-button img{
+	display: block;
+	margin: 3px auto;
+}
+#change-user-button p{
+	width: 100px;
+	margin: -30px -95px;
+}
+
 .theme-button {
 	/*font-size: 14px;
 	background: white;
