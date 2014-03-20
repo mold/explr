@@ -243,8 +243,6 @@ box-shadow:         0px 5px 11px 0px rgba(0, 0, 0, 0.3);
           transition: width 0.6s ease;
 }
 
-
-
 #countryCount{
 	position: absolute;
 	top: 90%;
@@ -252,3 +250,8 @@ box-shadow:         0px 5px 11px 0px rgba(0, 0, 0, 0.3);
 	left: 20%;
 }
 
+#logo{
+	position: absolute;
+	top:90%;
+	right:5%;
+}

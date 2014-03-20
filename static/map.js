@@ -222,6 +222,8 @@ var theme = "pink_white";
   var artistSummaryDiv = d3.select("#artistContainer").append("div").attr("class",
     "artistSummaryDiv").attr("id", "summary");
 
+  var logo = d3.select("#map-container").append("div").attr("id", "logo").append("img").attr("src", "static/img/explrlogo.png").style("width", "100px");
+
 
 
   var closeButton;
