@@ -217,8 +217,6 @@ border:5px solid white;
           transition: width 0.6s ease;
 }
 
-
-
 #countryCount{
 	position: absolute;
 	top: 90%;
@@ -226,3 +224,8 @@ border:5px solid white;
 	left: 20%;
 }
 
+#logo{
+	position: absolute;
+	top:90%;
+	right:5%;
+}
