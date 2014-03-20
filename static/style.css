@@ -5,8 +5,48 @@ body {
 	overflow-y: hidden;
 }
 
+/** FOR THEMES!! **/
+body.blue_black,
+body.green_black,
+body.pink_black{
+	background: black;
+	color:white;
+	fill:white;
+}
+
+body.pink_white,
+body.green_white,
+body.red_white{
+	background: white;
+	color:#222;
+	fill:#222;
+}
+
+body.blue_black a,
+body.green_black a,
+body.pink_black a,
+body.blue_black a:visited,
+body.green_black a:visited,
+body.pink_black a:visited,
+body.blue_black a:active,
+body.green_black a:active,
+body.pink_black a:active{
+	color:white;
+}
+
+body.pink_white a,
+body.green_white a,
+body.red_white a,
+body.pink_white a:visited,
+body.green_white a:visited,
+body.red_white a:visited,
+body.pink_white a:active,
+body.green_white a:active,
+body.red_white a:active{
+	color:#222;
+}
+
 a{
-  color: #222;
   font-weight: bold;
   text-decoration: underline;
 }
@@ -25,17 +65,19 @@ a:active{
 	height: 40px;
 	border-radius: 20px;
 	z-index: 1000;
-	background: pink;
+	background:rgb(172,172,172);
+	opacity:0.5;
 	cursor: pointer;
 	overflow:hidden;
 }
+
 #change-user-button:hover{
 	overflow: visible;
-	background: #a0a;
+	opacity: 1;
 }	
 #change-user-button:active{
 	overflow: visible;
-	background: #cac;
+	opacity: 0.3;
 }	
 #change-user-button img{
 	display: block;
@@ -159,7 +201,6 @@ border:5px solid white;
   height: 100%;
   font-size: 12px;
   line-height: 20px;
-  color: #ffffff;
   text-align: center;
   background-color: #A942CA;
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
