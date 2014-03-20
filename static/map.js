@@ -594,16 +594,21 @@ var theme = "white";
       for (i = 0; i < 5; i++) {
         if (countryCount[d.id][i]) {
           var index = i;
-          var artistDiv = d3.select("#details").append("div").attr("class", "artist-div");
+          var artistDiv = d3.select("#details").append("div").attr({
+            "class": "artist-div",
+            "data-artist": countryCount[d.id][i].artist
+          })
+            .on("click", function() {
+              d3.selectAll(".artist-div").classed("lowlight", true).classed("highlight", false); // Lowlight not selected artists
+              d3.select(this).classed("higlight", true).classed("lowlight", false); // Highlight selected artist
+              makeSummaryDiv(d3.select(this).attr("data-artist"), []);
+            });
           var artistLink = artistDiv.append("a").style("display", "block")
           //.attr("href", countryCount[d.id][i].url)
           //.attr("target", "_blank");
           artistLink.append("div")
             .attr("class", "image-div")
-            .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )")
-            .on("click", function() {
-              //makeSummaryDiv(countryCount[d.id][index].artist)
-            });
+            .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
 
           var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
 
@@ -621,6 +626,8 @@ var theme = "white";
     d3.select("#recommendations").append("h4")
       .html("You may like: ")
       .attr("class", "recom-h4");
+
+    // show loading message
     d3.select("#recommendations").append("p")
       .attr("id", "rec-loading")
       .html("Getting artists tagged #" + tag + "...");
@@ -638,15 +645,20 @@ var theme = "white";
 
     //Get list of recommendations for country based on tags!
     api.getRecommendations(tag, function(taglist) {
+      // Return if this callback is from an old (not active) country
       if (centered.id !== d.id) {
         return;
       }
+      // Show loading message
       d3.select("#rec-loading").html("Getting artists tagged #" + name + "...")
+
       //Get list of recommendations for country based on country name!
       api.getRecommendations(name, function(namelist) {
+        // Return if this callback is from an old (not active) country
         if (centered.id !== d.id) {
           return;
         }
+        //Show loading message
         d3.select("#rec-loading").html("Getting images for recommended artists...");
 
         //Join the two lists
@@ -670,7 +682,7 @@ var theme = "white";
         //Randomize list
         list = shuffleArray(list);
 
-        if (list.length === 0) {
+        if (list.length === 0) { // Found no recommendations
           d3.select("#rec-loading").remove();
           d3.select("#rec-loading-img").remove();
           d3.select("#recommendations").append("p")
@@ -693,21 +705,25 @@ var theme = "white";
             var artistname = art[0].name;
 
 
-            var recoArtistDiv = d3.select("#recommendations").append("div").attr("class", "artist-div");
+            var recoArtistDiv = d3.select("#recommendations").insert("div", "#summaryText").attr("class", "artist-div");
             var recoArtistLink = recoArtistDiv.append("a").style("display", "block")
             //.attr("href", artisturl)
             //.attr("target", "_blank");
             recoArtistLink.append("div")
               .attr("class", "image-div")
               .style("background-image", "url(" + "'" + artistimg + "'" + ")")
-              .on("click", function() {
-                makeSummaryDiv(artistname, list)
-              });
+
             var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
 
             recoArtistInfoDiv.append("p")
               .html("<b>" + artistname + "</b>")
               .attr("class", "details-p");
+
+            recoArtistDiv.on("click", function() {
+              d3.selectAll(".artist-div").classed("lowlight", true); // Lowlight not selected artists
+              d3.select(this).classed("higlight", true).classed("lowlight", false); // Highlight selected artist
+              makeSummaryDiv(artistname, list);
+            });
 
           })
         }
@@ -743,13 +759,14 @@ var theme = "white";
         usertaglist = list[y].tags
     }
 
-    //Remove any old content
     d3.select("#summaryText").remove();
+    var summaryText = d3.select("#recommendations").append("div").attr("class", "summaryText").attr("id", "summaryText");
+    d3.select("#summaryText").html("Loading description of " + artistname + "...")
     //Get artist info from Lastfm
     api.getArtistInfo(artistname, function(art) {
       var text = art[0].description.replace(/(\n)+/g, '<br />');
       var text = text.substring(6);
-      console.log(text)
+      // console.log(text)
       //Get artist's top tags
       artisttaglist = art[0].tags;
       //Create combined tag list and remove duplicates
@@ -757,9 +774,13 @@ var theme = "white";
       taglist = taglist.filter(function(elem, pos) {
         return taglist.indexOf(elem) == pos;
       })
-
+      // Remove loading text
+      d3.select("#summaryText").html("");
       //Create containing div
-      var summaryText = d3.select("#recommendations").append("div").attr("class", "summaryText").attr("id", "summaryText");
+      // Calculate height of infotextbox (so the scrollbar is inside the box and not on body)
+      var h = window.innerHeight * 0.92 - document.getElementById("artistContainer").offsetHeight;
+      summaryText.style("max-height", h + "px");
+
       summaryText.append("h4").html(artistname);
 
       //Show top 7 tags
@@ -772,7 +793,7 @@ var theme = "white";
         }
       }
       //Display artist summary
-      summaryText.append("p").html(text);
+      summaryText.append("p").html(text || "No description available - <a href='http://last.fm/music/" + artistname + "' target='_blank'>check out last.fm.</a>");
 
     })
 

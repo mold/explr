@@ -2,6 +2,19 @@ body {
 	background-color: white;
 	margin:0;
 	overflow-x: hidden;
+	overflow-y: hidden;
+}
+
+a{
+  color: #222;
+  font-weight: bold;
+  text-decoration: underline;
+}
+a:hover{
+  text-decoration: none;
+}
+a:active{
+  font-weight: normal;
 }
 
 .theme-button {
@@ -109,6 +122,7 @@ border:5px solid white;
  /* border-radius: 4px;*/
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
           box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	z-index: 0;
 }
 .progress-bar {
   float: left;
@@ -129,7 +143,6 @@ border:5px solid white;
 
 #countryCount{
 	position: absolute;
-	z-index: 5;
 	top: 90%;
 	width: 60%;
 	left: 20%;

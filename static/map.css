@@ -57,6 +57,7 @@ div.tooltip {
   box-shadow: 0px 0px 2px 0px #a6a6a6; 
   opacity: 0.9; 
   position: absolute;
+  z-index: 1;
 }
 
 .infoContainer{
@@ -114,6 +115,8 @@ div.tooltip {
   padding-left: 0.5em;
   padding-right: 1em;
   background-color: rgba(255, 255, 255, 0.3);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .summaryText h4 {
@@ -124,11 +127,7 @@ div.tooltip {
   /*font-family: 'Josefin Sans';*/
   margin-top: 0.3em;
 }
-.summaryText a{
-  color: #222;
-  font-weight: bold;
-  text-decoration: none;
-}
+
 
 .tagdiv{
   border: 1px solid lightgrey;
@@ -194,8 +193,16 @@ div.artist-div{
   text-align: center;
   width: 7em;
   padding-top: 0;
-
-
+  cursor: pointer;
+}
+.artist-div.highlight:hover{
+  opacity: 0.5;
+}
+.artist-div.lowlight{
+  opacity: 0.5;
+}
+.artist-div.lowlight:hover{
+  opacity: 1;
 }
 
 *{
