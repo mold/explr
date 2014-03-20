@@ -81,14 +81,13 @@ body.pink_black .tooltip{
 body.blue_black .infoContainer,
 body.green_black .infoContainer,
 body.pink_black .infoContainer{
-  background: rgba(0,0,0, 0.85);
-
+  background: rgba(0, 0, 0, 0.85);
+  border-top: 1px solid white;
 }
 
 body.pink_white .infoContainer,
 body.green_white .infoContainer,
-body.red_white .infoContainer,
-{
+body.red_white .infoContainer{
   background: rgba(255, 255, 255, 0.85);
 }
 
@@ -135,12 +134,10 @@ body.red_white .infoContainer,
 
 .summaryText{
   display: inline-block;
-  padding-left: 0.5em;
-  padding-right: 1em;
   background:inherit;
   overflow-x: hidden;
   overflow-y: auto;
-  width: inherit;
+  width: 100%;
 }
 
 .summaryText h4 {
@@ -164,6 +161,13 @@ body.red_white .infoContainer,
   margin-right: 0.2em;
   width:auto;
 }
+
+body.blue_black .tagdiv,
+body.green_black .tagdiv,
+body.pink_black .tagdiv{
+  color:#ccc;
+}
+
 .tagdiv h4{
   font-size: 0.8em;
   font-weight: normal;
@@ -172,6 +176,12 @@ body.red_white .infoContainer,
   /*background-color: rgba(220, 20, 20, 0.1);*/
   color: #636363;
   font-weight: bolder;
+}
+
+body.blue_black .tagdiv .usertag,
+body.green_black .tagdiv .usertag,
+body.pink_black .tagdiv .usertag{
+  color:#fff;
 }
 
 div.cnameDiv {
