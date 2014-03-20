@@ -264,7 +264,7 @@ var theme = "pink_white";
     red_white: ["#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"],
   };
 
-  var nextTheme = function() {
+  nextTheme = function() {
     // Go to next theme
     var themeList = d3.keys(themes);
     theme = themeList[(themeList.indexOf(theme) + 1) % themeList.length];
@@ -351,8 +351,10 @@ var theme = "pink_white";
     var country = g.selectAll(".country").data(topo);
 
     console.log(countryScore);
-    var progress = d3.select("#progress").style("width", updateProgressBar());
-    //updateProgressBar()
+    var progress = d3.select("#progress").style({
+      "width": updateProgressBar(),
+      "background-color": colorArray[6]
+    });
 
     //Draw countries
     if (redrawMap) {
