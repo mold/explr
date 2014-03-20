@@ -132,7 +132,7 @@ div.tooltip {
 
 .tagdiv{
   border: 1px solid lightgrey;
-  color: grey;
+  color: #969696;
   display: inline-block;
   background-color: rgba(255, 255, 255, 0.4);
   margin-top: 0.6em;
@@ -146,8 +146,9 @@ div.tooltip {
   font-weight: normal;
 }
 .tagdiv .usertag{
-  background-color: rgba(220, 20, 20, 0.1);
-  color: #222;
+  /*background-color: rgba(220, 20, 20, 0.1);*/
+  color: #636363;
+  font-weight: bolder;
 }
 
 div.cnameDiv {
