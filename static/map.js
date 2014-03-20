@@ -608,7 +608,7 @@ var theme = "white";
           var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
 
           playCountDiv.append("p")
-            .html(countryCount[d.id][i].artist + "<br>" + countryCount[d.id][i].playcount + " scrobbles")
+            .html("<b>" + countryCount[d.id][i].artist + "</b><br>" + countryCount[d.id][i].playcount + " scrobbles")
             .attr("class", "details-p");
         } else {
           i = 5;
@@ -706,7 +706,7 @@ var theme = "white";
             var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
 
             recoArtistInfoDiv.append("p")
-              .html(artistname)
+              .html("<b>" + artistname + "</b>")
               .attr("class", "details-p");
 
           })
@@ -747,7 +747,9 @@ var theme = "white";
     d3.select("#summaryText").remove();
     //Get artist info from Lastfm
     api.getArtistInfo(artistname, function(art) {
-      var text = art[0].description;
+      var text = art[0].description.replace(/(\n)+/g, '<br />');
+      var text = text.substring(6);
+      console.log(text)
       //Get artist's top tags
       artisttaglist = art[0].tags;
       //Create combined tag list and remove duplicates
@@ -761,8 +763,8 @@ var theme = "white";
       summaryText.append("h4").html(artistname);
 
       //Show top 7 tags
-      for (i = 0; i < Math.min(taglist.length, 7); i++) {
-        var tagdiv = summaryText.append("div").attr("class", "tagdiv").append("h4").html(taglist[i]);
+      for (i = 0; i < Math.min(taglist.length, 6); i++) {
+        var tagdiv = summaryText.append("div").attr("class", "tagdiv").append("h4").html("#" + taglist[i]);
         //Mark all user tags
         for (p = 0; p < usertaglist.length; p++) {
           if (taglist[i] === usertaglist[p])
