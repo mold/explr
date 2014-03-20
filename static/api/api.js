@@ -175,12 +175,18 @@ api.getArtistInfo = function(artist, callback) {
 	var artistInfo = [];
 
 	api.lastfm.send("artist.getinfo", [["artist", artist]], function(err, data1) {
+		//Creating a list of tag names
+		var tagnamelist = [];
+		data1.artist.tags.tag.forEach(function(t, i) {
+			tagnamelist.push(t.name);
+		})
+
 		artistInfo.push({
 			name: artist,
 			url: data1.artist.url,
 			image: data1.artist.image[3]["#text"],
 			description: data1.artist.bio.summary,
-			tags: data1.artist.tags
+			tags: tagnamelist
 		})
 		callback(artistInfo);
 	})
@@ -211,7 +217,7 @@ api.getRecommendations = function(country, callback) {
 	console.log("Got top tags for user!")
 
 	// Get top artists for tag country
-	api.lastfm.send("tag.topartists", [["tag", country], ["limit", 75]], function(err, data1) {
+	api.lastfm.send("tag.topartists", [["tag", country], ["limit", 125]], function(err, data1) {
 		// Gotta count matching tags to then sort
 		var tagCounts = {};
 
@@ -235,14 +241,14 @@ api.getRecommendations = function(country, callback) {
 					}).map(data2.toptags.tag);
 
 					// Get rid of justin bieber
-					//if (tags[country]) {
-					for (var i = data2.toptags.tag.length - 1; i >= 0; i--) {
-						if (userTagObj[data2.toptags.tag[i].name] && data2.toptags.tag[i].count > 5) {
-							tagCounts[a.name].push(data2.toptags.tag[i].name);
-						}
-					};
+					if (tags[country]) {
+						for (var i = data2.toptags.tag.length - 1; i >= 0; i--) {
+							if (userTagObj[data2.toptags.tag[i].name] && data2.toptags.tag[i].count > 5) {
+								tagCounts[a.name].push(data2.toptags.tag[i].name);
+							}
+						};
+					}
 				}
-				//}
 
 				if (num === artists.length - 1) {
 					console.log("We've gotten tag counts for all artists, make a list!")

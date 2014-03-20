@@ -113,7 +113,7 @@ var theme = "white";
     }
 
     //Array of text
-    var legend_labels = [mydomain[0] + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + (mydomain[5] - 1), mydomain[5] + "-" + (mydomain[6] - 1), mydomain[6] + "+"];
+    var legend_labels = [numbersWithSpace(mydomain[0]) + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + numbersWithSpace((mydomain[5] - 1)), numbersWithSpace(mydomain[5]) + "-" + numbersWithSpace((mydomain[6] - 1)), numbersWithSpace(mydomain[6]) + "+"];
 
     //Create Legend
     legend = svg.select("g#legend").selectAll("g.legend")
@@ -411,8 +411,7 @@ var theme = "white";
           .attr("style", "left:" + (mouse[0] + offsetL + 20) + "px;top:" + (
             mouse[1] +
             offsetT + 10) + "px")
-          .html(name + (countryCount[d.id] ? ", number of artists: " +
-            countryCount[d.id].length : ""));
+          .html(name + (countryCount[d.id] ? "<br>" + countryCount[d.id].length + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " scrobbles" : ""));
 
       })
       .on("mouseout", function(d, i) {
@@ -565,7 +564,10 @@ var theme = "white";
     d3.select("#recommendations").html("");
     //Show country name and info div on left hand side
     infoContainer
-      .classed("hidden", false);
+      .classed("hidden", false)
+      .transition()
+      .style("opacity", 1)
+      .duration(750);
 
     closeButton = d3.select('#infoContainer').append("button").attr("type", "button").attr("class", "close-button").html("X");
 
@@ -699,7 +701,7 @@ var theme = "white";
               .attr("class", "image-div")
               .style("background-image", "url(" + "'" + artistimg + "'" + ")")
               .on("click", function() {
-                makeSummaryDiv(artistname)
+                makeSummaryDiv(artistname, list)
               });
             var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
 
@@ -717,6 +719,7 @@ var theme = "white";
   }
 
   function removeArtistDiv() {
+    infoContainer.transition().style("opacity", 0).duration(1000);
     infoContainer.classed("hidden", true);
     d3.selectAll(".artist-div").remove("div");
     d3.select(".close-button").remove("button");
@@ -731,20 +734,40 @@ var theme = "white";
     d3.select("#cnameCont").remove("h5");
   }
 
-  function makeSummaryDiv(artistname) {
+  function makeSummaryDiv(artistname, list) {
+    var usertaglist = [];
+    var artisttaglist = [];
+    //Create list of user tags for artist
+    for (y = 0; y < list.length; y++) {
+      if (list[y].name === artistname)
+        usertaglist = list[y].tags
+    }
+
     //Remove any old content
     d3.select("#summaryText").remove();
     //Get artist info from Lastfm
     api.getArtistInfo(artistname, function(art) {
       var text = art[0].description;
+      //Get artist's top tags
+      artisttaglist = art[0].tags;
+      //Create combined tag list and remove duplicates
+      var taglist = usertaglist.concat(artisttaglist);
+      taglist = taglist.filter(function(elem, pos) {
+        return taglist.indexOf(elem) == pos;
+      })
+
       //Create containing div
       var summaryText = d3.select("#recommendations").append("div").attr("class", "summaryText").attr("id", "summaryText");
       summaryText.append("h4").html(artistname);
-      //Show top 5 tags
-      for (i = 0; i < 5; i++) {
-        summaryText.append("div").attr("class", "tagdiv").append("h4").html(function() {
-          return art[0].tags.tag[i].name
-        })
+
+      //Show top 7 tags
+      for (i = 0; i < Math.min(taglist.length, 7); i++) {
+        var tagdiv = summaryText.append("div").attr("class", "tagdiv").append("h4").html(taglist[i]);
+        //Mark all user tags
+        for (p = 0; p < usertaglist.length; p++) {
+          if (taglist[i] === usertaglist[p])
+            tagdiv.classed("usertag", true);
+        }
       }
       //Display artist summary
       summaryText.append("p").html(text);

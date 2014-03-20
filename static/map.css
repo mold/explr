@@ -69,6 +69,7 @@ div.tooltip {
   background: rgba(255, 255, 255, 0.6);
   border-top: 1px solid black;
   z-index: 4;
+  opacity: 0;
 
 }
 .artistContainer{
@@ -142,6 +143,9 @@ div.tooltip {
 .tagdiv h4{
   font-size: 0.8em;
   font-weight: normal;
+}
+.tagdiv .usertag{
+  background-color: rgba(220, 20, 20, 0.1);
 }
 
 div.cnameDiv {
