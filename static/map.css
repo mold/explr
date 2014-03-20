@@ -67,7 +67,7 @@ div.tooltip {
   height: 150px;
   position: absolute;
   top: 7.5%;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.85);
   border-top: 1px solid black;
   z-index: 4;
   opacity: 0;
@@ -79,7 +79,7 @@ div.tooltip {
   margin-right: 6%;
   width:37em;
   display: block;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.85);
 }
 
 .artistContainer h4 {
@@ -96,6 +96,7 @@ div.tooltip {
   padding: 0px;
   opacity: 0.9;
   vertical-align: top;
+  width: 100%;
 }
 
 .detailsDiv {
@@ -152,8 +153,9 @@ div.tooltip {
 div.cnameDiv {
   display:block;
   /*background: rgba(255, 255, 255, 1.0);*/
-  margin-left: 5%;
-  float:left;
+  float: right;
+  margin-right: 5%;
+  text-align: right;
   /*padding: .5em;
   text-shadow: #f5f5f5 0 1px 0;
   border-radius: 2px; 

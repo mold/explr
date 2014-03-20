@@ -215,7 +215,10 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
                 end();
             }, 1000)
         } else {
-
+            d3.keys(window.localStorage).forEach(function(key) {
+                console.log(key)
+                delete window.localStorage[key];
+            });
             getAllArtists();
         }
     }

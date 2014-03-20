@@ -599,8 +599,16 @@ var theme = "white";
             "data-artist": countryCount[d.id][i].artist
           })
             .on("click", function() {
-              d3.selectAll(".artist-div").classed("lowlight", true).classed("highlight", false); // Lowlight not selected artists
-              d3.select(this).classed("higlight", true).classed("lowlight", false); // Highlight selected artist
+              // Lowlight not selected artists
+              d3.selectAll(".artist-div").classed({
+                "lowlight": true,
+                "highlight": false
+              });
+              // Highlight selected artist
+              d3.select(this).classed({
+                "highlight": true,
+                "lowlight": false
+              });
               makeSummaryDiv(d3.select(this).attr("data-artist"), []);
             });
           var artistLink = artistDiv.append("a").style("display", "block")
@@ -628,17 +636,18 @@ var theme = "white";
       .attr("class", "recom-h4");
 
     // show loading message
-    d3.select("#recommendations").append("p")
+    var recLoadingDiv = d3.select("#recommendations").append("div").style("width", "100%");
+    var recLoadingMessage = recLoadingDiv.append("span")
       .attr("id", "rec-loading")
-      .html("Getting artists tagged #" + tag + "...");
-    d3.select("#recommendations").append("img")
+      .html("Getting artists tagged #" + tag);
+    recLoadingDiv.append("img")
       .attr({
         id: "rec-loading-img",
-        src: "../static/img/loader_horizontal.gif"
+        src: "../static/img/loader_spinner.gif"
       })
       .style({
-        display: "block",
-        margin: "0 auto 10px auto"
+        display: "inline-block",
+        margin: "0 5px"
       });
 
 
@@ -650,7 +659,7 @@ var theme = "white";
         return;
       }
       // Show loading message
-      d3.select("#rec-loading").html("Getting artists tagged #" + name + "...")
+      recLoadingMessage.html("Getting artists tagged #" + name)
 
       //Get list of recommendations for country based on country name!
       api.getRecommendations(name, function(namelist) {
@@ -659,7 +668,7 @@ var theme = "white";
           return;
         }
         //Show loading message
-        d3.select("#rec-loading").html("Getting images for recommended artists...");
+        recLoadingMessage.html("Getting images for recommended artists");
 
         //Join the two lists
         var list = taglist.concat(namelist);
@@ -683,8 +692,7 @@ var theme = "white";
         list = shuffleArray(list);
 
         if (list.length === 0) { // Found no recommendations
-          d3.select("#rec-loading").remove();
-          d3.select("#rec-loading-img").remove();
+          recLoadingDiv.remove();
           d3.select("#recommendations").append("p")
             .html("We couldn't find any good " + tag + " recommendations for you :-( ");
           d3.select("#recommendations").append("a").attr({
@@ -761,7 +769,17 @@ var theme = "white";
 
     d3.select("#summaryText").remove();
     var summaryText = d3.select("#recommendations").append("div").attr("class", "summaryText").attr("id", "summaryText");
-    d3.select("#summaryText").html("Loading description of " + artistname + "...")
+    d3.select("#summaryText").append("span").html("Loading description of " + artistname + "...");
+    d3.select("#summaryText").append("img")
+      .attr({
+        id: "sum-loading-img",
+        src: "../static/img/loader_spinner.gif"
+      })
+      .style({
+        display: "inline-block",
+        margin: "0 5px"
+      });
+
     //Get artist info from Lastfm
     api.getArtistInfo(artistname, function(art) {
       var text = art[0].description.replace(/(\n)+/g, '<br />');
