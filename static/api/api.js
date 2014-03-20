@@ -244,13 +244,13 @@ api.getRecommendations = function(country, callback) {
 					}).map(data2.toptags.tag);
 
 					// Get rid of justin bieber
-					//if (tags[country]) {
-					for (var i = data2.toptags.tag.length - 1; i >= 0; i--) {
-						if (userTagObj[data2.toptags.tag[i].name] && data2.toptags.tag[i].count > 5) {
-							tagCounts[a.name].push(data2.toptags.tag[i].name);
-						}
-					};
-					//}
+					if (tags[country]) {
+						for (var i = data2.toptags.tag.length - 1; i >= 0; i--) {
+							if (userTagObj[data2.toptags.tag[i].name] && data2.toptags.tag[i].count > 5) {
+								tagCounts[a.name].push(data2.toptags.tag[i].name);
+							}
+						};
+					}
 				}
 
 				if (num === artists.length - 1) {

@@ -150,11 +150,21 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
         var done = function() {
             // make list of tags to sort
             USER_TAGS = [];
+            //Remove specific tags from user's top tags
+            forbidden = ["american", "swedish", "british", "female vocalists", "male vocalists", "german"];
             d3.keys(tagCount).forEach(function(el) {
-                USER_TAGS.push({
-                    tag: el,
-                    count: tagCount[el]
-                });
+                var nogood = false
+                for (i = 0; i < forbidden.length; i++) {
+                    if (el === forbidden[i]) {
+                        nogood = true;
+                    }
+                }
+                if (!nogood) {
+                    USER_TAGS.push({
+                        tag: el,
+                        count: tagCount[el]
+                    });
+                }
             })
             USER_TAGS.sort(function(a, b) {
                 return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;

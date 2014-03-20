@@ -636,7 +636,7 @@ var theme = "white";
       .attr("class", "recom-h4");
 
     // show loading message
-    var recLoadingDiv = d3.select("#recommendations").append("div").style("width", "100%");
+    var recLoadingDiv = d3.select("#recommendations").append("div").attr("class", "recLoadingDiv");
     var recLoadingMessage = recLoadingDiv.append("span")
       .attr("id", "rec-loading")
       .html("Loading artists tagged #" + tag);
