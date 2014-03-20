@@ -639,11 +639,11 @@ var theme = "white";
     var recLoadingDiv = d3.select("#recommendations").append("div").style("width", "100%");
     var recLoadingMessage = recLoadingDiv.append("span")
       .attr("id", "rec-loading")
-      .html("Getting artists tagged #" + tag);
+      .html("Loading artists tagged #" + tag);
     recLoadingDiv.append("img")
       .attr({
         id: "rec-loading-img",
-        src: "../static/img/loader_spinner.gif"
+        src: "../static/img/loader_horizontal.gif"
       })
       .style({
         display: "inline-block",
@@ -659,7 +659,7 @@ var theme = "white";
         return;
       }
       // Show loading message
-      recLoadingMessage.html("Getting artists tagged #" + name)
+      recLoadingMessage.html("Loading artists tagged #" + name)
 
       //Get list of recommendations for country based on country name!
       api.getRecommendations(name, function(namelist) {
@@ -668,7 +668,7 @@ var theme = "white";
           return;
         }
         //Show loading message
-        recLoadingMessage.html("Getting images for recommended artists");
+        recLoadingMessage.html("Loading images for recommended artists");
 
         //Join the two lists
         var list = taglist.concat(namelist);
@@ -765,11 +765,11 @@ var theme = "white";
 
     d3.select("#summaryText").remove();
     var summaryText = d3.select("#recommendations").append("div").attr("class", "summaryText").attr("id", "summaryText");
-    d3.select("#summaryText").append("span").html("Loading description of " + artistname + "...");
+    d3.select("#summaryText").append("span").html("Loading description of " + artistname);
     d3.select("#summaryText").append("img")
       .attr({
         id: "sum-loading-img",
-        src: "../static/img/loader_spinner.gif"
+        src: "../static/img/loader_horizontal.gif"
       })
       .style({
         display: "inline-block",
