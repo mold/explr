@@ -62,7 +62,6 @@ var theme = "pink_white";
 
   function updateProgressBar() {
     var progressPro = (countryScore / 199);
-    console.log(progressPro);
 
     return progressPro;
 
@@ -363,6 +362,7 @@ var theme = "pink_white";
       "background-color": colorArray[1],
       "border-color": colorArray[6]
     });
+    d3.select("#progress-text").html(Math.round(updateProgressBar() * 100) + "%")
 
     //Draw countries
     if (redrawMap) {

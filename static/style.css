@@ -298,6 +298,13 @@ div.gobutton input:hover{
 	-moz-box-shadow:    inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
 	box-shadow:         inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
 }
+#progress-text{
+	float: right;
+	margin-right: 15px;
+	margin-top: -5px;
+
+
+}
 
 #countryCount{
 	position: absolute;
@@ -308,7 +315,7 @@ div.gobutton input:hover{
 	-webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
 	-moz-box-shadow:    inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
 	box-shadow:         inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
-   border:0.13em solid;
+   border:0.1em solid;
 	z-index: 0;
 	border-radius: 50px;
 }
