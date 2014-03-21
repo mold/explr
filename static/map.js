@@ -222,6 +222,8 @@ var theme = "pink_white";
   var artistSummaryDiv = d3.select("#artistContainer").append("div").attr("class",
     "artistSummaryDiv").attr("id", "summary");
 
+  var logo = d3.select("#map-container").append("div").attr("id", "logo").append("img").attr("src", "static/img/explrlogo.png").style("width", "100px");
+
 
 
   var closeButton;
@@ -264,14 +266,17 @@ var theme = "pink_white";
     red_white: ["#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"],
   };
 
-  var nextTheme = function() {
+  nextTheme = function(toTheme) {
     // Go to next theme
     var themeList = d3.keys(themes);
-    theme = themeList[(themeList.indexOf(theme) + 1) % themeList.length];
+    theme = toTheme || themeList[(themeList.indexOf(theme) + 1) % themeList.length];
     colorArray = themes[theme];
 
     //Change body class
     d3.select(document.body).attr("class", theme);
+
+    // Save :)
+    window.localStorage.theme = theme;
 
     // Redraw map :)
     redraw();
@@ -351,8 +356,14 @@ var theme = "pink_white";
     var country = g.selectAll(".country").data(topo);
 
     console.log(countryScore);
-    var progress = d3.select("#progress").style("width", updateProgressBar());
-    //updateProgressBar()
+
+    var progress = d3.select("#progress").style({
+      "width": updateProgressBar(),
+      "background-color": colorArray[6]
+    });
+    d3.select("#countryCount").style({
+      "background-color": colorArray[1]
+    });
 
     //Draw countries
     if (redrawMap) {

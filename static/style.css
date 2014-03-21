@@ -57,35 +57,45 @@ a:active{
   font-weight: normal;
 }
 
+#change-theme-button{
+	/*right:80px;*/
+	top: 70px;
+}
+
 #change-user-button{
+	top: 20px;
+}
+
+.change-button{
 	position: absolute;
 	right:20px;
-	top: 20px;
 	width: 40px;
 	height: 40px;
 	border-radius: 20px;
-	z-index: 1000;
+	z-index: 1;
 	background:rgb(172,172,172);
 	opacity:0.5;
 	cursor: pointer;
 	overflow:hidden;
 }
 
-#change-user-button:hover{
+.change-button:hover{
 	overflow: visible;
 	opacity: 1;
 }	
-#change-user-button:active{
+.change-button:active{
 	overflow: visible;
 	opacity: 0.3;
 }	
-#change-user-button img{
+.change-button img{
 	display: block;
 	margin: 3px auto;
 }
-#change-user-button p{
-	width: 100px;
-	margin: -30px -95px;
+.change-button p{
+	width: 200px;
+	margin: -30px -210px;
+	text-align: right;
+	font-weight: 700;
 }
 
 .theme-button {
@@ -143,19 +153,40 @@ border-radius: 67px;
 	display: flex;
 	height: 100%;
 	background: rgba(255,200,200,0.5);
-
 	visibility: hidden;/* Show only if we need to */
+}
+body.blue_black #welcome-container,
+body.green_black #welcome-container,
+body.pink_black #welcome-container{
+	background: rgba(0,55,55,0.5);
 }
 
 #welcome-message{
 	margin: auto;
 	padding: 20px 30px 30px 30px;
-background: rgba(255,255,255,0.7);
-border-radius: 30px;
-text-align: center;
-width: 300px;
-border:5px solid white;
+	background: rgba(255,255,255,0.7);
+	border-radius: 30px;
+	text-align: center;
+	width: 300px;
+	border:5px solid white;
+<<<<<<< HEAD
+=======
 }
+body.blue_black #welcome-message,
+body.green_black #welcome-message,
+body.pink_black #welcome-message{
+	background: rgba(0,0,0,0.7);
+	border:5px solid black;
+>>>>>>> FETCH_HEAD
+}
+body.blue_black #welcome-message,
+body.green_black #welcome-message,
+body.pink_black #welcome-message{
+	background: rgba(0,0,0,0.7);
+	border:5px solid black;
+}
+
+
 
 .info{
 	text-align: left;
@@ -186,15 +217,34 @@ border:5px solid white;
 
 
 .progress {
-  height: 0.3em;
+  height: 1.5em;
   margin-bottom: 20px;
   overflow: hidden;
-  background-color: #ECB0C8;
+<<<<<<< HEAD
+
+=======
+>>>>>>> FETCH_HEAD
+  background-color: rgb(172,172,172);
  /* border-radius: 4px;*/
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
           box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+   border:0.2em solid #444;
 	z-index: 0;
+
+
+/*	-webkit-box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.72);
+	-moz-box-shadow:    0px 5px 11px 0px rgba(0, 0, 0, 0.72);
+	box-shadow:         0px 5px 11px 0px rgba(0, 0, 0, 0.72);*/
 }
+
+/*body.pink_white .progress,
+body.red_white .progress,
+body.green_white .progres{
+-webkit-box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.3);
+-moz-box-shadow:    0px 5px 11px 0px rgba(0, 0, 0, 0.3);
+box-shadow:         0px 5px 11px 0px rgba(0, 0, 0, 0.3);
+}*/
+
 .progress-bar {
   float: left;
   width: 0;
@@ -202,19 +252,38 @@ border:5px solid white;
   font-size: 12px;
   line-height: 20px;
   text-align: center;
-  background-color: #A942CA;
+<<<<<<< HEAD
+
+=======
+>>>>>>> FETCH_HEAD
+  background-color: #ae017e;
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
           box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
           transition: width 0.6s ease;
 }
 
-
-
 #countryCount{
 	position: absolute;
-	top: 90%;
-	width: 60%;
+	top: 89%;
+	width: 55%;
 	left: 20%;
 }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> FETCH_HEAD
+#logo{
+	position: absolute;
+	top:90%;
+	right:5%;
+
+	pointer-events: none;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}

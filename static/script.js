@@ -226,7 +226,12 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
                 end();
             }, 1000)
         } else {
+            // Save theme
+            var theme = window.localStorage.theme;
             window.localStorage.clear();
+            if (theme) {
+                window.localStorage.theme = theme;
+            }
             getAllArtists();
         }
     }
@@ -239,7 +244,9 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
             .each("end", function() {
                 loader.remove();
             });
-        console.log(countryCountObj);
+
+        map.nextTheme(window.localStorage.theme || "pink_white");
+
         CACHED_USERS[user] = new Date().getTime();
         window.localStorage.cached_users = JSON.stringify(CACHED_USERS);
         window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
