@@ -182,13 +182,14 @@ body.pink_black #welcome-message{
 
 .info{
 	text-align: left;
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
 .infoPoint{
 	text-align: left;
 	margin: 0.3em 0 0 0;
 	font-size: 0.9em;
-	font-style: ;
 
 }
 
@@ -205,6 +206,27 @@ body.pink_black #welcome-message{
 	margin-top: 1.5em;
 }
 
+
+div.gobutton input {
+	margin-top: 15px;
+    background:url(img/gobutton.png) no-repeat center;
+    cursor:pointer;
+    border: none;
+    width:150px;
+    height:50px;
+}
+div.gobutton input:hover{
+	opacity:80%;
+}
+
+.usernameinput{
+	height: 30px;
+	width: 200px;
+	color: darkgrey;
+	font-size: 16px;
+	background: rgba(255, 255, 255, 0.7);
+
+}
 
 
 
