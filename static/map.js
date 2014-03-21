@@ -59,7 +59,7 @@ var theme = "pink_white";
 
 
   function updateProgressBar() {
-    var progressPro = (countryScore / 199) * 100 + "%";
+    var progressPro = (countryScore / 199);
     console.log(progressPro);
 
     return progressPro;
@@ -354,11 +354,12 @@ var theme = "pink_white";
     console.log(countryScore);
 
     var progress = d3.select("#progress-bar").style({
-      "width": updateProgressBar(),
+      "height": updateProgressBar() * 100 + "%",
       "background-color": colorArray[6]
     });
     d3.select("#countryCount").style({
-      "background-color": colorArray[1]
+      "background-color": colorArray[1],
+      "border-color": colorArray[6]
     });
 
     //Draw countries
@@ -579,7 +580,7 @@ var theme = "pink_white";
       .html(function() {
         if (countryCount[d.id])
           return numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " scrobbles"
-        else return "No artists yet :-("
+        else return "No " + tag + " artists - explr something you like here! ->"
       })
 
 
@@ -702,6 +703,11 @@ var theme = "pink_white";
         }
 
         for (i = 0; i < Math.min(list.length, 5); i++) {
+          // Return if this callback is from an old (not active) country
+          if (centered.id !== d.id) {
+            return;
+          }
+
           var artisturl, artistimg, artistname;
 
           //Get url and images for recommended artists!

@@ -15,13 +15,17 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
     ["page", currPage]],
             function(error, responseData) {
                 if (error || responseData.error) {
-                    console.error(error, responseData.error);
+                    console.error(error, responseData);
 
                     // Try again, but not forever
                     if (tries++ < 5) {
                         getAllArtists();
 
                         // TODO: Show erorr message ;)
+                    } else {
+                        alert("Last.fm took too long to respond.\n\nLet's refresh the page and try again!");
+                        window.localStorage.clear();
+                        window.location.reload();
                     }
                     return;
                 }
@@ -251,6 +255,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
                 loader.remove();
             });
 
+        CACHED_USERS = {};
         CACHED_USERS[user] = new Date().getTime();
         window.localStorage.cached_users = JSON.stringify(CACHED_USERS);
         window.localStorage.countryCountObj = JSON.stringify(countryCountObj);

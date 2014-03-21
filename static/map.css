@@ -37,7 +37,15 @@ svg:active{
   display: none; 
 }
 .legend {
-  font-size: 12px;
+  font-size: 14px;
+}
+  .legend rect{
+    stroke:#fff;
+  }
+body.blue_black .legend rect,
+body.pink_black .legend rect,
+body.green_black .legend rect{
+  stroke:#000;
 }
 .legend#filter{
   cursor:pointer;

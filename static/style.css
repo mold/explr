@@ -77,6 +77,10 @@ a:active{
 	opacity:0.5;
 	cursor: pointer;
 	overflow:hidden;
+
+	-webkit-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
+-moz-box-shadow:    4px 4px 9px 0px rgba(0, 0, 0, 0.75);
+box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 }
 
 .change-button:hover{
@@ -206,60 +210,50 @@ body.pink_black #welcome-message{
 }
 
 
-
-
-.progress {
-  height: 0.4em;
-  margin-bottom: 20px;
-  overflow: hidden;
-
-  background-color: rgb(172,172,172);
- /* border-radius: 4px;*/
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-   border:0.13em solid #444;
-	z-index: 0;
-
-
-/*	-webkit-box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.72);
-	-moz-box-shadow:    0px 5px 11px 0px rgba(0, 0, 0, 0.72);
-	box-shadow:         0px 5px 11px 0px rgba(0, 0, 0, 0.72);*/
-}
-
-/*body.pink_white .progress,
-body.red_white .progress,
-body.green_white .progres{
--webkit-box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.3);
--moz-box-shadow:    0px 5px 11px 0px rgba(0, 0, 0, 0.3);
-box-shadow:         0px 5px 11px 0px rgba(0, 0, 0, 0.3);
-}*/
-
 #progress-bar {
-  float: left;
-  width: 0;
-  height: 100%;
-  font-size: 12px;
-  line-height: 20px;
-  text-align: center;
+	float: left;
+	width: 100%;
+	height: 0;
+	font-size: 12px;
+	line-height: 20px;
+	text-align: center;
+	position: absolute;
+	bottom: 0;
+	background-color: #ae017e;
 
-  background-color: #ae017e;
-  -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-          box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  -webkit-transition: width 0.6s ease;
-          transition: width 0.6s ease;
+	-webkit-transition: height 0.6s ease;
+	      transition: height 0.6s ease;
+	-webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
+	-moz-box-shadow:    inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
+	box-shadow:         inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
 }
 
 #countryCount{
 	position: absolute;
-	top: 92%;
-	width: 55%;
-	left: 20%;
+	top: 140px;
+	width: 10px;
+	height: 60%;
+	right: 32px;
+	-webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
+	-moz-box-shadow:    inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
+	box-shadow:         inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
+   border:0.13em solid;
+	z-index: 0;
+	border-radius: 50px;
+}
+
+body.blue_black #countryCount,
+body.pink_black #countryCount,
+body.green_black #countryCount{
+-webkit-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
+-moz-box-shadow:    4px 4px 9px 0px rgba(0, 0, 0, 0.75);
+box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 }
 
 #logo{
 	position: absolute;
-	top:90%;
-	right:5%;
+	bottom:20px;
+	right:20px;
 
 	pointer-events: none;
 	-webkit-touch-callout: none;
