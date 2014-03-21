@@ -296,7 +296,7 @@ var theme = "pink_white";
   function setup(width, height) {
 
     projection = d3.geo.naturalEarth()
-      .translate([(width / 2), (height / 2)])
+      .translate([(width / 2), (height / 2) + height * 0.08])
       .scale(width / 1.7 / Math.PI);
 
     path = d3.geo.path().projection(projection);
@@ -922,7 +922,7 @@ var theme = "pink_white";
       //Landet är redan centrerat
     } else {
       x = -width / 2;
-      y = -height / 2;
+      y = -height / 2 - height * 0.08;
       k = 1
       removeArtistDiv();
       highlightCountry(false);
