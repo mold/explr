@@ -49,7 +49,7 @@ svg:active{
 }
 
 div.tooltip {
-  color: #222; 
+  /*color: #222; */
   background: #fff; 
   padding: .5em; 
   text-shadow: #f5f5f5 0 1px 0;
@@ -60,6 +60,12 @@ div.tooltip {
   z-index: 1;
 }
 
+body.blue_black .tooltip,
+body.green_black .tooltip,
+body.pink_black .tooltip{
+  background: black;
+}
+
 .infoContainer{
   margin-left: 0.5%;
   margin-right: 0.5%;
@@ -67,19 +73,32 @@ div.tooltip {
   height: 150px;
   position: absolute;
   top: 7.5%;
-  background: rgba(255, 255, 255, 0.85);
   border-top: 1px solid black;
   z-index: 4;
   opacity: 0;
-
 }
+
+body.blue_black .infoContainer,
+body.green_black .infoContainer,
+body.pink_black .infoContainer{
+  background: rgba(0, 0, 0, 0.85);
+  border-top: 1px solid white;
+}
+
+body.pink_white .infoContainer,
+body.green_white .infoContainer,
+body.red_white .infoContainer{
+  background: rgba(255, 255, 255, 0.85);
+}
+
+
 .artistContainer{
   float: right;
 /* display:inline-block; */
   margin-right: 6%;
   width:37em;
   display: block;
-  background-color: rgba(255, 255, 255, 0.85);
+  background: inherit;
 }
 
 .artistContainer h4 {
@@ -88,7 +107,7 @@ div.tooltip {
 }
 .recoDiv {
   display: table;
-  color: #222;
+  /*color: #222;*/
   margin-left: 1em;
   margin-right: 1em;
   padding: 0 30px;
@@ -103,7 +122,7 @@ div.tooltip {
 
 .detailsDiv {
   display: table;
-  color: #222;
+  /*color: #222;*/
   margin-left:1em;
   padding: 0 30px;
   /*background: rgba(255, 255, 255, 0.5);*/
@@ -115,12 +134,10 @@ div.tooltip {
 
 .summaryText{
   display: inline-block;
-  padding-left: 0.5em;
-  padding-right: 1em;
-  background-color: rgba(255, 255, 255, 0.3);
+  background:inherit;
   overflow-x: hidden;
   overflow-y: auto;
-  width: inherit;
+  width: 100%;
 }
 
 .summaryText h4 {
@@ -137,13 +154,20 @@ div.tooltip {
   border: 1px solid lightgrey;
   color: #969696;
   display: inline-block;
-  background-color: rgba(255, 255, 255, 0.4);
+  background:inherit;
   margin-top: 0.6em;
   margin-bottom: 0.3em;
   padding: 0.3em;
   margin-right: 0.2em;
   width:auto;
 }
+
+body.blue_black .tagdiv,
+body.green_black .tagdiv,
+body.pink_black .tagdiv{
+  color:#ccc;
+}
+
 .tagdiv h4{
   font-size: 0.8em;
   font-weight: normal;
@@ -152,6 +176,12 @@ div.tooltip {
   /*background-color: rgba(220, 20, 20, 0.1);*/
   color: #636363;
   font-weight: bolder;
+}
+
+body.blue_black .tagdiv .usertag,
+body.green_black .tagdiv .usertag,
+body.pink_black .tagdiv .usertag{
+  color:#fff;
 }
 
 div.cnameDiv {
@@ -167,12 +197,6 @@ div.cnameDiv {
   opacity: 0.8; */
   pointer-events: none;
 }
-body.black-theme .cnameDiv h1 {
-  color: rgba(255, 255, 255, 0.7);
-}
-body.black-theme .cnameDiv h5 {
-  color: rgba(255, 255, 255, 0.5);
-}
 
 h1 {
   color: rgba(55, 55, 55, 0.8); 
@@ -181,11 +205,22 @@ h1 {
   text-transform: capitalize;
   font-family: "Patua One";
 }
+body.blue_black h1,
+body.green_black h1,
+body.pink_black h1{
+  color:rgba(255,255,255,0.8);
+}
+
 h5 {
   color: rgba(55, 55, 55, 0.5); 
   font-size: 1.5em;
   margin-top: 0em;
   text-transform: lowercase;
+}
+body.blue_black h5,
+body.green_black h5,
+body.pink_black h5{
+  color:rgba(200,200,200,0.5);
 }
 
 h4 {

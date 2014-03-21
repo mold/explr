@@ -3,7 +3,7 @@ var map = {};
 var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
 var legend;
 
-var theme = "white";
+var theme = "pink_white";
 
 (function(window, document) {
   d3.select(window).on("resize", throttle);
@@ -129,22 +129,9 @@ var theme = "white";
     var legend_labels = [numbersWithSpace(mydomain[0]) + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + numbersWithSpace((mydomain[5] - 1)), numbersWithSpace(mydomain[5]) + "-" + numbersWithSpace((mydomain[6] - 1)), numbersWithSpace(mydomain[6]) + "+"];
 
     //Create Legend
+    svg.select("g#legend").selectAll("g.legend").remove(); // need to remove for theme changing :(
     legend = svg.select("g#legend").selectAll("g.legend")
       .data(mydomain);
-
-    // Change colors on click.
-    legend.on("click", function(d, i) {
-      if (theme == "white") {
-        toGreenWhite();
-        redraw();
-        return;
-      }
-      if (theme == "black") {
-        toBlueBlack();
-        redraw();
-        return;
-      }
-    });
 
     //Color box sizes
     var ls_w = 20,
@@ -235,6 +222,8 @@ var theme = "white";
   var artistSummaryDiv = d3.select("#artistContainer").append("div").attr("class",
     "artistSummaryDiv").attr("id", "summary");
 
+  var logo = d3.select("#map-container").append("div").attr("id", "logo").append("img").attr("src", "static/img/explrlogo.png").style("width", "100px");
+
 
 
   var closeButton;
@@ -268,41 +257,31 @@ var theme = "white";
 
 
   //---------------------- Color preferences -------------//
-  function toBlueBlack() {
-    colorArray = ["#03020D", "#140E1F", "#2A075A", "#321C78", "#362688", "#3E3CA7", "#4651C5", "#5371F4"];
-  }
+  var themes = {
+    blue_black: ["#03020D", "#140E1F", "#2A075A", "#321C78", "#362688", "#3E3CA7", "#4651C5", "#5371F4"],
+    green_black: ["#03020D", "#08120C", "#032F30", "#064137", "#0E6745", "#158C54", "#1CB162", "#28EA78"],
+    pink_black: ["#03020D", "#211f1D", "#4B0627", "#5C1138", "#7E285C", "#A13F80", "#C355A4", "#F778DA"],
+    pink_white: ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"],
+    green_white: ["#ece2f0", "#F6EBFA", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c"],
+    red_white: ["#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"],
+  };
 
-  function toGreenBlack() {
-    colorArray = ["#03020D", "#08120C", "#032F30", "#064137", "#0E6745", "#158C54", "#1CB162", "#28EA78"];
-  }
+  nextTheme = function(toTheme) {
+    // Go to next theme
+    var themeList = d3.keys(themes);
+    theme = toTheme || themeList[(themeList.indexOf(theme) + 1) % themeList.length];
+    colorArray = themes[theme];
 
-  function toPinkBlack() {
-    colorArray = ["#03020D", "#211f1D", "#4B0627", "#5C1138", "#7E285C", "#A13F80", "#C355A4", "#F778DA"];
-  }
+    //Change body class
+    d3.select(document.body).attr("class", theme);
 
-  function toPinkWhite() {
-    colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
-  }
+    // Save :)
+    window.localStorage.theme = theme;
 
-  function toGreenWhite() {
-    colorArray = ["#ece2f0", "#F6EBFA", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c"];
+    // Redraw map :)
+    redraw();
   }
-
-  function toRedWhite() {
-    colorArray = ["#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"];
-  }
-
-  //-----------THEME BUTTON---------------------//
-  /*themeButton.on("click", function(d, i) {
-    if (theme == "white") {
-      toBlackTheme();
-      return;
-    }
-    if (theme == "black") {
-      toWhiteTheme();
-      return;
-    }
-  }); */
+  map.nextTheme = nextTheme;
 
   changeTheme.on("click", function(d, i) {
     if (theme == "white") {
@@ -377,8 +356,14 @@ var theme = "white";
     var country = g.selectAll(".country").data(topo);
 
     console.log(countryScore);
-    var progress = d3.select("#progress").style("width", updateProgressBar());
-    //updateProgressBar()
+
+    var progress = d3.select("#progress").style({
+      "width": updateProgressBar(),
+      "background-color": colorArray[6]
+    });
+    d3.select("#countryCount").style({
+      "background-color": colorArray[1]
+    });
 
     //Draw countries
     if (redrawMap) {
@@ -658,7 +643,8 @@ var theme = "white";
     var recLoadingDiv = d3.select("#recommendations").append("div").attr("class", "recLoadingDiv");
     var recLoadingMessage = recLoadingDiv.append("span")
       .attr("id", "rec-loading")
-      .html("Loading artists tagged #" + tag);
+      .html("Looking for artists tagged #" + tag);
+    // recLoadingDiv.append("span").attr("id", "rec-loading-current");
     recLoadingDiv.append("img")
       .attr({
         id: "rec-loading-img",
@@ -667,7 +653,8 @@ var theme = "white";
       .style({
         display: "inline-block",
         margin: "0 5px"
-      });
+      })
+    recLoadingDiv.append("span").attr("id", "rec-loading-current");
 
 
 
@@ -678,7 +665,7 @@ var theme = "white";
         return;
       }
       // Show loading message
-      recLoadingMessage.html("Loading artists tagged #" + name)
+      recLoadingMessage.html("Looking for artists tagged #" + name)
 
       //Get list of recommendations for country based on country name!
       api.getRecommendations(name, function(namelist) {

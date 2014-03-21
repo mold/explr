@@ -13,7 +13,7 @@
 <body>
 	<div id="welcome-container">
 		<div id="welcome-message">
-			<h1>Welcome!</h1>
+			<div><img src="static/img/explrlogo.png" width="200"></div>
 			<p class="info">
 			As a last.fm user Explr.fm will visualize your music history in a new way. </p>
 
@@ -61,18 +61,30 @@
 		<span id="colorChanger">
 		</span>
 		</div>-->
-
-	<div class="progress" id="countryCount">
-		<div class="progress-bar" id="progress" >
-		<span></span></div>
-	</div>
 	
+	<!--<div class="progress" id="countryCount">
+		<div id="progress-bar" >
+		<span id="progress-text"></span></div>
+	</div>-->
+	
+	
+	<div id="change-theme-button" class="change-button" onClick="nextTheme()">
+		<img src="static/img/glyphicons_009_magic.png" alt="" width="32" height="32">
+		<p>Change theme</p>
+	</div>
+
 	<a href="./index_noflask.html">
-	<div id="change-user-button">
+
+	<div id="change-user-button" class="change-button">
 		<img src="static/img/remove-user.png" alt="" width="32" height="32">
 		<p>Change user</p>
 	</div>
 	</a>
+
+
+	<div class="logo">
+		<img src="static/img/logo.png" width="150">
+	</div>
 
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
