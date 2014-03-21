@@ -79,8 +79,8 @@ a:active{
 	overflow:hidden;
 
 	-webkit-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
--moz-box-shadow:    4px 4px 9px 0px rgba(0, 0, 0, 0.75);
-box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow:    4px 4px 9px 0px rgba(0, 0, 0, 0.75);
+	box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 }
 
 .change-button:hover{
@@ -167,6 +167,7 @@ body.pink_black #welcome-container{
 
 #welcome-message{
 	margin: auto;
+	margin-top: 10%;
 	padding: 20px 30px 30px 30px;
 	background: rgba(255,255,255,0.7);
 	border-radius: 30px;
@@ -181,18 +182,22 @@ body.pink_black #welcome-message{
 	background: rgba(0,0,0,0.7);
 	border:5px solid black;
 }
+#randomCountry{
+	font-weight: bold;
 
+}
 
 
 .info{
 	text-align: left;
+	margin-top: 5px;
+	margin-bottom: 10px;
 }
 
 .infoPoint{
 	text-align: left;
 	margin: 0.3em 0 0 0;
 	font-size: 0.9em;
-	font-style: ;
 
 }
 
@@ -209,6 +214,29 @@ body.pink_black #welcome-message{
 	margin-top: 1.5em;
 }
 
+div.gobutton input {
+	margin-top: 15px;
+    background:url(img/gobutton.png) no-repeat center;
+    background-size: 100%;
+    cursor:pointer;
+    border: none;
+    width:143px;
+    height:53px;
+
+}
+div.gobutton input:hover{
+
+}
+
+.usernameinput{
+	height: 30px;
+	width: 200px;
+	color: #222;
+	font-size: 16px;
+	font-weight: bold;
+	background: rgba(255, 255, 255, 0.8);
+
+}
 
 #progress-bar {
 	float: left;

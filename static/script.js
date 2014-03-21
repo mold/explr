@@ -9,6 +9,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
     var countryCountObj = {};
     var count = 0;
     var tries = 0;
+    var randomcountrylist = ["Malawi", "Malaysia", "Georgia", "Peru", "Sierra Leone", "Trinidad & Tobago", "Iceland", "Greece", "Laos", "Iran", "Haiti", "Nicaragua"];
 
     var getAllArtists = function() {
         api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
@@ -274,5 +275,6 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
         begin();
     } else {
         d3.select("#welcome-container").style("visibility", "visible");
+        d3.select("#randomCountry").html(randomcountrylist[Math.floor(Math.random() * (randomcountrylist.length))] + "?")
     }
 })();

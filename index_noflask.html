@@ -17,16 +17,16 @@
 			<p class="info">
 			Ever wondered where the music you listen to comes from?</p>
 			<p class="info">
-			Or if there are any good bands from <b>Malawi?</b></p>
+			Or if there are any good bands from <span id="randomCountry"></span></p>
 			
 			<p align="center"><b>Wonder no more!</b></p>
-			
+
 			<form id="start">
-				<input name="username" placeholder="Last.fm username" type="text" autofocus required>
-				<input type="submit" value="Go!">
+				<input name="username" class="usernameinput" placeholder="Last.fm username" type="text" autofocus required>
+				<div class="gobutton"><input type="submit" value=""></div>
 			</form>
 			<p class="info" id="journeyText">
-				Your musical journey begins here. </p> 
+				</p> 
 
 		</div>
 	</div>
@@ -53,7 +53,7 @@
 	
 
 	
-	<div id="change-theme-button" class="change-button on-map-view" onClick="nextTheme()">
+	<div id="change-theme-button" class="change-button" onClick="nextTheme()">
 		<img src="static/img/glyphicons_009_magic.png" alt="" width="32" height="32">
 		<p>Change theme</p>
 	</div>
