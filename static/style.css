@@ -214,8 +214,51 @@ body.pink_black #welcome-message{
 	margin-top: 1.5em;
 }
 
+.gobutton{
+	width: 180px;
+	height: 60px;
+	overflow:hidden;
+	margin: 30px auto 0 auto;
+	border-radius: 40px;
+	-webkit-border-radius:40px;
+
+	background: #ffffff; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #ffc3c3 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ffc3c3)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#ffc3c3 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#ffc3c3 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#ffc3c3 100%); /* IE10+ */	
+background: linear-gradient(to bottom, #ffffff 0%,#ffc3c3 100%); /* W3C */
+	border: 2px solid grey;
+}	
+
+.gobutton:hover{
+	background:white;
+	background: #ffc3c3; /* Old browsers */
+	background: -moz-linear-gradient(top, #ffffff 0%, #ffeaea 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#ffeaea)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #ffffff 0%,#ffeaea 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #ffffff 0%,#ffeaea 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #ffffff 0%,#ffeaea 100%); /* IE10+ */	
+background: linear-gradient(to bottom, #ffffff 0%,#ffeaea 100%); /* W3C */
+}
+
+.gobutton:active{
+	background: #ffc3c3; /* Old browsers */
+background: -moz-linear-gradient(top, #ffc3c3 0%, #ffffff 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffc3c3), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #ffc3c3 0%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #ffc3c3 0%,#ffffff 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #ffc3c3 0%,#ffffff 100%); /* IE10+ */
+background: linear-gradient(to bottom, #ffc3c3 0%,#ffffff 100%); /* W3C */
+}
+
+.gobutton:active input{
+	margin-top:4px;
+}
+
 div.gobutton input {
-	margin-top: 15px;
+	margin-top: 3px;
     background:url(img/gobutton.png) no-repeat center;
     background-size: 100%;
     cursor:pointer;
