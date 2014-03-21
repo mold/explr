@@ -15,6 +15,8 @@ var theme = "pink_white";
     .scaleExtent([1, 9])
     .on("zoom", move);
 
+
+
   // var width = document.getElementById('map-container').offsetWidth;
   // var height = width / 1.8;
 
