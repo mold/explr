@@ -114,6 +114,7 @@ body.red_white .infoContainer{
   padding: 0px;
   opacity: 0.9;
   vertical-align: top;
+  width: 560px;
 }
 .recLoadingDiv{
   width: 100%;
@@ -138,6 +139,9 @@ body.red_white .infoContainer{
   overflow-x: hidden;
   overflow-y: auto;
   width: 100%;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(175,175,175,0.5);
 }
 
 .summaryText h4 {
@@ -233,15 +237,32 @@ div.artist-div{
   float: left;
   text-align: center;
   width: 7em;
-  padding-top: 0;
+  padding-top: 7px;
   cursor: pointer;
+border-radius: 7px;
+-webkit-border-radius:7px;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+
+    -webkit-transition: background 0.1s; /* For Safari 3.1 to 6.0 */
+  transition: background 0.1s;
 }
 
-.artist-div.lowlight{
-  opacity: 0.5;
+.artist-div .image-div{
+  -webkit-transition: border-radius 0.1s; /* For Safari 3.1 to 6.0 */
+  transition: border-radius 0.1s;
 }
-.artist-div.lowlight:hover{
-  opacity: 1;
+
+.artist-div.highlight, .reco-div.highlight{
+ background:rgba(175,175,175,0.5);
+}
+
+.artist-div.lowlight .image-div{
+  border-radius: 50%;
+}
+.artist-div.lowlight .image-div:hover{
+  border-radius: 30%;
 }
 
 *{
@@ -251,6 +272,7 @@ div.artist-div{
 p.details-p{
   font-size: 0.8em;
   font-style: #000;
+  margin-bottom:4px;
 }
 
 .detailsDiv h5 {

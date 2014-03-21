@@ -595,7 +595,7 @@ var theme = "pink_white";
         if (countryCount[d.id][i]) {
           var index = i;
           var artistDiv = d3.select("#details").append("div").attr({
-            "class": "artist-div",
+            "class": "artist-div lowlight",
             "data-artist": countryCount[d.id][i].artist
           })
             .on("click", function() {
@@ -612,8 +612,6 @@ var theme = "pink_white";
               makeSummaryDiv(d3.select(this).attr("data-artist"), []);
             });
           var artistLink = artistDiv.append("a").style("display", "block")
-          //.attr("href", countryCount[d.id][i].url)
-          //.attr("target", "_blank");
           artistLink.append("div")
             .attr("class", "image-div")
             .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )");
@@ -729,8 +727,15 @@ var theme = "pink_white";
               .attr("class", "details-p");
 
             recoArtistDiv.on("click", function() {
-              d3.selectAll(".artist-div").classed("lowlight", true); // Lowlight not selected artists
-              d3.select(this).classed("higlight", true).classed("lowlight", false); // Highlight selected artist
+              d3.selectAll(".artist-div").classed({ // Lowlight not selected artists
+                "lowlight": true,
+                "highlight": false
+              });
+
+              d3.select(this).classed({ // Highlight selected artist
+                "highlight": true,
+                "lowlight": false
+              });
               makeSummaryDiv(artistname);
             });
 
