@@ -222,10 +222,6 @@ var theme = "pink_white";
   var artistSummaryDiv = d3.select("#artistContainer").append("div").attr("class",
     "artistSummaryDiv").attr("id", "summary");
 
-  var logo = d3.select("#map-container").append("div").attr("id", "logo").append("img").attr("src", "static/img/explrlogo.png").style("width", "100px");
-
-
-
   var closeButton;
 
   var offsetL;
@@ -279,7 +275,7 @@ var theme = "pink_white";
     window.localStorage.theme = theme;
 
     // Redraw map :)
-    redraw();
+    if (topo) redraw();
   }
   map.nextTheme = nextTheme;
 
@@ -357,7 +353,7 @@ var theme = "pink_white";
 
     console.log(countryScore);
 
-    var progress = d3.select("#progress").style({
+    var progress = d3.select("#progress-bar").style({
       "width": updateProgressBar(),
       "background-color": colorArray[6]
     });

@@ -64,22 +64,28 @@
 	
 
 	
-	<div id="change-theme-button" class="change-button" onClick="nextTheme()">
+	<div id="change-theme-button" class="change-button on-map-view" onClick="nextTheme()">
 		<img src="static/img/glyphicons_009_magic.png" alt="" width="32" height="32">
 		<p>Change theme</p>
 	</div>
 
 	<a href="./index_noflask.html">
 
-	<div id="change-user-button" class="change-button">
+	<div id="change-user-button" class="change-button on-map-view">
 		<img src="static/img/remove-user.png" alt="" width="32" height="32">
 		<p>Change user</p>
 	</div>
 	</a>
 
 
-	<div class="logo">
-		<img src="static/img/logo.png" width="150">
+	<div id="logo" class="logo on-map-view">
+		<img src="static/img/explrlogo.png" width="100">
+	</div>
+
+	<div id="countryCount" class="progress on-map-view" >
+		<div id="progress-bar">
+			<span id="progress-text"></span>
+		</div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery.js"></script>

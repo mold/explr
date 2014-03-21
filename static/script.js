@@ -212,6 +212,12 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
         // Fade in loader
         d3.select(".loader").transition().duration(2000).style("opacity", 1);
 
+        // Fade in legend, progress-bar etc
+        d3.selectAll(".on-map-view").style({
+            "visibility": "visible",
+            "opacity": 0
+        }).transition().duration(1000).style("opacity", 1);
+
         // Get user tags
         api.lastfm.send("user.gettopartists", [["user", user], ["period", "12months"]], getUserTags);
 
@@ -245,12 +251,14 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
                 loader.remove();
             });
 
-        map.nextTheme(window.localStorage.theme || "pink_white");
-
         CACHED_USERS[user] = new Date().getTime();
         window.localStorage.cached_users = JSON.stringify(CACHED_USERS);
         window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
     }
+
+    // Set theme
+    map.nextTheme(window.localStorage.theme || "pink_white");
+
 
     // Try to get username from url
     var param = window.location.href.split("username=")[1];
