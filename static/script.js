@@ -15,7 +15,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
     ["page", currPage]],
             function(error, responseData) {
                 if (error || responseData.error) {
-                    console.error(error);
+                    console.error(error, responseData.error);
 
                     // Try again, but not forever
                     if (tries++ < 5) {
