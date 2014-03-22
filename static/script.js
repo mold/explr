@@ -9,7 +9,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
     var countryCountObj = {};
     var count = 0;
     var tries = 0;
-    var randomcountrylist = ["Malawi", "Malaysia", "Peru", "Sierra Leone", "Trinidad & Tobago", "Iceland", "Greece", "Laos", "Iran", "Haiti", "Nicaragua"];
+    var randomcountrylist = ["Malawi", "Malaysia", "Peru", "Sierra Leone", "Trinidad & Tobago", "Iceland", "Greece", "Laos", "Iran", "Haiti", "Nicaragua", "Mongolia", "Slovakia"];
 
     var getAllArtists = function() {
         api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
@@ -222,8 +222,8 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
         // Fade in legend, progress-bar etc
         d3.selectAll(".on-map-view").style({
             "visibility": "visible",
-            "opacity": 0
-        }).transition().duration(1000).style("opacity", 1);
+            //            "opacity": 0
+        }) //.transition().duration(1000).style("opacity", 1);
 
         // Get user tags
         api.lastfm.send("user.gettopartists", [["user", user], ["period", "12months"]], getUserTags);

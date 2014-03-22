@@ -2,8 +2,18 @@ svg:active{
   cursor:move;
 }
 
-.country{
+body.blue_black .country,
+body.pink_black .country,
+body.green_black .country{
+  fill: #171717;
+}
+body.pink_white .country,
+body.green_white .country,
+body.red_white .country{
   fill: #feebe2;
+}
+
+.country{
   cursor: pointer;
 }
 
@@ -14,7 +24,7 @@ svg:active{
 
 .country:hover{
   stroke: #FFF7EE;
-  stroke-width: 1.5px;
+  stroke-width: 1.2px;
 }
 .text{
   font-size:13px;

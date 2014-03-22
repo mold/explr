@@ -78,9 +78,9 @@ a:active{
 	cursor: pointer;
 	overflow:hidden;
 
-	-webkit-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
+	/*-webkit-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 	-moz-box-shadow:    4px 4px 9px 0px rgba(0, 0, 0, 0.75);
-	box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
+	box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);*/
 }
 
 .change-button:hover{
@@ -302,8 +302,6 @@ div.gobutton input:hover{
 	float: right;
 	margin-right: 15px;
 	margin-top: -5px;
-
-
 }
 
 #countryCount{
@@ -315,7 +313,7 @@ div.gobutton input:hover{
 	-webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
 	-moz-box-shadow:    inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
 	box-shadow:         inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
-   border:0.1em solid;
+   	border:0.1em solid;
 	z-index: 0;
 	border-radius: 50px;
 }
@@ -345,4 +343,8 @@ box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 /* These are hidden until user has logged in */
 .on-map-view{
 	visibility: hidden;
+	opacity: 0.6;
+}
+.full-opacity{
+	opacity: 0.9;
 }

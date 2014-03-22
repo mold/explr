@@ -257,7 +257,7 @@ var theme = "pink_white";
   var themes = {
     blue_black: ["#03020D", "#140E1F", "#2A075A", "#321C78", "#362688", "#3E3CA7", "#4651C5", "#5371F4"],
     green_black: ["#03020D", "#08120C", "#032F30", "#064137", "#0E6745", "#158C54", "#1CB162", "#28EA78"],
-    pink_black: ["#03020D", "#211f1D", "#4B0627", "#5C1138", "#7E285C", "#A13F80", "#C355A4", "#F778DA"],
+    pink_black: ["#03020D", "#1F0310", "#4B0627", "#5C1138", "#7E285C", "#A13F80", "#C355A4", "#F778DA"],
     pink_white: ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"],
     green_white: ["#ece2f0", "#F6EBFA", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c"],
     red_white: ["#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"],
@@ -361,8 +361,14 @@ var theme = "pink_white";
     d3.select("#countryCount").style({
       "background-color": colorArray[1],
       "border-color": colorArray[6]
-    });
-    d3.select("#progress-text").html(Math.round(updateProgressBar() * 100) + "%")
+    })
+      .on("mousemove", function() {
+        d3.select("#progress-text").classed("hidden", false);
+      })
+      .on("mouseout", function() {
+        d3.select("#progress-text").classed("hidden", true);
+      });
+    d3.select("#progress-text").html("Scrobbled " + Math.round(updateProgressBar() * 100) + "%<br> of all countries")
 
     //Draw countries
     if (redrawMap) {
@@ -572,6 +578,10 @@ var theme = "pink_white";
       .style("opacity", 1)
       .duration(750);
 
+    //Hide progressbar when showing 
+    d3.selectAll("#countryCount, .on-map-view")
+      .classed("hidden", true);
+
     closeButton = d3.select('#infoContainer').append("button").attr("type", "button").attr("class", "close-button").html("X");
 
     //Populate country information div
@@ -582,7 +592,7 @@ var theme = "pink_white";
       .html(function() {
         if (countryCount[d.id])
           return numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " scrobbles"
-        else return "No " + tag + " artists - explr something you like here! ->"
+        else return "No artists yet :-("
       })
 
 
@@ -759,6 +769,7 @@ var theme = "pink_white";
   function removeArtistDiv() {
     infoContainer.transition().style("opacity", 0).duration(1000);
     infoContainer.classed("hidden", true);
+    d3.selectAll("#countryCount, .on-map-view").classed("hidden", false);
     d3.selectAll(".artist-div").remove("div");
     d3.select(".close-button").remove("button");
     d3.select(".details-h").remove("p");
