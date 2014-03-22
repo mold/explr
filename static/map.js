@@ -368,7 +368,7 @@ var theme = "pink_white";
       .on("mouseout", function() {
         d3.select("#progress-text").classed("hidden", false);
       });*/
-    d3.select("#progress-text").html("Scrobbled " + countryScore + "/197 countries")
+    d3.select("#progress-text").html("Scrobbled from " + countryScore + "/197 countries")
 
     //Draw countries
     if (redrawMap) {
@@ -592,7 +592,7 @@ var theme = "pink_white";
       .html(function() {
         if (countryCount[d.id])
           return numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " scrobbles"
-        else return "No artists yet :-("
+        else return "No artists yet - Find new here ->"
       })
 
 

@@ -147,6 +147,12 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
     }
 
     var getUserTags = function(err, data) {
+        if (err || data.error) {
+            console.error(err, data);
+            alert("Something went wrong when contacting the last.fm API - maybe last.fm is down?\n\nPlease try again.");
+            window.location.replace(window.location.origin + window.location.pathname);
+        }
+
         var c = 0;
 
         var tagCount = {};
@@ -218,6 +224,19 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
 
         // Fade in loader
         d3.select(".loader").transition().duration(2000).style("opacity", 1);
+        d3.select("#loading-text").html("Getting library...");
+        setTimeout(function() {
+            if (d3.select("#loading-text").html() === "Getting library...") {
+                d3.select("#loading-text").html("Last.fm is taking<br>a long time to<br>respond...");
+
+                setTimeout(function() {
+                    if (d3.select("#loading-text").html() === "Last.fm is taking<br>a long time to<br>respond...") {
+                        d3.select("#loading-text").html("Maybe <a href='http://last.fm' target='_blank'>last.fm</a> has<br>gone offline...")
+                            .style("pointer-events", "all");
+                    }
+                }, 8000);
+            }
+        }, 8000);
 
         // Fade in legend, progress-bar etc
         d3.selectAll(".on-map-view").style({

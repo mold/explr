@@ -230,6 +230,7 @@ width: 130px;
 height: 40px;
 overflow: hidden;
 margin: 1em auto 0 auto;
+padding: 3px 6px 6px 6px;
 border-radius: 10px;
 -webkit-border-radius: 10px;
 background: #ffffff;
@@ -264,7 +265,7 @@ background: linear-gradient(to bottom, #ffc3c3 0%,#ffffff 100%); /* W3C */
 }
 
 .gobutton:active input{
-	margin-top:4px;
+	margin-top:1px;
 }
 
 div.gobutton input {
@@ -319,10 +320,52 @@ div.gobutton input:hover{
 }
 #progress-text{
 	float: right;
-	margin-right: 15px;
-	margin-top: -5px;
+	margin-right: 18px;
+	margin-top: -20px;
 	width: auto;
+	line-height: 12px;
+	border-radius: 8px;
+	padding: 5px;
+	background:rgba(255,255,255,0.5);
+	border:1px solid rgba(175,175,175,0.5);
 }
+
+body.blue_black #progress-text,
+body.pink_black #progress-text,
+body.green_black #progress-text{
+	background:rgba(0,0,0,0.5);
+}
+
+#progress-text:after, #progress-text:before {
+	left: -9px;
+	top: 0px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+#progress-text:after {
+	border-color: rgba(255,255,255, 0);
+	border-left-color: rgba(255,255,255, 0.5);
+	border-width: 7px;
+	margin-top: -7px;
+}
+#progress-text:before {
+	border-color:rgba(175,175,175, 0);
+	border-left-color: rgba(175,175,175, 0.5);
+	border-width: 9px;
+	margin-top: -9px;
+}
+body.blue_black #progress-text:after,
+body.pink_black #progress-text:after,
+body.green_black #progress-text:after{
+	border-color: rgba(0,0,0,0);
+	border-left-color: rgba(0,0,0,0.5);
+}
+
 
 #countryCount{
 	position: absolute;
@@ -350,14 +393,9 @@ box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 	position: absolute;
 	bottom:20px;
 	right:20px;
+	opacity: 0.5;
 
 	pointer-events: none;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 }
 
 /* These are hidden until user has logged in */
@@ -367,4 +405,13 @@ box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 }
 .full-opacity{
 	opacity: 0.9;
+}
+
+.no-select{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }

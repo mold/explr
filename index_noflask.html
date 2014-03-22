@@ -21,7 +21,7 @@
 			
 			<p align="center"><b>Wonder no more!</b></p>
 
-			<form id="start">
+			<form id="start" class="no-select">
 				<input name="username" class="usernameinput" placeholder="Last.fm username" type="text" autofocus required>
 				<div class="gobutton"><input type="submit" value=""></div>
 			</form>
@@ -30,7 +30,7 @@
 		</div>
 	</div>
 	<div id="map-container"></div>
-	<div class="loader">
+	<div class="loader no-select">
 		<div class="bubblingG">
 		<span id="bubblingG_1">
 		</span>
@@ -39,7 +39,7 @@
 		<span id="bubblingG_3">
 		</span>
 		</div>
-	<div id="loading-text"></div>
+	<div id="loading-text" class="no-select"></div>
 	</div>	
 
 
@@ -52,38 +52,29 @@
 	
 
 	
-	<div id="change-theme-button" class="change-button on-map-view" onClick="nextTheme()">
+	<div id="change-theme-button" class="change-button on-map-view no-select" onClick="nextTheme()">
 		<img src="static/img/glyphicons_009_magic.png" alt="" width="32" height="32">
 		<p>Change theme</p>
 	</div>
 
 	<a href="./index_noflask.html">
 
-	<div id="change-user-button" class="change-button on-map-view">
+	<div id="change-user-button" class="change-button on-map-view no-select">
 		<img src="static/img/remove-user.png" alt="" width="32" height="32">
 		<p>Change user</p>
 	</div>
 	</a>
 
 
-	<div id="logo" class="logo on-map-view">
+	<div id="logo" class="logo on-map-view no-select">
 		<img src="static/img/explrlogo.png" width="100">
 	</div>
 
-	<div id="countryCount" class="progress on-map-view full-opacity" >
+	<div id="countryCount" class="progress on-map-view full-opacity no-select" >
 		<div id="progress-bar">
 			<span id="progress-text" ></span><!-- class="hidden" -->
 		</div>
 	</div>
-
-	<filter id="dropshadow" height="130%">
-	  <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
-	  <feOffset dx="2" dy="2" result="offsetblur"/> <!-- how much to offset -->
-	  <feMerge> 
-	    <feMergeNode/> <!-- this contains the offset blurred image -->
-	    <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
-	  </feMerge>
-	</filter>
 
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
