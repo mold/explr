@@ -69,6 +69,7 @@ body.green_black .legend rect{
 
 div.tooltip {
   /*color: #222; */
+  font-size: 0.8em;
   background: #fff; 
   padding: .5em; 
   text-shadow: #f5f5f5 0 1px 0;

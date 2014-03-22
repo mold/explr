@@ -363,7 +363,7 @@ box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 /* These are hidden until user has logged in */
 .on-map-view{
 	visibility: hidden;
-	opacity: 0.6;
+	/*opacity: 0.6;*/
 }
 .full-opacity{
 	opacity: 0.9;
