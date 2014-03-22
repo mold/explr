@@ -366,7 +366,7 @@ var theme = "pink_white";
         d3.select("#progress-text").classed("hidden", false);
       })
       .on("mouseout", function() {
-        d3.select("#progress-text").classed("hidden", true);
+        d3.select("#progress-text").classed("hidden", false);
       });
     d3.select("#progress-text").html("Scrobbled " + Math.round(updateProgressBar() * 100) + "%<br> of all countries")
 
