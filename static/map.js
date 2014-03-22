@@ -61,7 +61,7 @@ var theme = "pink_white";
 
 
   function updateProgressBar() {
-    var progressPro = (countryScore / 199);
+    var progressPro = (countryScore / 197);
 
     return progressPro;
 
