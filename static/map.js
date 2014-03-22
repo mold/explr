@@ -362,13 +362,13 @@ var theme = "pink_white";
       "background-color": colorArray[1],
       "border-color": colorArray[6]
     })
-      .on("mousemove", function() {
+    /*.on("mousemove", function() {
         d3.select("#progress-text").classed("hidden", false);
       })
       .on("mouseout", function() {
         d3.select("#progress-text").classed("hidden", false);
-      });
-    d3.select("#progress-text").html("Scrobbled " + Math.round(updateProgressBar() * 100) + "%<br> of all countries")
+      });*/
+    d3.select("#progress-text").html("Scrobbled " + countryScore + "/197 countries")
 
     //Draw countries
     if (redrawMap) {
