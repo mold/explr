@@ -127,7 +127,7 @@ var theme = "pink_white";
     }
 
     //Array of text
-    var legend_labels = [numbersWithSpace(mydomain[0]) + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + numbersWithSpace((mydomain[5] - 1)), numbersWithSpace(mydomain[5]) + "-" + numbersWithSpace((mydomain[6] - 1)), numbersWithSpace(mydomain[6]) + "+"];
+    var legend_labels = [numbersWithSpace(mydomain[0]) + "", mydomain[1] + "-" + (mydomain[2] - 1), mydomain[2] + "-" + (mydomain[3] - 1), mydomain[3] + "-" + (mydomain[4] - 1), mydomain[4] + "-" + numbersWithSpace((mydomain[5] - 1)), numbersWithSpace(mydomain[5]) + "-" + numbersWithSpace((mydomain[6] - 1)), "> " + numbersWithSpace(mydomain[6])];
 
     //Create Legend
     svg.select("g#legend").selectAll("g.legend").remove(); // need to remove for theme changing :(

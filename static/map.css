@@ -48,6 +48,7 @@ body.red_white .country{
 }
 .legend {
   font-size: 14px;
+  font-family: 'Patua One';
 }
   .legend rect{
     stroke:#fff;
