@@ -81,6 +81,16 @@
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
 	<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
 
+	<script> 
+	//Hide placeholder in text areas when in focus
+    $('input, text').focus(function() {
+        $(this).data('placeholder', $(this).attr('placeholder'))
+        $(this).attr('placeholder', '');
+    });
+    $('input, text').blur(function() {
+        $(this).attr('placeholder', $(this).data('placeholder'));
+    });</script>
+
 	<script>
 		// init
 		var SESSION = JSON.parse(window.localStorage.session||"{}");
