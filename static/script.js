@@ -276,6 +276,9 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
             .each("end", function() {
                 loader.remove();
             });
+        //Also fade out progress bar text (after a short delay)
+        d3.select("#progress-text").transition().delay(5000).duration(1500)
+            .style("opacity", 0);
 
         CACHED_USERS = {};
         CACHED_USERS[user] = new Date().getTime();

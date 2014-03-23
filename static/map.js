@@ -362,12 +362,15 @@ var theme = "pink_white";
       "background-color": colorArray[1],
       "border-color": colorArray[6]
     })
-    /*.on("mousemove", function() {
-        d3.select("#progress-text").classed("hidden", false);
-      })
+    //Show progressbar text on mouse-over
+    .on("mousemove", function() {
+      d3.select("#progress-text")
+        .transition().duration(150).style("opacity", 0.9);
+      console.log("testtest progress")
+    })
       .on("mouseout", function() {
-        d3.select("#progress-text").classed("hidden", false);
-      });*/
+        d3.select("#progress-text").transition().duration(150).style("opacity", 0);
+      });
     d3.select("#progress-text").html("Scrobbled from " + countryScore + "/197 countries")
 
     //Draw countries

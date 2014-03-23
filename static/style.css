@@ -182,11 +182,6 @@ body.pink_black #welcome-message{
 	background: rgba(0,0,0,0.6);
 	border:5px solid black;
 }
-#randomCountry{
-	font-weight: bold;
-
-}
-
 
 .info{
 	text-align: left;
@@ -211,12 +206,12 @@ body.pink_black #welcome-message{
 
 
 #start{
-	margin-top: 1.5em;
+	margin-top: 0.25em;
 }
 
 
 .logoImageWelcome{
-	margin-bottom: 2em;
+	margin-bottom: 0.8em;
 }
 
 
@@ -293,11 +288,12 @@ div.gobutton input:hover{
 
 .usernameinput{
 	height: 30px;
-	width: 200px;
+	width: 170px;
 	color: #222;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: bold;
 	background: rgba(255, 255, 255, 0.8);
+	text-align: center;
 
 }
 
@@ -371,7 +367,7 @@ body.green_black #progress-text:after{
 	position: absolute;
 	top: 140px;
 	width: 10px;
-	height: 60%;
+	height: 68%;
 	right: 32px;
 	-webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
 	-moz-box-shadow:    inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
@@ -391,7 +387,7 @@ box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 
 #logo{
 	position: absolute;
-	bottom:20px;
+	bottom:35px;
 	right:20px;
 	opacity: 0.5;
 
