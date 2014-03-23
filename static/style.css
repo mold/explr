@@ -293,7 +293,7 @@ div.gobutton input:hover{
 	font-size: 15px;
 	font-weight: bold;
 	background: rgba(255, 255, 255, 0.8);
-	text-align: center;
+	/*text-align: center;*/
 
 }
 
@@ -367,7 +367,7 @@ body.green_black #progress-text:after{
 	position: absolute;
 	top: 140px;
 	width: 10px;
-	height: 68%;
+	height: 65%;
 	right: 32px;
 	-webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
 	-moz-box-shadow:    inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
@@ -389,7 +389,7 @@ box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 	position: absolute;
 	bottom:35px;
 	right:20px;
-	opacity: 0.5;
+	/*opacity: 0.5;*/
 
 	pointer-events: none;
 }
