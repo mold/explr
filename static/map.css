@@ -125,6 +125,12 @@ body.red_white .infoContainer{
   font-size: 1em;
   margin-top: 1em;
 }
+
+
+.artistContainer p{
+  font-size: 0.8em;
+}
+
 .recoDiv {
   display: table;
   /*color: #222;*/
