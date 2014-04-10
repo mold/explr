@@ -136,6 +136,7 @@ body.red_white .infoContainer{
   /*color: #222;*/
   margin-left: 1em;
   margin-right: 1em;
+  margin-bottom: 1em;
   padding: 0 30px;
   padding: 0px;
   opacity: 0.9;
@@ -168,6 +169,10 @@ body.red_white .infoContainer{
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid rgba(175,175,175,0.5);
+}
+
+.summaryText p{
+  margin-bottom:0;
 }
 
 .summaryText h4 {
@@ -351,9 +356,3 @@ cursor:pointer;
   color:#444;
   background: #fff;
 }
-
-
-
-
-
-

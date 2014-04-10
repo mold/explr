@@ -149,7 +149,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
     var getUserTags = function(err, data) {
         if (err || data.error) {
             console.error(err, data);
-            alert("Something went wrong when contacting the last.fm API - maybe last.fm is down?\n\nPlease try again.");
+            alert("Something went wrong when contacting the Last.fm API\n\nEither:\n - The specified user does not exist\n - Last.fm is down\n\nPlease try again.");
             window.location.replace(window.location.origin + window.location.pathname);
         }
 

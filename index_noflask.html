@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<base target="_blank">
 	<title>
 	</title>
 	<link href='http://fonts.googleapis.com/css?family=Poiret+One|Yeseva+One|Josefin+Sans:400,700|Archivo+Black|Montserrat|Didact+Gothic|Allerta|Patua+One' rel='stylesheet' type='text/css'>
@@ -15,18 +16,18 @@
 		<div id="welcome-message">
 			<div class="logoImageWelcome"><img src="static/img/explrlogo.png" width="200"></div>
 			<p class="info">
-			Ever wondered where the music you listen to comes from?</p>
+			Ever wondered where the artists you listen to come from?</p>
 			<p class="info">
 			Or if there are any good bands from <span id="randomCountry"></span></p>
 			
 			<p align="center"><b>Wonder no more!</b></p>
-
-			<form id="start" class="no-select">
+            <p class="info">Enter your Last.fm username in the field below. If you don't have Last.fm, <a href="http://last.fm">get it here!</a></p>
+			<form id="start" class="no-select" target="_self">
 				<input name="username" class="usernameinput" placeholder="Last.fm username" type="text" autofocus required>
 				<div class="gobutton"><input type="submit" value=""></div>
 			</form>
 
-
+			<p id="made-by">Made by <a href="http://se.linkedin.com/pub/anna-movin/50/463/1a0" target="_blank">Anna</a>, <a href="http://se.linkedin.com/pub/daniel-molin/82/211/b75" target="_blank">Daniel</a>, <a href="http://se.linkedin.com/pub/moa-bergsmark/49/554/93a" target="_blank">Moa</a> and <a href="http://se.linkedin.com/in/tommyfeldt" target="_blank">Tommy</a>.
 		</div>
 	</div>
 	<div id="map-container"></div>
@@ -41,23 +42,13 @@
 		</div>
 	<div id="loading-text" class="no-select"></div>
 	</div>	
-
-
-	<!--<div class="loader" id="colors">
-		<div class="colorChange">
-		<div id="changeTheme"></div>
-		<span id="colorChanger">
-		</span>
-		</div>-->
-	
-
 	
 	<div id="change-theme-button" class="change-button on-map-view no-select" onClick="nextTheme()">
 		<img src="static/img/glyphicons_009_magic.png" alt="" width="32" height="32">
 		<p>Change theme</p>
 	</div>
 
-	<a href="./index_noflask.html">
+	<a href="./"  target="_self">
 
 	<div id="change-user-button" class="change-button on-map-view no-select">
 		<img src="static/img/remove-user.png" alt="" width="32" height="32">
@@ -75,6 +66,22 @@
 			<span id="progress-text" ></span><!-- class="hidden" -->
 		</div>
 	</div>
+
+	<!-- google analytics -->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-49535535-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	  ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+	  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+
 
 	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -108,8 +115,5 @@
 	
 	<script src="static/map.js"></script>
 	<script src="static/script.js"></script>
-
-
-
 </body>
 </html>

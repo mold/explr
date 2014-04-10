@@ -16,6 +16,7 @@ api.lastfm.url = "http://ws.audioscrobbler.com/2.0/";
 api.lastfm.send = function(method, options, callback) {
 	var url = api.lastfm.url + "?" + "method=" + method + "&api_key=" +
 		api.lastfm.key + "&format=json";
+	var xhr, gotResponse;
 
 	options.forEach(function(el) {
 		url += "&" + el[0] + "=" +
@@ -26,5 +27,21 @@ api.lastfm.send = function(method, options, callback) {
 			.replace("\\", "%5C");
 	});
 
-	d3.json(url, callback);
+	xhr = d3.json(url, function(e, d) {
+		gotResponse = true;
+		callback(e, d);
+	});
+
+
+	// Abort if the request takes too long - it sometimes ballar ur and fails after a minute :(
+	setTimeout(function() {
+		if (!gotResponse) {
+			console.log("GET " + url + " took to long, aborting");
+			xhr.abort();
+			callback("ERROR", {
+				error: "Took to long to respond"
+			});
+		}
+	}, 10000);
+
 }

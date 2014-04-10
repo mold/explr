@@ -168,7 +168,7 @@ body.pink_black #welcome-container{
 #welcome-message{
 	margin: auto;
 	margin-top: 10%;
-	padding: 20px 30px 30px 30px;
+	padding: 20px 30px 20px 30px;
 	background: rgba(255,255,255,0.7);
 	border-radius: 30px;
 	text-align: center;
@@ -410,4 +410,10 @@ box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+}
+
+#made-by{
+    font-size: 13px;
+    margin: 20px 0 0 0;
+    opacity:0.6;
 }

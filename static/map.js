@@ -324,7 +324,7 @@ var theme = "pink_white";
 
   //Load country aliases and names
   if (!window.localStorage.countries) {
-    d3.csv("../static/countries.csv", function(err, countries) {
+    d3.csv("static/countries.csv", function(err, countries) {
       countryNames = countries;
 
       countries.forEach(function(i) {
@@ -340,7 +340,7 @@ var theme = "pink_white";
     countryNames = JSON.parse(window.localStorage.countries);
   }
   //Load map
-  d3.json("../static/world-50m.json", function(error, world) {
+  d3.json("static/world-50m.json", function(error, world) {
 
     var countries = topojson.feature(world, world.objects.countries).features;
 
@@ -658,7 +658,7 @@ var theme = "pink_white";
     recLoadingDiv.append("img")
       .attr({
         id: "rec-loading-img",
-        src: "../static/img/loader_horizontal.gif"
+        src: "static/img/loader_horizontal.gif"
       })
       .style({
         display: "inline-block",
@@ -797,7 +797,7 @@ var theme = "pink_white";
     d3.select("#summaryText").append("img")
       .attr({
         id: "sum-loading-img",
-        src: "../static/img/loader_horizontal.gif"
+        src: "static/img/loader_horizontal.gif"
       })
       .style({
         display: "inline-block",

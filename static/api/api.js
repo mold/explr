@@ -1,7 +1,7 @@
 var api = api || {};
 var superCount = 0;
 
-d3.csv("../static/countries.csv", function(err, data) {
+d3.csv("static/countries.csv", function(err, data) {
 	alias = d3.nest()
 		.key(function(d) {
 			return d.tag.toLowerCase();
@@ -102,7 +102,7 @@ d3.csv("../static/countries.csv", function(err, data) {
 		var checkCount = function() {
 			count++;
 			superCount++;
-			d3.select("#loading-text").html("Loading artists...<br>(" + superCount + "/" + SESSION.total_artists + ")");
+			d3.select("#loading-text").html("Loading artists...<br>(" + superCount + "/" + SESSION.total_artists + ")<br>Feel free to start<br>exploring!");
 			if (count === artists.length) {
 				// We done, save artists and call back
 				window.localStorage.artists = JSON.stringify(STORED_ARTISTS);
