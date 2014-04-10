@@ -23,7 +23,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
                     return;
                 }
                 if (error || responseData.error) {
-                    console.error(error, responseData);
+                    console.error("Error in getAllArtists, page " + currPage, error, responseData);
 
                     // Try again, but not forever
                     if (tries++ < 5) {
@@ -46,7 +46,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
                 }
 
                 currPage++;
-                console.log("Artists done, get countries");
+                // console.log("Artists done, get countries");
 
                 // Save artist data to localStorage (and create a list of artist names)
                 var artistNames = []
@@ -155,7 +155,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
 
     var getUserTags = function(err, data) {
         if (err || data.error) {
-            console.error(err, data);
+            console.error("Erorr in getUserTags", err, data);
             alert("Something went wrong when contacting the Last.fm API\n\nEither:\n - The specified user does not exist\n - Last.fm is down\n\nPlease try again.");
             window.location.replace(window.location.origin + window.location.pathname);
         }
@@ -192,6 +192,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
             console.log("Done getting tags, saved to localStorage.user_tags")
             window.localStorage.user_tags = JSON.stringify(USER_TAGS);
         }
+
 
         topArtists.forEach(function(el, i) {
             // get top ten tags and save to users tag count....
@@ -252,7 +253,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
         }) //.transition().duration(1000).style("opacity", 1);
 
         // Get user tags
-        api.lastfm.send("user.gettopartists", [["user", user], ["period", "12months"]], getUserTags);
+        api.lastfm.send("user.gettopartists", [["user", user], ["period", "12months"], ["limit", "50"]], getUserTags);
 
         // Get user friends
         api.getFriends(function(err, data) {

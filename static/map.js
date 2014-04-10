@@ -364,7 +364,6 @@ var theme = "pink_white";
     .on("mousemove", function() {
       d3.select("#progress-text")
         .transition().duration(150).style("opacity", 0.9);
-      console.log("testtest progress")
     })
       .on("mouseout", function() {
         d3.select("#progress-text").transition().duration(150).style("opacity", 0);
@@ -669,7 +668,7 @@ var theme = "pink_white";
     //Get list of recommendations for country based on tags!
     api.getRecommendations(tag, function(taglist) {
       // Return if this callback is from an old (not active) country
-      if (centered.id !== d.id) {
+      if (!centered || centered.id !== d.id) {
         return;
       }
       // Show loading message
@@ -678,7 +677,7 @@ var theme = "pink_white";
       //Get list of recommendations for country based on country name!
       api.getRecommendations(name, function(namelist) {
         // Return if this callback is from an old (not active) country
-        if (centered.id !== d.id) {
+        if (!centered || centered.id !== d.id) {
           return;
         }
         //Show loading message

@@ -32,7 +32,6 @@ api.lastfm.send = function(method, options, callback) {
 		callback(e, d);
 	});
 
-
 	// Abort if the request takes too long - it sometimes ballar ur and fails after a minute :(
 	setTimeout(function() {
 		if (!gotResponse) {
@@ -42,6 +41,7 @@ api.lastfm.send = function(method, options, callback) {
 				error: "Took to long to respond"
 			});
 		}
-	}, 10000);
+	}, 20000);
 
+	return xhr;
 }
