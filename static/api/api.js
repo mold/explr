@@ -273,3 +273,7 @@ api.getRecommendations = function(country, callback) {
 		})
 	})
 }
+
+api.getFriends = function(callback) {
+	api.lastfm.send("user.getFriends", [["user", SESSION.name]], callback);
+}

@@ -254,6 +254,41 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
         // Get user tags
         api.lastfm.send("user.gettopartists", [["user", user], ["period", "12months"]], getUserTags);
 
+        // Get user friends
+        api.getFriends(function(err, data) {
+            try {
+                var friends = data.friends.user;
+                var i = 0;
+                var friendName = d3.select("#friend-name");
+
+                var updateName = function() {
+                    friendName.html("");
+                    friendName.append("a").attr({
+                        href: window.location.origin + window.location.pathname + "?username=" + friends[i].name,
+                        target: "_self",
+                    }).html(friends[i].name);
+                }
+
+                d3.selectAll(".arrow").on("click", function() {
+                    if (d3.select(this).classed("left")) {
+                        // Go left
+                        i = (i === 0 ? friends.length - 1 : i - 1);
+                    } else {
+                        // Go right
+                        i = (i + 1) % friends.length;
+                    }
+
+                    updateName();
+                })
+
+                updateName();
+                d3.select("#friends #msg").html("Check out " + user + "'s friends")
+                d3.select("#friends").transition().duration(1000).style("opacity", 1);
+
+            } catch (e) {
+                console.error(e);
+            }
+        });
 
         if (CACHED_USERS[user]) {
             // TODO: use timestamp
@@ -301,6 +336,9 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
     var param = window.location.href.split("username=")[1];
 
     if (param) { // We already have a user
+        if (param.length > 15) {
+            param = param.substr(0, 15);
+        }
         user = param;
         SESSION.name = param;
         begin();

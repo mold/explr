@@ -417,3 +417,35 @@ box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
     margin: 20px 0 0 0;
     opacity:0.6;
 }
+
+/* Check out friends box */
+#friends{
+	position: absolute;
+	bottom: 35px;
+	right: 130px;
+	font-size: 0.9em;
+	border-radius: 10px;
+	padding: 5px;
+	border: 1px solid rgba(177,177,177,0.5);
+	background: rgba(255,255,255,0.5);
+	opacity: 0;
+}
+body.blue_black #friends,
+body.pink_black #friends,
+body.green_black #friends{
+	color:#ccc;
+	background:rgba(0,0,0,0.5);
+}
+
+#friends p{
+	text-align: center;
+	margin:0;	
+}
+.arrow{
+	position: absolute;
+	bottom:5px;
+	cursor:pointer;
+}
+.arrow.right{
+	right:5px;
+}
