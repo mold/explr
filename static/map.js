@@ -352,8 +352,6 @@ var theme = "pink_white";
   function draw(topo, redrawMap) {
     var country = g.selectAll(".country").data(topo);
 
-    console.log(countryScore);
-
     var progress = d3.select("#progress-bar").style({
       "height": updateProgressBar() * 100 + "%",
       "background-color": colorArray[6]

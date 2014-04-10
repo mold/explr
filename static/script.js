@@ -15,6 +15,13 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
         api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
     ["page", currPage]],
             function(error, responseData) {
+                // Special case for unfortunate users
+                if (responseData === "") {
+                    console.error('Got empty string ("") as response, skipping page.')
+                    currPage++;
+                    getAllArtists();
+                    return;
+                }
                 if (error || responseData.error) {
                     console.error(error, responseData);
 
