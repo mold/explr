@@ -34,6 +34,7 @@ var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
                         var refresh = confirm("Last.fm took too long to respond.\n\nPress OK to refresh the page and try again, or Cancel to use the page as it is.");
                         if (refresh) {
                             window.localStorage.clear();
+                            window.localStorage.artists = JSON.stringify(STORED_ARTISTS);
                             window.location.reload();
                         }
                     }
