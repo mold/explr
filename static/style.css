@@ -165,20 +165,26 @@ body.pink_black #welcome-container{
 	background: rgba(0,55,55,0.5);
 }
 
-#welcome-message{
+.welcome-wrapper{
 	margin: auto;
-	margin-top: 10%;
+	overflow: hidden;
+}
+
+.welcome-message{
+	margin: 0 40px;
 	padding: 20px 30px 20px 30px;
 	background: rgba(255,255,255,0.7);
 	border-radius: 30px;
 	text-align: center;
 	width: 300px;
 	border:5px solid white;
+	display: inline-block;
+	vertical-align: top;
 
 }
-body.blue_black #welcome-message,
-body.green_black #welcome-message,
-body.pink_black #welcome-message{
+body.blue_black .welcome-message,
+body.green_black .welcome-message,
+body.pink_black .welcome-message{
 	background: rgba(0,0,0,0.6);
 	border:5px solid black;
 }
