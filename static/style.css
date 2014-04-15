@@ -180,7 +180,7 @@ body.pink_black #welcome-container{
 
 #splashTextContainer{
 	overflow-y: scroll;
-	max-height: 450px;
+	max-height: 400px;
 }
 
 body.blue_black .welcome-message,
@@ -430,6 +430,7 @@ box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
     margin: 20px 0 0 0;
 	opacity:1;
 	cursor:pointer;
+	text-align: center;
 }
 
 /* Check out friends box */
