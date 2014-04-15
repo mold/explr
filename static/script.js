@@ -1,6 +1,7 @@
 var STORED_ARTISTS = JSON.parse(window.localStorage.artists || "{}");
 var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
 var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
+var SESSION = {};
 
 (function() {
     // user = prompt("Input your user name, get top 20 artists")

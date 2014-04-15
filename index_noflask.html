@@ -102,7 +102,6 @@
 	</script>
 
 
-	<script src="https://code.jquery.com/jquery.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
 	<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
@@ -110,26 +109,12 @@
 	<script>
 	//Shows FAQ text in splash screen
     d3.selectAll('.faq-link').on("click", function(){
-	 	// $('#splashContent').toggleClass("hidden");
-	 	// $('#faqtext').toggleClass("hidden");
 	 	d3.select("#splashContent").classed("hidden", !d3.select("#splashContent").classed("hidden"));
 	 	d3.select("#faqtext").classed("hidden", !d3.select("#faqtext").classed("hidden"));
 	});
     </script>
 
-	<script>
-		// init
-		var SESSION = JSON.parse(window.localStorage.session||"{}");
-		// if(!SESSION.name){
-		// 	SESSION.name = prompt("What is your user name???\n\n"+
-		// 		"(Your username will be stored so you won't have to enter it again :)\n"+
-		// 		"To change user, clear localstorage)");
-		// 	window.localStorage.session=JSON.stringify(SESSION);
-		// }
-	</script>
-
 	<script src="static/api/lastfm.js"></script>
-	<script src="static/api/musicbrainz.js"></script>
 	<script src="static/api/api.js"></script>
 	
 	<script src="static/map.js"></script>
