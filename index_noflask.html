@@ -30,18 +30,15 @@
 					</form>
 			<p class="faq-link"><a>Frequently asked questions -></a></p>
 				</div>
-				<div id="faqtext" class="hidden">
+				<div id="faqtext" class="hidden info">
 					<h4>Q: What the heck, France isn't in South America!</h4>
 					<p>A: Yes, French Guiana is in South America and <a href="http://en.wikipedia.org/wiki/French_Guiana">French Guiana is an overseas region of France</a>.</p>
 					<h4>Q: Artist X isn't from country Y, what the heck!</h4>
-					<p>An artist's associated country is determined from its tags on last.fm. The tags are provided by last.fm users, and may be incorrect.</p>
+					<p>A: An artist's associated country is determined from its tags on last.fm. The tags are provided by last.fm users, and may be incorrect.</p>
                     <p class="details-p">Do you have any other questions or feedback? Send us an email at <a href="mailto:explr.fm@gmail.com">explr.fm@gmail.com</a> or check out our <a href="http://www.reddit.com/r/Music/comments/22n6t8/lastfm_user_heres_an_interactive_map_to_show_the/">reddit post</a>.</p>
 			<p class="faq-link"><a><- Go back</a></p>
 				</div>
 			</div>
-
-
-
 
 			<p id="made-by">Made by <a href="http://se.linkedin.com/pub/anna-movin/50/463/1a0" target="_blank">Anna</a>, <a href="http://se.linkedin.com/pub/daniel-molin/82/211/b75" target="_blank">Daniel</a>, <a href="http://se.linkedin.com/pub/moa-bergsmark/49/554/93a" target="_blank">Moa</a> and <a href="http://se.linkedin.com/in/tommyfeldt" target="_blank">Tommy</a>. | 
 		</div>
@@ -110,28 +107,13 @@
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
 	<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
 
-	<script> 
-	//Hide placeholder in text areas when in focus
-    $('input, text').focus(function() {
-        $(this).data('placeholder', $(this).attr('placeholder'))
-        $(this).attr('placeholder', '');
-    });
-    $('input, text').blur(function() {
-        $(this).attr('placeholder', $(this).data('placeholder'));
-    });
-    </script>
-
 	<script>
 	//Shows FAQ text in splash screen
-    $('.faq-link').click(function(){
-	 	$('#splashContent').toggleClass("hidden");
-	 	$('#faqtext').toggleClass("hidden");
-	 	
-
-
-
-
-
+    d3.selectAll('.faq-link').on("click", function(){
+	 	// $('#splashContent').toggleClass("hidden");
+	 	// $('#faqtext').toggleClass("hidden");
+	 	d3.select("#splashContent").classed("hidden", !d3.select("#splashContent").classed("hidden"));
+	 	d3.select("#faqtext").classed("hidden", !d3.select("#faqtext").classed("hidden"));
 	});
     </script>
 

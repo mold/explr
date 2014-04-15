@@ -427,6 +427,7 @@ box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
     margin: 20px 0 0 0;
 	opacity:1;
 	cursor:pointer;
+	text-align: center;
 }
 
 /* Check out friends box */
