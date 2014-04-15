@@ -29,17 +29,18 @@
 						<input name="username" class="usernameinput" placeholder="Last.fm username" type="text" autofocus required>
 						<div class="gobutton"><input type="submit" value=""></div>
 					</form>
+			<p class="faq-link"><a>Frequently asked questions -></a></p>
 				</div>
 				<div id="faqtext" class="hidden">
-					<h2>FAQ</h2>
 					<h4>Q: What the heck, France isn't in South America!</h4>
 					<p>A: Yes, French Guiana is in South America and <a href="http://en.wikipedia.org/wiki/French_Guiana">French Guiana is an overseas region of France</a>.</p>
 					<h4>Q: Artist X isn't from country Y, what the heck!</h4>
 					<p>An artist's associated country is determined from its tags on last.fm. The tags are provided by last.fm users, and may be incorrect.</p>
+                    <p class="details-p">Do you have any other questions or feedback? Send us an email at <a href="mailto:explr.fm@gmail.com">explr.fm@gmail.com</a> or check out our <a href="http://www.reddit.com/r/Music/comments/22n6t8/lastfm_user_heres_an_interactive_map_to_show_the/">reddit post</a>.</p>
+			<p class="faq-link"><a><- Go back</a></p>
 				</div>
 			</div>
-			<p id="faq"><a>Frequently asked questions</a></p>
-			<p id="goback" class="hidden"><a>Go back</a></p>
+
 
 
 
@@ -124,12 +125,10 @@
 
 	<script>
 	//Shows FAQ text in splash screen
-    $('#faq').click(function(){
+    $('.faq-link').click(function(){
 	 	$('#splashContent').toggleClass("hidden");
 	 	$('#faqtext').toggleClass("hidden");
-	 	if ($('#splashContent').hasClass("hidden"))
-	 		$('#faq').html('<a>Go back</a>');
-	 	else $('#faq').html('<a>Frequently asked questions</a>');
+	 	
 
 
 
