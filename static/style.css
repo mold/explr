@@ -165,9 +165,6 @@ body.pink_black #welcome-container{
 	background: rgba(0,55,55,0.5);
 }
 
-.welcome-wrapper{
-	overflow: hidden;
-}
 
 .welcome-message{
 	margin: 60px auto auto auto;
@@ -175,11 +172,17 @@ body.pink_black #welcome-container{
 	background: rgba(255,255,255,0.7);
 	border-radius: 30px;
 	text-align: center;
-	width: 300px;
+	width: 320px;
 	border:5px solid white;
 	vertical-align: top;
 
 }
+
+#splashTextContainer{
+	overflow-y: scroll;
+	max-height: 450px;
+}
+
 body.blue_black .welcome-message,
 body.green_black .welcome-message,
 body.pink_black .welcome-message{

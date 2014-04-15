@@ -28,20 +28,21 @@
 						<input name="username" class="usernameinput" placeholder="Last.fm username" type="text" autofocus required>
 						<div class="gobutton"><input type="submit" value=""></div>
 					</form>
-			<p class="faq-link"><a>Frequently asked questions -></a></p>
+			
 				</div>
 				<div id="faqtext" class="hidden">
+					<h4>Q: So how does this work exactly?</h4>
+					<p>A: We fetch your entire Last.fm library and use tags to determine where each artist you've listened to comes from. This is done by running the artist tags against a list of country names and <a href="http://en.wikipedia.org/wiki/Demonym">demonyms</a>. If an artist is tagged with more than one country, the most popular tag is used. </p>
 					<h4>Q: What the heck, France isn't in South America!</h4>
-					<p>A: Yes, French Guiana is in South America and <a href="http://en.wikipedia.org/wiki/French_Guiana">French Guiana is an overseas region of France</a>.</p>
-					<h4>Q: Artist X isn't from country Y, what the heck!</h4>
-					<p>An artist's associated country is determined from its tags on last.fm. The tags are provided by last.fm users, and may be incorrect.</p>
+					<p>A: Actually, French Guiana is in South America and <a href="http://en.wikipedia.org/wiki/French_Guiana">French Guiana is an overseas region of France</a>.</p>
+					<h4>Q: Hey, Artist X isn't from country Y!</h4>
+					<p>A: An artist's associated country is determined by its tags on last.fm and these are sometimes incorrect. This often happens when there are more than one artist with the same name.</p>
                     <p class="details-p">Do you have any other questions or feedback? Send us an email at <a href="mailto:explr.fm@gmail.com">explr.fm@gmail.com</a> or check out our <a href="http://www.reddit.com/r/Music/comments/22n6t8/lastfm_user_heres_an_interactive_map_to_show_the/">reddit post</a>.</p>
-			<p class="faq-link"><a><- Go back</a></p>
 				</div>
 			</div>
 
-
-
+			<p class="faq-link"><a>Frequently asked questions -></a></p>
+			<p class="faq-link hidden"><a><- Go back</a></p>
 
 			<p id="made-by">Made by <a href="http://se.linkedin.com/pub/anna-movin/50/463/1a0" target="_blank">Anna</a>, <a href="http://se.linkedin.com/pub/daniel-molin/82/211/b75" target="_blank">Daniel</a>, <a href="http://se.linkedin.com/pub/moa-bergsmark/49/554/93a" target="_blank">Moa</a> and <a href="http://se.linkedin.com/in/tommyfeldt" target="_blank">Tommy</a>. | 
 		</div>
@@ -126,9 +127,7 @@
     $('.faq-link').click(function(){
 	 	$('#splashContent').toggleClass("hidden");
 	 	$('#faqtext').toggleClass("hidden");
-	 	
-
-
+	 	$('.faq-link').toggleClass("hidden");
 
 
 
