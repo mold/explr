@@ -172,7 +172,7 @@ body.pink_black #welcome-container{
 	background: rgba(255,255,255,0.7);
 	border-radius: 30px;
 	text-align: center;
-	width: 320px;
+	width: 330px;
 	border:5px solid white;
 	vertical-align: top;
 
@@ -181,6 +181,7 @@ body.pink_black #welcome-container{
 #splashTextContainer{
 	overflow-y: scroll;
 	max-height: 400px;
+	padding: 0px 13px 0px 13px;
 }
 
 body.blue_black .welcome-message,
