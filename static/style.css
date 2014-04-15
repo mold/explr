@@ -170,7 +170,7 @@ body.pink_black #welcome-container{
 }
 
 .welcome-message{
-	margin: 60px auto;
+	margin: 60px auto auto auto;
 	padding: 20px 30px 20px 30px;
 	background: rgba(255,255,255,0.7);
 	border-radius: 30px;
