@@ -166,19 +166,17 @@ body.pink_black #welcome-container{
 }
 
 .welcome-wrapper{
-	margin: auto;
 	overflow: hidden;
 }
 
 .welcome-message{
-	margin: 0 40px;
+	margin: 60px auto;
 	padding: 20px 30px 20px 30px;
 	background: rgba(255,255,255,0.7);
 	border-radius: 30px;
 	text-align: center;
 	width: 300px;
 	border:5px solid white;
-	display: inline-block;
 	vertical-align: top;
 
 }
@@ -299,6 +297,7 @@ div.gobutton input:hover{
 	font-size: 15px;
 	font-weight: bold;
 	background: rgba(255, 255, 255, 0.8);
+	margin-top: 0.5em;
 	/*text-align: center;*/
 
 }
@@ -421,7 +420,13 @@ box-shadow:         4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 #made-by{
     font-size: 13px;
     margin: 20px 0 0 0;
-    opacity:0.6;
+    opacity:0.4;
+}
+#faq{
+	font-size: 15px;
+    margin: 20px 0 0 0;
+	opacity:1;
+	cursor:pointer;
 }
 
 /* Check out friends box */
