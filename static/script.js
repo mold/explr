@@ -10,7 +10,7 @@ var SESSION = {};
     var countryCountObj = {};
     var count = 0;
     var tries = 0;
-    var randomcountrylist = ["Malawi", "Malaysia", "Peru", "Sierra Leone", "Trinidad & Tobago", "Iceland", "Greece", "Laos", "Iran", "Haiti", "Nicaragua", "Mongolia", "Slovakia"];
+    var randomcountrylist = ["Malawi", "Malaysia", "Peru", "Sierra Leone", "Trinidad & Tobago", "Greece", "Laos", "Iran", "Haiti", "Nicaragua", "Mongolia", "Slovakia"];
 
     var getAllArtists = function() {
         api.lastfm.send("library.getartists", [["user", user], ["limit", 50],

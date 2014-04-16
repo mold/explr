@@ -16,7 +16,7 @@
 		<div class="welcome-message">
 			<div class="logoImageWelcome"><img src="static/img/explrlogo.png" width="200"></div>
 			<div id="splashTextContainer">
-				<div id="splashContent">
+				<div id="splashContent" class="splash">
 					<p class="info">
 					Ever wondered where the artists you listen to come from?</p>
 					<p class="info">
@@ -31,21 +31,21 @@
 			
 				</div>
 
-				<div id="faqtext" class="hidden">
+				<div id="faqtext" class="faq hidden">
 					<h4>Q: So how does this work exactly?</h4>
 					<p>A: We fetch your entire Last.fm library and use the tags to determine where each artist you've listened to comes from. This is done by running the artist tags from Last.fm against a list of country names and <a href="http://en.wikipedia.org/wiki/Demonym">demonyms</a>. If an artist is tagged with more than one country, the most popular tag is used. </p>
 					<h4>Q: What the heck, France isn't in South America!</h4>
 					<p>A: Actually, French Guiana is in South America and <a href="http://en.wikipedia.org/wiki/French_Guiana">French Guiana is an overseas region of France</a>.</p>
 					<h4>Q: Hey, Artist X isn't from country Y!</h4>
-					<p>A: An artist's associated country is determined by its tags on last.fm and these are sometimes incorrect. This often happens when there are more than one artist with the same name.</p>
+					<p>A: An artist's associated country is determined by its user-generated tags on last.fm, and these are not always correct. Mistakes will often occur when there are more than one artist with the same name. It's a problem with the data that we can't do anything about.</p>
 
                     <p class="details-p">Do you have any other questions or feedback? Send us an email at <a href="mailto:explr.fm@gmail.com">explr.fm@gmail.com</a> or check out our <a href="http://www.reddit.com/r/Music/comments/22n6t8/lastfm_user_heres_an_interactive_map_to_show_the/">reddit post</a>.</p>
 				</div>
 			</div>
 
 
-			<p class="faq-link"><a>Frequently asked questions -></a></p>
-			<p class="faq-link hidden"><a><- Go back</a></p>
+			<p class="faq-link splash"><a>Frequently asked questions -></a></p>
+			<p class="faq-link faq hidden"><a><- Go back</a></p>
 
 			<p id="made-by">Made by <a href="http://se.linkedin.com/pub/anna-movin/50/463/1a0" target="_blank">Anna</a>, <a href="http://se.linkedin.com/pub/daniel-molin/82/211/b75" target="_blank">Daniel</a>, <a href="http://se.linkedin.com/pub/moa-bergsmark/49/554/93a" target="_blank">Moa</a> and <a href="http://se.linkedin.com/in/tommyfeldt" target="_blank">Tommy</a>. | 
 		</div>
@@ -112,24 +112,14 @@
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
 	<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
 
 	<script>
-	//Shows FAQ text in splash screen
 
-    $('.faq-link').click(function(){
-	 	$('#splashContent').toggleClass("hidden");
-	 	$('#faqtext').toggleClass("hidden");
-	 	$('.faq-link').toggleClass("hidden");
-
-/* 	TODO: Få länkarna att ändras med D3 istället för Jquery
+	//Showing and hiding FAQ section
 
     d3.selectAll('.faq-link').on("click", function(){
-	 	d3.select("#splashContent").classed("hidden", !d3.select("#splashContent").classed("hidden"));
-	 	d3.select("#faqtext").classed("hidden", !d3.select("#faqtext").classed("hidden"));
-	 	d3.select(".faq-link").classed("hidden", !d3.select(".faq-link").classed("hidden"));
-	 	*/
-
+	 	d3.selectAll('.faq').classed("hidden", !d3.select('.faq').classed("hidden"));
+	 	d3.selectAll('.splash').classed("hidden", !d3.select('.faq').classed("hidden"));
 	});
     </script>
 
