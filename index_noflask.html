@@ -113,14 +113,24 @@
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
 	<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
 
+	<!-- Show and hide FAQ page on click -->
 	<script>
+	    d3.selectAll('.faq-link').on("click", function(){
+		 	d3.selectAll('.faq').classed("hidden", !d3.select('.faq').classed("hidden"));
+		 	d3.selectAll('.splash').classed("hidden", !d3.select('.splash').classed("hidden"));
+		});
+    </script>
 
-	//Showing and hiding FAQ section
-
-    d3.selectAll('.faq-link').on("click", function(){
-	 	d3.selectAll('.faq').classed("hidden", !d3.select('.faq').classed("hidden"));
-	 	d3.selectAll('.splash').classed("hidden", !d3.select('.faq').classed("hidden"));
-	});
+	<!-- Remove placeholder text on focus, return on blur -->
+	<script>
+	    var d;
+	    d3.selectAll('input, text').on("focus", function(){
+	    	d = d3.select(this).attr('placeholder');
+	    	d3.select(this).attr('placeholder', '');
+		});
+		d3.selectAll('input, text').on("blur", function(){
+	    	d3.select(this).attr('placeholder', d);
+	    });
     </script>
 
 	<script src="static/api/lastfm.js"></script>

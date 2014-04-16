@@ -32,10 +32,6 @@ body.red_white .country{
 }
 #map-container {
 
-  /*margin:2% 2% 0 2%;*/
-
-  /*border:1px solid #000;
-  border-radius: 2px;*/
   height:100%;
   overflow:hidden;
 }
@@ -68,7 +64,6 @@ body.green_black .legend rect{
 }
 
 div.tooltip {
-  /*color: #222; */
   font-size: 0.8em;
   background: #fff; 
   padding: .5em; 
@@ -133,7 +128,6 @@ body.red_white .infoContainer{
 
 .recoDiv {
   display: table;
-  /*color: #222;*/
   margin-left: 1em;
   margin-right: 1em;
   margin-bottom: 1em;
@@ -150,10 +144,8 @@ body.red_white .infoContainer{
 
 .detailsDiv {
   display: table;
-  /*color: #222;*/
   margin-left:1em;
   padding: 0 30px;
-  /*background: rgba(255, 255, 255, 0.5);*/
   padding: 0px;
   opacity: 0.9;
   vertical-align: top;
@@ -180,10 +172,8 @@ body.red_white .infoContainer{
   margin:0;
 }
 .summaryText p{
-  /*font-family: 'Josefin Sans';*/
   margin-top: 0.3em;
 }
-
 
 .tagdiv{
   border: 1px solid lightgrey;
@@ -208,7 +198,6 @@ body.pink_black .tagdiv{
   font-weight: normal;
 }
 .tagdiv .usertag{
-  /*background-color: rgba(220, 20, 20, 0.1);*/
   color: #636363;
   font-weight: bolder;
 }
@@ -221,15 +210,9 @@ body.pink_black .tagdiv .usertag{
 
 div.cnameDiv {
   display:block;
-  /*background: rgba(255, 255, 255, 1.0);*/
   float: right;
   margin-right: 5%;
   text-align: right;
-  /*padding: .5em;
-  text-shadow: #f5f5f5 0 1px 0;
-  border-radius: 2px; 
-  box-shadow: 0px 0px 2px 0px #a6a6a6;
-  opacity: 0.8; */
   pointer-events: none;
 }
 
