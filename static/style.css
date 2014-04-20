@@ -465,3 +465,9 @@ body.green_black #friends{
 .arrow.right{
 	right:5px;
 }
+
+
+@font-face{
+	font-family:"Josefin Sans";
+	src:url("http://fonts.googleapis.com/css?family=Josefin+Sans");
+}

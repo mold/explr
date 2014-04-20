@@ -3,7 +3,7 @@ var map = {};
 var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
 var legend;
 
-var theme = "pink_white";
+
 
 (function(window, document) {
   d3.select(window).on("resize", throttle);
@@ -27,12 +27,15 @@ var theme = "pink_white";
   var countryScore = 0;
 
   //Variables needed to update scale and legend
-  var mydomain = [];
-  var maxartists = 0,
+  var mydomain = [0, 1, 2, 3, 4, 5, 6];
+  var maxartists = 1,
     maxplaycount = 0;
 
   //Setting color and range to be used
   var color;
+
+  // Set theme
+  var theme = window.localStorage.theme || "pink_white";
 
   map.drawPlays = function() {
     filter = "scrobbles";
@@ -91,8 +94,6 @@ var theme = "pink_white";
     return self.indexOf(value) === index;
   }
 
-
-
   function updateScale() {
     var max = -1;
     switch (filter) {
@@ -111,6 +112,7 @@ var theme = "pink_white";
         mydomain = [0, 1, mydomain[1], mydomain[2], mydomain[3], mydomain[4], mydomain[5]];
         break;
     }
+
 
     color = d3.scale.threshold()
       .domain(mydomain)
@@ -194,11 +196,6 @@ var theme = "pink_white";
   //progressbar...
 
 
-
-  var changeTheme = d3.select("#changeTheme").append("div").attr("id", "paintIt").html("Paint it black");
-
-
-
   //Variables for color legend
 
   var tooltip = d3.select("#map-container").append("div").attr("class",
@@ -280,22 +277,12 @@ var theme = "pink_white";
   }
   map.nextTheme = nextTheme;
 
-  changeTheme.on("click", function(d, i) {
-    if (theme == "white") {
-      toBlackTheme();
-      return;
-    }
-    if (theme == "black") {
-      toWhiteTheme();
-      return;
-    }
-  });
-
+  nextTheme(theme);
+  updateScale();
   updateDimensions();
   setup(width, height);
 
   function setup(width, height) {
-
     projection = d3.geo.naturalEarth()
       .translate([(width / 2), (height / 2) + height * 0.08])
       .scale(width / 1.7 / Math.PI);
@@ -380,6 +367,9 @@ var theme = "pink_white";
         })
         .attr("title", function(d, i) {
           return d.properties.name;
+        })
+        .style("fill", function() {
+          return color(0);
         });
     }
     //Color countries
@@ -534,6 +524,7 @@ var theme = "pink_white";
     //adjust the country hover stroke width based on zoom level
     d3.selectAll(".country").style("stroke-width", 1.5 / s);
   }
+  map.move = move;
 
   var throttleTimer;
 

@@ -333,8 +333,8 @@ var SESSION = {};
         window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
     }
 
-    // Set theme
-    map.nextTheme(window.localStorage.theme || "pink_white");
+    // // Set theme
+    // map.nextTheme(window.localStorage.theme || "pink_white");
 
 
     // Try to get username from url
