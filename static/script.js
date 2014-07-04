@@ -158,11 +158,11 @@ var SESSION = {};
     }
 
     var getUserTags = function(err, data) {
-        if (err || data.error) {
+        /*if (err || data.error) {
             console.error("Erorr in getUserTags", err, data);
             alert("Something went wrong when contacting the Last.fm API\n\nEither:\n - The specified user does not exist\n - Last.fm is down\n\nPlease try again.");
             window.location.replace(window.location.origin + window.location.pathname);
-        }
+        }*/
 
         var c = 0;
 

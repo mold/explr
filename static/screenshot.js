@@ -46,12 +46,11 @@ var screenshot = {};
 
 		// Add color to legend text
 		d3.selectAll(".legend text, text.legend").style({
-			fill: textColor
+			fill: textColor,
 		})
 		d3.selectAll(".legend rect").style({
-			stroke: backgroundColor
+			stroke: backgroundColor,
 		})
-
 
 		canvg(canvas, new XMLSerializer().serializeToString(svg[0][0]));
 
@@ -59,33 +58,37 @@ var screenshot = {};
 			/* Add text and shiiet */
 			// Add text background box
 			ctx.save(); // To draw with different opaticy
-			ctx.globalAlpha = 0.5;
+			ctx.globalAlpha = 0.6;
 			ctx.fillStyle = backgroundColor;
+			scoreString = SESSION.total_artists + " artists from " + countryScore + " / 197 countries";
 			titleString = SESSION.name + "'s musical world map";
 			ctx.font = "34px Patua One";
 			ctx.fillRect(w / 2 - ctx.measureText(titleString).width / 2 - 20, h - 80, ctx.measureText(titleString).width + 40, 100);
-
-			// Add explr.fm logo
-			console.log(explrLogo);
-			ctx.drawImage(explrLogo, w - 130, h - 45, 100, 36);
+			ctx.fillStyle = textColor;
 
 			// Add text
 			ctx.fillStyle = textColor;
 			drawCenteredText({
 				string: titleString,
 				font: "34px Patua One",
-				y: h - 40,
+				y: h - 60,
 			});
 			drawCenteredText({
-				string: subtitleString,
+				string: scoreString,
 				font: "20px Didact Gothic",
-				y: h - 20,
-			})
-			ctx.restore(); // To draw with full opacity
+				y: h - 40,
+			});
+
+			// Add explr.fm logo
+			ctx.restore();
+			console.log(explrLogo);
+			ctx.drawImage(explrLogo, w - 130, h - 60, 100, 36);
 
 			d3.select("#background-rect").remove();
 
-			console.log(canvas.toDataURL())
+
+
+			//console.log(canvas.toDataURL())
 			// img = document.createElement("img").src = canvas.toDataURL();
 			document.getElementById("screenshot-img").src = canvas.toDataURL();
 			// d3.select("body").append(img);

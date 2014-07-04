@@ -2,7 +2,7 @@ var map = {};
 //White theme default:
 var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
 var legend;
-
+var countryScore = 0;
 
 
 (function(window, document) {
@@ -24,7 +24,6 @@ var legend;
 
   var topo, projection, path, svg, g, countryNames, rateById, centered, active;
   countryCount = {};
-  var countryScore = 0;
 
   //Variables needed to update scale and legend
   var mydomain = [0, 1, 2, 3, 4, 5, 6];
