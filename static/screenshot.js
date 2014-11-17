@@ -63,7 +63,7 @@ var screenshot = {};
 			scoreString = SESSION.total_artists + " artists from " + countryScore + " / 197 countries";
 			titleString = SESSION.name + "'s musical world map";
 			ctx.font = "34px Patua One";
-			ctx.fillRect(w / 2 - ctx.measureText(titleString).width / 2 - 20, h - 80, ctx.measureText(titleString).width + 40, 100);
+			ctx.fillRect(w / 2 - ctx.measureText(titleString).width / 2 - 20, h - 110, ctx.measureText(titleString).width + 40, 100);
 			ctx.fillStyle = textColor;
 
 			// Add text
@@ -81,12 +81,9 @@ var screenshot = {};
 
 			// Add explr.fm logo
 			ctx.restore();
-			console.log(explrLogo);
 			ctx.drawImage(explrLogo, w - 130, h - 60, 100, 36);
 
 			d3.select("#background-rect").remove();
-
-
 
 			//console.log(canvas.toDataURL())
 			// img = document.createElement("img").src = canvas.toDataURL();
