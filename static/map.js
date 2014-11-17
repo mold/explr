@@ -147,7 +147,7 @@ var countryScore = 0;
       .attr("y", height - y - mydomain.length * ls_h - 1.5 * ls_h)
       .text("Number of ");
     var text2 = svg.select("#filter")
-      .attr("x", x + text1[0][0].offsetWidth)
+      .attr("x", x + text1[0][0].getComputedTextLength() + 5)
       .attr("y", height - y - mydomain.length * ls_h - 1.5 * ls_h)
       .text(filter);
     text2.on("click", function() {
@@ -598,9 +598,9 @@ var countryScore = 0;
         if (countryCount[d.id][i]) {
           var index = i;
           var artistDiv = d3.select("#details").append("div").attr({
-            "class": "artist-div lowlight",
-            "data-artist": countryCount[d.id][i].artist
-          })
+              "class": "artist-div lowlight",
+              "data-artist": countryCount[d.id][i].artist
+            })
             .on("click", function() {
               // Lowlight not selected artists
               d3.selectAll(".artist-div").classed({
@@ -722,8 +722,8 @@ var countryScore = 0;
 
             var recoArtistDiv = d3.select("#recommendations").insert("div", "#summaryText").attr("class", "artist-div lowlight");
             var recoArtistLink = recoArtistDiv.append("a").style("display", "block")
-            //.attr("href", artisturl)
-            //.attr("target", "_blank");
+              //.attr("href", artisturl)
+              //.attr("target", "_blank");
             recoArtistLink.append("div")
               .attr("class", "image-div")
               .style("background-image", "url(" + "'" + artistimg + "'" + ")")
