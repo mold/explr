@@ -74,9 +74,9 @@ var SESSION = {};
                         // Count plays for each country?
                         // countryCountList = countryCountList.concat(data);
                         var dataObj = d3.nest() //Gör så att man kan slå upp på land-id och få upp en lista på artister.
-                        .key(function(d) {
-                            return d.id;
-                        })
+                            .key(function(d) {
+                                return d.id;
+                            })
                             .rollup(function(leaves) { //gör så att man får en lista på alla artister för ett land.
                                 return leaves;
                             })
@@ -299,6 +299,12 @@ var SESSION = {};
             // TODO: use timestamp
             console.log("No new artists on last.fm!");
             countryCountObj = JSON.parse(window.localStorage.countryCountObj);
+
+            // Get number of artists for screenshot etc.
+            api.lastfm.send("library.getartists", [["user", user], ["limit", 1], ["page", 1]],
+                function(error, responseData) {
+                    SESSION.total_artists = +responseData.artists["@attr"].total;
+                });
 
             setTimeout(function() {
                 map.putCountryCount(countryCountObj);
