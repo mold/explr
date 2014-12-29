@@ -2,7 +2,7 @@ svg:active{
   cursor:move;
 }
 
-body.blue_black .country,
+/*body.blue_black .country,
 body.pink_black .country,
 body.green_black .country{
   fill: #171717;
@@ -11,7 +11,7 @@ body.pink_white .country,
 body.green_white .country,
 body.red_white .country{
   fill: #feebe2;
-}
+}*/
 
 .country{
   cursor: pointer;

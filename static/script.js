@@ -74,9 +74,9 @@ var SESSION = {};
                         // Count plays for each country?
                         // countryCountList = countryCountList.concat(data);
                         var dataObj = d3.nest() //Gör så att man kan slå upp på land-id och få upp en lista på artister.
-                        .key(function(d) {
-                            return d.id;
-                        })
+                            .key(function(d) {
+                                return d.id;
+                            })
                             .rollup(function(leaves) { //gör så att man får en lista på alla artister för ett land.
                                 return leaves;
                             })
@@ -158,11 +158,11 @@ var SESSION = {};
     }
 
     var getUserTags = function(err, data) {
-        if (err || data.error) {
+        /*if (err || data.error) {
             console.error("Erorr in getUserTags", err, data);
             alert("Something went wrong when contacting the Last.fm API\n\nEither:\n - The specified user does not exist\n - Last.fm is down\n\nPlease try again.");
             window.location.replace(window.location.origin + window.location.pathname);
-        }
+        }*/
 
         var c = 0;
 
@@ -300,6 +300,12 @@ var SESSION = {};
             console.log("No new artists on last.fm!");
             countryCountObj = JSON.parse(window.localStorage.countryCountObj);
 
+            // Get number of artists for screenshot etc.
+            api.lastfm.send("library.getartists", [["user", user], ["limit", 1], ["page", 1]],
+                function(error, responseData) {
+                    SESSION.total_artists = +responseData.artists["@attr"].total;
+                });
+
             setTimeout(function() {
                 map.putCountryCount(countryCountObj);
                 end();
@@ -333,8 +339,8 @@ var SESSION = {};
         window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
     }
 
-    // Set theme
-    map.nextTheme(window.localStorage.theme || "pink_white");
+    // // Set theme
+    // map.nextTheme(window.localStorage.theme || "pink_white");
 
 
     // Try to get username from url
