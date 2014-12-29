@@ -1,7 +1,7 @@
 var screenshot = {};
 
-(function(window, document) {
-	screenshot.render = function() {
+(function (window, document) {
+	screenshot.render = function () {
 		var titleString,
 			subtitleString = "Make your own at explr.fm",
 			img;
@@ -18,7 +18,7 @@ var screenshot = {};
 		var backgroundColor = window.getComputedStyle(document.body).backgroundColor;
 		var textColor = window.getComputedStyle(document.body).color;
 
-		var drawCenteredText = function(obj) {
+		var drawCenteredText = function (obj) {
 			ctx.font = obj.font;
 			ctx.fillText(obj.string, w / 2 - ctx.measureText(obj.string).width / 2, obj.y);
 
@@ -44,17 +44,23 @@ var screenshot = {};
 				fill: backgroundColor,
 			});
 
-		// Add color to legend text
-		d3.selectAll(".legend text, text.legend").style({
-			fill: textColor,
-		})
+		// Add color, font to legend text
+		d3.selectAll('.legend text, text.legend').style({
+			"font-family": function () {
+				return window.getComputedStyle(this)["fontFamily"];
+			},
+			"font-size": function () {
+				return window.getComputedStyle(this)["fontSize"];
+			},
+			"fill": textColor,
+		});
 		d3.selectAll(".legend rect").style({
 			stroke: backgroundColor,
 		})
 
 		canvg(canvas, new XMLSerializer().serializeToString(svg[0][0]));
 
-		explrLogo.onload = function() {
+		explrLogo.onload = function () {
 			/* Add text and shiiet */
 			// Add text background box
 			ctx.save(); // To draw with different opaticy
@@ -95,7 +101,7 @@ var screenshot = {};
 		explrLogo.src = "static/img/explrlogo.png";
 	}
 
-	window.addEventListener("keypress", function(e) {
+	window.addEventListener("keypress", function (e) {
 		if (e.keyCode === 112) {
 			screenshot.render();
 		}
