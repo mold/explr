@@ -66,6 +66,10 @@ a:active{
 	top: 20px;
 }
 
+#snapshot-button{
+	top: 120px;
+}
+
 .change-button{
 	position: absolute;
 	right:20px;
@@ -374,9 +378,9 @@ body.green_black #progress-text:after{
 
 #countryCount{
 	position: absolute;
-	top: 140px;
+	top: 180px; /* 140px; */
 	width: 10px;
-	height: 65%;
+	height: 59%; /*65%;*/
 	right: 32px;
 	-webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
 	-moz-box-shadow:    inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
