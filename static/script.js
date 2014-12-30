@@ -342,11 +342,21 @@ var SESSION = {};
     // // Set theme
     // map.nextTheme(window.localStorage.theme || "pink_white");
 
-
     // Try to get username from url
     var param = window.location.href.split("username=")[1];
 
     if (param) { // We already have a user
+        // set up keyboard shortcuts
+        window.addEventListener("keydown", function(evt){
+            switch(evt.keyCode){
+                // s
+                case 83: screenshot.render(); break;
+                // t
+                case 84: nextTheme(); break;
+                default: break;
+            }
+        });
+        
         if (param.length > 15) {
             param = param.substr(0, 15);
         }

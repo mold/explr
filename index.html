@@ -127,7 +127,7 @@
     </script>
 
 	<!-- Remove placeholder text on focus, return on blur -->
-<script>
+	<script>
 	    d3.selectAll('input, text').on("focus", function(){
 	    	//Save placeholder as data
 	    	d3.select(this).data([d3.select(this).attr('placeholder')]);
@@ -137,17 +137,6 @@
 		d3.selectAll('input, text').on("blur", function(){
 			//Return placeholder from data
 	    	d3.select(this).attr('placeholder', d3.select(this).data());
-	    });
-
-	    // keyboard shortcuts
-	    window.addEventListener("keydown", function(evt){
-	    	switch(evt.keyCode){
-	    		// s
-	    		case 83: screenshot.render(); break;
-	    		// t
-	    		case 84: nextTheme(); break;
-	    		default: break;
-	    	}
 	    });
     </script>
 
