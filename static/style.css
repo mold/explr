@@ -183,7 +183,7 @@ body.pink_black #welcome-container{
 }
 
 #splashTextContainer{
-	overflow-y: scroll;
+	overflow-y: auto;
 	max-height: 400px;
 	padding: 0px 13px 0px 13px;
 }
