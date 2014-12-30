@@ -65,7 +65,7 @@
 	
 	<div id="change-theme-button" class="change-button on-map-view no-select" onClick="nextTheme()">
 		<img src="static/img/glyphicons_009_magic.png" alt="" width="32" height="32">
-		<p>Change theme</p>
+		<p>Change theme (t)</p>
 	</div>
 
 	<a href="./"  target="_self">
@@ -78,7 +78,7 @@
 
 	<div id="snapshot-button" class="change-button on-map-view no-select" onClick="screenshot.render()">
 		<img src="static/img/snapshot.png" alt="" width="32" height="32">
-		<p>Take snapshot</p>
+		<p>Take snapshot (s)</p>
 	</div>
 
 
@@ -137,6 +137,17 @@
 		d3.selectAll('input, text').on("blur", function(){
 			//Return placeholder from data
 	    	d3.select(this).attr('placeholder', d3.select(this).data());
+	    });
+
+	    // keyboard shortcuts
+	    window.addEventListener("keydown", function(evt){
+	    	switch(evt.keyCode){
+	    		// s
+	    		case 83: screenshot.render(); break;
+	    		// t
+	    		case 84: nextTheme(); break;
+	    		default: break;
+	    	}
 	    });
     </script>
 
