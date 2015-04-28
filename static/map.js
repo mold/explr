@@ -992,5 +992,7 @@ var countryScore = 0;
 
     if (topo) redraw();
 
+    window.countryScore = countryScore;
+
   }
 })(window, document)
