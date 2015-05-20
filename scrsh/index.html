@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Explr.fm - Snapshot</title>
+	<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+	<img id="screenshot" src="" alt="The snapshot of your explr.fm map"  width="500">
+	<p>Right click and Save as to download</p>
+
+	<script  type="text/javascript" charset="utf-8">
+		if(window.opener && window.opener.screenshotData){
+			var imgData = window.opener.screenshotData;
+
+			document.getElementById("screenshot").src = imgData;
+		} else {
+			window.location.replace("../");
+		}
+	</script>
+</body>
+</html>

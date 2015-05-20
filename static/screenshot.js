@@ -91,12 +91,8 @@ var screenshot = {};
 
 			d3.select("#background-rect").remove();
 
-			//console.log(canvas.toDataURL())
-			// img = document.createElement("img").src = canvas.toDataURL();
-			document.getElementById("screenshot-img").src = canvas.toDataURL();
-			// d3.select("body").append(img);
-			// 
-			window.open(canvas.toDataURL(), "_blank");
+			window.screenshotData = canvas.toDataURL();
+			window.open("scrsh/", "_blank");
 		}
 		explrLogo.src = "static/img/explrlogo.png";
 	}
