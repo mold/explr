@@ -1,0 +1,91 @@
+// -----------------------------------------------------------------------------
+// This file contains very basic styles.
+// -----------------------------------------------------------------------------
+
+/**
+ * Set up a decent box model on the root element
+ */
+html {
+    box-sizing: border-box;
+}
+
+* {
+    font-family: "Didact Gothic";
+}
+
+/*
+ * Body basics
+ */
+body {
+    background-color: white;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+/**
+ * Make all elements from the DOM inherit from the parent box-sizing
+ * Since `*` has a specificity of 0, it does not override the `html` value
+ * making all elements inheriting from the root box-sizing value
+ * See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+/**
+ * Basic styles for links
+ */
+a {
+    //color: $brand-color;
+    font-weight: bold;
+    text-decoration: underline;
+
+    //Mixin for :active, :hover, :focus
+    @include on-event {
+        //color: $light-grey;
+        text-decoration: none;
+    }
+}
+
+/*
+ * Base text and heading styles
+ */
+body {
+    font-family: $text-font-stack;
+    font-size: 14px;
+
+    h1 {
+        color: rgba(55, 55, 55, 0.8);
+        font-size: 3em;
+        margin-bottom: 0em;
+        text-transform: capitalize;
+        font-family: "Patua One";
+    }
+
+    h2 {
+        font-size: 3.5rem;
+        line-height: 1.45;
+        color: $dark-grey;
+    }
+
+    h3 {
+        font-size: 3.5rem;
+        line-height: 1.45;
+    }
+
+    h4 {
+        //font-size: 2.5rem;
+        //line-height: 1.45;
+        font-family: 'Patua One';
+        margin-top: 0.3em;
+        margin-bottom: 0.8em;
+    }
+
+    h5 {
+        color: rgba(55, 55, 55, 0.5);
+        font-size: 1.5em;
+        margin-top: 0em;
+        text-transform: lowercase;
+    }
+}

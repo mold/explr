@@ -1,0 +1,101 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+
+/* CHANGE BUTTON
+   ========================================================================== */
+.change-button {
+    position: absolute;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    z-index: 1;
+    background: rgb(172, 172, 172);
+    opacity: 0.5;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:hover {
+        overflow: visible;
+        opacity: 1;
+    }
+
+    &:active {
+        overflow: visible;
+        opacity: 0.3;
+    }
+
+    img {
+        display: block;
+        margin: 3px auto;
+    }
+
+    p {
+        width: 200px;
+        margin: -30px -210px;
+        text-align: right;
+        font-weight: 700;
+    }
+}
+
+/*
+ * Specific change buttons
+ */
+
+#change-theme-button {
+    /*right:80px;*/
+    top: 70px;
+}
+
+#change-user-button {
+    top: 20px;
+}
+
+#snapshot-button {
+    top: 120px;
+}
+
+.theme-button {
+    z-index: 2;
+}
+
+/* GO-BUTTON (SPLASH)
+   ========================================================================== */
+
+.gobutton {
+    width: 130px;
+    height: 40px;
+    overflow: hidden;
+    margin: 1em auto 0 auto;
+    padding: 3px 6px 6px 6px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    background: #ffffff;
+    background: linear-gradient(to bottom, #ffffff 0%, #ffc3c3 100%);
+    border: 2px solid grey;
+
+    &:hover {
+        background: white;
+        background: #ffc3c3;
+        background: linear-gradient(to bottom, #ffffff 0%, #ffeaea 100%);
+    }
+
+    &:active {
+        background: #ffc3c3;
+        background: linear-gradient(to bottom, #ffc3c3 0%, #ffffff 100%);
+
+        input {
+            margin-top: 1px;
+        }
+    }
+
+    input {
+        background: url(new/img/gobutton.png) no-repeat;
+        background-size: 100%;
+        cursor: pointer;
+        border: none;
+        width: 10em;
+        height: 6.5em;
+    }
+}

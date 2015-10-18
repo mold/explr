@@ -1,0 +1,16 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the footer of the site/application.
+// -----------------------------------------------------------------------------
+
+.footer-wrap{
+	position: absolute;
+	background-color: $dark-grey;
+	min-height: 50px;
+	background-position: no-repeat center top;
+	bottom: 0px;
+	width: 100%;
+
+	h5{
+		color: #fff;
+	}
+}
