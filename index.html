@@ -1,160 +1,143 @@
 <!doctype html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<base target="_blank">
-	<title>
-	Explr.fm - Color the world
-	</title>
-	<link href='http://fonts.googleapis.com/css?family=Poiret+One|Yeseva+One|Archivo+Black|Montserrat|Didact+Gothic|Allerta|Patua+One' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="static/style.css">
-	<link rel="stylesheet" type="text/css" href="static/map.css">
-	<link rel="stylesheet" type="text/css" href="static/loader.css">
+	<head>
+		<meta charset="UTF-8">
+		<base target="_blank">
 
-</head>
-<body>
-	<div id="welcome-container">
-		<div class="welcome-message">
-			<div class="logoImageWelcome"><img src="static/img/explrlogo.png" width="200"></div>
-			<div id="splashTextContainer">
-				<div id="splashContent" class="splash">
-					<p class="info">
-					Ever wondered where the artists you listen to come from?</p>
-					<p class="info">
-					Or if there are any good bands from <span id="randomCountry"></span></p>
-					
-					<p align="center"><h4>Wonder no more!</h4></p>
-		            <p class="info">Enter your Last.fm username in the field below. If you don't have Last.fm, <a href="http://last.fm">get it here!</a></p>
-					<form id="start" class="no-select" target="_self">
-						<input name="username" class="usernameinput" placeholder="Last.fm username" type="text" autofocus required>
-						<div class="gobutton"><input type="submit" value=""></div>
-					</form>
-			
-				</div>
+		<title>
+		  Explr.fm - Color the world
+		</title>
+		<link href='http://fonts.googleapis.com/css?family=Didact+Gothic|Patua+One' rel='stylesheet' type='text/css'>
+		<!--<link rel="stylesheet" type="text/css" href="new/app/css/style.css">-->
+		<!--<link rel="stylesheet" type="text/css" href="new/app/css/map.css">-->
+		<link rel="stylesheet" type="text/css" href="new/app/css/main.css">
 
-				<div id="faqtext" class="faq hidden">
-					<h4>Q: So how does this work exactly?</h4>
-					<p>A: We fetch your entire Last.fm library and use the tags to determine where each artist you've listened to comes from. This is done by running the artist tags from Last.fm against a list of country names and <a href="http://en.wikipedia.org/wiki/Demonym">demonyms</a>. If an artist is tagged with more than one country, the most popular tag is used. </p>
-					<h4>Q: What the heck, France isn't in South America!</h4>
-					<p>A: Actually, French Guiana is in South America and <a href="http://en.wikipedia.org/wiki/French_Guiana">French Guiana is an overseas region of France</a>.</p>
-					<h4>Q: Hey, Artist X isn't from country Y!</h4>
-					<p>A: An artist's associated country is determined by its user-generated tags on last.fm, and these are not always correct. Mistakes will often occur when there are more than one artist with the same name. It's a problem with the data that we can't do anything about.</p>
-
-                    <p class="details-p">Do you have any other questions or feedback? Send us an email at <a href="mailto:explr.fm@gmail.com">explr.fm@gmail.com</a> or check out our <a href="http://www.reddit.com/r/Music/comments/22n6t8/lastfm_user_heres_an_interactive_map_to_show_the/">reddit post</a>.</p>
+		<!--<link rel="stylesheet" type="text/css" href="new/loader.css">-->
+	</head>
+	<body>
+		<div id="welcome-container">
+			<div class="welcome-message">
+				<div class="logoImageWelcome"><img src="new/img/explrlogo.png" width="200"></div>
+				<div id="splashTextContainer">
+					<div id="splashContent" class="splash">
+						<p class="info">
+						Ever wondered where the artists you listen to come from?</p>
+						<p class="info">
+							Or if there are any good bands from <span id="randomCountry"></span></p>
+							
+							<p align="center"><h4>Wonder no more!</h4></p>
+							<p class="info">Enter your Last.fm username in the field below. If you don't have Last.fm, <a href="http://last.fm">get it here!</a></p>
+							<form id="start-form" class="no-select" target="_self">
+								<input name="username" class="usernameinput" placeholder="Last.fm username" type="text" autofocus required>
+								<div class="gobutton"><input type="submit" value=""></div>
+							</form>
+							
+						</div>
+						<div id="faqtext" class="faq hidden">
+							<h4>Q: So how does this work exactly?</h4>
+							<p>A: We fetch your entire Last.fm library and use the tags to determine where each artist you've listened to comes from. This is done by running the artist tags from Last.fm against a list of country names and <a href="http://en.wikipedia.org/wiki/Demonym">demonyms</a>. If an artist is tagged with more than one country, the most popular tag is used. </p>
+							<h4>Q: What the heck, France isn't in South America!</h4>
+							<p>A: Actually, French Guiana is in South America and <a href="http://en.wikipedia.org/wiki/French_Guiana">French Guiana is an overseas region of France</a>.</p>
+							<h4>Q: Hey, Artist X isn't from country Y!</h4>
+							<p>A: An artist's associated country is determined by its user-generated tags on last.fm, and these are not always correct. Mistakes will often occur when there are more than one artist with the same name. It's a problem with the data that we can't do anything about.</p>
+							<p class="details-p">Do you have any other questions or feedback? Send us an email at <a href="mailto:explr.fm@gmail.com">explr.fm@gmail.com</a> or check out our <a href="http://www.reddit.com/r/Music/comments/22n6t8/lastfm_user_heres_an_interactive_map_to_show_the/">reddit post</a>.</p>
+						</div>
+					</div>
+					<p class="faq-link splash"><a>Frequently asked questions -></a></p>
+					<p class="faq-link faq hidden"><a><- Go back</a></p>
+					<p id="made-by">Made by <a href="http://se.linkedin.com/pub/anna-movin/50/463/1a0" target="_blank">Anna</a>, <a href="http://se.linkedin.com/pub/daniel-molin/82/211/b75" target="_blank">Daniel</a>, <a href="http://se.linkedin.com/pub/moa-bergsmark/49/554/93a" target="_blank">Moa</a> and <a href="http://se.linkedin.com/in/tommyfeldt" target="_blank">Tommy</a>.
 				</div>
 			</div>
+			<div id="map-container"></div>
+			<div class="loader no-select">
+				<div class="bubblingG">
+					<span id="bubblingG_1">
+					</span>
+					<span id="bubblingG_2">
+					</span>
+					<span id="bubblingG_3">
+					</span>
+				</div>
+				<div id="loading-text" class="no-select"></div>
+			</div>
+			
+			<div id="change-theme-button" class="change-button on-map-view no-select" onClick="nextTheme()">
+				<img src="new/img/glyphicons_009_magic.png" alt="" width="32" height="32">
+				<p>Change theme (t)</p>
+			</div>
+			<a href="./"  target="_self">
+				<div id="change-user-button" class="change-button on-map-view no-select">
+					<img src="new/img/remove-user.png" alt="" width="32" height="32">
+					<p>Change user</p>
+				</div>
+			</a>
+			<div id="snapshot-button" class="change-button on-map-view no-select" onClick="screenshot.render()">
+				<img src="new/img/snapshot.png" alt="" width="32" height="32">
+				<p>Take snapshot (s)</p>
+			</div>
+			<div id="logo" class="logo on-map-view no-select">
+				<img src="new/img/explrlogo.png" width="100">
+			</div>
+			<div id="friends" class="on-map-view">
+				<p id="msg" class="details-p"></p>
+				<span class="arrow left no-select"><-</span>
+				<p id="friend-name" class="details-p">ding dong</p>
+				<span class="arrow right no-select">-></span>
+			</div>
+			<div id="countryCount" class="progress on-map-view full-opacity no-select" >
+				<div id="progress-bar">
+					<span id="progress-text" ></span><!-- class="hidden" -->
+				</div>
+			</div>
+			<!-- google analytics -->
+			<script type="text/javascript">
+				var _gaq = _gaq || [];
+				_gaq.push(['_setAccount', 'UA-49535535-1']);
+				_gaq.push(['_trackPageview']);
+				(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+				})();
+			</script>
 
+			<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+			<script src="http://d3js.org/topojson.v1.min.js"></script>
+			<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
+			
+			<!-- Show and hide FAQ page on click -->
+			<script>
+			d3.selectAll('.faq-link').on("click", function(){
+					d3.selectAll('.faq').classed("hidden", !d3.select('.faq').classed("hidden"));
+					d3.selectAll('.splash').classed("hidden", !d3.select('.splash').classed("hidden"));
+				});
+			</script>
 
-			<p class="faq-link splash"><a>Frequently asked questions -></a></p>
-			<p class="faq-link faq hidden"><a><- Go back</a></p>
+			<!-- Remove placeholder text on focus, return on blur -->
+			<script>
+			d3.selectAll('input, text').on("focus", function(){
+				//Save placeholder as data
+				d3.select(this).data([d3.select(this).attr('placeholder')]);
+				//Replace with empty string
+				d3.select(this).attr('placeholder', '');
+			});
+			d3.selectAll('input, text').on("blur", function(){
+				//Return placeholder from data
+				d3.select(this).attr('placeholder', d3.select(this).data());
+			});
+			</script>
 
-			<p id="made-by">Made by <a href="http://se.linkedin.com/pub/anna-movin/50/463/1a0" target="_blank">Anna</a>, <a href="http://se.linkedin.com/pub/daniel-molin/82/211/b75" target="_blank">Daniel</a>, <a href="http://se.linkedin.com/pub/moa-bergsmark/49/554/93a" target="_blank">Moa</a> and <a href="http://se.linkedin.com/in/tommyfeldt" target="_blank">Tommy</a>.
-		</div>
-	</div>
-	<div id="map-container"></div>
-	<div class="loader no-select">
-		<div class="bubblingG">
-		<span id="bubblingG_1">
-		</span>
-		<span id="bubblingG_2">
-		</span>
-		<span id="bubblingG_3">
-		</span>
-		</div>
-	<div id="loading-text" class="no-select"></div>
-	</div>	
-	
-	<div id="change-theme-button" class="change-button on-map-view no-select" onClick="nextTheme()">
-		<img src="static/img/glyphicons_009_magic.png" alt="" width="32" height="32">
-		<p>Change theme (t)</p>
-	</div>
-
-	<a href="./"  target="_self">
-
-	<div id="change-user-button" class="change-button on-map-view no-select">
-		<img src="static/img/remove-user.png" alt="" width="32" height="32">
-		<p>Change user</p>
-	</div>
-	</a>
-
-	<div id="snapshot-button" class="change-button on-map-view no-select" onClick="screenshot.render()">
-		<img src="static/img/snapshot.png" alt="" width="32" height="32">
-		<p>Take snapshot (s)</p>
-	</div>
-
-
-	<div id="logo" class="logo on-map-view no-select">
-		<img src="static/img/explrlogo.png" width="100">
-	</div>
-	<div id="friends" class="on-map-view">
-		<p id="msg" class="details-p"></p>
-		<span class="arrow left no-select"><-</span>
-			<p id="friend-name" class="details-p">ding dong</p>
-		<span class="arrow right no-select">-></span>
-	</div>
-
-	<div id="countryCount" class="progress on-map-view full-opacity no-select" >
-		<div id="progress-bar">
-			<span id="progress-text" ></span><!-- class="hidden" -->
-		</div>
-	</div>
-
-	<!-- google analytics -->
-	<script type="text/javascript">
-
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-49535535-1']);
-	  _gaq.push(['_trackPageview']);
-
-	  (function() {
-	  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	  ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-	  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-
-	</script>
-
-
-	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-	<script src="http://d3js.org/topojson.v1.min.js"></script>
-	<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
-
-	<!-- Show and hide FAQ page on click -->
-	<script>
-	    d3.selectAll('.faq-link').on("click", function(){
-		 	d3.selectAll('.faq').classed("hidden", !d3.select('.faq').classed("hidden"));
-		 	d3.selectAll('.splash').classed("hidden", !d3.select('.splash').classed("hidden"));
-		});
-    </script>
-
-	<!-- Remove placeholder text on focus, return on blur -->
-	<script>
-	    d3.selectAll('input, text').on("focus", function(){
-	    	//Save placeholder as data
-	    	d3.select(this).data([d3.select(this).attr('placeholder')]);
-	    	//Replace with empty string
-	    	d3.select(this).attr('placeholder', '');
-		});
-		d3.selectAll('input, text').on("blur", function(){
-			//Return placeholder from data
-	    	d3.select(this).attr('placeholder', d3.select(this).data());
-	    });
-    </script>
-
-	<script src="static/api/lastfm.js"></script>
-	<script src="static/api/api.js"></script>
-	
-	<script src="static/map.js"></script>
-	<script src="static/script.js"></script>
-
-	<script src="static/screenshot.js"></script>
-
-	<!-- Canvg for screenshots -->
-	<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script> 
-	<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>
-	<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script> 
-
-	<!-- TODO: remove this, do from js -->
-	<img src="" alt="" id="screenshot-img">
-</body>
-</html>
+			<script src="new/app/js/api/lastfm.js"></script>
+			<script src="new/app/js/api/api.js"></script>
+			
+			<script src="new/app/js/map.js"></script>
+			<script src="new/app/js/script.js"></script>
+			<script src="new/app/js/screenshot.js"></script>
+			<!-- Canvg for screenshots -->
+			<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script>
+			<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>
+			<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/canvg.js"></script>
+			<!-- TODO: remove this, do from js -->
+			<img src="" alt="" id="screenshot-img">
+		</body>
+	</html>
