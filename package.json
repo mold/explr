@@ -1,0 +1,31 @@
+{
+  "name": "Explr",
+  "version": "1.0.0",
+  "description": "Explr.fm - color music map the wolrd",
+  "main": "Gulpfile.js",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.9.11",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-sass": "^2.0.4",
+    "gulp-sourcemaps": "^1.6.0"
+  },
+  "scripts": {
+    "start": "npm install && gulp serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mold/Explr"
+  },
+  "keywords": [
+    "music",
+    "tommy"
+  ],
+  "author": "Explr.fm",
+  "bugs": {
+    "url": "https://github.com/mold/Explr/issues"
+  },
+  "homepage": "https://github.com/mold/Explr"
+}
