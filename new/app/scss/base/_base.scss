@@ -6,11 +6,7 @@
  * Set up a decent box model on the root element
  */
 html {
-    box-sizing: border-box;
-}
-
-* {
-    font-family: "Didact Gothic";
+    //box-sizing: border-box;
 }
 
 /*
@@ -37,13 +33,10 @@ body {
  * Basic styles for links
  */
 a {
-    //color: $brand-color;
     font-weight: bold;
     text-decoration: underline;
 
-    //Mixin for :active, :hover, :focus
     @include on-event {
-        //color: $light-grey;
         text-decoration: none;
     }
 }
@@ -53,14 +46,14 @@ a {
  */
 body {
     font-family: $text-font-stack;
-    font-size: 14px;
+    font-size: 16px;
 
     h1 {
-        color: rgba(55, 55, 55, 0.8);
+        color: $heading-color;
         font-size: 3em;
         margin-bottom: 0em;
         text-transform: capitalize;
-        font-family: "Patua One";
+        font-family: $heading-font-stack;
     }
 
     h2 {
@@ -77,13 +70,13 @@ body {
     h4 {
         //font-size: 2.5rem;
         //line-height: 1.45;
-        font-family: 'Patua One';
+        font-family: $heading-font-stack;
         margin-top: 0.3em;
         margin-bottom: 0.8em;
     }
 
     h5 {
-        color: rgba(55, 55, 55, 0.5);
+        color: $heading-color;
         font-size: 1.5em;
         margin-top: 0em;
         text-transform: lowercase;

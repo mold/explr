@@ -358,17 +358,21 @@ td,
 th {
   padding: 0; }
 
+/* ==========================================================================
+   Font stacks
+   ========================================================================== */
+/* ==========================================================================
+   Pre-defined colors
+   ========================================================================== */
+/* ==========================================================================
+   Breakpoints and responsive stuff
+   ========================================================================== */
+/* ==========================================================================
+   Base url
+   ========================================================================== */
 /**
  * Set up a decent box model on the root element
  */
-html {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box; }
-
-* {
-  font-family: "Didact Gothic"; }
-
 /*
  * Body basics
  */
@@ -404,14 +408,14 @@ a {
  * Base text and heading styles
  */
 body {
-  font-family: "Open Sans", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  font-size: 14px; }
+  font-family: "Didact Gothic", "Futura Medium", "Century Gothic", "Apple Gothic", "Avant Garde", sans-serif;
+  font-size: 16px; }
   body h1 {
     color: rgba(55, 55, 55, 0.8);
     font-size: 3em;
     margin-bottom: 0em;
     text-transform: capitalize;
-    font-family: "Patua One"; }
+    font-family: "Patua One", "Roboto Slab", serif; }
   body h2 {
     font-size: 3.5rem;
     line-height: 1.45;
@@ -420,11 +424,11 @@ body {
     font-size: 3.5rem;
     line-height: 1.45; }
   body h4 {
-    font-family: 'Patua One';
+    font-family: "Patua One", "Roboto Slab", serif;
     margin-top: 0.3em;
     margin-bottom: 0.8em; }
   body h5 {
-    color: rgba(55, 55, 55, 0.5);
+    color: rgba(55, 55, 55, 0.8);
     font-size: 1.5em;
     margin-top: 0em;
     text-transform: lowercase; }
@@ -503,24 +507,6 @@ body {
       -ms-user-select: none;
           user-select: none; }
 
-.header-wrap {
-  background-color: #E50050;
-  min-height: 350px;
-  background-position: no-repeat center top;
-  width: 100%; }
-  .header-wrap h1 {
-    color: #fff; }
-
-.footer-wrap {
-  position: absolute;
-  background-color: #444;
-  min-height: 50px;
-  background-position: no-repeat center top;
-  bottom: 0px;
-  width: 100%; }
-  .footer-wrap h5 {
-    color: #fff; }
-
 /* CHANGE BUTTON
    ========================================================================== */
 .change-button {
@@ -595,12 +581,13 @@ body {
     .gobutton:active input {
       margin-top: 1px; }
   .gobutton input {
-    background: url(new/img/gobutton.png) no-repeat;
-    background-size: 100%;
+    background: url(../../img/gobutton.png) no-repeat;
+    background-size: 90%;
+    background-position: center top;
     cursor: pointer;
     border: none;
-    width: 10em;
-    height: 6.5em; }
+    width: inherit;
+    height: inherit; }
 
 /* ==========================================================================
    THE LOADER DIV
@@ -766,9 +753,9 @@ svg:active {
   bottom: 0;
   background-color: #ae017e;
   -webkit-transition: height 0.6s ease;
-  transition: height 0.6s ease;
+          transition: height 0.6s ease;
   -webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
-  box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39); }
+          box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39); }
 
 #progress-text {
   float: right;
@@ -878,7 +865,7 @@ div.colorChange {
   max-height: 400px;
   padding: 0px 13px 0px 13px; }
 
-/* Welcome message
+/* Welcome text
    ========================================================================== */
 .welcome-message {
   margin: 60px auto auto auto;
@@ -916,7 +903,7 @@ div.colorChange {
 /* Image
    ========================================================================== */
 .logoImageWelcome {
-  margin-bottom: 0.8em; }
+  margin-bottom: 4px; }
 
 #logo {
   position: absolute;
@@ -934,7 +921,6 @@ div.colorChange {
   height: 30px;
   width: 170px;
   color: #222;
-  font-size: 15px;
   font-weight: bold;
   background: rgba(255, 255, 255, 0.8);
   margin-top: 0.5em;
@@ -947,8 +933,8 @@ div.colorChange {
    Main container
    ========================================================================== */
 .infoContainer {
-  margin-left: 0.5%;
-  margin-right: 0.5%;
+  margin-left: 7px;
+  margin-right: 7px;
   width: 99%;
   height: 150px;
   position: absolute;
@@ -957,7 +943,7 @@ div.colorChange {
   z-index: 4;
   opacity: 0; }
 
-div.cnameDiv {
+.cnameDiv {
   display: block;
   float: right;
   margin-right: 5%;
@@ -970,7 +956,7 @@ div.cnameDiv {
 .artistContainer {
   float: right;
   margin-right: 6%;
-  width: 37em;
+  width: 592px;
   display: block;
   background: inherit; }
   .artistContainer h4 {
@@ -981,18 +967,18 @@ div.cnameDiv {
 
 .detailsDiv {
   display: table;
-  margin-left: 1em;
+  margin-left: 16px;
   padding: 0 30px;
-  padding: 0px;
+  padding: 0;
   opacity: 0.9;
   vertical-align: top; }
   .detailsDiv h5 {
     color: rgba(55, 55, 55, 0.5);
     font-size: 0.9em;
-    margin-top: 0em;
+    margin-top: 0;
     text-transform: lowercase; }
 
-p.details-p {
+.details-p {
   font-size: 0.8em;
   font-style: #000;
   margin-bottom: 4px; }
@@ -1019,7 +1005,7 @@ p.details-p {
 div.artist-div {
   float: left;
   text-align: center;
-  width: 7em;
+  width: 112px;
   padding-top: 7px;
   cursor: pointer;
   -webkit-border-radius: 7px;
@@ -1034,8 +1020,8 @@ div.artist-div {
             transition: border-radius 0.1s; }
 
 div.image-div {
-  height: 6em;
-  width: 6em;
+  height: 96px;
+  width: 96px;
   background-position: center top;
   border: 2px solid #444;
   -webkit-border-radius: 2px;
@@ -1080,11 +1066,11 @@ div.image-div {
    ========================================================================== */
 .recoDiv {
   display: table;
-  margin-left: 1em;
-  margin-right: 1em;
-  margin-bottom: 1em;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-bottom: 16px;
   padding: 0 30px;
-  padding: 0px;
+  padding: 0;
   opacity: 0.9;
   vertical-align: top;
   width: 560px; }

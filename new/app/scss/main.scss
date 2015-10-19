@@ -21,9 +21,6 @@
 
 // 4. Layout-related sections
 
-@import "layout/header";
-@import "layout/footer";
-
 // 5. Components
 
 @import "components/buttons";
@@ -32,7 +29,6 @@
 
 // 6. Page-specific styles
 
-@import "pages/home";
 @import "pages/map";
 @import "pages/splash";
 @import "pages/zoomed";
