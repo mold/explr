@@ -1,3 +1,6 @@
 *~
 *.sublime*
 venv/
+node_modules
+new/app/css/maps/
+

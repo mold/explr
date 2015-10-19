@@ -2,7 +2,7 @@ var api = api || {};
 var superCount = 0;
 
 (function(window, document) {
-	d3.csv("static/countries.csv", function(err, data) {
+	d3.csv("new/app/data/countries.csv", function(err, data) {
 		alias = d3.nest()
 			.key(function(d) {
 				return d.tag.toLowerCase();
@@ -232,7 +232,7 @@ var superCount = 0;
 		console.log("Got top tags for user!")
 
 		// Get top artists for tag country
-		var xhr1 = api.lastfm.send("tag.topartists", [["tag", country], ["limit", 100]], function(err, data1) {
+		var xhr1 = api.lastfm.send("tag.gettopartists", [["tag", country], ["limit", 100]], function(err, data1) {
 			// Gotta count matching tags to then sort
 			var tagCounts = {};
 

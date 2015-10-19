@@ -1,0 +1,215 @@
+/*
+ * In this file we store styles for the zoomed in map view
+ */
+
+/* ==========================================================================
+   Main container
+   ========================================================================== */
+
+.infoContainer {
+    margin-left: 7px;
+    margin-right: 7px;
+    width: 99%;
+    height: 150px;
+    position: absolute;
+    top: 7.5%;
+    border-top: 1px solid black;
+    z-index: 4;
+    opacity: 0;
+}
+
+//Country name
+.cnameDiv {
+    display: block;
+    float: right;
+    margin-right: 5%;
+    text-align: right;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   Artist info
+   ========================================================================== */
+
+.artistContainer {
+    //Main container for artist information, recommendations and details
+    float: right;
+    margin-right: 6%;
+    width: 592px;
+    display: block;
+    background: inherit;
+
+    h4 {
+        font-size: 1em;
+        margin-top: 1em;
+    }
+
+    p {
+        font-size: 0.8em;
+    }
+}
+
+.detailsDiv {
+    //
+    display: table;
+    margin-left: 16px;
+    padding: 0 30px;
+    padding: 0;
+    opacity: 0.9;
+    vertical-align: top;
+
+    h5 {
+        color: rgba(55, 55, 55, 0.5);
+        font-size: 0.9em;
+        margin-top: 0;
+        text-transform: lowercase;
+    }
+}
+
+.details-p {
+    font-size: 0.8em;
+    font-style: #000;
+    margin-bottom: 4px;
+}
+
+.summaryText {
+    display: inline-block;
+    background: inherit;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(175, 175, 175, 0.5);
+
+    p {
+        margin-bottom: 0;
+        margin-top: 0.3em;
+    }
+
+    h4 {
+        font-size: 1.1em;
+        margin: 0;
+    }
+}
+
+/* ==========================================================================
+   Artist images
+   ========================================================================== */
+
+div.artist-div {
+    float: left;
+    text-align: center;
+    width: 112px;
+    padding-top: 7px;
+    cursor: pointer;
+    border-radius: 7px;
+    box-sizing: border-box;
+    transition: background 0.1s;
+
+    .image-div {
+        transition: border-radius 0.1s;
+    }
+}
+
+div.image-div {
+    height: 96px;
+    width: 96px;
+    background-position: center top;
+    border: 2px solid #444;
+    border-radius: 2px;
+    margin-left: auto;
+    margin-right: auto;
+    background-size: cover;
+}
+
+.artist-div.highlight, .reco-div.highlight {
+    background: rgba(175, 175, 175, 0.5);
+}
+
+.artist-div.lowlight .image-div {
+    border-radius: 50%;
+}
+
+.artist-div.lowlight .image-div:hover {
+    border-radius: 30%;
+}
+
+/* ==========================================================================
+   Artist tags
+   ========================================================================== */
+.tagdiv {
+    border: 1px solid lightgrey;
+    color: #969696;
+    display: inline-block;
+    background: inherit;
+    margin-top: 0.6em;
+    margin-bottom: 0.3em;
+    padding: 0.3em;
+    margin-right: 0.2em;
+    width: auto;
+
+    h4 {
+        font-size: 0.8em;
+        font-weight: normal;
+    }
+
+    .usertag {
+        color: #636363;
+        font-weight: bolder;
+    }
+}
+
+/* ==========================================================================
+   Recommendations
+   ========================================================================== */
+
+.recoDiv {
+    display: table;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    padding: 0 30px;
+    padding: 0;
+    opacity: 0.9;
+    vertical-align: top;
+    width: 560px;
+}
+
+.recLoadingDiv {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+/* ==========================================================================
+   Close button
+   ========================================================================== */
+
+.close-button {
+    width: 25px;
+    height: 25px;
+    display: block;
+    text-transform: uppercase;
+    color: #444;
+    background: #fff;
+    border: 0.1em solid #444;
+    border-radius: 0.2em;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.1em;
+    top: 0.1em;
+    right: 0;
+    position: absolute;
+    cursor: pointer;
+
+    &:hover {
+        color: #fff;
+        background: #aaa;
+    }
+
+    &:active {
+        color: #444;
+        background: #fff;
+    }
+}

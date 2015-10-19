@@ -1,0 +1,190 @@
+/* ==========================================================================
+   Map container
+   ========================================================================== */
+
+#map-container {
+    height: 100%;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   Countries (SVG)
+   ========================================================================== */
+
+svg:active {
+    cursor: move;
+}
+
+.country {
+    cursor: pointer;
+
+    &:hover {
+        stroke: #FFF7EE;
+        stroke-width: 1.2px;
+    }
+
+    &.highlighted, &.highlighted:hover {
+        stroke: #444;
+        stroke-width: 2.5px;
+    }
+}
+
+/* ==========================================================================
+   Map legend
+   ========================================================================== */
+
+.legend {
+    font-size: 14px;
+    font-family: 'Patua One';
+
+    rect {
+        stroke: #fff;
+    }
+
+    &#filter {
+        cursor: pointer;
+        text-decoration: underline;
+        font-style: italic;
+    }
+}
+
+/* ==========================================================================
+   Progress bar
+   ========================================================================== */
+
+//(Progressbar container)
+#countryCount {
+    position: absolute;
+    top: 180px;
+
+    /* 140px; */
+    width: 10px;
+    height: 59%;
+
+    /*65%;*/
+    right: 32px;
+    box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
+    border: 0.1em solid;
+    z-index: 0;
+    border-radius: 50px;
+}
+
+#progress-bar {
+    float: left;
+    width: 100%;
+    height: 0;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    background-color: #ae017e;
+    transition: height 0.6s ease;
+    box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
+}
+
+#progress-text {
+    float: right;
+    margin-right: 18px;
+    margin-top: -20px;
+    width: auto;
+    line-height: 12px;
+    border-radius: 8px;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(175, 175, 175, 0.5);
+
+    &:after, &:before {
+        left: -9px;
+        top: 0px;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    &:after {
+        border-color: rgba(255, 255, 255, 0);
+        border-left-color: rgba(255, 255, 255, 0.5);
+        border-width: 7px;
+        margin-top: -7px;
+    }
+
+    &:before {
+        border-color: rgba(175, 175, 175, 0);
+        border-left-color: rgba(175, 175, 175, 0.5);
+        border-width: 9px;
+        margin-top: -9px;
+    }
+}
+
+/* ==========================================================================
+   Friendbox
+   ========================================================================== */
+
+/* Check out friends box */
+#friends {
+    position: absolute;
+    bottom: 35px;
+    right: 130px;
+    font-size: 0.9em;
+    border-radius: 10px;
+    padding: 5px;
+    border: 1px solid rgba(177, 177, 177, 0.5);
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+
+    p {
+        text-align: center;
+        margin: 0;
+    }
+}
+
+.arrow {
+    position: absolute;
+    bottom: 5px;
+    cursor: pointer;
+
+    &.right {
+        right: 5px;
+    }
+}
+
+/* ==========================================================================
+   Misc
+   ========================================================================== */
+
+.text {
+    font-size: 13px;
+    text-transform: capitalize;
+}
+
+#colors {
+    pointer-events: all;
+    position: fixed;
+    left: 150px;
+    bottom: 30px;
+    top: 450px;
+
+    /*width: 107px;
+    height: 67px;*/
+}
+
+div.colorChange {
+    text-align: center;
+
+    /*position: fixed; */
+    /*left: 150px;
+    bottom: 45px;*/
+    width: 107px;
+    height: 67px;
+}
+
+#journeyText {
+    font-size: 0.8em;
+    font-style: italic;
+    margin-top: 0;
+    text-align: center;
+}

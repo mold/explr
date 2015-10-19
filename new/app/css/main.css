@@ -1,0 +1,1249 @@
+/*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS and IE text size adjust after device orientation change,
+ *    without disabling user zoom.
+ */
+html {
+  font-family: sans-serif;
+  /* 1 */
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/**
+ * Remove default margin.
+ */
+body {
+  margin: 0; }
+
+/* HTML5 display definitions
+   ========================================================================== */
+/**
+ * Correct `block` display not defined for any HTML5 element in IE 8/9.
+ * Correct `block` display not defined for `details` or `summary` in IE 10/11
+ * and Firefox.
+ * Correct `block` display not defined for `main` in IE 11.
+ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary {
+  display: block; }
+
+/**
+ * 1. Correct `inline-block` display not defined in IE 8/9.
+ * 2. Normalize vertical alignment of `progress` in Chrome, Firefox, and Opera.
+ */
+audio,
+canvas,
+progress,
+video {
+  display: inline-block;
+  /* 1 */
+  vertical-align: baseline;
+  /* 2 */ }
+
+/**
+ * Prevent modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0; }
+
+/**
+ * Address `[hidden]` styling not present in IE 8/9/10.
+ * Hide the `template` element in IE 8/9/10/11, Safari, and Firefox < 22.
+ */
+[hidden],
+template {
+  display: none; }
+
+/* Links
+   ========================================================================== */
+/**
+ * Remove the gray background color from active links in IE 10.
+ */
+a {
+  background-color: transparent; }
+
+/**
+ * Improve readability of focused elements when they are also in an
+ * active/hover state.
+ */
+a:active,
+a:hover {
+  outline: 0; }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Address styling not present in IE 8/9/10/11, Safari, and Chrome.
+ */
+abbr[title] {
+  border-bottom: 1px dotted; }
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
+ */
+b,
+strong {
+  font-weight: bold; }
+
+/**
+ * Address styling not present in Safari and Chrome.
+ */
+dfn {
+  font-style: italic; }
+
+/**
+ * Address variable `h1` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari, and Chrome.
+ */
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0; }
+
+/**
+ * Address styling not present in IE 8/9.
+ */
+mark {
+  background: #ff0;
+  color: #000; }
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sup {
+  top: -0.5em; }
+
+sub {
+  bottom: -0.25em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove border when inside `a` element in IE 8/9/10.
+ */
+img {
+  border: 0; }
+
+/**
+ * Correct overflow not hidden in IE 9/10/11.
+ */
+svg:not(:root) {
+  overflow: hidden; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * Address margin not present in IE 8/9 and Safari.
+ */
+figure {
+  margin: 1em 40px; }
+
+/**
+ * Address differences between Firefox and other browsers.
+ */
+hr {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+  height: 0; }
+
+/**
+ * Contain overflow in all browsers.
+ */
+pre {
+  overflow: auto; }
+
+/**
+ * Address odd `em`-unit font size rendering in all browsers.
+ */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em; }
+
+/* Forms
+   ========================================================================== */
+/**
+ * Known limitation: by default, Chrome and Safari on OS X allow very limited
+ * styling of `select`, unless a `border` property is set.
+ */
+/**
+ * 1. Correct color not being inherited.
+ *    Known issue: affects color of disabled elements.
+ * 2. Correct font properties not being inherited.
+ * 3. Address margins set differently in Firefox 4+, Safari, and Chrome.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  color: inherit;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+  margin: 0;
+  /* 3 */ }
+
+/**
+ * Address `overflow` set to `hidden` in IE 8/9/10/11.
+ */
+button {
+  overflow: visible; }
+
+/**
+ * Address inconsistent `text-transform` inheritance for `button` and `select`.
+ * All other form control elements do not inherit `text-transform` values.
+ * Correct `button` style inheritance in Firefox, IE 8/9/10/11, and Opera.
+ * Correct `select` style inheritance in Firefox.
+ */
+button,
+select {
+  text-transform: none; }
+
+/**
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Correct inability to style clickable `input` types in iOS.
+ * 3. Improve usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+button,
+html input[type="button"], input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+  cursor: pointer;
+  /* 3 */ }
+
+/**
+ * Re-set default cursor for disabled elements.
+ */
+button[disabled],
+html input[disabled] {
+  cursor: default; }
+
+/**
+ * Remove inner padding and border in Firefox 4+.
+ */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0; }
+
+/**
+ * Address Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+input {
+  line-height: normal; }
+
+/**
+ * It's recommended that you don't attempt to style these elements.
+ * Firefox's implementation doesn't respect box-sizing, padding, or width.
+ *
+ * 1. Address box sizing set to `content-box` in IE 8/9/10.
+ * 2. Remove excess padding in IE 8/9/10.
+ */
+input[type="checkbox"],
+input[type="radio"] {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Fix the cursor style for Chrome's increment/decrement buttons. For certain
+ * `font-size` values of the `input`, it causes the cursor style of the
+ * decrement button to change from `default` to `text`.
+ */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * 1. Address `appearance` set to `searchfield` in Safari and Chrome.
+ * 2. Address `box-sizing` set to `border-box` in Safari and Chrome.
+ */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+  /* 2 */ }
+
+/**
+ * Remove inner padding and search cancel button in Safari and Chrome on OS X.
+ * Safari (but not Chrome) clips the cancel button when the search input has
+ * padding (and `textfield` appearance).
+ */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * Define consistent border, margin, and padding.
+ */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em; }
+
+/**
+ * 1. Correct `color` not being inherited in IE 8/9/10/11.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+legend {
+  border: 0;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Remove default vertical scrollbar in IE 8/9/10/11.
+ */
+textarea {
+  overflow: auto; }
+
+/**
+ * Don't inherit the `font-weight` (applied by a rule above).
+ * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.
+ */
+optgroup {
+  font-weight: bold; }
+
+/* Tables
+   ========================================================================== */
+/**
+ * Remove most spacing between table cells.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+td,
+th {
+  padding: 0; }
+
+/* ==========================================================================
+   Font stacks
+   ========================================================================== */
+/* ==========================================================================
+   Pre-defined colors
+   ========================================================================== */
+/* ==========================================================================
+   Breakpoints and responsive stuff
+   ========================================================================== */
+/* ==========================================================================
+   Base url
+   ========================================================================== */
+/**
+ * Set up a decent box model on the root element
+ */
+/*
+ * Body basics
+ */
+body {
+  background-color: white;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: hidden; }
+
+/**
+ * Make all elements from the DOM inherit from the parent box-sizing
+ * Since `*` has a specificity of 0, it does not override the `html` value
+ * making all elements inheriting from the root box-sizing value
+ * See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+ */
+*, *::before, *::after {
+  -webkit-box-sizing: inherit;
+     -moz-box-sizing: inherit;
+          box-sizing: inherit; }
+
+/**
+ * Basic styles for links
+ */
+a {
+  font-weight: bold;
+  text-decoration: underline; }
+  a:hover,
+  a:active,
+  a:focus {
+    text-decoration: none; }
+
+/*
+ * Base text and heading styles
+ */
+body {
+  font-family: "Didact Gothic", "Futura Medium", "Century Gothic", "Apple Gothic", "Avant Garde", sans-serif;
+  font-size: 16px; }
+  body h1 {
+    color: rgba(55, 55, 55, 0.8);
+    font-size: 3em;
+    margin-bottom: 0em;
+    text-transform: capitalize;
+    font-family: "Patua One", "Roboto Slab", serif; }
+  body h2 {
+    font-size: 3.5rem;
+    line-height: 1.45;
+    color: #444; }
+  body h3 {
+    font-size: 3.5rem;
+    line-height: 1.45; }
+  body h4 {
+    font-family: "Patua One", "Roboto Slab", serif;
+    margin-top: 0.3em;
+    margin-bottom: 0.8em; }
+  body h5 {
+    color: rgba(55, 55, 55, 0.8);
+    font-size: 1.5em;
+    margin-top: 0em;
+    text-transform: lowercase; }
+
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("http://fonts.googleapis.com/css?family=Josefin+Sans"); }
+
+/* ==========================================================================
+   TYPOGRAPHY STYLES
+   ========================================================================== */
+/*
+    * Basic typography for copy text
+    */
+body {
+  /*color: $text-color;
+    font: normal 125% / 1.4 $text-font-stack;*/ }
+
+/**
+ * Clear inner floats
+ */
+.clearfix::after {
+  clear: both;
+  content: '';
+  display: table; }
+
+/**
+ * Hide text while making it readable for screen readers
+ * 1. Needed in WebKit-based browsers because of an implementation bug;
+ *    See: https://code.google.com/p/chromium/issues/detail?id=457146
+ */
+.hide-text {
+  overflow: hidden;
+  padding: 0;
+  /* 1 */
+  text-indent: 101%;
+  white-space: nowrap; }
+
+/**
+ * Hide element while making it readable for screen readers
+ * Shamelessly borrowed from HTML5Boilerplate:
+ * https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css#L119-L133
+ */
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
+
+/*
+ * Helper class to center texts
+ */
+.centered {
+  text-align: center; }
+
+/*
+ * Class for hiding elements
+ */
+.hidden {
+  display: none; }
+
+/* These are hidden until user has logged in */
+.on-map-view {
+  visibility: hidden; }
+
+.full-opacity {
+  opacity: 0.9; }
+
+.no-select {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+
+/* CHANGE BUTTON
+   ========================================================================== */
+.change-button {
+  position: absolute;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  -webkit-border-radius: 20px;
+          border-radius: 20px;
+  z-index: 1;
+  background: #acacac;
+  opacity: 0.5;
+  cursor: pointer;
+  overflow: hidden; }
+  .change-button:hover {
+    overflow: visible;
+    opacity: 1; }
+  .change-button:active {
+    overflow: visible;
+    opacity: 0.3; }
+  .change-button img {
+    display: block;
+    margin: 3px auto; }
+  .change-button p {
+    width: 200px;
+    margin: -30px -210px;
+    text-align: right;
+    font-weight: 700; }
+
+/*
+ * Specific change buttons
+ */
+#change-theme-button {
+  /*right:80px;*/
+  top: 70px; }
+
+#change-user-button {
+  top: 20px; }
+
+#snapshot-button {
+  top: 120px; }
+
+.theme-button {
+  z-index: 2; }
+
+/* GO-BUTTON (SPLASH)
+   ========================================================================== */
+.gobutton {
+  width: 130px;
+  height: 40px;
+  overflow: hidden;
+  margin: 1em auto 0 auto;
+  padding: 3px 6px 6px 6px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  background: #ffffff;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#ffc3c3));
+  background: -webkit-linear-gradient(top, #ffffff 0%, #ffc3c3 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #ffc3c3 100%);
+  border: 2px solid grey; }
+  .gobutton:hover {
+    background: white;
+    background: #ffc3c3;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#ffeaea));
+    background: -webkit-linear-gradient(top, #ffffff 0%, #ffeaea 100%);
+    background: linear-gradient(to bottom, #ffffff 0%, #ffeaea 100%); }
+  .gobutton:active {
+    background: #ffc3c3;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ffc3c3), to(#ffffff));
+    background: -webkit-linear-gradient(top, #ffc3c3 0%, #ffffff 100%);
+    background: linear-gradient(to bottom, #ffc3c3 0%, #ffffff 100%); }
+    .gobutton:active input {
+      margin-top: 1px; }
+  .gobutton input {
+    background: url(../../img/gobutton.png) no-repeat;
+    background-size: 90%;
+    background-position: center top;
+    cursor: pointer;
+    border: none;
+    width: inherit;
+    height: inherit; }
+
+/* ==========================================================================
+   THE LOADER DIV
+   ========================================================================== */
+.loader {
+  position: absolute;
+  z-index: 1;
+  top: 50px;
+  padding: 25px 40px;
+  left: 80%;
+  background: rgba(45, 45, 45, 0.5);
+  -webkit-border-radius: 40px;
+          border-radius: 40px;
+  color: white;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  /* Fade in later */ }
+
+body.black-theme .loader {
+  background: rgba(80, 80, 80, 0.4); }
+
+/* Animated bubbles
+   ========================================================================== */
+.bubblingG {
+  text-align: center;
+  width: 107px;
+  height: 67px; }
+  .bubblingG span {
+    display: inline-block;
+    vertical-align: middle;
+    width: 13px;
+    height: 13px;
+    margin: 33px auto;
+    background: white;
+    -moz-border-radius: 67px;
+    -moz-animation: bubblingG 1.3s infinite alternate;
+    -webkit-border-radius: 67px;
+    -webkit-animation: bubblingG 1.3s infinite alternate;
+    -ms-border-radius: 67px;
+    -ms-animation: bubblingG 1.3s infinite alternate;
+    -o-border-radius: 67px;
+    -o-animation: bubblingG 1.3s infinite alternate;
+    -webkit-border-radius: 67px;
+            border-radius: 67px;
+    -webkit-animation: bubblingG 1.3s infinite alternate;
+            animation: bubblingG 1.3s infinite alternate; }
+
+/* Animation styles
+   ========================================================================== */
+#bubblingG_1 {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s; }
+
+#bubblingG_2 {
+  -webkit-animation-delay: 0.39s;
+  animation-delay: 0.39s; }
+
+#bubblingG_3 {
+  -webkit-animation-delay: 0.78s;
+  animation-delay: 0.78s; }
+
+@-webkit-keyframes bubblingG {
+  0% {
+    width: 13px;
+    height: 13px;
+    background-color: white;
+    -webkit-transform: translateY(0); }
+  100% {
+    width: 32px;
+    height: 32px;
+    background-color: #FFFFFF;
+    -webkit-transform: translateY(-28px); } }
+
+@keyframes bubblingG {
+  0% {
+    width: 13px;
+    height: 13px;
+    background-color: white;
+    -webkit-transform: translateY(0);
+            transform: translateY(0); }
+  100% {
+    width: 32px;
+    height: 32px;
+    background-color: #FFFFFF;
+    -webkit-transform: translateY(-28px);
+            transform: translateY(-28px); } }
+
+div.tooltip {
+  font-size: 0.8em;
+  background: #fff;
+  padding: .5em;
+  text-shadow: #f5f5f5 0 1px 0;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  -webkit-box-shadow: 0px 0px 2px 0px #a6a6a6;
+          box-shadow: 0px 0px 2px 0px #a6a6a6;
+  opacity: 0.9;
+  position: absolute;
+  z-index: 1; }
+
+/* ==========================================================================
+   Map container
+   ========================================================================== */
+#map-container {
+  height: 100%;
+  overflow: hidden; }
+
+/* ==========================================================================
+   Countries (SVG)
+   ========================================================================== */
+svg:active {
+  cursor: move; }
+
+.country {
+  cursor: pointer; }
+  .country:hover {
+    stroke: #FFF7EE;
+    stroke-width: 1.2px; }
+  .country.highlighted, .country.highlighted:hover {
+    stroke: #444;
+    stroke-width: 2.5px; }
+
+/* ==========================================================================
+   Map legend
+   ========================================================================== */
+.legend {
+  font-size: 14px;
+  font-family: 'Patua One'; }
+  .legend rect {
+    stroke: #fff; }
+  .legend#filter {
+    cursor: pointer;
+    text-decoration: underline;
+    font-style: italic; }
+
+/* ==========================================================================
+   Progress bar
+   ========================================================================== */
+#countryCount {
+  position: absolute;
+  top: 180px;
+  /* 140px; */
+  width: 10px;
+  height: 59%;
+  /*65%;*/
+  right: 32px;
+  -webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
+          box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
+  border: 0.1em solid;
+  z-index: 0;
+  -webkit-border-radius: 50px;
+          border-radius: 50px; }
+
+#progress-bar {
+  float: left;
+  width: 100%;
+  height: 0;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  background-color: #ae017e;
+  -webkit-transition: height 0.6s ease;
+          transition: height 0.6s ease;
+  -webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
+          box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39); }
+
+#progress-text {
+  float: right;
+  margin-right: 18px;
+  margin-top: -20px;
+  width: auto;
+  line-height: 12px;
+  -webkit-border-radius: 8px;
+          border-radius: 8px;
+  padding: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(175, 175, 175, 0.5); }
+  #progress-text:after, #progress-text:before {
+    left: -9px;
+    top: 0px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none; }
+  #progress-text:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-left-color: rgba(255, 255, 255, 0.5);
+    border-width: 7px;
+    margin-top: -7px; }
+  #progress-text:before {
+    border-color: rgba(175, 175, 175, 0);
+    border-left-color: rgba(175, 175, 175, 0.5);
+    border-width: 9px;
+    margin-top: -9px; }
+
+/* ==========================================================================
+   Friendbox
+   ========================================================================== */
+/* Check out friends box */
+#friends {
+  position: absolute;
+  bottom: 35px;
+  right: 130px;
+  font-size: 0.9em;
+  -webkit-border-radius: 10px;
+          border-radius: 10px;
+  padding: 5px;
+  border: 1px solid rgba(177, 177, 177, 0.5);
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0; }
+  #friends p {
+    text-align: center;
+    margin: 0; }
+
+.arrow {
+  position: absolute;
+  bottom: 5px;
+  cursor: pointer; }
+  .arrow.right {
+    right: 5px; }
+
+/* ==========================================================================
+   Misc
+   ========================================================================== */
+.text {
+  font-size: 13px;
+  text-transform: capitalize; }
+
+#colors {
+  pointer-events: all;
+  position: fixed;
+  left: 150px;
+  bottom: 30px;
+  top: 450px;
+  /*width: 107px;
+    height: 67px;*/ }
+
+div.colorChange {
+  text-align: center;
+  /*position: fixed; */
+  /*left: 150px;
+    bottom: 45px;*/
+  width: 107px;
+  height: 67px; }
+
+#journeyText {
+  font-size: 0.8em;
+  font-style: italic;
+  margin-top: 0;
+  text-align: center; }
+
+/* ==========================================================================
+   In this file we store styles for the splash screen
+   ========================================================================== */
+/* Container
+   ========================================================================== */
+#welcome-container {
+  position: absolute;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  background: rgba(255, 200, 200, 0.5);
+  visibility: hidden; }
+
+#splashTextContainer {
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 0px 13px 0px 13px; }
+
+/* Welcome text
+   ========================================================================== */
+.welcome-message {
+  margin: 60px auto auto auto;
+  padding: 20px 30px 20px 30px;
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-border-radius: 30px;
+          border-radius: 30px;
+  text-align: center;
+  width: 330px;
+  border: 5px solid white;
+  vertical-align: top; }
+
+.info {
+  text-align: left;
+  margin-top: 5px;
+  margin-bottom: 10px; }
+
+.infoPoint {
+  text-align: left;
+  margin: 0.3em 0 0 0;
+  font-size: 0.9em; }
+
+#made-by {
+  font-size: 13px;
+  margin: 20px 0 0 0;
+  opacity: 0.4; }
+
+.faq-link {
+  font-size: 15px;
+  margin: 20px 0 0 0;
+  opacity: 1;
+  cursor: pointer;
+  text-align: center; }
+
+/* Image
+   ========================================================================== */
+.logoImageWelcome {
+  margin-bottom: 4px; }
+
+#logo {
+  position: absolute;
+  bottom: 35px;
+  right: 20px;
+  /*opacity: 0.5;*/
+  pointer-events: none; }
+
+/* Form
+   ========================================================================== */
+#start-form {
+  margin-top: 0.25em; }
+
+.usernameinput {
+  height: 30px;
+  width: 170px;
+  color: #222;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.8);
+  margin-top: 0.5em;
+  /*text-align: center;*/ }
+
+/*
+ * In this file we store styles for the zoomed in map view
+ */
+/* ==========================================================================
+   Main container
+   ========================================================================== */
+.infoContainer {
+  margin-left: 7px;
+  margin-right: 7px;
+  width: 99%;
+  height: 150px;
+  position: absolute;
+  top: 7.5%;
+  border-top: 1px solid black;
+  z-index: 4;
+  opacity: 0; }
+
+.cnameDiv {
+  display: block;
+  float: right;
+  margin-right: 5%;
+  text-align: right;
+  pointer-events: none; }
+
+/* ==========================================================================
+   Artist info
+   ========================================================================== */
+.artistContainer {
+  float: right;
+  margin-right: 6%;
+  width: 592px;
+  display: block;
+  background: inherit; }
+  .artistContainer h4 {
+    font-size: 1em;
+    margin-top: 1em; }
+  .artistContainer p {
+    font-size: 0.8em; }
+
+.detailsDiv {
+  display: table;
+  margin-left: 16px;
+  padding: 0 30px;
+  padding: 0;
+  opacity: 0.9;
+  vertical-align: top; }
+  .detailsDiv h5 {
+    color: rgba(55, 55, 55, 0.5);
+    font-size: 0.9em;
+    margin-top: 0;
+    text-transform: lowercase; }
+
+.details-p {
+  font-size: 0.8em;
+  font-style: #000;
+  margin-bottom: 4px; }
+
+.summaryText {
+  display: inline-block;
+  background: inherit;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(175, 175, 175, 0.5); }
+  .summaryText p {
+    margin-bottom: 0;
+    margin-top: 0.3em; }
+  .summaryText h4 {
+    font-size: 1.1em;
+    margin: 0; }
+
+/* ==========================================================================
+   Artist images
+   ========================================================================== */
+div.artist-div {
+  float: left;
+  text-align: center;
+  width: 112px;
+  padding-top: 7px;
+  cursor: pointer;
+  -webkit-border-radius: 7px;
+          border-radius: 7px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: background 0.1s;
+          transition: background 0.1s; }
+  div.artist-div .image-div {
+    -webkit-transition: -webkit-border-radius 0.1s;
+            transition: border-radius 0.1s; }
+
+div.image-div {
+  height: 96px;
+  width: 96px;
+  background-position: center top;
+  border: 2px solid #444;
+  -webkit-border-radius: 2px;
+          border-radius: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  background-size: cover; }
+
+.artist-div.highlight, .reco-div.highlight {
+  background: rgba(175, 175, 175, 0.5); }
+
+.artist-div.lowlight .image-div {
+  -webkit-border-radius: 50%;
+          border-radius: 50%; }
+
+.artist-div.lowlight .image-div:hover {
+  -webkit-border-radius: 30%;
+          border-radius: 30%; }
+
+/* ==========================================================================
+   Artist tags
+   ========================================================================== */
+.tagdiv {
+  border: 1px solid lightgrey;
+  color: #969696;
+  display: inline-block;
+  background: inherit;
+  margin-top: 0.6em;
+  margin-bottom: 0.3em;
+  padding: 0.3em;
+  margin-right: 0.2em;
+  width: auto; }
+  .tagdiv h4 {
+    font-size: 0.8em;
+    font-weight: normal; }
+  .tagdiv .usertag {
+    color: #636363;
+    font-weight: bolder; }
+
+/* ==========================================================================
+   Recommendations
+   ========================================================================== */
+.recoDiv {
+  display: table;
+  margin-left: 16px;
+  margin-right: 16px;
+  margin-bottom: 16px;
+  padding: 0 30px;
+  padding: 0;
+  opacity: 0.9;
+  vertical-align: top;
+  width: 560px; }
+
+.recLoadingDiv {
+  width: 100%;
+  margin-bottom: 1em; }
+
+/* ==========================================================================
+   Close button
+   ========================================================================== */
+.close-button {
+  width: 25px;
+  height: 25px;
+  display: block;
+  text-transform: uppercase;
+  color: #444;
+  background: #fff;
+  border: 0.1em solid #444;
+  -webkit-border-radius: 0.2em;
+          border-radius: 0.2em;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.1em;
+  top: 0.1em;
+  right: 0;
+  position: absolute;
+  cursor: pointer; }
+  .close-button:hover {
+    color: #fff;
+    background: #aaa; }
+  .close-button:active {
+    color: #444;
+    background: #fff; }
+
+/** FOR THEMES!! **/
+body.blue_black,
+body.green_black,
+body.pink_black {
+  background: black;
+  color: white;
+  fill: white; }
+
+body.pink_white,
+body.green_white,
+body.red_white {
+  background: white;
+  color: #222;
+  fill: #222; }
+
+/*
+ * Link theme
+ */
+body.blue_black a,
+body.green_black a,
+body.pink_black a,
+body.blue_black a:visited,
+body.green_black a:visited,
+body.pink_black a:visited,
+body.blue_black a:active,
+body.green_black a:active,
+body.pink_black a:active {
+  color: white; }
+
+body.pink_white a,
+body.green_white a,
+body.red_white a,
+body.pink_white a:visited,
+body.green_white a:visited,
+body.red_white a:visited,
+body.pink_white a:active,
+body.green_white a:active,
+body.red_white a:active {
+  color: #222; }
+
+/*
+ * HEADING THEMES
+ */
+body.blue_black h1,
+body.green_black h1,
+body.pink_black h1 {
+  color: rgba(255, 255, 255, 0.8); }
+
+body.blue_black h5,
+body.green_black h5,
+body.pink_black h5 {
+  color: rgba(200, 200, 200, 0.5); }
+
+/*
+ * splash themes
+ */
+body.blue_black #welcome-container,
+body.green_black #welcome-container,
+body.pink_black #welcome-container {
+  background: rgba(0, 55, 55, 0.5); }
+
+body.blue_black .welcome-message,
+body.green_black .welcome-message,
+body.pink_black .welcome-message {
+  background: rgba(0, 0, 0, 0.6);
+  border: 5px solid black; }
+
+/*
+ * Tooltip
+ */
+body.blue_black .tooltip,
+body.green_black .tooltip,
+body.pink_black .tooltip {
+  background: black; }
+
+/*
+ * Map legend
+ */
+body.blue_black .legend rect,
+body.pink_black .legend rect,
+body.green_black .legend rect {
+  stroke: #000; }
+
+/*
+ * Progress bar
+ */
+body.blue_black #progress-text,
+body.pink_black #progress-text,
+body.green_black #progress-text {
+  background: rgba(0, 0, 0, 0.5); }
+
+body.blue_black #progress-text:after,
+body.pink_black #progress-text:after,
+body.green_black #progress-text:after {
+  border-color: transparent;
+  border-left-color: rgba(0, 0, 0, 0.5); }
+
+body.blue_black #countryCount,
+body.pink_black #countryCount,
+body.green_black #countryCount {
+  -webkit-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75); }
+
+/*
+ * Friendbox
+ */
+body.blue_black #friends,
+body.pink_black #friends,
+body.green_black #friends {
+  color: #ccc;
+  background: rgba(0, 0, 0, 0.5); }
+
+/*
+ * infocontainer
+ */
+body.blue_black .infoContainer,
+body.green_black .infoContainer,
+body.pink_black .infoContainer {
+  background: rgba(0, 0, 0, 0.85);
+  border-top: 1px solid white; }
+
+body.pink_white .infoContainer,
+body.green_white .infoContainer,
+body.red_white .infoContainer {
+  background: rgba(255, 255, 255, 0.85); }
+
+/*
+ * tags
+ */
+body.blue_black .tagdiv,
+body.green_black .tagdiv,
+body.pink_black .tagdiv {
+  color: #ccc; }
+
+body.blue_black .tagdiv .usertag,
+body.green_black .tagdiv .usertag,
+body.pink_black .tagdiv .usertag {
+  color: #fff; }
+
+/*# sourceMappingURL=maps/main.css.map */
