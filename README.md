@@ -1,9 +1,22 @@
-Explr
-=====
+# ![Explr.fm](new/img/explrlogo.png)
 
-Explr the world through music
+[Explr.fm](http://www.explr.fm) is an online information visualization for Last.fm users. It displays the user's music taste distributed on a world map. Built with love and D3.js.
 
-Todo
+
+
+## Install
+
+First you need Node. Then run:
+
+```
+$ npm install
+```
+To start the local server, run
+```
+$ gulp
+``` 
+
+## Todo-list
 -----
 - [ ] Add flattr button
 - [ ] Improve screenshotting
@@ -16,33 +29,9 @@ Todo
 - [ ] Improve api code
 - [ ] Restructure everything
 
-Running the server
------
+## Team
 
-For """MAAAACC"":
-- Install pip and virtualenv:
-```
-  sudo easy_install pip
-  sudo pip install virtualenv
-```
-- Go to a directory of your choice (the git project folder or some other folder _without spaces in the path_)
-- Run ```virtualenv venv``` to create a virtual environment called "venv"
-- Run ```. venv/bin/activate``` to activate the virtual environment
-- Install flask: ```pip install flask```
-- Run ```python server.py```, go to ```http://localhost:5000/``` 
-
-
-For ubuntu etc:
-- Install pip and Flask:
-```
-  sudo apt-get install python-pip
-  sudo pip install Flask
-```
-- Start the server by running ```python server.py```
-- Go to ```http://localhost:5000/``` 
-
-Running without flask
------
-
-- Go to the project folder in the terminal, run ```python -m SimpleHTTPServer 5000```
-- Go to ```http://localhost:5000/index_noflask.html``` 
+Tommy Feldt
+Daniel Molin
+Moa Bergsmark
+Anna Movin
