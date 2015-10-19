@@ -361,14 +361,6 @@ th {
 /**
  * Set up a decent box model on the root element
  */
-html {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box; }
-
-* {
-  font-family: "Didact Gothic"; }
-
 /*
  * Body basics
  */
@@ -404,8 +396,8 @@ a {
  * Base text and heading styles
  */
 body {
-  font-family: "Open Sans", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-  font-size: 14px; }
+  font-family: "Didact Gothic", "Futura Medium", "Century Gothic", "Apple Gothic", "Avant Garde", sans-serif;
+  font-size: 16px; }
   body h1 {
     color: rgba(55, 55, 55, 0.8);
     font-size: 3em;
@@ -503,24 +495,6 @@ body {
       -ms-user-select: none;
           user-select: none; }
 
-.header-wrap {
-  background-color: #E50050;
-  min-height: 350px;
-  background-position: no-repeat center top;
-  width: 100%; }
-  .header-wrap h1 {
-    color: #fff; }
-
-.footer-wrap {
-  position: absolute;
-  background-color: #444;
-  min-height: 50px;
-  background-position: no-repeat center top;
-  bottom: 0px;
-  width: 100%; }
-  .footer-wrap h5 {
-    color: #fff; }
-
 /* CHANGE BUTTON
    ========================================================================== */
 .change-button {
@@ -595,12 +569,13 @@ body {
     .gobutton:active input {
       margin-top: 1px; }
   .gobutton input {
-    background: url(new/img/gobutton.png) no-repeat;
-    background-size: 100%;
+    background: url(../../img/gobutton.png) no-repeat;
+    background-size: 90%;
+    background-position: center top;
     cursor: pointer;
     border: none;
-    width: 10em;
-    height: 6.5em; }
+    width: inherit;
+    height: inherit; }
 
 /* ==========================================================================
    THE LOADER DIV
@@ -766,9 +741,9 @@ svg:active {
   bottom: 0;
   background-color: #ae017e;
   -webkit-transition: height 0.6s ease;
-  transition: height 0.6s ease;
+          transition: height 0.6s ease;
   -webkit-box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
-  box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39); }
+          box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39); }
 
 #progress-text {
   float: right;
@@ -916,7 +891,7 @@ div.colorChange {
 /* Image
    ========================================================================== */
 .logoImageWelcome {
-  margin-bottom: 0.8em; }
+  margin-bottom: 4px; }
 
 #logo {
   position: absolute;
@@ -934,7 +909,6 @@ div.colorChange {
   height: 30px;
   width: 170px;
   color: #222;
-  font-size: 15px;
   font-weight: bold;
   background: rgba(255, 255, 255, 0.8);
   margin-top: 0.5em;
@@ -957,7 +931,7 @@ div.colorChange {
   z-index: 4;
   opacity: 0; }
 
-div.cnameDiv {
+.cnameDiv {
   display: block;
   float: right;
   margin-right: 5%;
@@ -992,7 +966,7 @@ div.cnameDiv {
     margin-top: 0em;
     text-transform: lowercase; }
 
-p.details-p {
+.details-p {
   font-size: 0.8em;
   font-style: #000;
   margin-bottom: 4px; }

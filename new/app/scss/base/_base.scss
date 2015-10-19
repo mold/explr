@@ -6,11 +6,7 @@
  * Set up a decent box model on the root element
  */
 html {
-    box-sizing: border-box;
-}
-
-* {
-    font-family: "Didact Gothic";
+    //box-sizing: border-box;
 }
 
 /*
@@ -53,10 +49,10 @@ a {
  */
 body {
     font-family: $text-font-stack;
-    font-size: 14px;
+    font-size: 16px;
 
     h1 {
-        color: rgba(55, 55, 55, 0.8);
+        color: $heading-color;
         font-size: 3em;
         margin-bottom: 0em;
         text-transform: capitalize;

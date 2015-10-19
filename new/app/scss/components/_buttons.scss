@@ -91,11 +91,12 @@
     }
 
     input {
-        background: url(new/img/gobutton.png) no-repeat;
-        background-size: 100%;
+        background: url(../../img/gobutton.png) no-repeat;
+        background-size: 90%;
+        background-position: center top;
         cursor: pointer;
         border: none;
-        width: 10em;
-        height: 6.5em;
+        width: inherit;
+        height: inherit;
     }
 }
