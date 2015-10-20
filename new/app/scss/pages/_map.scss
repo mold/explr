@@ -35,10 +35,14 @@ svg:active {
 
 .legend {
     font-size: 14px;
-    font-family: 'Patua One';
+    font-family: $heading-font-stack;
 
     rect {
         stroke: #fff;
+    }
+
+    text {
+        font-family: $text-font-stack;
     }
 
     &#filter {

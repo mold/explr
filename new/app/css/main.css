@@ -393,20 +393,16 @@ body {
      -moz-box-sizing: inherit;
           box-sizing: inherit; }
 
-/**
- * Basic styles for links
- */
-a {
-  font-weight: bold;
-  text-decoration: underline; }
-  a:hover,
-  a:active,
-  a:focus {
-    text-decoration: none; }
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("http://fonts.googleapis.com/css?family=Josefin+Sans"); }
 
+/* ==========================================================================
+   TYPOGRAPHY STYLES
+   ========================================================================== */
 /*
- * Base text and heading styles
- */
+    * Basic typography for copy text
+    */
 body {
   font-family: "Didact Gothic", "Futura Medium", "Century Gothic", "Apple Gothic", "Avant Garde", sans-serif;
   font-size: 16px; }
@@ -433,19 +429,16 @@ body {
     margin-top: 0em;
     text-transform: lowercase; }
 
-@font-face {
-  font-family: "Josefin Sans";
-  src: url("http://fonts.googleapis.com/css?family=Josefin+Sans"); }
-
-/* ==========================================================================
-   TYPOGRAPHY STYLES
-   ========================================================================== */
 /*
-    * Basic typography for copy text
-    */
-body {
-  /*color: $text-color;
-    font: normal 125% / 1.4 $text-font-stack;*/ }
+ * Basic link styles
+ */
+a {
+  font-weight: bold;
+  text-decoration: underline; }
+  a:hover,
+  a:active,
+  a:focus {
+    text-decoration: none; }
 
 /**
  * Clear inner floats
@@ -716,9 +709,11 @@ svg:active {
    ========================================================================== */
 .legend {
   font-size: 14px;
-  font-family: 'Patua One'; }
+  font-family: "Patua One", "Roboto Slab", serif; }
   .legend rect {
     stroke: #fff; }
+  .legend text {
+    font-family: "Didact Gothic", "Futura Medium", "Century Gothic", "Apple Gothic", "Avant Garde", sans-serif; }
   .legend#filter {
     cursor: pointer;
     text-decoration: underline;
@@ -1246,4 +1241,4 @@ body.green_black .tagdiv .usertag,
 body.pink_black .tagdiv .usertag {
   color: #fff; }
 
-/*# sourceMappingURL=maps/main.css.map */
+/*# sourceMappingURL=sourcemaps/main.css.map */
