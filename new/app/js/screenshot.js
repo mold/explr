@@ -98,7 +98,7 @@ var screenshot = {};
 			// 
 			window.open(canvas.toDataURL(), "_blank");
 		}
-		explrLogo.src = "static/img/explrlogo.png";
+		explrLogo.src = "new/img/explrlogo.png";
 	}
 
 })(window, document);
