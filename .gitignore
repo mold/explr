@@ -3,4 +3,6 @@
 venv/
 node_modules
 **/sourcemaps/
+build
+
 

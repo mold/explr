@@ -10,20 +10,20 @@
 		<link href='http://fonts.googleapis.com/css?family=Didact+Gothic|Patua+One' rel='stylesheet' type='text/css'>
 		<!--<link rel="stylesheet" type="text/css" href="new/app/css/style.css">-->
 		<!--<link rel="stylesheet" type="text/css" href="new/app/css/map.css">-->
-		<link rel="stylesheet" type="text/css" href="new/app/css/main.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/main.min.css">
 
 		<!--<link rel="stylesheet" type="text/css" href="new/loader.css">-->
 	</head>
 	<body>
 		<div id="welcome-container">
 			<div class="welcome-message">
-				<div class="logoImageWelcome"><img src="new/img/explrlogo.png" width="200"></div>
+				<div class="logoImageWelcome"><img src="assets/img/explrlogo.png" width="200"></div>
 				<div id="splashTextContainer">
 					<div id="splashContent" class="splash">
 						<p class="info">
 						Ever wondered where the artists you listen to come from?</p>
 						<p class="info">
-							Or if there are any good bands from <span id="randomCountry"></span></p>
+							Or if there s are any good bands from <span id="randomCountry"></span></p>
 							
 							<p align="center"><h4>Wonder no more!</h4></p>
 							<p class="info">Enter your Last.fm username in the field below. If you don't have Last.fm, <a href="http://last.fm">get it here!</a></p>
@@ -62,21 +62,21 @@
 			</div>
 			
 			<div id="change-theme-button" class="change-button on-map-view no-select" onClick="nextTheme()">
-				<img src="new/img/glyphicons_009_magic.png" alt="" width="32" height="32">
+				<img src="assets/img/glyphicons_009_magic.png" alt="" width="32" height="32">
 				<p>Change theme (t)</p>
 			</div>
 			<a href="./"  target="_self">
 				<div id="change-user-button" class="change-button on-map-view no-select">
-					<img src="new/img/remove-user.png" alt="" width="32" height="32">
+					<img src="assets/img/remove-user.png" alt="" width="32" height="32">
 					<p>Change user</p>
 				</div>
 			</a>
 			<div id="snapshot-button" class="change-button on-map-view no-select" onClick="screenshot.render()">
-				<img src="new/img/snapshot.png" alt="" width="32" height="32">
+				<img src="assets/img/snapshot.png" alt="" width="32" height="32">
 				<p>Take snapshot (s)</p>
 			</div>
 			<div id="logo" class="logo on-map-view no-select">
-				<img src="new/img/explrlogo.png" width="100">
+				<img src="assets/img/explrlogo.png" width="100">
 			</div>
 			<div id="friends" class="on-map-view">
 				<p id="msg" class="details-p"></p>
@@ -127,9 +127,9 @@
 			});
 			</script>
 
-			<script src="new/vendor/js/vendor.min.js"></script>
+			<!--<script src="new/vendor/js/vendor.min.js"></script>-->
 			
-			<script src="new/app/js/all.min.js"></script>
+			<script src="assets/js/all.min.js"></script>
 			<!-- Canvg for screenshots -->
 			<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script>
 			<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>

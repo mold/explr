@@ -1,3 +1,8 @@
+/* requires:
+api/api.js
+api/lastfm.js
+*/
+
 var STORED_ARTISTS = JSON.parse(window.localStorage.artists || "{}");
 var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
 var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
