@@ -1,9 +1,3 @@
-/* requires:
-api/api.js
-api/lastfm.js
-script.js
-*/
-
 var map = {};
 //White theme default:
 var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
@@ -316,7 +310,7 @@ var countryScore = 0;
 
   //Load country aliases and names
   if (!window.localStorage.countries) {
-    d3.csv("assets/data/countries.csv", function(err, countries) {
+    d3.csv("new/app/data/countries.csv", function(err, countries) {
       countryNames = countries;
 
       countries.forEach(function(i) {
@@ -332,7 +326,7 @@ var countryScore = 0;
     countryNames = JSON.parse(window.localStorage.countries);
   }
   //Load map
-  d3.json("assets/data/world-50m.json", function(error, world) {
+  d3.json("new/app/data/world-50m.json", function(error, world) {
 
     var countries = topojson.feature(world, world.objects.countries).features;
 
@@ -651,7 +645,7 @@ var countryScore = 0;
     recLoadingDiv.append("img")
       .attr({
         id: "rec-loading-img",
-        src: "assets/img/loader_horizontal.gif"
+        src: "new/img/loader_horizontal.gif"
       })
       .style({
         display: "inline-block",
@@ -790,7 +784,7 @@ var countryScore = 0;
     d3.select("#summaryText").append("img")
       .attr({
         id: "sum-loading-img",
-        src: "assets/img/loader_horizontal.gif"
+        src: "new/img/loader_horizontal.gif"
       })
       .style({
         display: "inline-block",

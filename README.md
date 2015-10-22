@@ -1,4 +1,4 @@
-# ![Explr.fm](src/assets/img/explrlogo.png)
+# ![Explr.fm](new/img/explrlogo.png)
 
 [Explr.fm](http://www.explr.fm) is an online information visualization for Last.fm users. It displays the user's music taste distributed on a world map. Built with love and D3.js.
 
