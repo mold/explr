@@ -574,7 +574,7 @@ a {
     .gobutton:active input {
       margin-top: 1px; }
   .gobutton input {
-    background: url(../../img/gobutton.png) no-repeat;
+    background: url(../img/gobutton.png) no-repeat;
     background-size: 90%;
     background-position: center top;
     cursor: pointer;

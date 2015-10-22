@@ -1,8 +1,12 @@
+/*requires:
+api/lastfm.js
+*/
+
 var api = api || {};
 var superCount = 0;
 
 (function(window, document) {
-	d3.csv("new/app/data/countries.csv", function(err, data) {
+	d3.csv("assets/data/countries.csv", function(err, data) {
 		alias = d3.nest()
 			.key(function(d) {
 				return d.tag.toLowerCase();
