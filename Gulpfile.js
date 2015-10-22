@@ -1,3 +1,11 @@
+// -----------------------------------------------------------------------------
+// Plugins and variables
+// -----------------------------------------------------------------------------
+
+/**
+ * Gulp plugins
+ */
+
 var gulp        = require('gulp');
 var browserSync = require('browser-sync').create();
 var sass        = require('gulp-sass');
@@ -11,8 +19,11 @@ var clean       = require('gulp-clean');
 var changed     = require('gulp-changed');
 var imagemin = require('gulp-imagemin');
 var runSequence = require('run-sequence');
+var minifyCss = require('gulp-minify-css');
 
-
+/**
+ * Predefined filepaths to be used in the tasks
+ */
 var path = {
             build:{
                 css: 'build/assets/css/',
@@ -30,35 +41,35 @@ var path = {
             }
 };
 
+// -----------------------------------------------------------------------------
+// Utilities
+// -----------------------------------------------------------------------------
+
+/**
+ * Pre-cleaning the build folder
+ */
+
 gulp.task('clean', function() {
     return gulp.src('build/', {read: false})
         .pipe(clean())
     ;
 });
 
-// Start Server + watching scss/html/js files
-gulp.task('serve', function() {
+// -----------------------------------------------------------------------------
+// Build tasks
+// -----------------------------------------------------------------------------
 
-    //Start browsersync server!
-    browserSync.init({
-        server: "build/",
-        port: 8000
-    });
-    //Watch folders!
-    gulp.watch(path.src.sass + "**/*.scss", ['sass']);
-    gulp.watch(path.src.html + '*.html', ['html']);
-
-    //gulp.watch("build/*.html").on('change', browserSync.reload);
-    gulp.watch(path.src.js + "*.js", ['js']);
-});
-
-// Compile sass into CSS & auto-inject into browsers
+/**
+ * Compiles SCSS sourcefiles and outputs autoprefixed, minified CSS + sourcemaps
+ */
 gulp.task('sass', function() {
     return gulp.src(path.src.sass + "/*.scss")
     
         .pipe(sourcemaps.init())
-            .pipe(sass.sync().on('error', sass.logError))
+            .pipe(sass.sync().on('error', sass.logError)) //Log SCSS errors in console!
             .pipe(prefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
+            .pipe(rename('main.min.css'))
+            .pipe(minifyCss({compatibility: 'ie8'}))
 
         .pipe(sourcemaps.write("sourcemaps"))
         .pipe(gulp.dest(path.build.css))
@@ -66,7 +77,9 @@ gulp.task('sass', function() {
         .pipe(browserSync.stream());
 });
 
-//Concat and minify javascript
+/**
+ * Combines and minifies all source JavaScript files, including sourcemaps. Dependencies and ordering is done with the deporder plugin
+ */
 gulp.task('js', function(){
     return gulp.src(path.src.js + '**/*.js')
         .pipe(deporder())
@@ -79,7 +92,9 @@ gulp.task('js', function(){
         .pipe(browserSync.stream());
 });
 
-//Optimize images
+/**
+ * Optimizes images for web and outputs them to build folder.
+ */
 gulp.task('img', function() {
   return gulp.src(path.src.img + '*.*')
     .pipe(changed(path.build.img)) // Ignore unchanged files
@@ -89,6 +104,9 @@ gulp.task('img', function() {
 
 });
 
+/**
+ * Outputs data files to build folder
+ */
 gulp.task('data', function() {
   return gulp.src(path.src.data + '*.*')
     .pipe(changed(path.build.data)) // Ignore unchanged files
@@ -97,15 +115,43 @@ gulp.task('data', function() {
 
 });
 
+/**
+ * Outputs html files to build folder
+ */
 gulp.task('html', function() {
   return gulp.src(path.src.html + '*.html')
     .pipe(changed(path.build.html)) // Ignore unchanged files
     .pipe(gulp.dest(path.build.html))
     .pipe(browserSync.stream());
-
 });
 
-//Run tasks!
+// -----------------------------------------------------------------------------
+// Watch and serve tasks
+// -----------------------------------------------------------------------------
+
+/**
+ * Start BrowserSync server and watch files for changes!
+ */
+gulp.task('serve', function() {
+
+    //Start browsersync server!
+    browserSync.init({
+        server: "build/",
+        port: 8000
+    });
+    //Watch folders!
+    gulp.watch(path.src.sass + "**/*.scss", ['sass']);
+    gulp.watch(path.src.html + '*.html', ['html']);
+    gulp.watch(path.src.js + "/**/*.js", ['js']);
+});
+
+// -----------------------------------------------------------------------------
+// Let's begin!
+// -----------------------------------------------------------------------------
+
+/**
+ * Run tasks in specified order! (1. clean, 2. build, 3. serve and watch)
+ */
 gulp.task('default', function() {
     runSequence(
         'clean',
