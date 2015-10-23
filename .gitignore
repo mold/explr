@@ -1,6 +1,0 @@
-*~
-*.sublime*
-venv/
-node_modules
-**/sourcemaps/
-
