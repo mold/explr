@@ -20,6 +20,8 @@ var changed     = require('gulp-changed');
 var imagemin = require('gulp-imagemin');
 var runSequence = require('run-sequence');
 var minifyCss = require('gulp-minify-css');
+var ghPages = require('gulp-gh-pages');
+
 
 /**
  * Predefined filepaths to be used in the tasks
@@ -53,6 +55,15 @@ gulp.task('clean', function() {
     return gulp.src('build/', {read: false})
         .pipe(clean())
     ;
+});
+
+/**
+ * Deploy to gh-pages branch! Run using 'gulp deploy'
+ */
+
+gulp.task('deploy', function() {
+  return gulp.src('./build/**/*')
+    .pipe(ghPages());
 });
 
 // -----------------------------------------------------------------------------
