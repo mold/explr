@@ -61,7 +61,7 @@ gulp.task('clean', function() {
  * Deploy to gh-pages branch! Run using 'gulp deploy'
  */
 
-gulp.task('deploy', function() {
+gulp.task('upload', function() {
   return gulp.src('./build/**/*')
     .pipe(ghPages());
 });
@@ -119,9 +119,10 @@ gulp.task('img', function() {
  * Outputs data files to build folder
  */
 gulp.task('data', function() {
-  return gulp.src(path.src.data + '*.*')
+  gulp.src(path.src.data + '*.*')
     .pipe(changed(path.build.data)) // Ignore unchanged files
-    .pipe(gulp.dest(path.build.data))
+    .pipe(gulp.dest(path.build.data));
+    gulp.src(path.src.data + '*.*')
     .pipe(browserSync.stream());
 
 });
@@ -130,7 +131,7 @@ gulp.task('data', function() {
  * Outputs html files to build folder
  */
 gulp.task('html', function() {
-  return gulp.src(path.src.html + '*.html')
+  return gulp.src([path.src.html + '*.html', path.src.html + 'CNAME'])
     .pipe(changed(path.build.html)) // Ignore unchanged files
     .pipe(gulp.dest(path.build.html))
     .pipe(browserSync.stream());
@@ -168,5 +169,15 @@ gulp.task('default', function() {
         'clean',
         ['sass', 'js', 'img', 'html', 'data'],
         'serve'
+    );
+});
+/**
+ * Alternative: Build, then deploy to gh-pages!
+ */
+gulp.task('deploy', function() {
+    runSequence(
+        'clean',
+        ['sass', 'js', 'img', 'html', 'data'],
+        'upload'
     );
 });

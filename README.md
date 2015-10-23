@@ -6,15 +6,20 @@
 
 ## Install
 
-First you need Node. Then run:
+First you need Node. To intall gulp and all necessary plugins, run:
 
 ```
 $ npm install
 ```
-To start the local server, run
+To build the project and start a local server, run:
 ```
 $ gulp
 ``` 
+To build and then deploy the website to www.explr.fm, run:
+```
+$ gulp deploy
+``` 
+
 
 ## Todo-list
 -----
