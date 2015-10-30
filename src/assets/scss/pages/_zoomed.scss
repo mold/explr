@@ -38,10 +38,13 @@
     width: 592px;
     display: block;
     background: inherit;
+    position: relative;
 
     h4 {
-        font-size: 1em;
+        font-size: 1.15em;
         margin-top: 1em;
+        font-weight: bold;
+        //color: $text-color;
     }
 
     p {
@@ -57,12 +60,61 @@
     padding: 0;
     opacity: 0.9;
     vertical-align: top;
+    position: relative;
 
     h5 {
         color: rgba(55, 55, 55, 0.5);
         font-size: 0.9em;
         margin-top: 0;
         text-transform: lowercase;
+    }
+}
+.topartists-desc{
+    font-size: 1em;
+    margin-top: 1em;
+    margin-bottom: 0.8em;
+    font-weight: bold;
+    //color: $heading-color;
+}
+.demonym{
+    font-size: 1.15em;
+    font-weight: bold;
+    font-family: $heading-font-stack;
+
+    //color: $text-color;
+}
+
+
+//Artist controls
+.fa.artist-control{
+    position: absolute;
+    font-size: 40px;
+    top: 85px;
+    color: rgba(90,90,90,0.8);
+    cursor: pointer;
+    transition: 0.1s;
+
+    &.right{
+        right: -8px;
+    }
+
+    &.left{
+        left: -8px;
+    }
+
+    &.disabled{
+            cursor: auto;
+            color: rgb(172, 172, 172);
+            opacity: 0.5;
+            &:hover{
+                color: rgb(172, 172, 172);
+                transform: none;
+            }
+        }
+
+    &:hover{
+        transform: scale(2.5);
+        color: pink;
     }
 }
 
@@ -97,7 +149,7 @@
    Artist images
    ========================================================================== */
 
-div.artist-div {
+.artist-div {
     float: left;
     text-align: center;
     width: 112px;
@@ -110,9 +162,12 @@ div.artist-div {
     .image-div {
         transition: border-radius 0.1s;
     }
+    a {
+        text-decoration: none;
+    }
 }
 
-div.image-div {
+.image-div {
     height: 96px;
     width: 96px;
     background-position: center top;
@@ -121,18 +176,41 @@ div.image-div {
     margin-left: auto;
     margin-right: auto;
     background-size: cover;
+    text-align: center;
+    //position: relative;
+}
+
+.overlayNo{
+    //position: absolute;
+    opacity: 0.35;
+    color: #fff;
+    text-decoration: none;
+    //transform: translateY(-50%);
+    font-size: 5em;
+    line-height: 86px;
+
 }
 
 .artist-div.highlight, .reco-div.highlight {
     background: rgba(175, 175, 175, 0.5);
+    filter: brightness(100%);
+    filter: contrast(100%)
+
+
 }
 
 .artist-div.lowlight .image-div {
     border-radius: 50%;
+    filter: brightness(40%);
+    filter: contrast(40%)
+
 }
 
 .artist-div.lowlight .image-div:hover {
     border-radius: 30%;
+    filter: brightness(80%);
+    filter: contrast(60%);
+
 }
 
 /* ==========================================================================
