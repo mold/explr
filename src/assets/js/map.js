@@ -618,20 +618,20 @@ var countryScore = 0;
         });
 
       function showNextFive(){
-        showFive(currentNoArtists, currentNoArtists+5);
+        showArtists(currentNoArtists, currentNoArtists+5);
       }
   
       function showPreviousFive(){
-            showFive(currentNoArtists-5, currentNoArtists);
+        showArtists(currentNoArtists-5, currentNoArtists);
       }
 
-      function showFive(first, last){
+      function showArtists(first, last){
         //Clean-up previous five artist images
         d3.selectAll(".scrobbled").remove();
 
+        //Generate new artist images for all artists within the desired range!
           for (i = first; i < last; i++) {
             if (countryCount[d.id][i]) {
-              //console.log(countryCount[d.id][i])
               var artistDiv = d3.select("#details").append("div")
                 .attr({
                   "class": "scrobbled artist-div lowlight",
@@ -648,23 +648,17 @@ var countryScore = 0;
                     "highlight": true,
                     "lowlight": false
                   });
-                  d3.select(this).select(".overlayNo").transition().style("opacity", 0).duration(100);
+                  //d3.select(this).select(".overlayNo").transition().style("opacity", 0).duration(100);
 
                   makeSummaryDiv(d3.select(this).attr("data-artist"), []);
                 });
+
               var artistLink = artistDiv.append("a").style("display", "block")
               artistLink.append("div")
                 .attr("class", "image-div")
                 .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )")
-                .on("mouseover", function() {
-                  d3.select(this).select(".overlayNo").transition().style("opacity", 0).duration(100);
-                })
-                .on("mouseout", function() {
-                    d3.select(this).select(".overlayNo").transition().style("opacity", 0.35).duration(100);
-                })
                 //.append("span").attr("class", "overlayNo").html(i+1);
                 
-
               var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
 
               playCountDiv.append("p")
@@ -672,44 +666,58 @@ var countryScore = 0;
                 .attr("class", "details-p");
 
               currentCount++;
-              //console.log("CurrentCount är "+currentCount);
-
-
             } else {
               i = last;
             }
         }
-
-        if (first<currentNoArtists) //Vi går bakåt
-          currentNoArtists = currentNoArtists-currentCount;
-        else if (last>currentNoArtists) //Vi går framåt
+        //
+        //Check to see if we are moving backwards or forwards through the list..
+        if (first<currentNoArtists) //Backwards!
+          currentNoArtists = Math.ceil((currentNoArtists-currentCount)/5)*5;
+        else if (last>currentNoArtists) //Forwards!
           currentNoArtists = currentNoArtists+currentCount;
+        //console.log("currentNoArtists är "+currentNoArtists);
 
+        //Reset the count!
         currentCount = 0;
-        //}
-        //console.log("currentnoartists = "+currentNoArtists);
 
-        //Disable and enable controls when appropriate
+        //
+        //Disable and enable user controls
+        //
         //Left arrow...
         if (currentNoArtists>5){
-          d3.selectAll(".artist-control.left").classed("disabled", false)
+          d3.selectAll(".artist-control.left")
+            .classed("disabled", false)
+            .on("click", function(){
+              showPreviousFive();
+            });
         }
         else{
-          d3.selectAll(".artist-control.left").classed("disabled", true)
+          d3.selectAll(".artist-control.left")
+            .classed("disabled", true)
+            .on('click',function(){
+              d3.select(this).on('click',null); //Remove click listener!
+            });
         }
         //and right...
-        if (currentNoArtists>=countryCount[d.id].length-1){
-          d3.selectAll(".artist-control.right").classed("disabled", true)
+        if (currentNoArtists>countryCount[d.id].length-1){ //There are no more artists!
+          d3.selectAll(".artist-control.right")
+            .classed("disabled", true)
+            .on('click',function(){
+              d3.select(this).on('click',null); //Remove click listener!
+            });
         }
         else{
-          d3.selectAll(".artist-control.right").classed("disabled", false)
+          d3.selectAll(".artist-control.right")
+            .classed("disabled", false)
+            .on("click", function(){
+              showNextFive();
+            });
         }
       }
-      //
-      showFive(currentNoArtists, currentNoArtists+5);
-      console.log("Showing next five...")
-      
-
+      //Fetch the initial five artists!! 
+      showArtists(currentNoArtists, currentNoArtists+5);
+    
       
     } else { //Om landet vi klickat på inte har några lyssnade artister... 
       console.log("landet har inga lyssnade artister");
