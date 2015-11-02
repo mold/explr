@@ -173,7 +173,7 @@ var SESSION = {};
 
         var tagCount = {};
 
-        console.log("Gotta get tags")
+        //console.log("Gotta get tags")
 
         var topArtists = data.topartists.artist;
         var done = function() {

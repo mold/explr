@@ -35,7 +35,7 @@ api.lastfm.send = function(method, options, callback) {
 	// Abort if the request takes too long - it sometimes ballar ur and fails after a minute :(
 	setTimeout(function() {
 		if (!gotResponse) {
-			console.log("GET " + url + " took to long, aborting");
+			//console.log("GET " + url + " took to long, aborting");
 			xhr.abort();
 			callback("ERROR", {
 				error: "Took to long to respond"

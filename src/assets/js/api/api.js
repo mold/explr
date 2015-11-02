@@ -233,7 +233,7 @@ var superCount = 0;
 		}).map(toptags);
 
 
-		console.log("Got top tags for user!")
+		//console.log("Got top tags for user!")
 
 		// Get top artists for tag country
 		var xhr1 = api.lastfm.send("tag.gettopartists", [["tag", country], ["limit", 100]], function(err, data1) {
@@ -270,7 +270,7 @@ var superCount = 0;
 					}
 
 					if (num === artists.length - 1) {
-						console.log("We've gotten tag counts for all artists, make a list!")
+						//console.log("We've gotten tag counts for all artists, make a list!")
 						d3.keys(tagCounts).forEach(function(d) {
 							recommendations.push({
 								name: d,

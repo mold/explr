@@ -193,24 +193,14 @@
 
 .artist-div.highlight, .reco-div.highlight {
     background: rgba(175, 175, 175, 0.5);
-    filter: brightness(100%);
-    filter: contrast(100%)
-
-
 }
 
 .artist-div.lowlight .image-div {
     border-radius: 50%;
-    filter: brightness(40%);
-    filter: contrast(40%)
-
 }
 
 .artist-div.lowlight .image-div:hover {
     border-radius: 30%;
-    filter: brightness(80%);
-    filter: contrast(60%);
-
 }
 
 /* ==========================================================================
