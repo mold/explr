@@ -826,7 +826,7 @@ var countryScore = 0;
     //Get artist info from Lastfm
     api.getArtistInfo(artistname, function(art) {
       var text = art[0].description.replace(/(\n)+/g, '<br />');
-      var text = text.substring(6);
+      //var text = text.substring(6);
       //Get artist's top tags
       artisttaglist = art[0].tags;
       //Create list of user tags
