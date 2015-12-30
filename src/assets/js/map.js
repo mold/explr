@@ -555,6 +555,13 @@ var countryScore = 0;
 
       function showNextFive(){
         showArtists(currentNoArtists+1, currentNoArtists+5, false);
+        //Send event to google analytics
+        ga('send', {
+          hitType: 'event',
+          eventCategory: 'Artist viewer',
+          eventAction: 'Next five',
+          eventLabel: 'test'
+        });
       }
   
       function showPreviousFive(){

@@ -103,14 +103,13 @@
     }
 
     &.disabled{
-            cursor: auto;
-            color: rgb(172, 172, 172);
-            opacity: 0.5;
-            &:hover{
-                color: rgb(172, 172, 172);
-                transform: none;
-            }
+        cursor: auto;
+        opacity: 0.5;
+        &:hover{
+            color: rgba(90,90,90,0.8);
+            transform: none;
         }
+    }
 
     &:hover{
         transform: scale(2.5);
