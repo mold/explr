@@ -566,6 +566,13 @@ var countryScore = 0;
   
       function showPreviousFive(){
         showArtists(currentNoArtists-9, currentNoArtists-5, false);
+        //Trigger GA event
+        ga('send', {
+          hitType: 'event',
+          eventCategory: 'Artist viewer',
+          eventAction: 'Previous five',
+          eventLabel: 'test'
+        });
       }
 
       function showArtists(first, last, initial){

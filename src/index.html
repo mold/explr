@@ -112,6 +112,13 @@
 			d3.selectAll('.faq-link').on("click", function(){
 					d3.selectAll('.faq').classed("hidden", !d3.select('.faq').classed("hidden"));
 					d3.selectAll('.splash').classed("hidden", !d3.select('.splash').classed("hidden"));
+					//Google analytics event	
+					ga('send', {
+			          hitType: 'event',
+			          eventCategory: 'splash screen',
+			          eventAction: 'read faq',
+			          eventLabel: 'test'
+			        });
 				});
 			</script>
 

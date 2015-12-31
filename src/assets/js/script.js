@@ -355,9 +355,27 @@ var SESSION = {};
         window.addEventListener("keydown", function(evt){
             switch(evt.keyCode){
                 // s
-                case 83: screenshot.render(); break;
+                case 83: 
+                    screenshot.render();
+                    //Send google analytics event
+                    ga('send', {
+                      hitType: 'event',
+                      eventCategory: 'Buttons',
+                      eventAction: 'Take screenshot',
+                      eventLabel: 'test'
+                    });
+                    break;
                 // t
-                case 84: nextTheme(); break;
+                case 84: 
+                    nextTheme();
+                    //Send google analytics event
+                    ga('send', {
+                      hitType: 'event',
+                      eventCategory: 'Buttons',
+                      eventAction: 'Cycle theme',
+                      eventLabel: 'test'
+                    });
+                    break;
                 default: break;
             }
         });
