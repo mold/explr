@@ -360,7 +360,7 @@ var SESSION = {};
                     //Send google analytics event
                     ga('send', {
                       hitType: 'event',
-                      eventCategory: 'Buttons',
+                      eventCategory: 'Hotkeys',
                       eventAction: 'Take screenshot',
                       eventLabel: 'test'
                     });
@@ -371,7 +371,7 @@ var SESSION = {};
                     //Send google analytics event
                     ga('send', {
                       hitType: 'event',
-                      eventCategory: 'Buttons',
+                      eventCategory: 'Hotkeys',
                       eventAction: 'Cycle theme',
                       eventLabel: 'test'
                     });
