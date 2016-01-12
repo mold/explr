@@ -63,7 +63,7 @@
 				<div id="loading-text" class="no-select"></div>
 			</div>
 			
-			<div id="change-theme-button" class="change-button on-map-view no-select" onClick="nextTheme()">
+			<div id="change-theme-button" class="change-button on-map-view no-select" onClick="nextTheme();ga('send', 'event', 'Buttons', 'Cycle theme', 'test');">
 				<img src="assets/img/glyphicons_009_magic.png" alt="" width="32" height="32">
 				<p>Change theme (t)</p>
 			</div>
@@ -73,7 +73,7 @@
 					<p>Change user</p>
 				</div>
 			</a>
-			<div id="snapshot-button" class="change-button on-map-view no-select" onClick="screenshot.render()">
+			<div id="snapshot-button" class="change-button on-map-view no-select" onClick="screenshot.render();ga('send', 'event', 'Buttons', 'Take screenshot', 'test');">
 				<img src="assets/img/snapshot.png" alt="" width="32" height="32">
 				<p>Take snapshot (s)</p>
 			</div>
