@@ -231,6 +231,8 @@ var SESSION = {};
     }
 
     var begin = function() {
+        //Send analytics event
+        ga('send', 'event', 'splash screen', 'Go!', 'test');
         // fade out username input box
         var welcomeOverlay = d3.select("#welcome-container");
         welcomeOverlay.transition().duration(2000)
