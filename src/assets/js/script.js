@@ -21,6 +21,7 @@ var SESSION = {};
         api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
     ["page", currPage]],
             function(error, responseData) {
+                console.log(responseData)
                 // Special case for unfortunate users
                 if (responseData === "") {
                     console.error('Got empty string ("") as response, skipping page.')
@@ -52,6 +53,17 @@ var SESSION = {};
                 if (currPage === 1) {
                     SESSION.total_artists = +responseData.artists["@attr"].total;
                     maxPage = +responseData.artists["@attr"].totalPages;
+
+                    if(SESSION.total_artists === 0){
+                        d3.select(".bubblingG").remove();
+                        console.log(d3.select(".bubblingG"))
+                        d3.select("#loading-text")
+                            .html("You haven't listened to any<br> artists yet. Start scrobbling with <br>\
+                                                        <a href='http://evolver.fm/2012/05/08/how-to-scrobble-to-last-fm-from-itunes-"
+                                                        +"spotify-and-more/'>your favorite music player!</a>");
+                        d3.select(".loader").style("pointer-events","all");
+                        return;
+                    }
                 }
 
                 currPage++;
@@ -298,7 +310,9 @@ var SESSION = {};
                 d3.select("#friends").transition().duration(1000).style("opacity", 1);
 
             } catch (e) {
-                console.error(e);
+                console.error("getFriends()",e);
+                d3.select("#friends").html("&nbsp;Couldn't find any<br>friends on last.fm :(&nbsp;")
+                d3.select("#friends").transition().duration(1000).style("opacity", 1);
             }
         });
 
