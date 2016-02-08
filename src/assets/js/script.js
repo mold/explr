@@ -56,7 +56,6 @@ var SESSION = {};
 
                     if(SESSION.total_artists === 0){
                         d3.select(".bubblingG").remove();
-                        console.log(d3.select(".bubblingG"))
                         d3.select("#loading-text")
                             .html("You haven't listened to any<br> artists yet. Start scrobbling with <br>\
                                                         <a href='http://evolver.fm/2012/05/08/how-to-scrobble-to-last-fm-from-itunes-"
@@ -165,7 +164,7 @@ var SESSION = {};
             // For each artist, get their tags
             artists.forEach(function(a) {
                 api.lastfm.send("artist.gettoptags", [["artist", a.name]], function(err, data) {
-                    console.log(data);
+                    // console.log(data);
                 })
             })
             // Look for user's top tags in artist tags
