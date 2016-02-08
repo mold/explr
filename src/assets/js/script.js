@@ -21,7 +21,6 @@ var SESSION = {};
         api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
     ["page", currPage]],
             function(error, responseData) {
-                console.log(responseData)
                 // Special case for unfortunate users
                 if (responseData === "") {
                     console.error('Got empty string ("") as response, skipping page.')
