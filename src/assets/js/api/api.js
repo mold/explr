@@ -49,41 +49,104 @@ var superCount = 0;
 					});
 					return;
 				}
+
+
+				//Spara tillfälligt bästa träffen
+				var tempCid;
+				var tempCountryname;
+				var tname;
 				// Else check for country-tags in the artist's tags
 				responseData2.toptags.tag.forEach(function(t, i) {
 					if (running) {
-						var tname = t.name.toLowerCase();
+						tname = t.name.toLowerCase();
 						var cid;
-						try {
 
+						//testvariabel för debugging
+						var testtags = responseData2.toptags;
+
+						var troubleTags = ["georgia", "spanish", "french"];
+						//var ignoredTags = ["spanish", ]
+						
+						try {
+							//Testar landsnamnet
 							if (cname[tname] && cname[tname][0].id) { // sweden->sweden
-								cid = cname[tname][0].id;
-								countryName = cname[tname][0].name;
+								//Kollar specialfall
+								//console.log("Testar cname " + cname[tname][0].name);
+								//console.log("Testar if-satsen " + cname[tname][0].name.toLowerCase() == troubleTags[0]);
+
+								if (cname[tname][0].name.toLowerCase() == troubleTags[0]){
+
+									tempCid = cname[tname][0].id;
+									tempCountryname = cname[tname][0].name;
+									//console.log("Hittade Georgia! " + tempCid + " " + tempCountryname );
+									//console.log(testtags);
+
+								}
+								else {
+									cid = cname[tname][0].id; 
+									countryName = cname[tname][0].name;
+								}
+
+							//Testar demonymen
 							} else if (alias[tname] && alias[tname][0].id) { // swedish->sweden
+
+								//console.log("Demonym hittad!");
+								//console.log("Testar if-satsen " + alias[tname][0].tag.toLowerCase() + " " + troubleTags[1] + " " + artist);
+
+								
+								if (alias[tname][0].tag.toLowerCase() == troubleTags[1]){
+
+									tempCid = alias[tname][0].id;
+									tempCountryname = alias[tname][0].name;
+									console.log("Hittade Spanien! " + artist + " " + tempCountryname );
+									console.log(testtags);
+								}
+
+								else {
+
 								cid = alias[tname][0].id;
 								countryName = alias[tname][0].name;
+
+								}
+
 							}
 							if (cid) { // We found a country!
 								callback({ // Call callback method
 									"artist": artist,
 									"id": cid,
-									"tag": t.name,
+									"tag": tname,
 									"name": countryName,
 								});
 								running = false; // Stop searching for country-tags
+							
 							}
 						} catch (e) {
 							//console.log(artist, tname)
 						}
+
 
 					}
 
 				})
 
 				if (running) { // We got no country :(
-					callback({
-						"artist": artist
-					})
+				  if (tempCid){//go with backup plan
+				  			console.log("En möjligen felaktig artist! " + artist)
+							callback({ // Call callback method
+								"artist": artist,
+								"id": tempCid,
+								"tag": tname,
+								"name": tempCountryname,
+							});
+							running = false; // Stop searching for country-tags
+					}
+					else{
+						callback({
+							"artist": artist
+						})
+					}
+
+
 				}
 			});
 		}
