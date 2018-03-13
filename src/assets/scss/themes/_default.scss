@@ -177,3 +177,10 @@ body.green_black .flattr-logo,
 body.pink_black .flattr-logo {
     fill: white;
 }
+
+body.blue_black .bmc-button,
+body.green_black .bmc-button,
+body.pink_black .bmc-button {
+    background: none;
+    border:none;
+}
