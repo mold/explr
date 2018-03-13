@@ -21,6 +21,8 @@ var imagemin = require('gulp-imagemin');
 var runSequence = require('run-sequence');
 var minifyCss = require('gulp-minify-css');
 var ghPages = require('gulp-gh-pages');
+var minifyHTML  = require('gulp-minify-html');
+
 
 
 /**
@@ -133,6 +135,7 @@ gulp.task('data', function() {
 gulp.task('html', function() {
   return gulp.src([path.src.html + '*.html', path.src.html + 'CNAME'])
     .pipe(changed(path.build.html)) // Ignore unchanged files
+    //.pipe(minifyHTML())
     .pipe(gulp.dest(path.build.html))
     .pipe(browserSync.stream());
 });
