@@ -157,6 +157,12 @@
 				</div>
 			</div>
 
+			<div class="screenshot-overlay" style="display:none;">
+				<div class="screenshot-overlay__header">Right click + Save image as...</div>
+				<div class="screenshot-overlay__close" onclick="screenshot.close();">X</div>
+				<div><img class="screenshot-overlay__img" src="" alt="" id="screenshot-img"></div>
+			</div>
+
 			<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 			<script src="http://d3js.org/topojson.v1.min.js"></script>
 			<script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
@@ -192,12 +198,9 @@
 			
 			<script src="assets/js/all.min.js"></script>
 			<!-- Canvg for screenshots -->
-			<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script>
-			<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/StackBlur.js"></script>
-			<script type="text/javascript" src="http://canvg.
-			googlecode.com/svn/trunk/canvg.js"></script>
+			<script type="text/javascript" src="http://canvg.github.io/canvg/rgbcolor.js"></script>
+			<script type="text/javascript" src="http://canvg.github.io/canvg/StackBlur.js"></script>
+			<script type="text/javascript" src="http://canvg.github.io/canvg/canvg.js"></script>
 			
-			<!-- TODO: remove this, do from js -->
-			<img src="" alt="" id="screenshot-img">
 		</body>
 	</html>
