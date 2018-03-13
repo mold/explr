@@ -24,7 +24,9 @@
     "run-sequence": "^1.1.4"
   },
   "scripts": {
-    "start": "npm install && gulp serve"
+    "start": "npm install && gulp serve",
+    "gulp": "gulp"
+
   },
   "repository": {
     "type": "git",
