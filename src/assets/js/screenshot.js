@@ -8,7 +8,7 @@ var screenshot = {};
 
 		var explrLogo = new Image();
 
-		var svg = d3.select("svg");
+		var svg = d3.select("#map-svg");
 		var w = svg.attr("width");
 		var h = svg.attr("height");
 
