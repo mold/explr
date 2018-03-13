@@ -25,7 +25,8 @@
   },
   "scripts": {
     "start": "npm install && gulp serve",
-    "gulp": "gulp"
+    "gulp": "gulp",
+    "deploy": "gulp deploy"
 
   },
   "repository": {

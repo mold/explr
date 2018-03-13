@@ -2,8 +2,8 @@
 // When having several themes, this file contains everything related to the
 // default one.
 // -----------------------------------------------------------------------------
-
 /** FOR THEMES!! **/
+
 body.blue_black,
 body.green_black,
 body.pink_black {
@@ -94,6 +94,7 @@ body.pink_black .tooltip {
 /*
  * Map legend
  */
+
 body.blue_black .legend rect,
 body.pink_black .legend rect,
 body.green_black .legend rect {
@@ -167,4 +168,35 @@ body.blue_black .tagdiv .usertag,
 body.green_black .tagdiv .usertag,
 body.pink_black .tagdiv .usertag {
     color: #fff;
+}
+
+/*
+* flattr logo
+*/
+
+body.blue_black .flattr-logo,
+body.green_black .flattr-logo,
+body.pink_black .flattr-logo {
+    fill: white;
+}
+
+/**
+* bmc logo
+*/
+
+body.blue_black .bmc-button,
+body.green_black .bmc-button,
+body.pink_black .bmc-button {
+    background: none;
+    border: none;
+}
+
+body.blue_black .screenshot-overlay,
+body.green_black .screenshot-overlay,
+body.pink_black .screenshot-overlay {
+    &__close {
+        background: black;
+        color: white;
+        border-color: white;
+    }
 }

@@ -248,6 +248,7 @@ var countryScore = 0;
     path = d3.geo.path().projection(projection);
 
     svg = d3.select("#map-container").append("svg")
+      .attr("id", "map-svg")
       .attr("width", width)
       .attr("height", height)
       .style("margin-left", document.getElementById("map-container").offsetWidth / 2 - width / 2)
@@ -405,7 +406,7 @@ var countryScore = 0;
     updateDimensions();
 
     if (redrawMap) {
-      d3.select('svg').remove();
+      d3.select('#map-svg').remove();
       setup(width, height);
     }
 

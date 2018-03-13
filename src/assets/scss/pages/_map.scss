@@ -17,13 +17,12 @@ svg:active {
 
 .country {
     cursor: pointer;
-
     &:hover {
         stroke: #FFF7EE;
         stroke-width: 1.2px;
     }
-
-    &.highlighted, &.highlighted:hover {
+    &.highlighted,
+    &.highlighted:hover {
         stroke: #444;
         stroke-width: 2.5px;
     }
@@ -36,15 +35,12 @@ svg:active {
 .legend {
     font-size: 14px;
     font-family: $heading-font-stack;
-
     rect {
         stroke: #fff;
     }
-
     text {
         font-family: $text-font-stack;
     }
-
     &#filter {
         cursor: pointer;
         text-decoration: underline;
@@ -60,11 +56,9 @@ svg:active {
 #countryCount {
     position: absolute;
     top: 180px;
-
     /* 140px; */
     width: 10px;
     height: 59%;
-
     /*65%;*/
     right: 32px;
     box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
@@ -97,8 +91,8 @@ svg:active {
     padding: 5px;
     background: rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(175, 175, 175, 0.5);
-
-    &:after, &:before {
+    &:after,
+    &:before {
         left: -9px;
         top: 0px;
         border: solid transparent;
@@ -108,14 +102,12 @@ svg:active {
         position: absolute;
         pointer-events: none;
     }
-
     &:after {
         border-color: rgba(255, 255, 255, 0);
         border-left-color: rgba(255, 255, 255, 0.5);
         border-width: 7px;
         margin-top: -7px;
     }
-
     &:before {
         border-color: rgba(175, 175, 175, 0);
         border-left-color: rgba(175, 175, 175, 0.5);
@@ -129,6 +121,7 @@ svg:active {
    ========================================================================== */
 
 /* Check out friends box */
+
 #friends {
     position: absolute;
     bottom: 35px;
@@ -139,7 +132,6 @@ svg:active {
     border: 1px solid rgba(177, 177, 177, 0.5);
     background: rgba(255, 255, 255, 0.5);
     opacity: 0;
-
     p {
         text-align: center;
         margin: 0;
@@ -150,7 +142,6 @@ svg:active {
     position: absolute;
     bottom: 5px;
     cursor: pointer;
-
     &.right {
         right: 5px;
     }
@@ -171,14 +162,12 @@ svg:active {
     left: 150px;
     bottom: 30px;
     top: 450px;
-
     /*width: 107px;
     height: 67px;*/
 }
 
 div.colorChange {
     text-align: center;
-
     /*position: fixed; */
     /*left: 150px;
     bottom: 45px;*/
@@ -191,4 +180,52 @@ div.colorChange {
     font-style: italic;
     margin-top: 0;
     text-align: center;
+}
+
+.screenshot-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    background: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &__header {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 1em;
+    }
+    
+    &__close {
+        user-select: none;
+        cursor: pointer;
+        border: 2px solid #000;
+        border-radius: 4px;
+        padding: 0.3em 0.7em;
+        font-weight: 700;
+        font-size: 1.3em;
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 0.6em;
+        opacity: 0.6;
+        &:hover {
+            opacity: 1;
+        }
+    }
+    
+    &__img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80%;
+        margin: auto;
+        box-shadow: 0 10px 30px -14px;
+    }
 }
