@@ -61,56 +61,46 @@ var superCount = 0;
 						tname = t.name.toLowerCase();
 						var cid;
 
-						//testvariabel för debugging
-						var testtags = responseData2.toptags;
-
-						var troubleTags = ["georgia", "spanish", "french"];
-						//var ignoredTags = ["spanish", ]
+						//Lista med taggar vi vill dubbelkolla
+						var troubleCountries = ["georgia"];
+						var troubleLanguages = ["spanish", "french", "english", "portuguese", "russian", "italian", "japanese", "korean", "indian"];
 						
-						try {
-							//Testar landsnamnet
+						try { //Testar taggen mot landsnamn
 							if (cname[tname] && cname[tname][0].id) { // sweden->sweden
-								//Kollar specialfall
-								//console.log("Testar cname " + cname[tname][0].name);
-								//console.log("Testar if-satsen " + cname[tname][0].name.toLowerCase() == troubleTags[0]);
-
-								if (cname[tname][0].name.toLowerCase() == troubleTags[0]){
-
+								//Kollar lista med specialfall som ofta blir fel
+								var troubleFound = false;
+								for (i=0; i<troubleCountries.length; i++){
+									if (cname[tname][0].name.toLowerCase() == troubleCountries[i]){
+										troubleFound = true;
+									}
+								}
+								if (!troubleFound){	//Den här taggen är inget problem, fortsätt som vanligt
+										cid = cname[tname][0].id; 
+										countryName = cname[tname][0].name;
+								} else { //Den här taggen finns med i listan, spara den temporärt och se om vi hittar något bättre!
 									tempCid = cname[tname][0].id;
 									tempCountryname = cname[tname][0].name;
-									//console.log("Hittade Georgia! " + tempCid + " " + tempCountryname );
-									//console.log(testtags);
-
-								}
-								else {
-									cid = cname[tname][0].id; 
-									countryName = cname[tname][0].name;
+									//console.log("Trouble found!     " + tname);
 								}
 
-							//Testar demonymen
+							//Testar taggen mot demonymer
 							} else if (alias[tname] && alias[tname][0].id) { // swedish->sweden
-
-								//console.log("Demonym hittad!");
-								//console.log("Testar if-satsen " + alias[tname][0].tag.toLowerCase() + " " + troubleTags[1] + " " + artist);
-
 								
-								if (alias[tname][0].tag.toLowerCase() == troubleTags[1]){
-
+								var troubleFound = false;
+								for (i=0; i<troubleLanguages.length; i++){
+									if (alias[tname][0].tag.toLowerCase() == troubleLanguages[i]){
+										troubleFound = true;
+									}
+								}
+								if (!troubleFound){	//Den här taggen är inget problem, fortsätt som vanligt
+										cid = alias[tname][0].id;
+										countryName = alias[tname][0].name;
+								} else { //Den här taggen finns med i listan, spara den temporärt och se om vi hittar något bättre!
 									tempCid = alias[tname][0].id;
 									tempCountryname = alias[tname][0].name;
-									console.log("Hittade Spanien! " + artist + " " + tempCountryname );
-									console.log(testtags);
 								}
-
-								else {
-
-								cid = alias[tname][0].id;
-								countryName = alias[tname][0].name;
-
-								}
-
 							}
-							if (cid) { // We found a country!
+							if (cid) { // Vi hittade en bra tagg, kör som bvnligt!
 								callback({ // Call callback method
 									"artist": artist,
 									"id": cid,
@@ -129,8 +119,8 @@ var superCount = 0;
 
 				})
 
-				if (running) { // We got no country :(
-				  if (tempCid){//go with backup plan
+				if (running) { // Vi hittade inget perfekt land. 
+				  if (tempCid){//go with backup plan, använd den problematiska taggen
 				  			console.log("En möjligen felaktig artist! " + artist)
 							callback({ // Call callback method
 								"artist": artist,

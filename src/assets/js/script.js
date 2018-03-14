@@ -190,7 +190,7 @@ var SESSION = {};
             // make list of tags to sort
             USER_TAGS = [];
             //Remove specific tags from user's top tags
-            forbidden = ["american", "swedish", "british", "female vocalists", "male vocalists", "german"];
+            forbidden = ["american", "swedish", "british", "female vocalists", "male vocalists", "german", "seen live", "english", "singer-songwriter", "spanish", "french"];
             d3.keys(tagCount).forEach(function(el) {
                 var nogood = false
                 for (i = 0; i < forbidden.length; i++) {
