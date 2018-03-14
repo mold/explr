@@ -731,7 +731,6 @@ var countryScore = 0;
         list.sort(function(a, b) {
           return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
         });
-
         //Get the first 20 artists
         list = list.slice(0, 20);
         //Randomize list

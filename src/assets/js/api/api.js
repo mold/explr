@@ -63,7 +63,7 @@ var superCount = 0;
 
 						//Lista med taggar vi vill dubbelkolla
 						var troubleCountries = ["georgia"];
-						var troubleLanguages = ["spanish", "french", "english", "portuguese", "russian", "italian", "japanese", "korean", "indian"];
+						var troubleLanguages = ["spanish", "french", "english", "portuguese", "russian", "italian", "japanese", "korean", "indian", "swedish"];
 						
 						try { //Testar taggen mot landsnamn
 							if (cname[tname] && cname[tname][0].id) { // sweden->sweden
