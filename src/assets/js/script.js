@@ -165,7 +165,7 @@ var CACHED_NO_COUNTRIES = JSON.parse(window.localStorage.no_countries || "{}");
 
                         map.putCountryCount(countryCountObj);
 
-                        if (currPage > maxPage || currPage > 5) {
+                        if (currPage > maxPage) {
                             end();
                             return;
                         } else {
