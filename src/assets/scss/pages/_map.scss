@@ -188,12 +188,11 @@ div.colorChange {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1;
+    z-index: 10;
     background: inherit;
     display: flex;
     align-items: center;
     justify-content: center;
-    
     &__header {
         position: absolute;
         top: 0;
@@ -201,7 +200,6 @@ div.colorChange {
         transform: translateX(-50%);
         padding: 1em;
     }
-    
     &__close {
         user-select: none;
         cursor: pointer;
@@ -219,7 +217,6 @@ div.colorChange {
             opacity: 1;
         }
     }
-    
     &__img {
         display: flex;
         align-items: center;
@@ -227,5 +224,50 @@ div.colorChange {
         width: 80%;
         margin: auto;
         box-shadow: 0 10px 30px -14px;
+    }
+}
+
+.no-countries {
+    position: absolute;
+    // bottom: 232px;
+    height: 18px;
+    overflow: auto;
+    width: 175px;
+    left: 3%;
+    font-size: 1em;
+    transition: 0.5s opacity;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-size: 14px;
+    transition: 0.3s all ease-out; // opacity: 0.3;
+    visibility: hidden;
+    &:hover {
+        opacity: 1;
+        height: 200px;
+    }
+    ul {
+        padding: 0;
+        margin: 0;
+        line-height: 1.1em;
+    }
+    li {
+        list-style: none;
+        padding-bottom: 0.5em;
+    }
+    &__title {
+        margin-bottom: 0.3em;
+        font-family: $heading-font-stack;
+    }
+    &__link {
+        font-weight: normal;
+    }
+    &__content {
+        padding-right: 0.5em;
+        overflow: auto;
+        p {
+            margin: 0 0 0.5em;
+        }
     }
 }

@@ -7,8 +7,9 @@ var STORED_ARTISTS = JSON.parse(window.localStorage.artists || "{}");
 var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
 var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
 var SESSION = {};
+var CACHED_NO_COUNTRIES = JSON.parse(window.localStorage.no_countries || "{}");
 
-(function() {
+(function () {
     // user = prompt("Input your user name, get top 20 artists")
     var user, currPage = 1,
         maxPage;
@@ -16,11 +17,42 @@ var SESSION = {};
     var count = 0;
     var tries = 0;
     var randomcountrylist = ["Malawi", "Malaysia", "Peru", "Sierra Leone", "Trinidad & Tobago", "Greece", "Laos", "Iran", "Haiti", "Nicaragua", "Mongolia", "Slovakia"];
+    var listOfArtistsWithNoCountry = [];
 
-    var getAllArtists = function() {
-        api.lastfm.send("library.getartists", [["user", user], ["limit", 50],
-    ["page", currPage]],
-            function(error, responseData) {
+    /**
+     * adds artists with no country to the array of artists with
+     * no country :)
+     * 
+     * @param {*} data Response from api.getCountries; array of
+     * artists that may or may not have country
+     */
+    var addArtistsWithNoCountry = function (data) {
+        listOfArtistsWithNoCountry = listOfArtistsWithNoCountry.concat(data);
+
+        var noCountriesListEl = d3.select(".no-countries ul");
+        data.forEach(function (_art) {
+            noCountriesListEl.append("li").html('<a href="' + _art.url + '" target="blank" class="no-countries__link">' + _art.artist + '</a>');
+        })
+
+        window.localStorage.no_countries = JSON.stringify(listOfArtistsWithNoCountry);
+
+        if (listOfArtistsWithNoCountry.length) {
+            d3.select(".no-countries").style({
+                visibility: "visible",
+                "pointer-events": "all",
+            });
+        }
+    }
+
+    var getAllArtists = function () {
+        console.log("get artists")
+        
+        api.lastfm.send("library.getartists", [
+                ["user", user],
+                ["limit", 50],
+                ["page", currPage]
+            ],
+            function (error, responseData) {
                 // Special case for unfortunate users
                 if (responseData === "") {
                     console.error('Got empty string ("") as response, skipping page.')
@@ -53,13 +85,13 @@ var SESSION = {};
                     SESSION.total_artists = +responseData.artists["@attr"].total;
                     maxPage = +responseData.artists["@attr"].totalPages;
 
-                    if(SESSION.total_artists === 0){
+                    if (SESSION.total_artists === 0) {
                         d3.select(".bubblingG").remove();
                         d3.select("#loading-text")
                             .html("You haven't listened to any<br> artists yet. Start scrobbling with <br>\
-                                                        <a href='http://evolver.fm/2012/05/08/how-to-scrobble-to-last-fm-from-itunes-"
-                                                        +"spotify-and-more/'>your favorite music player!</a>");
-                        d3.select(".loader").style("pointer-events","all");
+                                                        <a href='http://evolver.fm/2012/05/08/how-to-scrobble-to-last-fm-from-itunes-" +
+                                "spotify-and-more/'>your favorite music player!</a>");
+                        d3.select(".loader").style("pointer-events", "all");
                         return;
                     }
                 }
@@ -69,7 +101,7 @@ var SESSION = {};
 
                 // Save artist data to localStorage (and create a list of artist names)
                 var artistNames = []
-                responseData.artists.artist.forEach(function(newArtist) {
+                responseData.artists.artist.forEach(function (newArtist) {
                     var a = STORED_ARTISTS[newArtist.name] || {};
 
                     a.playcount = +newArtist.playcount;
@@ -85,19 +117,19 @@ var SESSION = {};
 
                 // Get country for all artists
                 api.getCountries(artistNames,
-                    function(data) {
+                    function (data) {
                         // Count plays for each country?
                         // countryCountList = countryCountList.concat(data);
                         var dataObj = d3.nest() //Gör så att man kan slå upp på land-id och få upp en lista på artister.
-                            .key(function(d) {
+                            .key(function (d) {
                                 return d.id;
                             })
-                            .rollup(function(leaves) { //gör så att man får en lista på alla artister för ett land.
+                            .rollup(function (leaves) { //gör så att man får en lista på alla artister för ett land.
                                 return leaves;
                             })
                             .map(data); //Skickar in en lista med ett objekt för varje artist.
 
-                        d3.keys(dataObj).forEach(function(id) {
+                        d3.keys(dataObj).forEach(function (id) {
                             countryCountObj[id] = countryCountObj[id] || {};
                             countryCountObj[id][user] = countryCountObj[id][user] || [];
                             var artistList = countryCountObj[id][user]; // list of artists for a country
@@ -110,7 +142,7 @@ var SESSION = {};
                             //     artistList = dataObj[id];
                             // }
 
-                            artistList.forEach(function(el, i) {
+                            artistList.forEach(function (el, i) {
                                 //Här lägger vi till ett fält image med artistens bild-url som ett fält till det "inre" objektet.
                                 artistList[i].image = STORED_ARTISTS[el.artist].image[0]["#text"];
                                 artistList[i].url = STORED_ARTISTS[el.artist].url;
@@ -127,9 +159,13 @@ var SESSION = {};
                             countryCountObj[id][user] = artistList;
                         })
 
+                        addArtistsWithNoCountry(data.filter(function (artist) {
+                            return !artist.id; // && artist.artist && artist.url;
+                        }));
+
                         map.putCountryCount(countryCountObj);
 
-                        if (currPage > maxPage) {
+                        if (currPage > maxPage || currPage > 5) {
                             end();
                             return;
                         } else {
@@ -139,15 +175,15 @@ var SESSION = {};
             });
     }
 
-    var getRecommendations = function() {
+    var getRecommendations = function () {
         var currPage = 1,
             limit = 50,
             maxPage = 1000 / limit;
         var countriesList = JSON.parse(window.localStorage.countries);
 
-        var countriesObj = d3.nest().key(function(d) {
+        var countriesObj = d3.nest().key(function (d) {
             return d.name;
-        }).rollup(function(d) {
+        }).rollup(function (d) {
             return d[0];
         }).map(countriesList);
         // Get "all" artists from one country
@@ -158,11 +194,13 @@ var SESSION = {};
             ["tag", "swedish"],
             ["limit", limit],
             ["page", currPage]
-            ], function(err, data) {
+        ], function (err, data) {
             var artists = data.topartists.artist;
             // For each artist, get their tags
-            artists.forEach(function(a) {
-                api.lastfm.send("artist.gettoptags", [["artist", a.name]], function(err, data) {
+            artists.forEach(function (a) {
+                api.lastfm.send("artist.gettoptags", [
+                    ["artist", a.name]
+                ], function (err, data) {
                     // console.log(data);
                 })
             })
@@ -172,7 +210,7 @@ var SESSION = {};
 
     }
 
-    var getUserTags = function(err, data) {
+    var getUserTags = function (err, data) {
         /*if (err || data.error) {
             console.error("Erorr in getUserTags", err, data);
             alert("Something went wrong when contacting the Last.fm API\n\nEither:\n - The specified user does not exist\n - Last.fm is down\n\nPlease try again.");
@@ -186,12 +224,12 @@ var SESSION = {};
         //console.log("Gotta get tags")
 
         var topArtists = data.topartists.artist;
-        var done = function() {
+        var done = function () {
             // make list of tags to sort
             USER_TAGS = [];
             //Remove specific tags from user's top tags
             forbidden = ["american", "swedish", "british", "female vocalists", "male vocalists", "german", "seen live", "english", "singer-songwriter", "spanish", "french"];
-            d3.keys(tagCount).forEach(function(el) {
+            d3.keys(tagCount).forEach(function (el) {
                 var nogood = false
                 for (i = 0; i < forbidden.length; i++) {
                     if (el === forbidden[i]) {
@@ -205,7 +243,7 @@ var SESSION = {};
                     });
                 }
             })
-            USER_TAGS.sort(function(a, b) {
+            USER_TAGS.sort(function (a, b) {
                 return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
             });
             console.log("Done getting tags, saved to localStorage.user_tags")
@@ -213,10 +251,12 @@ var SESSION = {};
         }
 
 
-        topArtists.forEach(function(el, i) {
+        topArtists.forEach(function (el, i) {
             // get top ten tags and save to users tag count....
-            setTimeout(function() { // Set timeout to not stop artists from loading...
-                api.lastfm.send("artist.gettoptags", [["artist", el.name]], function(err, data) {
+            setTimeout(function () { // Set timeout to not stop artists from loading...
+                api.lastfm.send("artist.gettoptags", [
+                    ["artist", el.name]
+                ], function (err, data) {
                     taglist = data.toptags.tag;
                     if (taglist) {
                         var lim = Math.min(taglist.length, 10);
@@ -240,25 +280,25 @@ var SESSION = {};
 
     }
 
-    var begin = function() {
+    var begin = function () {
         //Send analytics event
         ga('send', 'event', 'splash screen', 'Go!', 'test');
         // fade out username input box
         var welcomeOverlay = d3.select("#welcome-container");
         welcomeOverlay.transition().duration(2000)
             .style("opacity", 0)
-            .each("end", function() {
+            .each("end", function () {
                 welcomeOverlay.remove();
             });
 
         // Fade in loader
         d3.select(".loader").transition().duration(2000).style("opacity", 1);
         d3.select("#loading-text").html("Getting library...");
-        setTimeout(function() {
+        setTimeout(function () {
             if (d3.select("#loading-text").html() === "Getting library...") {
                 d3.select("#loading-text").html("Last.fm is taking<br>a long time to<br>respond...");
 
-                setTimeout(function() {
+                setTimeout(function () {
                     if (d3.select("#loading-text").html() === "Last.fm is taking<br>a long time to<br>respond...") {
                         d3.select("#loading-text").html("Maybe <a href='http://last.fm' target='_blank'>last.fm</a> has<br>gone offline...")
                             .style("pointer-events", "all");
@@ -274,16 +314,20 @@ var SESSION = {};
         }) //.transition().duration(1000).style("opacity", 1);
 
         // Get user tags
-        api.lastfm.send("user.gettopartists", [["user", user], ["period", "12months"], ["limit", "50"]], getUserTags);
+        api.lastfm.send("user.gettopartists", [
+            ["user", user],
+            ["period", "12months"],
+            ["limit", "50"]
+        ], getUserTags);
 
         // Get user friends
-        api.getFriends(function(err, data) {
+        api.getFriends(function (err, data) {
             try {
                 var friends = data.friends.user;
                 var i = 0;
                 var friendName = d3.select("#friend-name");
 
-                var updateName = function() {
+                var updateName = function () {
                     friendName.html("");
                     friendName.append("a").attr({
                         href: window.location.origin + window.location.pathname + "?username=" + friends[i].name,
@@ -291,7 +335,7 @@ var SESSION = {};
                     }).html(friends[i].name);
                 }
 
-                d3.selectAll(".arrow").on("click", function() {
+                d3.selectAll(".arrow").on("click", function () {
                     if (d3.select(this).classed("left")) {
                         // Go left
                         i = (i === 0 ? friends.length - 1 : i - 1);
@@ -308,7 +352,7 @@ var SESSION = {};
                 d3.select("#friends").transition().duration(1000).style("opacity", 1);
 
             } catch (e) {
-                console.error("getFriends()",e);
+                console.error("getFriends()", e);
                 d3.select("#friends").html("&nbsp;Couldn't find any<br>friends on last.fm :(&nbsp;")
                 d3.select("#friends").transition().duration(1000).style("opacity", 1);
             }
@@ -318,14 +362,19 @@ var SESSION = {};
             // TODO: use timestamp
             console.log("No new artists on last.fm!");
             countryCountObj = JSON.parse(window.localStorage.countryCountObj);
-
+            addArtistsWithNoCountry(JSON.parse(window.localStorage.no_countries));
+            
             // Get number of artists for screenshot etc.
-            api.lastfm.send("library.getartists", [["user", user], ["limit", 1], ["page", 1]],
-                function(error, responseData) {
+            api.lastfm.send("library.getartists", [
+                    ["user", user],
+                    ["limit", 1],
+                    ["page", 1]
+                ],
+                function (error, responseData) {
                     SESSION.total_artists = +responseData.artists["@attr"].total;
                 });
 
-            setTimeout(function() {
+            setTimeout(function () {
                 map.putCountryCount(countryCountObj);
                 end();
             }, 1000)
@@ -340,12 +389,12 @@ var SESSION = {};
         }
     }
 
-    var end = function() {
+    var end = function () {
         // We're done, fade out loader
         var loader = d3.select(".loader");
         loader.transition().duration(2000)
             .style("opacity", 0)
-            .each("end", function() {
+            .each("end", function () {
                 loader.remove();
             });
         //Also fade out progress bar text (after a short delay)
@@ -366,34 +415,35 @@ var SESSION = {};
 
     if (param) { // We already have a user
         // set up keyboard shortcuts
-        window.addEventListener("keydown", function(evt){
-            switch(evt.keyCode){
+        window.addEventListener("keydown", function (evt) {
+            switch (evt.keyCode) {
                 // s
-                case 83: 
+                case 83:
                     screenshot.render();
                     //Send google analytics event
                     ga('send', {
-                      hitType: 'event',
-                      eventCategory: 'Hotkeys',
-                      eventAction: 'Take screenshot',
-                      eventLabel: 'test'
+                        hitType: 'event',
+                        eventCategory: 'Hotkeys',
+                        eventAction: 'Take screenshot',
+                        eventLabel: 'test'
                     });
                     break;
-                // t
-                case 84: 
+                    // t
+                case 84:
                     nextTheme();
                     //Send google analytics event
                     ga('send', {
-                      hitType: 'event',
-                      eventCategory: 'Hotkeys',
-                      eventAction: 'Cycle theme',
-                      eventLabel: 'test'
+                        hitType: 'event',
+                        eventCategory: 'Hotkeys',
+                        eventAction: 'Cycle theme',
+                        eventLabel: 'test'
                     });
                     break;
-                default: break;
+                default:
+                    break;
             }
         });
-        
+
         if (param.length > 15) {
             param = param.substr(0, 15);
         }

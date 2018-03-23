@@ -152,7 +152,10 @@ var countryScore = 0;
       // Toggle filter method
       filter = (filter === "artists" ? "scrobbles" : "artists");
       redraw();
-    })
+    });
+
+    var noCountryArtists = d3.select(".no-countries")
+      .style("bottom", (y + mydomain.length * ls_h + 1.5 * ls_h + 30) + "px"); // <<< magic numbers broo
 
     var enter = legend.enter()
       .append("g")
