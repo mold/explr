@@ -23,16 +23,11 @@ $ gulp deploy
 
 ## Todo-list
 -----
-- [ ] Add flattr button
 - [ ] Improve screenshotting
-  - [ ] Show a warning when screenshotting before all artists have been loaded
-  - [ ] Add progress bar to screenshot?
-  - [ ] Separate screenshot page with imgur upload
-- [ ] Show more artists from each country
-- [ ] Add favicon
-- [ ] Show artists without a country
+  - [ ] Show a warning when screenshotting before all artists have been loaded?
+  - [ ] imgur upload?
 - [ ] Improve api code
-- [ ] Restructure everything
+- [ ] Refactor everything
 
 ## Team
 
