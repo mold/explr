@@ -212,8 +212,8 @@ var CACHED_NO_COUNTRIES = JSON.parse(window.localStorage.no_countries || "{}");
 
     var getUserTags = function (err, data) {
         // err = err ||data.error;
-        if(err || data.error){
-            if(data && data.error===6){
+        if (err || data.error) {
+            if (data && data.error === 6) {
                 alert("User not found");
                 window.location.assign(window.location.origin + window.location.pathname);
             }

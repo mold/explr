@@ -802,6 +802,8 @@ var countryScore = 0;
   }
 
   function removeArtistDiv() {
+    api.cancelRecommendationRequests();
+
     infoContainer.transition().style("opacity", 0).duration(1000);
     infoContainer.classed("hidden", true);
     d3.selectAll("#countryCount, .on-map-view").classed("hidden", false);
@@ -812,10 +814,6 @@ var countryScore = 0;
     d3.selectAll(".recom-h4").remove("h4");
     d3.selectAll(".artist-control").remove();
     d3.selectAll(".topartists-desc").remove();
-
-
-
-
 
     cnameDiv.classed("hidden", true);
     d3.select("#cnameCont").remove("h1");

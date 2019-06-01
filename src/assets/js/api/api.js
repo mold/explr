@@ -55,8 +55,10 @@ var superCount = 0;
 				var tempCid;
 				var tempCountryname;
 				var tname;
+				var troubleFound;
+
 				// Else check for country-tags in the artist's tags
-				responseData2.toptags.tag.forEach(function(t, i) {
+				responseData2.toptags.tag.forEach(function (t, i) {
 					if (running) {
 						tname = t.name.toLowerCase();
 						var cid;
@@ -68,13 +70,13 @@ var superCount = 0;
 						try { //Testar taggen mot landsnamn
 							if (cname[tname] && cname[tname][0].id) { // sweden->sweden
 								//Kollar lista med specialfall som ofta blir fel
-								var troubleFound = false;
-								for (i=0; i<troubleCountries.length; i++){
-									if (cname[tname][0].name.toLowerCase() == troubleCountries[i]){
-										troubleFound = true;
+								troubleFound = false;
+								for (i = 0; i < troubleCountries.length; i++) {
+									if (cname[tname][0].name.toLowerCase() == troubleCountries[i]) {
+										troubleFound = troubleCountries[i];
 									}
 								}
-								if (!troubleFound){	//Den här taggen är inget problem, fortsätt som vanligt
+								if (!troubleFound) { //Den här taggen är inget problem, fortsätt som vanligt
 										cid = cname[tname][0].id; 
 										countryName = cname[tname][0].name;
 								} else { //Den här taggen finns med i listan, spara den temporärt och se om vi hittar något bättre!
@@ -86,13 +88,13 @@ var superCount = 0;
 							//Testar taggen mot demonymer
 							} else if (alias[tname] && alias[tname][0].id) { // swedish->sweden
 								
-								var troubleFound = false;
-								for (i=0; i<troubleLanguages.length; i++){
-									if (alias[tname][0].tag.toLowerCase() == troubleLanguages[i]){
-										troubleFound = true;
+								troubleFound = false;
+								for (i = 0; i < troubleLanguages.length; i++) {
+									if (alias[tname][0].tag.toLowerCase() == troubleLanguages[i]) {
+										troubleFound = troubleLanguages[i];
 									}
 								}
-								if (!troubleFound){	//Den här taggen är inget problem, fortsätt som vanligt
+								if (!troubleFound) { //Den här taggen är inget problem, fortsätt som vanligt
 										cid = alias[tname][0].id;
 										countryName = alias[tname][0].name;
 								} else { //Den här taggen finns med i listan, spara den temporärt och se om vi hittar något bättre!
@@ -120,8 +122,8 @@ var superCount = 0;
 				})
 
 				if (running) { // Vi hittade inget perfekt land. 
-				  if (tempCid){//go with backup plan, använd den problematiska taggen
-				  			console.log("En möjligen felaktig artist! " + artist)
+					if (tempCid) { //go with backup plan, använd den problematiska taggen
+						console.log("Potentially incorrect country for '" + artist + "': " + tempCountryname + ", using only the tag '" + troubleFound + "'");
 							callback({ // Call callback method
 								"artist": artist,
 								"id": tempCid,
@@ -129,8 +131,7 @@ var superCount = 0;
 								"name": tempCountryname,
 							});
 							running = false; // Stop searching for country-tags
-					}
-					else{
+					} else {
 						callback({
 							"artist": artist
 						})
@@ -160,7 +161,7 @@ var superCount = 0;
 			var checkCount = function() {
 				count++;
 				superCount++;
-				d3.select("#loading-text").html("Loading artists...<br>(" + superCount + "/" + SESSION.total_artists + ")<br>Feel free to start<br>exploring!");
+				d3.select("#loading-text").html("Loading artists...<br>(" + superCount + "/" + SESSION.total_artists + ")<br>You can start exploring,<br>but it might interfere<br>with loading your artists.");
 				if (count === artists.length) {
 					// We done, save artists and call back
 					window.localStorage.artists = JSON.stringify(STORED_ARTISTS);
@@ -264,15 +265,15 @@ var superCount = 0;
 	 * @param  {Function} callback Callback function. Argument is a list of artists.
 	 */
 	var recommendationRequests = [];
-	var cancelRecommendationRequests = function() {
-		recommendationRequests.forEach(function(xhr) {
+	api.cancelRecommendationRequests = function () {
+		recommendationRequests.forEach(function (xhr) {
 			xhr.abort();
 		});
 
 		recommendationRequests = [];
 	}
-	api.getRecommendations = function(country, callback) {
-		cancelRecommendationRequests();
+	api.getRecommendations = function (country, callback) {
+		api.cancelRecommendationRequests();
 
 		var recommendations = [];
 
