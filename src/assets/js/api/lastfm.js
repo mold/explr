@@ -29,6 +29,9 @@ api.lastfm.send = function(method, options, callback) {
 
 	xhr = d3.json(url, function(e, d) {
 		gotResponse = true;
+		if (e) {
+			d = d || JSON.parse(e.response);
+		}
 		callback(e, d);
 	});
 
