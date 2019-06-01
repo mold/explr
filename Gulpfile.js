@@ -152,7 +152,8 @@ gulp.task('serve', function() {
     //Start browsersync server!
     browserSync.init({
         server: "build/",
-        port: 8000
+        port: 8000,
+        https: true,
     });
     //Watch folders!
     gulp.watch(path.src.sass + "**/*.scss", ['sass']);

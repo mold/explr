@@ -744,7 +744,7 @@ var countryScore = 0;
           d3.select("#recommendations").append("p")
             .html("We couldn't find any good " + tag + " recommendations for you :-( ");
           d3.select("#recommendations").append("a").attr({
-            href: "http://www.last.fm/tag/" + name,
+            href: "https://www.last.fm/tag/" + name,
             target: "_blank",
           }).html("Try searching last.fm yourself!");
         }
@@ -881,7 +881,7 @@ var countryScore = 0;
         }
       }
       //Display artist summary
-      summaryText.append("p").html(text || "No description available - <a href='http://last.fm/music/" + artistname + "' target='_blank'>check out last.fm.</a>");
+      summaryText.append("p").html(text || "No description available - <a href='https://last.fm/music/" + artistname + "' target='_blank'>check out last.fm.</a>");
 
     })
 

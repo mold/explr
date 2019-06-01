@@ -2,7 +2,7 @@ var api = api || {};
 
 api.lastfm = {};
 api.lastfm.key = "865b1653dbe200905a5b75d9d839467a";
-api.lastfm.url = "http://ws.audioscrobbler.com/2.0/";
+api.lastfm.url = "https://ws.audioscrobbler.com/2.0/";
 
 /**
 * Send an API call to last.fm
