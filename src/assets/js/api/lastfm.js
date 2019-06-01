@@ -35,21 +35,33 @@ api.lastfm.send = function (method, options, callback, retries) {
 				return;
 			}
 
-			if (e || d.error) {
+			if (e) { // we got an actual server error: 4xx, 5xx
+				d = JSON.parse(e.response);
+				// now e and d are the same
+			} else if (d.error) {
+				// we got 200 BUT it's an error
+				e = d;
+			}
+
+			// console.log({
+			// 	e: e,
+			// 	d: d
+			// });
+
+			if (e) {
 				var errInfo = {
 					method: method,
-					errorCode: d.error,
+					errorCode: e.error,
 					try: tries,
 					options: options,
 				};
 				// alert("ERROR");
-				d = d || JSON.parse(e.response);
 				if ((
-						d.error === 29 || // Rate Limit Exceeded
-						d.error === 8 // Operation failed
+						e.error === 29 || // Rate Limit Exceeded
+						e.error === 8 // Operation failed
 					) && tries < retries) {
 					console.log("Retry request: ", errInfo);
-					setTimeout(tryGet.bind(null, tries + 1, cb), tries * 500 + Math.random() * tries * 1000);
+					setTimeout(tryGet.bind(null, tries + 1, cb), tries * 3000);
 					return;
 				}
 

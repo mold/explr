@@ -45,7 +45,7 @@ var CACHED_NO_COUNTRIES = JSON.parse(window.localStorage.no_countries || "{}");
     }
 
     var getAllArtists = function () {
-        console.log("get artists")
+        // console.log("get artists")
         
         api.lastfm.send("library.getartists", [
                 ["user", user],
