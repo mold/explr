@@ -8,6 +8,7 @@
 
 var gulp        = require('gulp');
 var browserSync = require('browser-sync').create();
+var del         = require('del');
 var sass        = require('gulp-sass');
 var sourcemaps  = require('gulp-sourcemaps');
 var prefix      = require('gulp-autoprefixer');
@@ -15,10 +16,8 @@ var concat      = require('gulp-concat');
 var rename      = require('gulp-rename');
 var uglify      = require('gulp-uglify');
 var deporder    = require('gulp-deporder');
-var clean       = require('gulp-clean');
 var changed     = require('gulp-changed');
 var imagemin = require('gulp-imagemin');
-var runSequence = require('run-sequence');
 var minifyCss = require('gulp-minify-css');
 var ghPages = require('gulp-gh-pages');
 var minifyHTML  = require('gulp-minify-html');
@@ -54,18 +53,18 @@ var path = {
  */
 
 gulp.task('clean', function() {
-    return gulp.src('build/', {read: false})
-        .pipe(clean())
-    ;
+    return del([
+        'build/',
+    ]);
 });
 
 /**
  * Deploy to gh-pages branch! Run using 'gulp deploy'
  */
-
-gulp.task('upload', function() {
-  return gulp.src('./build/**/*')
-    .pipe(ghPages());
+gulp.task('upload', function(cb) {
+    gulp.src('./build/**/*')
+        .pipe(ghPages());
+    cb();
 });
 
 // -----------------------------------------------------------------------------
@@ -75,8 +74,8 @@ gulp.task('upload', function() {
 /**
  * Compiles SCSS sourcefiles and outputs autoprefixed, minified CSS + sourcemaps
  */
-gulp.task('sass', function() {
-    return gulp.src(path.src.sass + "/*.scss")
+gulp.task('sass', function(cb) {
+    gulp.src(path.src.sass + "/*.scss")
     
         .pipe(sourcemaps.init())
             .pipe(sass.sync().on('error', sass.logError)) //Log SCSS errors in console!
@@ -88,13 +87,14 @@ gulp.task('sass', function() {
         .pipe(gulp.dest(path.build.css))
         //Update browser sync!
         .pipe(browserSync.stream());
+    cb();
 });
 
 /**
  * Combines and minifies all source JavaScript files, including sourcemaps. Dependencies and ordering is done with the deporder plugin
  */
-gulp.task('js', function(){
-    return gulp.src(path.src.js + '**/*.js')
+gulp.task('js', function(cb){
+    gulp.src(path.src.js + '**/*.js')
         .pipe(deporder())
         .pipe(sourcemaps.init())
             .pipe(concat('concat.js'))
@@ -103,42 +103,50 @@ gulp.task('js', function(){
         .pipe(sourcemaps.write("sourcemaps"))
         .pipe(gulp.dest(path.build.js))
         .pipe(browserSync.stream());
+    cb();
 });
 
 /**
  * Optimizes images for web and outputs them to build folder.
  */
-gulp.task('img', function() {
-  return gulp.src(path.src.img + '*.*')
-    .pipe(changed(path.build.img)) // Ignore unchanged files
-    .pipe(imagemin({optimizationLevel: 5}))
-    .pipe(gulp.dest(path.build.img))
-    .pipe(browserSync.stream());
+gulp.task('img', function(cb) {
+    gulp.src(path.src.img + '*.*')
+        .pipe(changed(path.build.img)) // Ignore unchanged files
+        .pipe(imagemin({optimizationLevel: 5}))
+        .pipe(gulp.dest(path.build.img))
+        .pipe(browserSync.stream());
+    cb();
 
 });
 
 /**
  * Outputs data files to build folder
  */
-gulp.task('data', function() {
-  gulp.src(path.src.data + '*.*')
-    .pipe(changed(path.build.data)) // Ignore unchanged files
-    .pipe(gulp.dest(path.build.data));
+gulp.task('data', function(cb) {
     gulp.src(path.src.data + '*.*')
-    .pipe(browserSync.stream());
-
+        .pipe(changed(path.build.data)) // Ignore unchanged files
+        .pipe(gulp.dest(path.build.data));
+    gulp.src(path.src.data + '*.*')
+        .pipe(browserSync.stream());
+    cb();
 });
 
 /**
  * Outputs html files to build folder
  */
-gulp.task('html', function() {
-  return gulp.src([path.src.html + '*.html', path.src.html + 'CNAME'])
-    .pipe(changed(path.build.html)) // Ignore unchanged files
-    //.pipe(minifyHTML())
-    .pipe(gulp.dest(path.build.html))
-    .pipe(browserSync.stream());
+gulp.task('html', function(cb) {
+    gulp.src([path.src.html + '*.html', path.src.html + 'CNAME'])
+        .pipe(changed(path.build.html)) // Ignore unchanged files
+        //.pipe(minifyHTML())
+        .pipe(gulp.dest(path.build.html))
+        .pipe(browserSync.stream());
+    cb();
 });
+
+/**
+ * Outputs all files.
+ */
+gulp.task('build', gulp.parallel('sass', 'js', 'img', 'html', 'data'));
 
 // -----------------------------------------------------------------------------
 // Watch and serve tasks
@@ -147,7 +155,7 @@ gulp.task('html', function() {
 /**
  * Start BrowserSync server and watch files for changes!
  */
-gulp.task('serve', function() {
+gulp.task('serve', function(cb) {
 
     //Start browsersync server!
     browserSync.init({
@@ -156,9 +164,10 @@ gulp.task('serve', function() {
         https: true,
     });
     //Watch folders!
-    gulp.watch(path.src.sass + "**/*.scss", ['sass']);
-    gulp.watch(path.src.html + '*.html', ['html']);
-    gulp.watch(path.src.js + "/**/*.js", ['js']);
+    gulp.watch(path.src.sass + "**/*.scss", gulp.series('sass'));
+    gulp.watch(path.src.html + '*.html', gulp.series('html'));
+    gulp.watch(path.src.js + "/**/*.js", gulp.series('js'));
+    cb();
 });
 
 // -----------------------------------------------------------------------------
@@ -168,20 +177,9 @@ gulp.task('serve', function() {
 /**
  * Run tasks in specified order! (1. clean, 2. build, 3. serve and watch)
  */
-gulp.task('default', function() {
-    runSequence(
-        'clean',
-        ['sass', 'js', 'img', 'html', 'data'],
-        'serve'
-    );
-});
+gulp.task('default', gulp.series('clean', 'build', 'serve'));
+
 /**
  * Alternative: Build, then deploy to gh-pages!
  */
-gulp.task('deploy', function() {
-    runSequence(
-        'clean',
-        ['sass', 'js', 'img', 'html', 'data'],
-        'upload'
-    );
-});
+gulp.task('deploy', gulp.series('clean', 'build', 'upload'));
