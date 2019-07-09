@@ -166,7 +166,7 @@ gulp.task("serve", function(cb) {
     //Watch folders!
     gulp.watch(path.src.sass + "**/*.scss", gulp.series("sass"));
     gulp.watch(path.src.html + "*.html", gulp.series("html"));
-    gulp.watch(path.src.js + "/**/*.js", gulp.series("js"));
+    gulp.watch(path.src.js + "**/*.js", gulp.series("js"));
     cb();
 });
 
