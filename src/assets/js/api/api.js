@@ -13,7 +13,7 @@ var superCount = 0;
 					return d.tag.toLowerCase();
 				} else {
 					return "";
-                }
+				}
 			})
 			.map(data);
 
