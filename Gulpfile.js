@@ -61,10 +61,9 @@ gulp.task("clean", function() {
 /**
  * Deploy to gh-pages branch! Run using 'gulp deploy'
  */
-gulp.task("upload", function(cb) {
-    gulp.src("./build/**/*")
+gulp.task("upload", function() {
+    return gulp.src("./build/**/*")
         .pipe(ghPages());
-    cb();
 });
 
 // -----------------------------------------------------------------------------
