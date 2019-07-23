@@ -52,19 +52,19 @@ var path = {
  * Pre-cleaning the build folder
  */
 
-gulp.task("clean", function() {
+function clean() {
     return del([
         "build/",
     ]);
-});
+}
 
 /**
  * Deploy to gh-pages branch! Run using 'gulp deploy'
  */
-gulp.task("upload", function() {
+function upload() {
     return gulp.src("./build/**/*")
         .pipe(ghPages());
-});
+}
 
 // -----------------------------------------------------------------------------
 // Build tasks
@@ -73,27 +73,27 @@ gulp.task("upload", function() {
 /**
  * Compiles SCSS sourcefiles and outputs autoprefixed, minified CSS + sourcemaps
  */
-gulp.task("sass", function(cb) {
-    gulp.src(path.src.sass + "/*.scss")
-    
+function compileSass() {
+    return gulp.src(path.src.sass + "/*.scss")
+
         .pipe(sourcemaps.init())
-            .pipe(sass.sync().on("error", sass.logError)) //Log SCSS errors in console!
-            .pipe(prefix(["last 15 versions", "> 1%", "ie 8", "ie 7"], { cascade: true }))
+            .pipe(sass.sync())
+                .on("error", sass.logError) //Log SCSS errors in console!
+            .pipe(prefix(["last 2 versions", "> 1%"], { cascade: true }))
             .pipe(rename("main.min.css"))
-            .pipe(minifyCss({compatibility: "ie8"}))
+            .pipe(minifyCss())
 
         .pipe(sourcemaps.write("sourcemaps"))
         .pipe(gulp.dest(path.build.css))
         //Update browser sync!
         .pipe(browserSync.stream());
-    cb();
-});
+}
 
 /**
  * Combines and minifies all source JavaScript files, including sourcemaps. Dependencies and ordering is done with the deporder plugin
  */
-gulp.task("js", function(cb){
-    gulp.src(path.src.js + "**/*.js")
+function js() {
+    return gulp.src(path.src.js + "**/*.js")
         .pipe(deporder())
         .pipe(sourcemaps.init())
             .pipe(concat("concat.js"))
@@ -102,50 +102,41 @@ gulp.task("js", function(cb){
         .pipe(sourcemaps.write("sourcemaps"))
         .pipe(gulp.dest(path.build.js))
         .pipe(browserSync.stream());
-    cb();
-});
+}
 
 /**
  * Optimizes images for web and outputs them to build folder.
  */
-gulp.task("img", function(cb) {
-    gulp.src(path.src.img + "*.*")
+function img() {
+    return gulp.src(path.src.img + "*.*")
         .pipe(changed(path.build.img)) // Ignore unchanged files
         .pipe(imagemin({optimizationLevel: 5}))
         .pipe(gulp.dest(path.build.img))
         .pipe(browserSync.stream());
-    cb();
 
-});
+}
 
 /**
  * Outputs data files to build folder
  */
-gulp.task("data", function(cb) {
-    gulp.src(path.src.data + "*.*")
+function data(cb) {
+    return gulp.src(path.src.data + "*.*")
         .pipe(changed(path.build.data)) // Ignore unchanged files
-        .pipe(gulp.dest(path.build.data));
-    gulp.src(path.src.data + "*.*")
+        .pipe(gulp.dest(path.build.data))
         .pipe(browserSync.stream());
     cb();
-});
+}
 
 /**
  * Outputs html files to build folder
  */
-gulp.task("html", function(cb) {
-    gulp.src([path.src.html + "*.html", path.src.html + "CNAME"])
+function html() {
+    return gulp.src([path.src.html + "*.html", path.src.html + "CNAME"])
         .pipe(changed(path.build.html)) // Ignore unchanged files
         //.pipe(minifyHTML())
         .pipe(gulp.dest(path.build.html))
         .pipe(browserSync.stream());
-    cb();
-});
-
-/**
- * Outputs all files.
- */
-gulp.task("build", gulp.parallel("sass", "js", "img", "html", "data"));
+}
 
 // -----------------------------------------------------------------------------
 // Watch and serve tasks
@@ -154,7 +145,7 @@ gulp.task("build", gulp.parallel("sass", "js", "img", "html", "data"));
 /**
  * Start BrowserSync server and watch files for changes!
  */
-gulp.task("serve", function(cb) {
+function serve(cb) {
 
     //Start browsersync server!
     browserSync.init({
@@ -167,18 +158,29 @@ gulp.task("serve", function(cb) {
     gulp.watch(path.src.html + "*.html", gulp.series("html"));
     gulp.watch(path.src.js + "**/*.js", gulp.series("js"));
     cb();
-});
+}
 
-// -----------------------------------------------------------------------------
-// Let's begin!
-// -----------------------------------------------------------------------------
+/**
+ * Outputs all files.
+ */
+const build = gulp.parallel(compileSass, js, img, html, data);
+
+// export tasks
+exports.clean = clean;
+exports.sass = compileSass;
+exports.js = js;
+exports.img = img;
+exports.data = data;
+exports.html = html;
+exports.upload = upload;
+exports.build = build;
 
 /**
  * Run tasks in specified order! (1. clean, 2. build, 3. serve and watch)
  */
-gulp.task("default", gulp.series("clean", "build", "serve"));
+exports.default = gulp.series(clean, build, serve);
 
 /**
  * Alternative: Build, then deploy to gh-pages!
  */
-gulp.task("deploy", gulp.series("clean", "build", "upload"));
+exports.deploy = gulp.series(clean, build, upload);
