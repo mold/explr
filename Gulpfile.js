@@ -119,12 +119,11 @@ function img() {
 /**
  * Outputs data files to build folder
  */
-function data(cb) {
+function data() {
     return gulp.src(path.src.data + "*.*")
         .pipe(changed(path.build.data)) // Ignore unchanged files
         .pipe(gulp.dest(path.build.data))
         .pipe(browserSync.stream());
-    cb();
 }
 
 /**
