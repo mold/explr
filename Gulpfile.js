@@ -20,14 +20,13 @@ var changed     = require("gulp-changed");
 var imagemin    = require("gulp-imagemin");
 var minifyCss   = require("gulp-minify-css");
 var ghPages     = require("gulp-gh-pages");
-var minifyHTML  = require("gulp-minify-html");
 
 
 
 /**
  * Predefined filepaths to be used in the tasks
  */
-var path = {
+const path = {
             build:{
                 css: "build/assets/css/",
                 js: "build/assets/js/",
@@ -132,7 +131,6 @@ function data() {
 function html() {
     return gulp.src([path.src.html + "*.html", path.src.html + "CNAME"])
         .pipe(changed(path.build.html)) // Ignore unchanged files
-        //.pipe(minifyHTML())
         .pipe(gulp.dest(path.build.html))
         .pipe(browserSync.stream());
 }
