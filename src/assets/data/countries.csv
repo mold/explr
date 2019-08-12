@@ -4,6 +4,7 @@ id,name,tag
 12,Algeria,Algerian
 20,Andorra,Andorran
 24,Angola,Angolan
+28,Antigua and Barbuda,Antiguan
 31,Azerbaijan,Azerbaijani
 32,Argentina,Argentinian
 36,Australia,Australian
@@ -34,6 +35,7 @@ id,name,tag
 156,China,Chinese
 158,Taiwan,Taiwanese
 170,Colombia,Colombian
+174,Comoros,Comoran
 178,Congo-Brazzaville,Congolese
 180,DR Congo,Congolese
 188,Costa Rica,Costa Rican
@@ -130,6 +132,8 @@ id,name,tag
 643,Russia,Russian
 646,Rwanda,Rwandan
 659,Saint Kitts and Nevis,Kittitian
+662,Saint Lucia,Saint Lucian
+670,Saint Vincent and the Grenadines,Vincentian
 682,Saudi Arabia,Saudi
 ,Scotland,Scottish
 686,Senegal,Senegalese
