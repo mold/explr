@@ -1,1 +1,210 @@
-id,name,tag,count4,Afghanistan,Afghan,28,Albania,Albanian,012,Algeria,Algerian,020,Andorra,Andorran,224,Angola,Angolan,431,Azerbaijan,Azerbaijani,632,Argentina,Argentinian,836,Australia,Australian,940,Austria,Austrian,044,Bahamas,Bahamian,448,Bahrain,Bahraini,1250,Bangladesh,Bangladeshi,3051,Armenia,Armenian,052,Barbados,Barbadian,056,Belgium,Belgian,064,Bhutan,Bhutanese,268,Bolivia,Bolivian,370,Bosnia-Herzegovina,Bosnian,472,Botswana,Botswanan,576,Brazil,Brazilian,2184,Belize,Belizean,390,Solomon Islands,,7100,Bulgaria,Bulgarian,54108,Burundi,Burundian,1112,Belarus,Belarusian,2116,Cambodia,Cambodian,2120,Cameroon,Cameroonian,0124,Canada,Canadian,0132,Cape Verde,Cape Verdean,2144,Sri Lanka,Sri Lankan,4148,Chad,Chadian,6152,Chile,Chilean,8156,China,Chinese,9158,Taiwan,Taiwanese,0170,Colombia,Colombian,4178,Congo-Brazzaville,Congolese,12180,DR Congo,Congolese,30188,Costa Rica,Costa Rican,0192,Cuba,Cuban,0196,Cyprus,Cypriot,0203,Czech Republic,Czech,2204,Benin,Beninese,3208,Denmark,Danish,4212,Dominica,Dominican,5214,Dominican Republic,Dominican,21218,Ecuador,Ecuadorean,3222,El Salvador,Salvadorean,7826,England,English,54231,Ethiopia,Ethiopian,1232,Eritrea,Eritrean,2233,Estonia,Estonian,2410,South Korea,Korean,0242,Fiji,Fijian,0246,Finland,Finnish,2250,France,French,4262,Djibouti,Djiboutian,6266,Gabon,Gabonese,8268,Georgia,Georgian,9270,Gambia,Gambian,0276,Germany,German,4288,Ghana,Ghanaian,12300,Greece,Greek,30308,Grenada,Grenadian,0320,Guatemala,Guatemalan,0324,Guinea,Guinean,0328,Guyana,Guyanese,2332,Haiti,Haitian,3340,Honduras,Honduran,4348,Hungary,Hungarian,5352,Iceland,Icelandic,21356,India,Indian,3360,Indonesia,Indonesian,7364,Iran,Iranian,54368,Iraq,Iraqi,1372,Ireland,Irish,2380,Italy,Italian,2191,Croatia,Croatian,0388,Jamaica,Jamaican,0392,Japan,Japanese,2398,Kazakhstan,Kazakh,4400,Jordan,Jordanian,6404,Kenya,Kenyan,8414,Kuwait,Kuwaiti,9418,Laos,Laotian,0422,Lebanon,Lebanese,4428,Latvia,Latvian,12430,Liberia,Liberian,30434,Libya,Libyan,0438,Liechtenstein,-,0440,Lithuania,Lithuanian,0442,Luxembourg,-,2807,Macedonia,Macedonian,3450,Madagascar,Madagascan,4454,Malawi,Malawian,5458,Malaysia,Malaysian,21462,Maldives,Maldivian,3466,Mali,Malian,7470,Malta,Maltese,54478,Mauritania,Mauritanian,1480,Mauritius,Mauritian,2484,Mexico,Mexican,2492,Monaco,Monacan,0496,Mongolia,Mongolian,0499,Montenegro,Montenegrin,2504,Morocco,Moroccan,4508,Mozambique,Mozambican,6512,Oman,Omani,8516,Namibia,Namibian,9524,Nepal,Nepalese,0528,Netherlands,Dutch,4528,Netherlands,Dutch,12548,Vanuatu,Vanuatuan,30554,New Zealand,New Zealand,0558,Nicaragua,Nicaraguan,0562,Niger,Nigerien,0566,Nigeria,Nigerian,2408,North Korea,North Korean,3578,Norway,Norwegian,4840,United States,American,5498,Moldova,Moldovan,21586,Pakistan,Pakistani,3591,Panama,Panamanian,7598,Papua New Guinea,Papa New Guinean,54600,Paraguay,Paraguayan,1604,Peru,Peruvian,2616,Poland,Polish,2620,Portugal,Portuguese,0634,Qatar,Qatari,0642,Romania,Romanian,2643,Russia,Russian,4646,Rwanda,Rwandan,6682,Saudi Arabia,Saudi,8,Scotland,Scottish,9686,Senegal,Senegalese,0688,Serbia,Serbian,4690,Seychelles,Seychellois,12694,Sierra Leone,Sierra Leonean,30702,Singapore,Singaporean,0703,Slovakia,Slovak,0704,Vietnam,Vietnamese,0705,Slovenia,Slovenian,2706,Somalia,Somali,3710,South Africa,South African,4716,Zimbabwe,Zimbabwean,5724,Spain,Spanish,21804,Western Samoa,Western Samoan,3729,Sudan,Sudanese,7740,Suriname,Surinamese,54748,Swaziland,Swazi,1752,Sweden,Swedish,2756,Switzerland,Swiss,2760,Syria,Syrian,0762,Tajikistan,Tajik,0834,Tanzania,Tanzanian,2608,Philippines,Philippine,4764,Thailand,Thai,6768,Togo,Togolese,8780,Trinidad and Tobago,Trinidadian,9784,United Arab Emirates,Emirati,0788,Tunisia,Tunisian,4792,Turkey,Turkish,12795,Turkmenistan,Turkmen,30798,Tuvalu,Tuvaluan,0800,Uganda,Ugandan,0804,Ukraine,Ukrainian,0818,Egypt,Egyptian,2826,United Kingdom,British,3,Wales,Welsh,4854,Burkina Faso,Burkinese,5104,Burma,Burmese,21858,Uruguay,Uruguayan,3860,Uzbekistan,Uzbek,7862,Venezuela,Venezuelan,54887,Yemen,Yemeni,1894,Zambia,Zambian,2426,Lesotho,Lesothian,2140,Central African Republic,Central African,0728,South Sudan,South Sudanese,0384,Cote d'Ivoir,Ivorian,2678,Sao Tome and Principe,Sao Tomean,0226,Equatorial Guinea,Equatoguinean,2304,Greenland,Greenlandic,010,Antarctica,Antarctican,0732,Western Sahara,West Saharan,0624,Guinea-Bissau,Guinea-Bissauan,0376,Israel,Israeli,10417,Kyrgyzstan,Kyrgyz,0275,Palestine,Palestinian,0630,Puerto Rico,Puerto Rican,5248,Åland,Ålandish,2626,Timor-Leste,Timorese,6234,Faroe Islands,Faroese,0344,Hong Kong,Hongkongese,096,Brunei,Bruneian,0904,Kosovo,Kosovan,0901,North Cyprus,Cypriot,0905,Somaliland,Somali,0540,New Caledonia,New Caledonian,0260,French Southern Territories,French Sothern Territories,0674,San Marino,Sammarinese,0
+id,name,tag
+4,Afghanistan,Afghan
+8,Albania,Albanian
+12,Algeria,Algerian
+20,Andorra,Andorran
+24,Angola,Angolan
+28,Antigua and Barbuda,Antiguan
+31,Azerbaijan,Azerbaijani
+32,Argentina,Argentinian
+36,Australia,Australian
+40,Austria,Austrian
+44,Bahamas,Bahamian
+48,Bahrain,Bahraini
+50,Bangladesh,Bangladeshi
+51,Armenia,Armenian
+52,Barbados,Barbadian
+56,Belgium,Belgian
+64,Bhutan,Bhutanese
+68,Bolivia,Bolivian
+70,Bosnia-Herzegovina,Bosnian
+72,Botswana,Botswanan
+76,Brazil,Brazilian
+84,Belize,Belizean
+90,Solomon Islands,
+100,Bulgaria,Bulgarian
+108,Burundi,Burundian
+112,Belarus,Belarusian
+116,Cambodia,Cambodian
+120,Cameroon,Cameroonian
+124,Canada,Canadian
+132,Cape Verde,Cape Verdean
+144,Sri Lanka,Sri Lankan
+148,Chad,Chadian
+152,Chile,Chilean
+156,China,Chinese
+158,Taiwan,Taiwanese
+170,Colombia,Colombian
+174,Comoros,Comoran
+178,Congo-Brazzaville,Congolese
+180,DR Congo,Congolese
+188,Costa Rica,Costa Rican
+192,Cuba,Cuban
+196,Cyprus,Cypriot
+203,Czech Republic,Czech
+204,Benin,Beninese
+208,Denmark,Danish
+212,Dominica,Dominican
+214,Dominican Republic,Dominican
+218,Ecuador,Ecuadorean
+222,El Salvador,Salvadorean
+,England,English
+231,Ethiopia,Ethiopian
+232,Eritrea,Eritrean
+233,Estonia,Estonian
+410,South Korea,Korean
+242,Fiji,Fijian
+246,Finland,Finnish
+250,France,French
+262,Djibouti,Djiboutian
+266,Gabon,Gabonese
+268,Georgia,Georgian
+270,Gambia,Gambian
+276,Germany,German
+288,Ghana,Ghanaian
+300,Greece,Greek
+308,Grenada,Grenadian
+320,Guatemala,Guatemalan
+324,Guinea,Guinean
+328,Guyana,Guyanese
+332,Haiti,Haitian
+340,Honduras,Honduran
+348,Hungary,Hungarian
+352,Iceland,Icelandic
+356,India,Indian
+360,Indonesia,Indonesian
+364,Iran,Iranian
+368,Iraq,Iraqi
+372,Ireland,Irish
+380,Italy,Italian
+191,Croatia,Croatian
+388,Jamaica,Jamaican
+392,Japan,Japanese
+398,Kazakhstan,Kazakh
+400,Jordan,Jordanian
+404,Kenya,Kenyan
+414,Kuwait,Kuwaiti
+418,Laos,Laotian
+422,Lebanon,Lebanese
+428,Latvia,Latvian
+430,Liberia,Liberian
+434,Libya,Libyan
+438,Liechtenstein,
+440,Lithuania,Lithuanian
+442,Luxembourg,
+807,Macedonia,Macedonian
+450,Madagascar,Madagascan
+454,Malawi,Malawian
+458,Malaysia,Malaysian
+462,Maldives,Maldivian
+466,Mali,Malian
+470,Malta,Maltese
+478,Mauritania,Mauritanian
+480,Mauritius,Mauritian
+484,Mexico,Mexican
+492,Monaco,Monacan
+496,Mongolia,Mongolian
+499,Montenegro,Montenegrin
+504,Morocco,Moroccan
+508,Mozambique,Mozambican
+512,Oman,Omani
+516,Namibia,Namibian
+520,Nauru,Nauruan
+524,Nepal,Nepalese
+528,Netherlands,Dutch
+548,Vanuatu,Vanuatuan
+554,New Zealand,New Zealand
+558,Nicaragua,Nicaraguan
+562,Niger,Nigerien
+566,Nigeria,Nigerian
+408,North Korea,North Korean
+578,Norway,Norwegian
+840,United States,American
+498,Moldova,Moldovan
+583,Federated States of Micronesia,Micronesian
+584,Marshall Islands,Marshallese
+296,Kiribati,Kiribatian
+585,Palau,Palauan
+586,Pakistan,Pakistani
+591,Panama,Panamanian
+598,Papua New Guinea,Papa New Guinean
+600,Paraguay,Paraguayan
+604,Peru,Peruvian
+616,Poland,Polish
+620,Portugal,Portuguese
+634,Qatar,Qatari
+642,Romania,Romanian
+643,Russia,Russian
+646,Rwanda,Rwandan
+659,Saint Kitts and Nevis,Kittitian
+662,Saint Lucia,Saint Lucian
+670,Saint Vincent and the Grenadines,Vincentian
+682,Saudi Arabia,Saudi
+,Scotland,Scottish
+686,Senegal,Senegalese
+688,Serbia,Serbian
+690,Seychelles,Seychellois
+694,Sierra Leone,Sierra Leonean
+702,Singapore,Singaporean
+703,Slovakia,Slovak
+704,Vietnam,Vietnamese
+705,Slovenia,Slovenian
+706,Somalia,Somali
+710,South Africa,South African
+716,Zimbabwe,Zimbabwean
+724,Spain,Spanish
+882,Samoa,Samoan
+729,Sudan,Sudanese
+740,Suriname,Surinamese
+748,Swaziland,Swazi
+752,Sweden,Swedish
+756,Switzerland,Swiss
+760,Syria,Syrian
+762,Tajikistan,Tajik
+834,Tanzania,Tanzanian
+608,Philippines,Philippine
+764,Thailand,Thai
+768,Togo,Togolese
+780,Trinidad and Tobago,Trinidadian
+784,United Arab Emirates,Emirati
+788,Tunisia,Tunisian
+792,Turkey,Turkish
+795,Turkmenistan,Turkmen
+798,Tuvalu,Tuvaluan
+800,Uganda,Ugandan
+804,Ukraine,Ukrainian
+818,Egypt,Egyptian
+826,United Kingdom,British
+,Wales,Welsh
+854,Burkina Faso,Burkinese
+104,Burma,Burmese
+858,Uruguay,Uruguayan
+860,Uzbekistan,Uzbek
+862,Venezuela,Venezuelan
+887,Yemen,Yemeni
+894,Zambia,Zambian
+426,Lesotho,Lesothian
+140,Central African Republic,Central African
+728,South Sudan,South Sudanese
+384,Cote d'Ivoir,Ivorian
+678,Sao Tome and Principe,Sao Tomean
+226,Equatorial Guinea,Equatoguinean
+304,Greenland,Greenlandic
+10,Antarctica,Antarctican
+732,Western Sahara,West Saharan
+624,Guinea-Bissau,Guinea-Bissauan
+376,Israel,Israeli
+417,Kyrgyzstan,Kyrgyz
+275,Palestine,Palestinian
+630,Puerto Rico,Puerto Rican
+248,Aland,Alandish
+626,Timor-Leste,Timorese
+234,Faroe Islands,Faroese
+344,Hong Kong,Hongkongese
+96,Brunei,Bruneian
+904,Kosovo,Kosovan
+901,North Cyprus,Turkish Cypriot
+905,Somaliland,Somali
+540,New Caledonia,New Caledonian
+260,French Southern Territories,
+674,San Marino,Sammarinese
