@@ -64,7 +64,7 @@ var countryScore = 0;
 
 
   function updateProgressBar() {
-    var progressPro = (countryScore / 197);
+    var progressPro = (countryScore / 207);
     return progressPro;
   }
 ;
@@ -317,7 +317,7 @@ var countryScore = 0;
       .on("mouseout", function() {
         d3.select("#progress-text").transition().duration(150).style("opacity", 0);
       });
-    d3.select("#progress-text").html("Scrobbled from " + countryScore + "/197 countries")
+    d3.select("#progress-text").html("Scrobbled from " + countryScore + "/207 countries")
 
     //Draw countries
     if (redrawMap) {

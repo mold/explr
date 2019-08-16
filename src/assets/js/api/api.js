@@ -9,7 +9,11 @@ var superCount = 0;
 	d3.csv("assets/data/countries.csv", function(err, data) {
 		alias = d3.nest()
 			.key(function(d) {
-				return d.tag.toLowerCase();
+				if (d && d.tag) {
+					return d.tag.toLowerCase();
+				} else {
+					return "";
+				}
 			})
 			.map(data);
 
