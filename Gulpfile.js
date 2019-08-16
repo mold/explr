@@ -6,42 +6,40 @@
  * Gulp plugins
  */
 
-var gulp        = require('gulp');
-var browserSync = require('browser-sync').create();
-var sass        = require('gulp-sass');
-var sourcemaps  = require('gulp-sourcemaps');
-var prefix      = require('gulp-autoprefixer');
-var concat      = require('gulp-concat');
-var rename      = require('gulp-rename');
-var uglify      = require('gulp-uglify');
-var deporder    = require('gulp-deporder');
-var clean       = require('gulp-clean');
-var changed     = require('gulp-changed');
-var imagemin = require('gulp-imagemin');
-var runSequence = require('run-sequence');
-var minifyCss = require('gulp-minify-css');
-var ghPages = require('gulp-gh-pages');
-var minifyHTML  = require('gulp-minify-html');
+var gulp        = require("gulp");
+var browserSync = require("browser-sync").create();
+var del         = require("del");
+var sass        = require("gulp-sass");
+var sourcemaps  = require("gulp-sourcemaps");
+var prefix      = require("gulp-autoprefixer");
+var concat      = require("gulp-concat");
+var rename      = require("gulp-rename");
+var uglify      = require("gulp-uglify");
+var deporder    = require("gulp-deporder");
+var changed     = require("gulp-changed");
+var imagemin    = require("gulp-imagemin");
+var minifyCss   = require("gulp-minify-css");
+var ghPages     = require("gulp-gh-pages");
 
 
 
 /**
  * Predefined filepaths to be used in the tasks
  */
-var path = {
+const path = {
             build:{
-                css: 'build/assets/css/',
-                js: 'build/assets/js/',
-                img: 'build/assets/img/',
-                data: 'build/assets/data/',
-                html: 'build/'
+                css: "build/assets/css/",
+                js: "build/assets/js/",
+                img: "build/assets/img/",
+                data: "build/assets/data/",
+                html: "build/"
             },
             src:{
-                sass: 'src/assets/scss/',
-                js: 'src/assets/js/',
-                img: 'src/assets/img/',
-                data: 'src/assets/data/',
-                html: 'src/'
+                sass: "src/assets/scss/",
+                js: "src/assets/js/",
+                img: "src/assets/img/",
+                data: "src/assets/data/",
+                html: "src/"
             }
 };
 
@@ -53,20 +51,19 @@ var path = {
  * Pre-cleaning the build folder
  */
 
-gulp.task('clean', function() {
-    return gulp.src('build/', {read: false})
-        .pipe(clean())
-    ;
-});
+function clean() {
+    return del([
+        "build/",
+    ]);
+}
 
 /**
  * Deploy to gh-pages branch! Run using 'gulp deploy'
  */
-
-gulp.task('upload', function() {
-  return gulp.src('./build/**/*')
-    .pipe(ghPages());
-});
+function upload() {
+    return gulp.src("./build/**/*")
+        .pipe(ghPages());
+}
 
 // -----------------------------------------------------------------------------
 // Build tasks
@@ -75,70 +72,68 @@ gulp.task('upload', function() {
 /**
  * Compiles SCSS sourcefiles and outputs autoprefixed, minified CSS + sourcemaps
  */
-gulp.task('sass', function() {
+function compileSass() {
     return gulp.src(path.src.sass + "/*.scss")
-    
+
         .pipe(sourcemaps.init())
-            .pipe(sass.sync().on('error', sass.logError)) //Log SCSS errors in console!
-            .pipe(prefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
-            .pipe(rename('main.min.css'))
-            .pipe(minifyCss({compatibility: 'ie8'}))
+            .pipe(sass.sync())
+                .on("error", sass.logError) //Log SCSS errors in console!
+            .pipe(prefix(["last 2 versions", "> 1%"], { cascade: true }))
+            .pipe(rename("main.min.css"))
+            .pipe(minifyCss())
 
         .pipe(sourcemaps.write("sourcemaps"))
         .pipe(gulp.dest(path.build.css))
         //Update browser sync!
         .pipe(browserSync.stream());
-});
+}
 
 /**
  * Combines and minifies all source JavaScript files, including sourcemaps. Dependencies and ordering is done with the deporder plugin
  */
-gulp.task('js', function(){
-    return gulp.src(path.src.js + '**/*.js')
+function js() {
+    return gulp.src(path.src.js + "**/*.js")
         .pipe(deporder())
         .pipe(sourcemaps.init())
-            .pipe(concat('concat.js'))
-            .pipe(rename('all.min.js'))
+            .pipe(concat("concat.js"))
+            .pipe(rename("all.min.js"))
             .pipe(uglify())
         .pipe(sourcemaps.write("sourcemaps"))
         .pipe(gulp.dest(path.build.js))
         .pipe(browserSync.stream());
-});
+}
 
 /**
  * Optimizes images for web and outputs them to build folder.
  */
-gulp.task('img', function() {
-  return gulp.src(path.src.img + '*.*')
-    .pipe(changed(path.build.img)) // Ignore unchanged files
-    .pipe(imagemin({optimizationLevel: 5}))
-    .pipe(gulp.dest(path.build.img))
-    .pipe(browserSync.stream());
+function img() {
+    return gulp.src(path.src.img + "*.*")
+        .pipe(changed(path.build.img)) // Ignore unchanged files
+        .pipe(imagemin({optimizationLevel: 5}))
+        .pipe(gulp.dest(path.build.img))
+        .pipe(browserSync.stream());
 
-});
+}
 
 /**
  * Outputs data files to build folder
  */
-gulp.task('data', function() {
-  gulp.src(path.src.data + '*.*')
-    .pipe(changed(path.build.data)) // Ignore unchanged files
-    .pipe(gulp.dest(path.build.data));
-    gulp.src(path.src.data + '*.*')
-    .pipe(browserSync.stream());
-
-});
+function data() {
+    return gulp.src(path.src.data + "*.*")
+        .pipe(changed(path.build.data)) // Ignore unchanged files
+        .pipe(gulp.dest(path.build.data))
+        .pipe(browserSync.stream());
+}
 
 /**
  * Outputs html files to build folder
  */
-gulp.task('html', function() {
-  return gulp.src([path.src.html + '*.html', path.src.html + 'CNAME'])
-    .pipe(changed(path.build.html)) // Ignore unchanged files
-    //.pipe(minifyHTML())
-    .pipe(gulp.dest(path.build.html))
-    .pipe(browserSync.stream());
-});
+function html() {
+    return gulp.src([path.src.html + "*.html", path.src.html + "CNAME"])
+        .pipe(changed(path.build.html)) // Ignore unchanged files
+        .pipe(gulp.dest(path.build.html))
+        .pipe(browserSync.stream());
+}
 
 // -----------------------------------------------------------------------------
 // Watch and serve tasks
@@ -147,7 +142,7 @@ gulp.task('html', function() {
 /**
  * Start BrowserSync server and watch files for changes!
  */
-gulp.task('serve', function() {
+function serve(cb) {
 
     //Start browsersync server!
     browserSync.init({
@@ -156,32 +151,33 @@ gulp.task('serve', function() {
         https: true,
     });
     //Watch folders!
-    gulp.watch(path.src.sass + "**/*.scss", ['sass']);
-    gulp.watch(path.src.html + '*.html', ['html']);
-    gulp.watch(path.src.js + "/**/*.js", ['js']);
-});
+    gulp.watch(path.src.sass + "**/*.scss", gulp.series("sass"));
+    gulp.watch(path.src.html + "*.html", gulp.series("html"));
+    gulp.watch(path.src.js + "**/*.js", gulp.series("js"));
+    cb();
+}
 
-// -----------------------------------------------------------------------------
-// Let's begin!
-// -----------------------------------------------------------------------------
+/**
+ * Outputs all files.
+ */
+const build = gulp.parallel(compileSass, js, img, html, data);
+
+// export tasks
+exports.clean = clean;
+exports.sass = compileSass;
+exports.js = js;
+exports.img = img;
+exports.data = data;
+exports.html = html;
+exports.upload = upload;
+exports.build = build;
 
 /**
  * Run tasks in specified order! (1. clean, 2. build, 3. serve and watch)
  */
-gulp.task('default', function() {
-    runSequence(
-        'clean',
-        ['sass', 'js', 'img', 'html', 'data'],
-        'serve'
-    );
-});
+exports.default = gulp.series(clean, build, serve);
+
 /**
  * Alternative: Build, then deploy to gh-pages!
  */
-gulp.task('deploy', function() {
-    runSequence(
-        'clean',
-        ['sass', 'js', 'img', 'html', 'data'],
-        'upload'
-    );
-});
+exports.deploy = gulp.series(clean, build, upload);
