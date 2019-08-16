@@ -109,6 +109,7 @@ id,name,tag
 508,Mozambique,Mozambican
 512,Oman,Omani
 516,Namibia,Namibian
+520,Nauru,Nauruan
 524,Nepal,Nepalese
 528,Netherlands,Dutch
 548,Vanuatu,Vanuatuan
@@ -120,6 +121,10 @@ id,name,tag
 578,Norway,Norwegian
 840,United States,American
 498,Moldova,Moldovan
+583,Federated States of Micronesia,Micronesian
+584,Marshall Islands,Marshallese
+296,Kiribati,Kiribatian
+585,Palau,Palauan
 586,Pakistan,Pakistani
 591,Panama,Panamanian
 598,Papua New Guinea,Papa New Guinean
