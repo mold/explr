@@ -68,7 +68,7 @@ var screenshot = {};
 			ctx.save(); // To draw with different opaticy
 			ctx.globalAlpha = 0.6;
 			ctx.fillStyle = backgroundColor;
-			scoreString = SESSION.total_artists + " artists from " + countryScore + " / 207 countries";
+			scoreString = SESSION.total_artists + " artists from " + countryScore + " / 210 countries";
 			titleString = SESSION.name + "'s musical world map";
 			ctx.font = "34px Patua One";
 			ctx.fillRect(w / 2 - ctx.measureText(titleString).width / 2 - 20, h - 110, ctx.measureText(titleString).width + 40, 100);
@@ -97,7 +97,7 @@ var screenshot = {};
 			// img = document.createElement("img").src = canvas.toDataURL();
 			document.getElementById("screenshot-img").src = canvas.toDataURL("image/png");
 			// d3.select("body").append(img);
-			// 
+			//
 
 			var dataurl = canvas.toDataURL("image/png");
 			// console.log("dataurl:", dataurl)
@@ -105,7 +105,7 @@ var screenshot = {};
 			// window.open(dataurl, "_blank");
 
 			document.getElementsByClassName("screenshot-overlay")[0].style = "";
-			
+
 		}
 		explrLogo.src = "assets/img/explrlogo.png";
 	}
