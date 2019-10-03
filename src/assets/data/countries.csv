@@ -38,6 +38,7 @@ id,name,tag
 174,Comoros,Comoran
 178,Congo-Brazzaville,Congolese
 180,DR Congo,Congolese
+184,Cook Islands,Cook Islander
 188,Costa Rica,Costa Rican
 192,Cuba,Cuban
 196,Cyprus,Cypriot
@@ -118,6 +119,7 @@ id,name,tag
 562,Niger,Nigerien
 566,Nigeria,Nigerian
 408,North Korea,North Korean
+570,Niue,Niuean
 578,Norway,Norwegian
 840,United States,American
 498,Moldova,Moldovan
@@ -156,11 +158,12 @@ id,name,tag
 882,Samoa,Samoan
 729,Sudan,Sudanese
 740,Suriname,Surinamese
-748,Swaziland,Swazi
+748,Eswatini,Swazi
 752,Sweden,Swedish
 756,Switzerland,Swiss
 760,Syria,Syrian
 762,Tajikistan,Tajik
+776,Tonga,Tongan
 834,Tanzania,Tanzanian
 608,Philippines,Philippine
 764,Thailand,Thai
@@ -186,7 +189,7 @@ id,name,tag
 426,Lesotho,Lesothian
 140,Central African Republic,Central African
 728,South Sudan,South Sudanese
-384,Cote d'Ivoir,Ivorian
+384,Cote d'Ivoire,Ivorian
 678,Sao Tome and Principe,Sao Tomean
 226,Equatorial Guinea,Equatoguinean
 304,Greenland,Greenlandic

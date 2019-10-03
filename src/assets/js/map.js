@@ -64,7 +64,7 @@ var countryScore = 0;
 
 
   function updateProgressBar() {
-    var progressPro = (countryScore / 207);
+    var progressPro = (countryScore / 210);
     return progressPro;
   }
 ;
@@ -317,7 +317,7 @@ var countryScore = 0;
       .on("mouseout", function() {
         d3.select("#progress-text").transition().duration(150).style("opacity", 0);
       });
-    d3.select("#progress-text").html("Scrobbled from " + countryScore + "/207 countries")
+    d3.select("#progress-text").html("Scrobbled from " + countryScore + "/210 countries")
 
     //Draw countries
     if (redrawMap) {
@@ -402,9 +402,9 @@ var countryScore = 0;
       }) // on click slutar
 
   }
-  
+
   /*-------redraw----*/
-  //den kallas varje gång datan uppdateras. redrawMap är en boolean 
+  //den kallas varje gång datan uppdateras. redrawMap är en boolean
   function redraw(redrawMap) {
     updateDimensions();
 
@@ -516,7 +516,7 @@ var countryScore = 0;
       .style("opacity", 1)
       .duration(750);
 
-    //Hide progressbar when showing 
+    //Hide progressbar when showing
     d3.selectAll("#countryCount, .on-map-view")
       .classed("hidden", true);
 
@@ -567,7 +567,7 @@ var countryScore = 0;
           eventLabel: 'test'
         });
       }
-  
+
       function showPreviousFive(){
         showArtists(currentNoArtists-9, currentNoArtists-5, false);
         //Trigger GA event
@@ -613,7 +613,7 @@ var countryScore = 0;
                 .attr("class", "image-div")
                 .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )")
                 //.append("span").attr("class", "overlayNo").html(i+1);
-                
+
               var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
 
               playCountDiv.append("p")
@@ -639,7 +639,7 @@ var countryScore = 0;
         //
         //Disable and enable user controls
         //
-        
+
         //Left arrow...
         if (currentNoArtists>=10 && !initial){
           d3.selectAll(".artist-control.left")
@@ -671,11 +671,11 @@ var countryScore = 0;
             });
         }
       }
-      //Fetch the initial five artists!! 
+      //Fetch the initial five artists!!
       showArtists(1, 5, true);
-    
-      
-    } else { //Om landet vi klickat på inte har några lyssnade artister... 
+
+
+    } else { //Om landet vi klickat på inte har några lyssnade artister...
       console.log("landet har inga lyssnade artister");
     }
     //"Recommended"-heading
