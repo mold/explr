@@ -168,8 +168,10 @@ var superCount = 0;
 				d3.select("#loading-text").html("Loading artists...<br>(" + superCount + "/" + SESSION.total_artists + ")<br>You can start exploring,<br>but it might interfere<br>with loading your artists.");
 				if (count === artists.length) {
 					// We done, save artists and call back
-					window.localStorage.artists = JSON.stringify(STORED_ARTISTS);
-					callback(returnList);
+					localforage.setItem("artists", STORED_ARTISTS, function (err) {
+						if (err) { console.error("Failed saving artists to storage: ", err); }
+						callback(returnList);
+					});
 				}
 			}
 
@@ -228,8 +230,10 @@ var superCount = 0;
 			api.lastfm.send("artist.gettoptags", [["artist", artist]],
 				function(err, responseData2) {
 					STORED_ARTISTS[artist].tags = responseData2.toptags.tag;
-					window.localStorage.artists = JSON.stringify(STORED_ARTISTS);
-					callback(STORED_ARTISTS[artist].tags);
+					localforage.setItem("artists", STORED_ARTISTS, function (err) {
+						if (err) { console.error("Failed saving artists to storage: ", err); }
+						callback(STORED_ARTISTS[artist].tags);
+					});
 				});
 		}
 	}
