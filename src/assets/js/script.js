@@ -46,7 +46,7 @@ var CACHED_NO_COUNTRIES = JSON.parse(window.localStorage.no_countries || "{}");
 
     var getAllArtists = function () {
         // console.log("get artists")
-        
+
         api.lastfm.send("library.getartists", [
                 ["user", user],
                 ["limit", 50],
@@ -107,8 +107,6 @@ var CACHED_NO_COUNTRIES = JSON.parse(window.localStorage.no_countries || "{}");
                     a.playcount = +newArtist.playcount;
                     a.url = newArtist.url;
 
-                    a.image = [newArtist.image[3]];
-
                     STORED_ARTISTS[newArtist.name] = a;
                     artistNames.push(newArtist.name);
                 })
@@ -144,7 +142,6 @@ var CACHED_NO_COUNTRIES = JSON.parse(window.localStorage.no_countries || "{}");
 
                             artistList.forEach(function (el, i) {
                                 //Här lägger vi till ett fält image med artistens bild-url som ett fält till det "inre" objektet.
-                                artistList[i].image = STORED_ARTISTS[el.artist].image[0]["#text"];
                                 artistList[i].url = STORED_ARTISTS[el.artist].url;
                                 artistList[i].playcount = STORED_ARTISTS[el.artist].playcount;
                                 // if (artistList[i].users) {
@@ -219,7 +216,7 @@ var CACHED_NO_COUNTRIES = JSON.parse(window.localStorage.no_countries || "{}");
             }
         }
 
-        
+
         /*if (err || data.error) {
             console.error("Erorr in getUserTags", err, data);
             alert("Something went wrong when contacting the Last.fm API\n\nEither:\n - The specified user does not exist\n - Last.fm is down\n\nPlease try again.");
@@ -372,7 +369,7 @@ var CACHED_NO_COUNTRIES = JSON.parse(window.localStorage.no_countries || "{}");
             console.log("No new artists on last.fm!");
             countryCountObj = JSON.parse(window.localStorage.countryCountObj);
             addArtistsWithNoCountry(JSON.parse(window.localStorage.no_countries));
-            
+
             // Get number of artists for screenshot etc.
             api.lastfm.send("library.getartists", [
                     ["user", user],

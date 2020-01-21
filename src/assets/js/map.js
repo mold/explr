@@ -611,7 +611,8 @@ var countryScore = 0;
               var artistLink = artistDiv.append("a").style("display", "block")
               artistLink.append("div")
                 .attr("class", "image-div")
-                .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )")
+                // .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )")
+                .style("background-image", "url(https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png")
                 //.append("span").attr("class", "overlayNo").html(i+1);
 
               var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
