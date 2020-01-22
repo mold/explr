@@ -7,20 +7,26 @@ api.lastfm.url = "https://ws.audioscrobbler.com/2.0/";
 (function (api) {
 	var keyI = 0;
 	var keys = [
-		// from https://github.com/ampache/ampache/issues/1694
+		// https://github.com/ampache/ampache/issues/1694
 		"13893ba930c63b1b2cbe21441dc7f550",
 
-		// from https://www.reddit.com/r/lastfm/comments/3okkij/cant_create_lastfm_api_key/
+		// https://www.reddit.com/r/lastfm/comments/3okkij/cant_create_lastfm_api_key/
 		"4cb074e4b8ec4ee9ad3eb37d6f7eb240",
 
-		// from https://www.w3resource.com/API/last.fm/tutorial.php
+		// https://www.w3resource.com/API/last.fm/tutorial.php
 		"4a9f5581a9cdf20a699f540ac52a95c9",
 
-		// from https://www.reddit.com/r/lastfm/comments/3l3cae/cant_get_a_lastfm_api_key/
+		// https://www.reddit.com/r/lastfm/comments/3l3cae/cant_get_a_lastfm_api_key/
 		"57ee3318536b23ee81d6b27e36997cde",
 
 		// original explr api key
-		"865b1653dbe200905a5b75d9d839467a"
+		"865b1653dbe200905a5b75d9d839467a",
+		
+		// https://www.w3resource.com/API/last.fm/example.html
+		"68b2125fd8f8fbadeb2195e551f32bc4",
+		
+		// https://rstudio-pubs-static.s3.amazonaws.com/236264_81312ba4d795474c8641dd0e2af83cba.html
+		"1ba315d4d1673bbf88aed473f1917306"		
 	];
 
 	var rotateKey = function () {
