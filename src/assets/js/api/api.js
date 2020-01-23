@@ -29,22 +29,21 @@ var superCount = 0;
 		 * @param  {Function} callback Callback function, called when the search is over (whether a country's been found or not)
 		 *                             The callback function takes one argument, this object:
 		 *
+		 * 								```
 		 *                             {
-		 *                             	"artist": <artist name>,
-		 *                             	"country": <country name>,
-		 *                             	"id": <country id>,
-		 *                             	"tag": <the tag that decided the country (e.g. Swedish for Sweden)>
+		 *                             	"artist": "", // <artist name>,
+		 *                             	"country": "", // <country name>,
+		 *                             	"id": "", // <country id>,
+		 *                             	"tag": "", // <the tag that decided the country (e.g. Swedish for Sweden)>
 		 *                             }
+		 * 								```
 		 *
 		 * 								If no country could be found, "country", "tag" and "id" are undefined.
 		 *
 		 */
 		api.getCountry = function(artist, callback) {
 			// Get artists country code here, from last.fm or whatever
-			api.lastfm.send("artist.gettoptags", [["artist", artist]], function(err,
-				responseData2) {
-				var running = true; // To stop searching when a country-tag has been found
-
+			api.lastfm.send("artist.gettoptags", [["artist", artist]], function(err, responseData2) {
 				// Return if something failed
 				if (err || !responseData2.toptags || !responseData2.toptags.tag || !
 					responseData2.toptags.tag.length) {
@@ -54,95 +53,56 @@ var superCount = 0;
 					return;
 				}
 
+				// Lista med taggar vi vill dubbelkolla
+				var troubleCountries = ["georgia", "ireland"];
+				var troubleLanguages = ["spanish", "french", "english", "portuguese", "russian", "italian", "japanese", "korean", "indian", "swedish", "irish"];
+				var theTroubles = [].concat(troubleCountries, troubleLanguages);
 
-				//Spara tillfälligt bästa träffen
-				var tempCid;
-				var tempCountryname;
-				var tname;
-				var troubleFound;
+				// check for country-tags in the artist's tags
+				var demonymTag = countryTag = { tag: "", id: null, country: "", count: 0 };
 
-				// Else check for country-tags in the artist's tags
-				responseData2.toptags.tag.forEach(function (t, i) {
-					if (running) {
-						tname = t.name.toLowerCase();
-						var cid;
+				responseData2.toptags.tag.some(function (t, i) {
+					var tname = t.name.toLowerCase();
 
-						//Lista med taggar vi vill dubbelkolla
-						var troubleCountries = ["georgia", "ireland"];
-						var troubleLanguages = ["spanish", "french", "english", "portuguese", "russian", "italian", "japanese", "korean", "indian", "swedish", "irish"];
-						
-						try { //Testar taggen mot landsnamn
-							if (cname[tname] && cname[tname][0].id) { // sweden->sweden
-								//Kollar lista med specialfall som ofta blir fel
-								troubleFound = false;
-								for (i = 0; i < troubleCountries.length; i++) {
-									if (cname[tname][0].name.toLowerCase() == troubleCountries[i]) {
-										troubleFound = troubleCountries[i];
-									}
-								}
-								if (!troubleFound) { //Den här taggen är inget problem, fortsätt som vanligt
-										cid = cname[tname][0].id; 
-										countryName = cname[tname][0].name;
-								} else { //Den här taggen finns med i listan, spara den temporärt och se om vi hittar något bättre!
-									tempCid = cname[tname][0].id;
-									tempCountryname = cname[tname][0].name;
-									//console.log("Trouble found!     " + tname);
-								}
+					// no need to search anymore since we only care
+					// about the créme de la creme i.e. the tag with the
+					// highest count
+					if (countryTag.id && demonymTag.id) { return true; }
 
-							//Testar taggen mot demonymer
-							} else if (alias[tname] && alias[tname][0].id) { // swedish->sweden
-								
-								troubleFound = false;
-								for (i = 0; i < troubleLanguages.length; i++) {
-									if (alias[tname][0].tag.toLowerCase() == troubleLanguages[i]) {
-										troubleFound = troubleLanguages[i];
-									}
-								}
-								if (!troubleFound) { //Den här taggen är inget problem, fortsätt som vanligt
-										cid = alias[tname][0].id;
-										countryName = alias[tname][0].name;
-								} else { //Den här taggen finns med i listan, spara den temporärt och se om vi hittar något bättre!
-									tempCid = alias[tname][0].id;
-									tempCountryname = alias[tname][0].name;
-								}
-							}
-							if (cid) { // Vi hittade en bra tagg, kör som bvnligt!
-								callback({ // Call callback method
-									"artist": artist,
-									"id": cid,
-									"tag": tname,
-									"name": countryName,
-								});
-								running = false; // Stop searching for country-tags
-							
-							}
-						} catch (e) {
-							//console.log(artist, tname)
+					try {
+						// sweden->sweden
+						if (cname[tname] && cname[tname][0].id) {
+							countryTag = { tag: tname, id: cname[tname][0].id, country: cname[tname][0].name, count: t.count };
 						}
 
+						// swedish -> sweden
+						if (alias[tname] && alias[tname][0].id) {
+							demonymTag = { tag: tname, id: alias[tname][0].id, country: alias[tname][0].name, count: t.count };
+						}
+					} catch (e) {}
+				});
 
-					}
+				// country is best, demonym second
+				var bestTag = (countryTag.id && demonymTag.count < 10 * countryTag.count) ?
+					countryTag :
+					(demonymTag.id 
+						? demonymTag
+						: {});
 
-				})
+				if (countryTag.tag === "georgia" && responseData2.toptags.tag.some(function (t) {
+						return ["american", "us", "usa"].includes(t.name.toLowerCase())
+					})) {
+					// it's not the country...
+					bestTag = demonymTag;
 
-				if (running) { // Vi hittade inget perfekt land. 
-					if (tempCid) { //go with backup plan, använd den problematiska taggen
-						console.log("Potentially incorrect country for '" + artist + "': " + tempCountryname + ", using only the tag '" + troubleFound + "'");
-							callback({ // Call callback method
-								"artist": artist,
-								"id": tempCid,
-								"tag": tname,
-								"name": tempCountryname,
-							});
-							running = false; // Stop searching for country-tags
-					} else {
-						callback({
-							"artist": artist
-						})
-					}
-
-
+					console.log("'" + artist + "' is tagged with 'georgia', but I'm gonna go ahead and guess they're really from the U.S.");
 				}
+
+				if (theTroubles.includes(bestTag.tag)) {
+					console.log("Potentially incorrect country for '" + artist + "': " + bestTag.country + ", using the tag '" + bestTag.tag + "'");
+				}
+
+				callback(Object.assign({ "artist": artist, }, bestTag));
 			});
 		}
 
