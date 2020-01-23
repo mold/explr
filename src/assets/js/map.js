@@ -275,9 +275,12 @@ var countryScore = 0;
     d3.csv("assets/data/countries.csv", function(err, countries) {
       countryNames = countries;
 
-      countries.forEach(function(i) {
-        //Turning CSV values into numeric data
-        i.id = +i.id;
+      countries.forEach(function(c) {
+        c.id = +c.id; //Turning CSV values into numeric data
+        c.names = c.names.split("|");
+        c.tags = c.tags ? c.tags.split("|") : [];
+        c.name = c.names[0];
+        c.tag = c.tags[0];
       });
 
       // save countries
@@ -498,13 +501,17 @@ var countryScore = 0;
     //lägga till namn till detailseDiv
     var name;
     var tag;
+    var nameTags;
+    var tagTags;
     var recoms;
     //var id;
     countryNames.forEach(function(e, i) {
       if (e.id === d.id) {
         name = e.name;
         tag = e.tag;
-        //id = d.id;
+
+        nameTags = e.names.map(n => "<span class=\"demonym\">#" + n + "</span>").join(", ");
+        tagTags = e.tags.map(t => "<span class=\"demonym\">#" + t + "</span>").join(", ");
       };
     })
     d3.select("#recommendations").html("");
@@ -540,7 +547,7 @@ var countryScore = 0;
 
 
       d3.select("#details").append("div")
-        .html("<span>Your top artists tagged with </span><span class=\"demonym\">#" + name + "</span><span> or </span><span class=\"demonym\">#" + tag + "</span><span>: </span>")
+        .html("<span>Your top artists tagged with </span>" + nameTags + "<span> or </span>" + tagTags + "<span>: </span>")
         .attr("class", "topartists-desc");
       //Show top 5 artists
 

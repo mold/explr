@@ -7,6 +7,32 @@ var superCount = 0;
 
 (function(window, document) {
 	d3.csv("assets/data/countries.csv", function(err, data) {
+		data.forEach(d => {
+			d.names = d.names ? d.names.split("|") : [];
+			d.tags = d.tags ? d.tags.split("|") : [];
+			d.mainName = d.names[0];
+			d.tag = d.tags[0];
+			d.name = d.mainName;
+		});
+
+		data = data.map(d => {
+			let splits = [];
+
+			if (d.names.length === 1 && d.tags.length === 0) {
+				splits = [d];
+			}
+			if (d.names.length > 1) {
+				splits = splits.concat(d.names.map(name => ({ ...d, name })));
+			}
+			if (d.tags.length > 0) {
+				splits = splits.concat(d.tags.map(tag => ({ ...d, tag }))); 
+			}
+
+			if(d.names.length > 1 &&d.tags.length > 0){ splits.splice(0,1); }
+			
+			return splits;
+		}).flat();
+
 		let alias = d3.nest()
 			.key(function(d) {
 				if (d && d.tag) {
@@ -22,6 +48,8 @@ var superCount = 0;
 				return d.name.toLowerCase();
 			})
 			.map(data);
+
+			console.log({data,alias,cname});
 
 		/**
 		 * Tries to find out the country for a specified artist.
@@ -73,7 +101,7 @@ var superCount = 0;
 					try {
 						// sweden->sweden
 						if (cname[tname] && cname[tname][0].id) {
-							countryTag = { tag: tname, id: cname[tname][0].id, country: cname[tname][0].name, count: t.count };
+							countryTag = { tag: tname, id: cname[tname][0].id, country: cname[tname][0].mainName, count: t.count };
 						}
 
 						// swedish -> sweden
