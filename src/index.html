@@ -185,6 +185,12 @@
 				</div>
 			</div>
 
+			<div class="artist-test" onkeydown="event.stopPropagation()">
+				<form action="" >
+					<input type="text" name="query" placeholder="artist name here"> <button>where from??? 🕵️‍♂️🔎🔎</button>
+				</form>
+			</div>
+
 			<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 			<script src="https://d3js.org/topojson.v1.min.js"></script>
 			<script src="https://d3js.org/d3.geo.projection.v0.min.js"></script>
@@ -220,6 +226,32 @@
 			});
 			</script>
 			<!--<script src="new/vendor/js/vendor.min.js"></script>-->
+
+			<script>
+				// Please toggle artist test on press escape pleas
+				{
+					let showArtistSearch = false;
+					let artistTestEl = document.getElementsByClassName("artist-test")[0];
+					let form = artistTestEl.children[0];
+
+					window.addEventListener("keypress", (evt) => {
+						if(!(evt.code === "KeyF" && evt.ctrlKey)){ return; } 
+						evt.preventDefault(); evt.stopPropagation();
+						showArtistSearch = !showArtistSearch; 
+						artistTestEl.style=`display: ${showArtistSearch ? 'block' : 'none'}`;
+						artistTestEl.querySelector("input").focus();
+					});
+
+					form.addEventListener("submit", evt => {
+						evt.preventDefault();
+						let artist = form.elements.query.value;
+						api.getCountry(artist, countryInfo => api.getTags(artist, tags => {
+							 alert("Country: " + JSON.stringify(countryInfo) + "\n\nTags: " + tags.map(t => `(${t.count}) ${t.name}`).join(", "));
+						}));
+					})
+				}
+
+			</script>
 			
 			<script src="assets/js/all.min.js"></script>
 			<!-- Canvg for screenshots -->
