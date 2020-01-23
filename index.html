@@ -180,6 +180,7 @@
 						For some reason we couldn't determine the country for these artists. Help out by giving them a country tag, or contact us
 						at <a href="mailto:explr.fm@gmail.com">explr.fm@gmail.com</a> if you spot any errors.
 					</p>
+					<p class="no-countries__info"></p>
 					<ul>
 					</ul>
 				</div>
@@ -235,7 +236,7 @@
 					let form = artistTestEl.children[0];
 
 					window.addEventListener("keypress", (evt) => {
-						if(!(evt.code === "KeyF" && evt.ctrlKey)){ return; } 
+						if(!(evt.code === "KeyF" && evt.ctrlKey && evt.shiftKey)){ return; } 
 						evt.preventDefault(); evt.stopPropagation();
 						showArtistSearch = !showArtistSearch; 
 						artistTestEl.style=`display: ${showArtistSearch ? 'block' : 'none'}`;
@@ -250,7 +251,6 @@
 						}));
 					})
 				}
-
 			</script>
 			
 			<script src="assets/js/all.min.js"></script>

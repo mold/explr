@@ -1,4 +1,4 @@
-id,name,tag
+id,names,tags
 4,Afghanistan,Afghan
 8,Albania,Albanian
 12,Algeria,Algerian
@@ -19,7 +19,7 @@ id,name,tag
 68,Bolivia,Bolivian
 70,Bosnia-Herzegovina,Bosnian
 72,Botswana,Botswanan
-76,Brazil,Brazilian
+76,Brazil|Brasil,Brazilian
 84,Belize,Belizean
 90,Solomon Islands,
 100,Bulgaria,Bulgarian
@@ -49,7 +49,6 @@ id,name,tag
 214,Dominican Republic,Dominican
 218,Ecuador,Ecuadorean
 222,El Salvador,Salvadorean
-,England,English
 231,Ethiopia,Ethiopian
 232,Eritrea,Eritrean
 233,Estonia,Estonian
@@ -120,8 +119,8 @@ id,name,tag
 566,Nigeria,Nigerian
 408,North Korea,North Korean
 570,Niue,Niuean
-578,Norway,Norwegian
-840,United States,American
+578,Norway|Norge,Norwegian
+840,United States|US|USA,American
 498,Moldova,Moldovan
 583,Federated States of Micronesia,Micronesian
 584,Marshall Islands,Marshallese
@@ -142,7 +141,6 @@ id,name,tag
 662,Saint Lucia,Saint Lucian
 670,Saint Vincent and the Grenadines,Vincentian
 682,Saudi Arabia,Saudi
-,Scotland,Scottish
 686,Senegal,Senegalese
 688,Serbia,Serbian
 690,Seychelles,Seychellois
@@ -159,7 +157,7 @@ id,name,tag
 729,Sudan,Sudanese
 740,Suriname,Surinamese
 748,Eswatini,Swazi
-752,Sweden,Swedish
+752,Sweden|Sverige,Swedish|Svensk
 756,Switzerland,Swiss
 760,Syria,Syrian
 762,Tajikistan,Tajik
@@ -177,10 +175,9 @@ id,name,tag
 800,Uganda,Ugandan
 804,Ukraine,Ukrainian
 818,Egypt,Egyptian
-826,United Kingdom,British
-,Wales,Welsh
+826,United Kingdom|UK|England|Wales|Scotland,British|English|Welsh|Scottish
 854,Burkina Faso,Burkinese
-104,Burma,Burmese
+104,Burma|Myanmar,Burmese
 858,Uruguay,Uruguayan
 860,Uzbekistan,Uzbek
 862,Venezuela,Venezuelan
