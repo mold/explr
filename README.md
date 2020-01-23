@@ -1,6 +1,6 @@
 # ![Explr.fm](src/assets/img/explrlogo.png)
 
-[Explr.fm](http://www.explr.fm) is an online information visualization for Last.fm users. It displays the user's music taste distributed on a world map. Built with love and D3.js.
+[Explr.fm](https://mold.github.io/explr) is an online information visualization for Last.fm users. It displays the user's music taste distributed on a world map. Built with love and D3.js.
 
 
 
@@ -15,7 +15,7 @@ To build the project and start a local server, run:
 ```
 $ gulp
 ``` 
-To build and then deploy the website to www.explr.fm, run:
+To build and then deploy the website to https://mold.github.io/explr, run:
 ```
 $ gulp deploy
 ``` 
@@ -26,7 +26,7 @@ $ gulp deploy
 - [ ] Improve screenshotting
   - [ ] Show a warning when screenshotting before all artists have been loaded?
   - [ ] imgur upload?
-- [ ] Improve api code
+- [x] Improve api code
 - [ ] Refactor everything
 
 ## Team
