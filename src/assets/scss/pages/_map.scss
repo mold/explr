@@ -148,6 +148,46 @@ svg:active {
 }
 
 /* ==========================================================================
+   Selected country info box
+   ========================================================================== */
+
+.cnameContainer {
+    h1 {
+        margin-top: 0.27em;
+    }
+    
+    h5 {
+        margin-bottom: 0;
+    }
+
+    .playlist-link{
+        pointer-events: all;
+        margin-top: 5px;
+
+        a{
+            display: inline-flex;
+            align-items: center;
+        }
+
+        &__img{
+            border-radius: 100%;
+            width: 1.1em;
+            height: 1.1em;
+            background: #222;
+            vertical-align: middle;
+            margin-right: 0.3em;
+        }
+
+        .divider {
+            margin: 0 0.5em;
+            user-select: none;
+            opacity: 0.6;
+        }
+    }
+}
+
+
+/* ==========================================================================
    Misc
    ========================================================================== */
 

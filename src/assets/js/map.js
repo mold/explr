@@ -42,6 +42,12 @@ var countryScore = 0;
     redraw();
   };
 
+  let countryPlaylists; 
+  // load links to country playlists
+  d3.json("assets/data/playlists.json", (err, list) => {
+    countryPlaylists = list;
+  });  
+
   /**
    * Sets width/height, i.e. changes the global variables "width" and "height"
    */
@@ -539,6 +545,27 @@ var countryScore = 0;
         else return "No artists yet - Find new here ->"
       })
 
+    let pl = countryPlaylists.find(c => c.name === name);
+    let linkdiv = d3.select("#cnameCont")
+      .append("div").attr("class", "playlist-link")
+
+   let lastFmLink =  linkdiv.append("a").attr("href", "https://last.fm/tag/" + name)
+   lastFmLink.append("img").attr("class", "playlist-link__img").attr("src", "https://www.shareicon.net/data/32x32/2016/05/24/769923_logo_512x512.png").attr("style","background:none");
+   lastFmLink.append("span").html("#"+name);
+
+    if (pl) {
+
+      linkdiv.append("span").attr("class","divider").html("/");
+
+      let a = linkdiv.append("a").attr("href", pl.uri).attr("target", "_self");
+
+      a.append("img")
+        .attr("class", "playlist-link__img")
+        .attr("src", "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg");
+
+      a.append("span").html(pl.playlistName);
+
+    }
 
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
 
