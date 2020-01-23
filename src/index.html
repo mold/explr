@@ -235,7 +235,7 @@
 					let form = artistTestEl.children[0];
 
 					window.addEventListener("keypress", (evt) => {
-						if(!(evt.code === "KeyF" && evt.ctrlKey)){ return; } 
+						if(!(evt.code === "KeyF" && evt.ctrlKey && evt.shiftKey)){ return; } 
 						evt.preventDefault(); evt.stopPropagation();
 						showArtistSearch = !showArtistSearch; 
 						artistTestEl.style=`display: ${showArtistSearch ? 'block' : 'none'}`;
@@ -250,7 +250,6 @@
 						}));
 					})
 				}
-
 			</script>
 			
 			<script src="assets/js/all.min.js"></script>
