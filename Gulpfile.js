@@ -20,6 +20,7 @@ var changed     = require("gulp-changed");
 var imagemin    = require("gulp-imagemin");
 var minifyCss   = require("gulp-minify-css");
 var ghPages     = require("gulp-gh-pages");
+var babel       = require('gulp-babel');
 
 
 
@@ -97,6 +98,7 @@ function js() {
         .pipe(sourcemaps.init())
             .pipe(concat("concat.js"))
             .pipe(rename("all.min.js"))
+            .pipe(babel({ presets: ['@babel/env'] }))
             .pipe(uglify())
         .pipe(sourcemaps.write("sourcemaps"))
         .pipe(gulp.dest(path.build.js))

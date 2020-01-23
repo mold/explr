@@ -10,7 +10,6 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
 var legend;
 var countryScore = 0;
 
-
 (function(window, document) {
   d3.select(window).on("resize", throttle);
 
@@ -25,7 +24,7 @@ var countryScore = 0;
   var height, width;
 
   var topo, projection, path, svg, g, countryNames, rateById, centered, active;
-  countryCount = {};
+  let countryCount = {};
 
   //Variables needed to update scale and legend
   var mydomain = [0, 1, 2, 3, 4, 5, 6];
@@ -55,7 +54,7 @@ var countryScore = 0;
   function getCountryPlaycount(c) {
     if (countryCount[c.id]) {
       var count = 0;
-      for (i = 0; i < countryCount[c.id].length; i++) {
+      for (let i = 0; i < countryCount[c.id].length; i++) {
         count += countryCount[c.id][i].playcount;
       }
       return count;
@@ -78,7 +77,7 @@ var countryScore = 0;
    * Using Fisher-Yates shuffle algorithm.
    */
   function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
+    for (let i = array.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
       var temp = array[i];
       array[i] = array[j];
@@ -96,14 +95,14 @@ var countryScore = 0;
     switch (filter) {
       case "artists":
         max = maxartists;
-        for (i = 0; i < 5; i++) {
+        for (let i = 0; i < 5; i++) {
           mydomain[i] = Math.pow(Math.E, (Math.log(max) / 6) * (i + 1));
         }
         mydomain = [0, 1, mydomain[0], mydomain[1], mydomain[2], mydomain[3], mydomain[4]];
         break;
       case "scrobbles":
         max = maxplaycount;
-        for (i = 0; i < 7; i++) {
+        for (let i = 0; i < 7; i++) {
           mydomain[i] = Math.pow(Math.E, (Math.log(max) / 7) * (i + 1))
         }
         mydomain = [0, 1, mydomain[1], mydomain[2], mydomain[3], mydomain[4], mydomain[5]];
@@ -221,7 +220,7 @@ var countryScore = 0;
     red_white: ["#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"],
   };
 
-  nextTheme = function(toTheme) {
+  let nextTheme = window.nextTheme = function(toTheme) {
     // Go to next theme
     var themeList = d3.keys(themes);
     theme = toTheme || themeList[(themeList.indexOf(theme) + 1) % themeList.length];
@@ -585,7 +584,7 @@ var countryScore = 0;
         //console.log("displaying "+first+" to "+last)
 
         //Generate new artist images for all artists within the desired range!
-          for (i = first-1; i <= last-1; i++) {
+          for (let i = first-1; i <= last-1; i++) {
             if (countryCount[d.id][i]) {
               //console.log(i+" "+countryCount[d.id][i].artist)
               var artistDiv = d3.select("#details").append("div")
@@ -725,11 +724,11 @@ var countryScore = 0;
 
         //Removing duplicates from the list!
         var arr = {};
-        for (var i = 0; i < list.length; i++)
+        for (let i = 0; i < list.length; i++)
           arr[list[i]['name']] = list[i];
 
         list = new Array();
-        for (key in arr)
+        for (let key in arr)
           list.push(arr[key]);
 
         list.sort(function(a, b) {
@@ -750,7 +749,7 @@ var countryScore = 0;
           }).html("Try searching last.fm yourself!");
         }
 
-        for (i = 0; i < Math.min(list.length, 5); i++) {
+        for (let i = 0; i < Math.min(list.length, 5); i++) {
           // Return if this callback is from an old (not active) country
           if (centered.id !== d.id) {
             return;
@@ -848,8 +847,8 @@ var countryScore = 0;
       //Create list of user tags
 
       //Make list of artist tags which are also user's top tags:
-      for (y = 0; y < 15; y++) {
-        for (z = 0; z < artisttaglist.length; z++) {
+      for (let y = 0; y < 15; y++) {
+        for (let z = 0; z < artisttaglist.length; z++) {
           if (artisttaglist[z] === USER_TAGS[y].tag) {
             usertaglist.push(USER_TAGS[y].tag)
           }
@@ -871,10 +870,10 @@ var countryScore = 0;
       summaryText.append("h4").html(artistname);
 
       //Show top 7 tags
-      for (i = 0; i < Math.min(taglist.length, 6); i++) {
+      for (let i = 0; i < Math.min(taglist.length, 6); i++) {
         var tagdiv = summaryText.append("div").attr("class", "tagdiv").append("h4").html("#" + taglist[i]);
         //Mark all user tags
-        for (p = 0; p < usertaglist.length; p++) {
+        for (let p = 0; p < usertaglist.length; p++) {
           if (taglist[i] === usertaglist[p])
             tagdiv.classed("usertag", true);
         }

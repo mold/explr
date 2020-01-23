@@ -7,7 +7,7 @@ var superCount = 0;
 
 (function(window, document) {
 	d3.csv("assets/data/countries.csv", function(err, data) {
-		alias = d3.nest()
+		let alias = d3.nest()
 			.key(function(d) {
 				if (d && d.tag) {
 					return d.tag.toLowerCase();
@@ -17,7 +17,7 @@ var superCount = 0;
 			})
 			.map(data);
 
-		cname = d3.nest()
+		let cname = d3.nest()
 			.key(function(d) {
 				return d.name.toLowerCase();
 			})
@@ -59,7 +59,8 @@ var superCount = 0;
 				var theTroubles = [].concat(troubleCountries, troubleLanguages);
 
 				// check for country-tags in the artist's tags
-				var demonymTag = countryTag = { tag: "", id: null, country: "", count: 0 };
+				let demonymTag = { tag: "", id: null, country: "", count: 0 };
+				let countryTag = demonymTag;
 
 				responseData2.toptags.tag.some(function (t, i) {
 					var tname = t.name.toLowerCase();

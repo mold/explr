@@ -6,10 +6,13 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.8.3",
+    "@babel/preset-env": "^7.8.3",
     "browser-sync": "^2.26.7",
     "del": "^5.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^6.1.0",
+    "gulp-babel": "^8.0.0",
     "gulp-changed": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-deporder": "^1.2.0",
