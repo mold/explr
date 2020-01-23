@@ -270,6 +270,15 @@ div.colorChange {
             margin: 0 0 0.5em;
         }
     }
+
+    &__info {
+        font-size: 0.9em;
+        line-height: 1.1em;
+        font-weight: bold;
+        margin: 0.8em 0 0.7em !important;
+        border-top: 1px solid #eee;
+        padding-top: 1em;
+    }
 }
 
 .artist-test{

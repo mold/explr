@@ -42,6 +42,8 @@ var SESSION = {};
             noCountriesListEl.append("li").html('<a href="' + _art.url + '" target="blank" class="no-countries__link">' + _art.artist + '</a>');
         })
 
+        d3.select(".no-countries__info").html(listOfArtistsWithNoCountry.length + " artists without a country:");
+
         saveToStorage("no_countres", listOfArtistsWithNoCountry);
 
         if (listOfArtistsWithNoCountry.length) {
