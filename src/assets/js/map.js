@@ -516,8 +516,8 @@ var countryScore = 0;
         name = e.name;
         tag = e.tag;
 
-        nameTags = e.names.map(n => "<span class=\"demonym\">#" + n + "</span>").join(", ");
-        tagTags = e.tags.map(t => "<span class=\"demonym\">#" + t + "</span>").join(", ");
+        nameTags = (e.names || [e.name]).map(n => "<span class=\"demonym\">#" + n + "</span>").join(", ");
+        tagTags = (e.tags || [e.tag]).map(t => "<span class=\"demonym\">#" + t + "</span>").join(", ");
       };
     })
     d3.select("#recommendations").html("");
