@@ -100,19 +100,19 @@ var superCount = 0;
 
 					try {
 						// sweden->sweden
-						if (cname[tname] && cname[tname][0].id) {
+						if (!countryTag.id && cname[tname] && cname[tname][0].id) {
 							countryTag = { tag: tname, id: cname[tname][0].id, country: cname[tname][0].mainName, count: t.count };
 						}
 
 						// swedish -> sweden
-						if (alias[tname] && alias[tname][0].id) {
+						if (!demonymTag.id && alias[tname] && alias[tname][0].id) {
 							demonymTag = { tag: tname, id: alias[tname][0].id, country: alias[tname][0].name, count: t.count };
 						}
 					} catch (e) {}
 				});
 
 				// country is best, demonym second
-				var bestTag = (countryTag.id && demonymTag.count < 10 * countryTag.count) ?
+				var bestTag = (countryTag.id && demonymTag.count < 8 * countryTag.count) ?
 					countryTag :
 					(demonymTag.id 
 						? demonymTag
