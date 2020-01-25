@@ -6,15 +6,30 @@ var api = api || {};
 var superCount = 0;
 
 (function(window, document) {
-	d3.csv("assets/data/countries.csv", function(err, data) {
-		data.forEach(d => {
-			d.names = d.names ? d.names.split("|") : [];
-			d.tags = d.tags ? d.tags.split("|") : [];
-			d.mainName = d.names[0];
-			d.tag = d.tags[0];
-			d.name = d.mainName;
-		});
+	api.getCountriesData = (() => {
+		let promise;
 
+		return () => {
+			if (promise) { return promise; }
+
+			return promise = new Promise((res, rej) => {
+				d3.csv("assets/data/countries.csv", function (err, data) {
+					data.forEach(d => {
+						d.id = +d.id;
+						d.names = d.names ? d.names.split("|") : [];
+						d.tags = d.tags ? d.tags.split("|") : [];
+						d.mainName = d.names[0];
+						d.tag = d.tags[0];
+						d.name = d.mainName;
+					});
+
+					res(data);
+				});
+			});
+		}
+	})();
+	
+	api.getCountriesData().then(data => {
 		data = data.map(d => {
 			let splits = [];
 

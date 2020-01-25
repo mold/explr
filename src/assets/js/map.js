@@ -277,25 +277,8 @@ var countryScore = 0;
   }
 
   //Load country aliases and names
-  if (!window.localStorage.countries) {
-    d3.csv("assets/data/countries.csv", function(err, countries) {
-      countryNames = countries;
-
-      countries.forEach(function(c) {
-        c.id = +c.id; //Turning CSV values into numeric data
-        c.names = c.names.split("|");
-        c.tags = c.tags ? c.tags.split("|") : [];
-        c.name = c.names[0];
-        c.tag = c.tags[0];
-      });
-
-      // save countries
-      window.localStorage.countries = JSON.stringify(countries);
-    });
-
-  } else {
-    countryNames = JSON.parse(window.localStorage.countries);
-  }
+  api.getCountriesData().then(countries => (countryNames = countries));
+  
   //Load map
   d3.json("assets/data/world-50m.json", function(error, world) {
 
