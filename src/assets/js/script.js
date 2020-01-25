@@ -264,7 +264,7 @@ var SESSION = {};
             USER_TAGS.sort(function (a, b) {
                 return b.count < a.count ? -1 : b.count > a.count ? 1 : 0;
             });
-            console.log("Done getting tags, saved to localStorage.user_tags")
+            console.info("Done getting tags, saved to localStorage.user_tags")
             window.localStorage.user_tags = JSON.stringify(USER_TAGS);
         }
 
@@ -378,7 +378,7 @@ var SESSION = {};
 
         if (CACHED_USERS[user]) {
             // TODO: use timestamp
-            console.log("No new artists on last.fm!");
+            console.info("No new artists on last.fm!");
             countryCountObj = JSON.parse(window.localStorage.countryCountObj);
 
             localforage.getItem("no_countries", function (err, val) {

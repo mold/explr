@@ -5,8 +5,8 @@ api.lastfm.key = "865b1653dbe200905a5b75d9d839467a";
 api.lastfm.url = "https://ws.audioscrobbler.com/2.0/";
 
 (function (api) {
-	var keyI = 0;
-	var keys = [
+	let keyI = 0;
+	let keys = [
 		// https://github.com/ampache/ampache/issues/1694
 		"13893ba930c63b1b2cbe21441dc7f550",
 
@@ -21,16 +21,31 @@ api.lastfm.url = "https://ws.audioscrobbler.com/2.0/";
 
 		// original explr api key
 		"865b1653dbe200905a5b75d9d839467a",
-		
+
 		// https://www.w3resource.com/API/last.fm/example.html
 		"68b2125fd8f8fbadeb2195e551f32bc4",
-		
-		// https://rstudio-pubs-static.s3.amazonaws.com/236264_81312ba4d795474c8641dd0e2af83cba.html
-		"1ba315d4d1673bbf88aed473f1917306"		
-	];
 
-	var rotateKey = function () {
-		api.lastfm.key = keys[++keyI % keys.length];
+		// https://rstudio-pubs-static.s3.amazonaws.com/236264_81312ba4d795474c8641dd0e2af83cba.html
+		"1ba315d4d1673bbf88aed473f1917306"
+	];
+	let keyInfo = window.keyInfo = {};
+	keys.forEach(k => keyInfo[k] = { success: 0, fails: 0, total: 0 });
+
+	let rotateKey = function () {
+		let avgErrors = keys.reduce((avg, k, i, arr) => avg + keyInfo[k].fails / arr.length, 0);
+		let bestKeys = keys.filter(k => keyInfo[k].fails <= avgErrors);
+		bestKeys = bestKeys.length ? bestKeys : keys;
+		let key = bestKeys[++keyI % bestKeys.length];
+
+		// console.log({ key, avgErrors, bestKeys });
+
+		return key;
+	}
+
+	let setKeyInfo = function (key, success) {
+		keyInfo[key].total++;
+		keyInfo[key].success += success ? 1 : 0;
+		keyInfo[key].fails += success ? 0 : 1;
 	}
 
 	/**
@@ -43,24 +58,28 @@ api.lastfm.url = "https://ws.audioscrobbler.com/2.0/";
 	                                error and data (callback(error, data))
 	*/
 	api.lastfm.send = function (method, options, callback, retries) {
-		rotateKey();
+		let getUrl = (apiKey) => {
+			let _url = api.lastfm.url + "?" + "method=" + method + "&api_key=" +
+				apiKey + "&format=json";
 
-		var url = api.lastfm.url + "?" + "method=" + method + "&api_key=" +
-			api.lastfm.key + "&format=json";
-		var xhr, gotResponse, retries = undefined === retries ? 10 : retries,
-			aborted = false;
+			options.forEach(function (el) {
+				_url += "&" + el[0] + "=" +
+					(el[1] + "")
+					.replace("&", "%26")
+					.replace("/", "%2F")
+					.replace("+", "%2B")
+					.replace("\\", "%5C");
+			});
 
-		options.forEach(function (el) {
-			url += "&" + el[0] + "=" +
-				(el[1] + "")
-				.replace("&", "%26")
-				.replace("/", "%2F")
-				.replace("+", "%2B")
-				.replace("\\", "%5C");
-		});
+			return _url;
+		};
+
+		retries = undefined === retries ? 10 : retries
+		let xhr, gotResponse, aborted = false;
 
 		function tryGet(tries, cb) {
-			xhr = d3.json(url, function (e, d) {
+			let _key = rotateKey();
+			xhr = d3.json(getUrl(_key), function (e, d) {
 				if (aborted) {
 					clearTimeout(timeout);
 					return;
@@ -74,31 +93,25 @@ api.lastfm.url = "https://ws.audioscrobbler.com/2.0/";
 					e = d;
 				}
 
-				// console.log({
-				// 	e: e,
-				// 	d: d
-				// });
-
 				if (e) {
-					var errInfo = {
+					setKeyInfo(_key, false);
+
+					let errInfo = {
 						method: method,
-						errorCode: e.error,
+						errorCode: e && e.error,
 						try: tries,
 						options: options,
-						key: api.lastfm.key,
+						key: _key,
 					};
 					// alert("ERROR");
-					if ((
-							e.error === 29 || // Rate Limit Exceeded
-							e.error === 8 // Operation failed
-						) && tries < retries) {
-						console.log("Retry request: ", errInfo);
+					if (tries < retries) {
+						console.warn("Retry request: ", errInfo);
 						setTimeout(tryGet.bind(null, tries + 1, cb), tries * 3000);
 						return;
 					}
 
 					if (tries >= retries) {
-						console.log("Retry failed after " + retries + " attempts, will stop trying.", errInfo);
+						console.warn("Retry failed after " + retries + " attempts, will stop trying.", errInfo);
 						clearTimeout(timeout);
 						aborted = true;
 						e = "ERROR";
@@ -106,6 +119,8 @@ api.lastfm.url = "https://ws.audioscrobbler.com/2.0/";
 							error: "Took to long to respond"
 						};
 					}
+				} else {
+					setKeyInfo(_key, true);
 				}
 
 				gotResponse = true;
@@ -116,7 +131,7 @@ api.lastfm.url = "https://ws.audioscrobbler.com/2.0/";
 		tryGet(0, callback);
 
 		// Abort if the request takes too long - it sometimes ballar ur and fails after a minute :(
-		var timeout = setTimeout(function () {
+		let timeout = setTimeout(function () {
 			if (!gotResponse) {
 				//console.log("GET " + url + " took to long, aborting");
 				xhr.abort();

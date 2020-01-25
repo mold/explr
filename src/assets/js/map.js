@@ -693,7 +693,7 @@ var countryScore = 0;
 
 
     } else { //Om landet vi klickat på inte har några lyssnade artister...
-      console.log("landet har inga lyssnade artister");
+      // console.log("landet har inga lyssnade artister");
     }
     //"Recommended"-heading
     d3.select("#recommendations").append("h4")

@@ -139,11 +139,11 @@ var superCount = 0;
 					// it's not the country...
 					bestTag = demonymTag;
 
-					console.log("'" + artist + "' is tagged with 'georgia', but I'm gonna go ahead and guess they're really from the U.S.");
+					console.info("'" + artist + "' is tagged with 'georgia', but I'm gonna go ahead and guess they're really from the U.S.");
 				}
 
 				if (theTroubles.includes(bestTag.tag)) {
-					console.log("Potentially incorrect country for '" + artist + "': " + bestTag.country + ", using the tag '" + bestTag.tag + "'");
+					console.info("Potentially incorrect country for '" + artist + "': " + bestTag.country + ", using the tag '" + bestTag.tag + "'");
 				}
 
 				callback(Object.assign({ "artist": artist, }, bestTag));
