@@ -85,69 +85,13 @@ var superCount = 0;
 		 *
 		 */
 		api.getCountry = function(artist, callback) {
-			// Get artists country code here, from last.fm or whatever
-			api.lastfm.send("artist.gettoptags", [["artist", artist]], function(err, responseData2) {
-				// Return if something failed
-				if (err || !responseData2.toptags || !responseData2.toptags.tag || !
-					responseData2.toptags.tag.length) {
-					callback({
-						"artist": artist
-					});
-					return;
-				}
+			artist = artist
+				.replace("&", "%26")
+				.replace("/", "%2F")
+				.replace("+", "%2B")
+				.replace("\\", "%5C");
 
-				// Lista med taggar vi vill dubbelkolla
-				var troubleCountries = ["georgia", "ireland"];
-				var troubleLanguages = ["spanish", "french", "english", "portuguese", "russian", "italian", "japanese", "korean", "indian", "swedish", "irish"];
-				var theTroubles = [].concat(troubleCountries, troubleLanguages);
-
-				// check for country-tags in the artist's tags
-				let demonymTag = { tag: "", id: null, country: "", count: 0 };
-				let countryTag = demonymTag;
-
-				responseData2.toptags.tag.some(function (t, i) {
-					var tname = t.name.toLowerCase();
-
-					// no need to search anymore since we only care
-					// about the créme de la creme i.e. the tag with the
-					// highest count
-					if (countryTag.id && demonymTag.id) { return true; }
-
-					try {
-						// sweden->sweden
-						if (!countryTag.id && cname[tname] && cname[tname][0].id) {
-							countryTag = { tag: tname, id: cname[tname][0].id, country: cname[tname][0].mainName, count: t.count };
-						}
-
-						// swedish -> sweden
-						if (!demonymTag.id && alias[tname] && alias[tname][0].id) {
-							demonymTag = { tag: tname, id: alias[tname][0].id, country: alias[tname][0].name, count: t.count };
-						}
-					} catch (e) {}
-				});
-
-				// country is best, demonym second
-				var bestTag = (countryTag.id && demonymTag.count < 8 * countryTag.count) ?
-					countryTag :
-					(demonymTag.id 
-						? demonymTag
-						: {});
-
-				if (countryTag.tag === "georgia" && responseData2.toptags.tag.some(function (t) {
-						return ["american", "us", "usa"].includes(t.name.toLowerCase())
-					})) {
-					// it's not the country...
-					bestTag = demonymTag;
-
-					console.info("'" + artist + "' is tagged with 'georgia', but I'm gonna go ahead and guess they're really from the U.S.");
-				}
-
-				if (theTroubles.includes(bestTag.tag)) {
-					console.info("Potentially incorrect country for '" + artist + "': " + bestTag.country + ", using the tag '" + bestTag.tag + "'");
-				}
-
-				callback(Object.assign({ "artist": artist, }, bestTag));
-			});
+			d3.json(encodeURI("http://localhost:7000/api/artists/country?artist="+artist), function(e,d){callback(d);})
 		}
 
 		/**
@@ -179,6 +123,26 @@ var superCount = 0;
 				}
 			}
 
+			d3.json(encodeURI("http://localhost:7000/api/artists/countries?"+artists.map(a => "artists="+a	.replace("&", "%26")
+			.replace("/", "%2F")
+			.replace("+", "%2B")
+			.replace("\\", "%5C")).join("&")), function(e,d){
+				d.forEach(function(c){
+					var name = c.artist;
+					STORED_ARTISTS[name] = STORED_ARTISTS[name] || {};
+					STORED_ARTISTS[name].country = {
+						"id": c.id,
+						"name": c.name,
+					};
+					returnList.push(c);
+					checkCount();
+				})
+
+
+			});
+
+			return;
+			
 			// Get countries for all artists
 			artists.forEach(function(el, i) {
 				// first check stored artists to see if we've already checked this artist
@@ -230,6 +194,8 @@ var superCount = 0;
 			STORED_ARTISTS[artist] = STORED_ARTISTS[artist] || {};
 			STORED_ARTISTS[artist].tags = [];
 
+			console.log("GETTAGS:",artist);
+			
 			// Get from lastfm
 			api.lastfm.send("artist.gettoptags", [["artist", artist]],
 				function(err, responseData2) {
