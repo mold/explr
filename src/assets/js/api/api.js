@@ -103,31 +103,33 @@ var superCount = 0;
 		 *                             containing only those artists that have a country
 		 *                             associated with them. For object structure, see api.getCountry
 		 */
-		api.getCountries = function(artists, callback) {
+		api.getCountries = function (artists, callback) {
 			var returnList = [],
 				count = 0;
 			/**
 			 * Increases a count and checks if we've tried
 			 * to get country for all artists
 			 */
-			var checkCount = function() {
+			var checkCount = function () {
 				count++;
 				superCount++;
 				d3.select("#loading-text").html("Loading artists...<br>(" + superCount + "/" + SESSION.total_artists + ")<br>You can start exploring,<br>but it might interfere<br>with loading your artists.");
 				if (count === artists.length) {
 					// We done, save artists and call back
 					localforage.setItem("artists", STORED_ARTISTS, function (err) {
-						if (err) { console.error("Failed saving artists to storage: ", err); }
+						if (err) {
+							console.error("Failed saving artists to storage: ", err);
+						}
 						callback(returnList);
 					});
 				}
 			}
 
-			d3.json(encodeURI("http://localhost:7000/api/artists/countries?"+artists.map(a => "artists="+a	.replace("&", "%26")
+			d3.json(encodeURI("https://explr-backend.azurewebsites.net/api/artists/countries?" + artists.map(a => "artists=" + a.replace("&", "%26")
 			.replace("/", "%2F")
 			.replace("+", "%2B")
-			.replace("\\", "%5C")).join("&")), function(e,d){
-				d.forEach(function(c){
+				.replace("\\", "%5C")).join("&")), function (e, d) {
+				d.forEach(function (c, i) {
 					var name = c.artist;
 					STORED_ARTISTS[name] = STORED_ARTISTS[name] || {};
 					STORED_ARTISTS[name].country = {
@@ -140,41 +142,6 @@ var superCount = 0;
 
 
 			});
-
-			return;
-			
-			// Get countries for all artists
-			artists.forEach(function(el, i) {
-				// first check stored artists to see if we've already checked this artist
-				if (STORED_ARTISTS[el] && STORED_ARTISTS[el].country) {
-					var returnObject = STORED_ARTISTS[el].country;
-					returnObject.artist = el;
-					returnList.push(returnObject);
-					checkCount();
-				} else {
-					var start = new Date().getTime();
-
-					api.getCountry(el, function(data) {
-						STORED_ARTISTS[el] = STORED_ARTISTS[el] || {};
-						// console.error(data)
-
-						// if (data.name) {
-						STORED_ARTISTS[el].country = {
-							"id": data.id,
-							"name": data.name,
-						};
-						returnList.push(data);
-						// }
-						// console.log("apicall " + (new Date().getTime() - start) + " ms");
-
-						// Update loading div, whoah ugly code yeah whaddayagonnado
-
-
-						checkCount();
-					})
-				}
-
-			})
 		}
 	})
 

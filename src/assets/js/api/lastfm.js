@@ -2,17 +2,17 @@ var api = api || {};
 
 api.lastfm = {};
 api.lastfm.key = "865b1653dbe200905a5b75d9d839467a";
-api.lastfm.url = "http://localhost:7000/api/lastfm/action";
+api.lastfm.url = "https://explr-backend.azurewebsites.net/api/lastfm/action";
 
 (function (api) {
 	let keyI = 0;
 	let keys = [
 		// https://gitlab.gnome.org/World/lollypop/blob/master/lollypop/lastfm.py
 		"7a9619a850ccf7377c46cf233c51e3c6",
-		
- 		// https://github.com/rembo10/headphones/blob/master/headphones/lastfm.py
+
+		// https://github.com/rembo10/headphones/blob/master/headphones/lastfm.py
 		"395e6ec6bb557382fc41fde867bce66f",
-		
+
 		// https://github.com/ampache/ampache/issues/1694
 		"13893ba930c63b1b2cbe21441dc7f550",
 
@@ -35,7 +35,11 @@ api.lastfm.url = "http://localhost:7000/api/lastfm/action";
 		"1ba315d4d1673bbf88aed473f1917306"
 	];
 	let keyInfo = window.keyInfo = {};
-	keys.forEach(k => keyInfo[k] = { success: 0, fails: 0, total: 0 });
+	keys.forEach(k => keyInfo[k] = {
+		success: 0,
+		fails: 0,
+		total: 0
+	});
 
 	let rotateKey = function () {
 		let avgErrors = keys.reduce((avg, k, i, arr) => avg + keyInfo[k].fails / arr.length, 0);
@@ -81,61 +85,76 @@ api.lastfm.url = "http://localhost:7000/api/lastfm/action";
 
 		retries = undefined === retries ? 10 : retries
 		let xhr, gotResponse, aborted = false;
+		const optionsObj = {};
+		options.forEach(function (o) {
+			optionsObj[o[0]] = o[1]
+		})
 
 		function tryGet(tries, cb) {
 			let _key = rotateKey();
 			// xhr = d3.json(getUrl(_key), function (e, d) {
-				let e;
-			fetch( api.lastfm.url, {method:"post", body:})
-			.then(function(res){return res.json()})
-			.catch(function(error){return e = error;})
-			.then(function(d){
-				if (aborted) {
-					clearTimeout(timeout);
-					return;
-				}
-
-				if (e) { // we got an actual server error: 4xx, 5xx
-					d = JSON.parse(e.response);
-					// now e and d are the same
-				} else if (d.error) {
-					// we got 200 BUT it's an error
-					e = d;
-				}
-
-				if (e) {
-					setKeyInfo(_key, false);
-
-					let errInfo = {
-						method: method,
-						errorCode: e && e.error,
-						try: tries,
-						options: options,
-						key: _key,
-					};
-					// alert("ERROR");
-					if (tries < retries) {
-						console.warn("Retry request: ", errInfo);
-						setTimeout(tryGet.bind(null, tries + 1, cb), tries * 3000);
+			let e;
+			fetch(api.lastfm.url + "?method=" + method.toLowerCase(), {
+					method: "post",
+					body: JSON.stringify(optionsObj),
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+				})
+				.then(function (res) {
+					return res.json()
+				})
+				.catch(function (error) {
+					return e = error;
+				})
+				.then(function (d) {
+					if (aborted) {
+						clearTimeout(timeout);
 						return;
 					}
 
-					if (tries >= retries) {
-						console.warn("Retry failed after " + retries + " attempts, will stop trying.", errInfo);
-						clearTimeout(timeout);
-						aborted = true;
-						e = "ERROR";
-						d = {
-							error: "Took to long to respond"
-						};
+					if (e) { // we got an actual server error: 4xx, 5xx
+						d = JSON.parse(e.response);
+						// now e and d are the same
+					} else if (d.error) {
+						// we got 200 BUT it's an error
+						e = d;
 					}
-				} else {
-					setKeyInfo(_key, true);
-				}
 
-				gotResponse = true;
-				cb(e, d);
-			});
+					if (e) {
+						setKeyInfo(_key, false);
+
+						let errInfo = {
+							method: method,
+							errorCode: e && e.error,
+							try: tries,
+							options: options,
+							key: _key,
+						};
+						// alert("ERROR");
+						if (tries < retries) {
+							console.warn("Retry request: ", errInfo);
+							setTimeout(tryGet.bind(null, tries + 1, cb), tries * 3000);
+							return;
+						}
+
+						if (tries >= retries) {
+							console.warn("Retry failed after " + retries + " attempts, will stop trying.", errInfo);
+							clearTimeout(timeout);
+							aborted = true;
+							e = "ERROR";
+							d = {
+								error: "Took to long to respond"
+							};
+						}
+					} else {
+						setKeyInfo(_key, true);
+					}
+
+					gotResponse = true;
+					cb(e, d);
+				});
 		}
 
 		tryGet(0, callback);
