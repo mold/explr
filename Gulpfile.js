@@ -9,7 +9,7 @@
 var gulp        = require("gulp");
 var browserSync = require("browser-sync").create();
 var del         = require("del");
-var sass        = require("gulp-sass");
+var sass        = require("gulp-sass")(require('sass'));
 var sourcemaps  = require("gulp-sourcemaps");
 var prefix      = require("gulp-autoprefixer");
 var concat      = require("gulp-concat");
@@ -17,6 +17,7 @@ var rename      = require("gulp-rename");
 var uglify      = require("gulp-uglify");
 var deporder    = require("gulp-deporder");
 var changed     = require("gulp-changed");
+// import imagemin from "gulp-imagemin";
 var imagemin    = require("gulp-imagemin");
 var minifyCss   = require("gulp-minify-css");
 var ghPages     = require("gulp-gh-pages");
@@ -183,3 +184,8 @@ exports.default = gulp.series(clean, build, serve);
  * Alternative: Build, then deploy to gh-pages!
  */
 exports.deploy = gulp.series(clean, build, upload);
+
+/**
+ * Just build
+ */
+ exports.deploy = gulp.series(clean, build);
