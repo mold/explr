@@ -4,7 +4,6 @@
   "description": "Explr.fm - color music map the wolrd",
   "main": "Gulpfile.js",
   "private": true,
-  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.8.3",
     "@babel/preset-env": "^7.8.3",
@@ -17,17 +16,19 @@
     "gulp-concat": "^2.6.1",
     "gulp-deporder": "^1.2.0",
     "gulp-gh-pages": "^0.6.0-6",
-    "gulp-imagemin": "^6.2.0",
+    "gulp-imagemin": "^7.0.0",
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.2",
+    "gulp-sass": "^5.1.0",
     "gulp-sourcemaps": "^2.6.5",
-    "gulp-uglify": "^3.0.2"
+    "gulp-uglify": "^3.0.2",
+    "sass": "^1.49.0"
   },
   "scripts": {
     "start": "npm install && gulp serve",
     "gulp": "gulp",
-    "deploy": "gulp deploy"
+    "deploy": "gulp deploy",
+    "build": "gulp build"
   },
   "repository": {
     "type": "git",
