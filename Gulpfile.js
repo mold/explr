@@ -172,7 +172,7 @@ exports.img = img;
 exports.data = data;
 exports.html = html;
 exports.upload = upload;
-exports.build = build;
+exports.build = gulp.series(clean, build);
 
 /**
  * Run tasks in specified order! (1. clean, 2. build, 3. serve and watch)
@@ -183,8 +183,3 @@ exports.default = gulp.series(clean, build, serve);
  * Alternative: Build, then deploy to gh-pages!
  */
 exports.deploy = gulp.series(clean, build, upload);
-
-/**
- * Just build
- */
- exports.deploy = gulp.series(clean, build);
