@@ -17,7 +17,6 @@ var rename      = require("gulp-rename");
 var uglify      = require("gulp-uglify");
 var deporder    = require("gulp-deporder");
 var changed     = require("gulp-changed");
-// import imagemin from "gulp-imagemin";
 var imagemin    = require("gulp-imagemin");
 var minifyCss   = require("gulp-minify-css");
 var ghPages     = require("gulp-gh-pages");
