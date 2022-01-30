@@ -5,12 +5,10 @@
 /* CHANGE BUTTON
    ========================================================================== */
 .change-button {
-    position: absolute;
-    right: 20px;
     width: 40px;
     height: 40px;
     border-radius: 20px;
-    z-index: 1;
+    margin-bottom: 5px;
     background: rgb(172, 172, 172);
     opacity: 0.5;
     cursor: pointer;
@@ -28,7 +26,8 @@
 
     img {
         display: block;
-        margin: 3px auto;
+        margin: 0 auto;
+        padding: 3px 0;
     }
 
     p {
@@ -43,21 +42,10 @@
  * Specific change buttons
  */
 
-#change-theme-button {
-    /*right:80px;*/
-    top: 70px;
-}
-
-#change-user-button {
-    top: 20px;
-}
-
-#snapshot-button {
-    top: 120px;
-}
-
-.theme-button {
-    z-index: 2;
+#clear-cache-button {
+    img {
+        padding-top: 5px;
+    }
 }
 
 /* GO-BUTTON (SPLASH)
