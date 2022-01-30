@@ -85,7 +85,7 @@
 						<p class="info">
 						Ever wondered where the artists you listen to come from?</p>
 						<p class="info">
-							Or if there s are any good bands from <span id="randomCountry"></span></p>
+							Or if there are any good bands from <span id="randomCountry"></span></p>
 							
 							<p align="center"><h4>Wonder no more!</h4></p>
 							<p class="info">Enter your Last.fm username in the field below. If you don't have Last.fm, <a href="https://last.fm">get it here!</a></p>
@@ -137,34 +137,43 @@
 				</div>
 				<div id="loading-text" class="no-select"></div>
 			</div>
-			
-			<div id="change-theme-button" class="change-button on-map-view no-select" onClick="nextTheme();ga('send', 'event', 'Buttons', 'Cycle theme', 'test');">
-				<img src="assets/img/glyphicons_009_magic.png" alt="" width="32" height="32">
-				<p>Change theme (t)</p>
-			</div>
-			<a href="./"  target="_self">
-				<div id="change-user-button" class="change-button on-map-view no-select">
-					<img src="assets/img/remove-user.png" alt="" width="32" height="32">
-					<p>Change user</p>
+
+			<div id="controls">
+				<div id="change-theme-button" class="change-button on-map-view no-select"
+					onClick="nextTheme();ga('send', 'event', 'Buttons', 'Cycle theme', 'test');">
+					<img src="assets/img/glyphicons_009_magic.png" alt="" width="32" height="32">
+					<p>Change theme (t)</p>
 				</div>
-			</a>
-			<div id="snapshot-button" class="change-button on-map-view no-select" onClick="screenshot.render();ga('send', 'event', 'Buttons', 'Take screenshot', 'test');">
-				<img src="assets/img/snapshot.png" alt="" width="32" height="32">
-				<p>Take snapshot (s)</p>
+				<a href="./" target="_self">
+					<div id="change-user-button" class="change-button on-map-view no-select">
+						<img src="assets/img/remove-user.png" alt="" width="32" height="32">
+						<p>Change user</p>
+					</div>
+				</a>
+				<div id="clear-cache-button" class="change-button on-map-view no-select" onClick="clearExplrCache().then(()=>window.location.reload())">
+					<img src="assets/img/refresh.png" alt="" width="28" height="28">
+					<p>Clear cached artists</p>
+				</div>
+				<div id="snapshot-button" class="change-button on-map-view no-select"
+					onClick="screenshot.render();ga('send', 'event', 'Buttons', 'Take screenshot', 'test');">
+					<img src="assets/img/snapshot.png" alt="" width="32" height="32">
+					<p>Take snapshot (s)</p>
+				</div>
+				<div id="countryCount" class="progress on-map-view full-opacity no-select">
+					<div id="progress-bar">
+						<span id="progress-text"></span><!-- class="hidden" -->
+					</div>
+				</div>
+			</div>
+			
+			<div id="friends" class="on-map-view">
+				<p id="msg" class="details-p"></p>
+				<span class="arrow left no-select">
+					<-</span> <p id="friend-name" class="details-p">ding dong</p>
+					<span class="arrow right no-select">-></span>
 			</div>
 			<div id="logo" class="logo on-map-view no-select">
 				<img src="assets/img/explrlogo.png" width="100">
-			</div>
-			<div id="friends" class="on-map-view">
-				<p id="msg" class="details-p"></p>
-				<span class="arrow left no-select"><-</span>
-				<p id="friend-name" class="details-p">ding dong</p>
-				<span class="arrow right no-select">-></span>
-			</div>
-			<div id="countryCount" class="progress on-map-view full-opacity no-select" >
-				<div id="progress-bar">
-					<span id="progress-text" ></span><!-- class="hidden" -->
-				</div>
 			</div>
 
 			<div class="screenshot-overlay" style="display:none;">
