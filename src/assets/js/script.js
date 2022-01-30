@@ -17,6 +17,14 @@ var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
 var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
 var SESSION = {};
 
+function clearExplrCache() {
+    var theme = window.localStorage.getItem("theme");
+    window.localStorage.clear();
+    window.localStorage.setItem("theme", theme);
+
+    return localforage.clear();
+}
+
 (function () {
     // user = prompt("Input your user name, get top 20 artists")
     var user, currPage = 1,
@@ -81,11 +89,11 @@ var SESSION = {};
                     } else {
                         var refresh = confirm("Last.fm took too long to respond.\n\nPress OK to refresh the page and try again, or Cancel to use the page as it is.");
                         if (refresh) {
-                            window.localStorage.clear();
-                            localforage.clear();
-                            saveToStorage("artists", STORED_ARTISTS, function () {
-                                window.location.reload()
-                            });
+                            clearExplrCache().then(function () {
+                                saveToStorage("artists", STORED_ARTISTS, function () {
+                                    window.location.reload()
+                                });
+                            })
                         }
                     }
                     return;

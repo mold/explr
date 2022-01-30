@@ -150,9 +150,9 @@
 						<p>Change user</p>
 					</div>
 				</a>
-				<div id="clear-cache-button" class="change-button on-map-view no-select">
+				<div id="clear-cache-button" class="change-button on-map-view no-select" onClick="clearExplrCache().then(()=>window.location.reload())">
 					<img src="assets/img/refresh.png" alt="" width="28" height="28">
-					<p>Clear cache</p>
+					<p>Clear cached artists</p>
 				</div>
 				<div id="snapshot-button" class="change-button on-map-view no-select"
 					onClick="screenshot.render();ga('send', 'event', 'Buttons', 'Take screenshot', 'test');">
