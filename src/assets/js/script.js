@@ -44,7 +44,7 @@ var SESSION = {};
 
         d3.select(".no-countries__info").html(listOfArtistsWithNoCountry.length + " artists without a country:");
 
-        saveToStorage("no_countres", listOfArtistsWithNoCountry);
+        saveToStorage("no_countries", listOfArtistsWithNoCountry);
 
         if (listOfArtistsWithNoCountry.length) {
             d3.select(".no-countries").style({
@@ -477,6 +477,7 @@ var SESSION = {};
     }
 
     var saveToStorage = function (key, object, cb) {
+        console.log({key,object,cb})
         localforage.setItem(key, object, cb || function () {});
     }
 })();
