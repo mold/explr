@@ -154,10 +154,16 @@
 					<img src="assets/img/refresh.png" alt="" width="28" height="28">
 					<p>Clear cached artists</p>
 				</div>
-				<div id="snapshot-button" class="change-button on-map-view no-select"
-					onClick="screenshot.render();ga('send', 'event', 'Buttons', 'Take screenshot', 'test');">
-					<img src="assets/img/snapshot.png" alt="" width="32" height="32">
-					<p>Take snapshot (s)</p>
+				<div class="button-group">
+					<div role="button" id="snapshot-button" class="change-button on-map-view no-select"
+						onClick="screenshot.render();ga('send', 'event', 'Buttons', 'Take screenshot', 'test');">
+						<img src="assets/img/snapshot.png" alt="" width="32" height="32">
+					</div>
+					<label for="snapshot-button" class="button-group__label">Take snapshot (s)</label>
+					<div class="change-button on-map-view no-select">
+						<img src="assets/img/file-export-solid.png" alt="" width="30" height="30" style="padding: 5px 0 0 5px;">
+					</div>
+					<label class="button-group__label">Export data (e)</label>
 				</div>
 				<div id="countryCount" class="progress on-map-view full-opacity no-select">
 					<div id="progress-bar">

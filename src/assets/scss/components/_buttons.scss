@@ -13,6 +13,7 @@
     opacity: 0.5;
     cursor: pointer;
     overflow: hidden;
+    margin-left: auto;
 
     &:hover {
         overflow: visible;
@@ -45,6 +46,25 @@
 #clear-cache-button {
     img {
         padding-top: 5px;
+    }
+}
+
+.button-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    .change-button:hover {
+        +.button-group__label {
+            display: block;
+        }
+    }
+
+    &__label {
+        display: none;
+        order: -1;
+        font-weight: 700;
+        margin: -6px 5px 0;
     }
 }
 
