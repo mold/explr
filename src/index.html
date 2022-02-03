@@ -144,26 +144,27 @@
 					<img src="assets/img/glyphicons_009_magic.png" alt="" width="32" height="32">
 					<p>Change theme (t)</p>
 				</div>
-				<a href="./" target="_self">
-					<div id="change-user-button" class="change-button on-map-view no-select">
-						<img src="assets/img/remove-user.png" alt="" width="32" height="32">
-						<p>Change user</p>
+				<div class="button-group">
+					<div id="clear-cache-button" class="change-button on-map-view no-select"
+						onClick="clearExplrCache().then(()=>window.location.reload())">
+						<img src="assets/img/refresh.png" alt="" width="28" height="28">
 					</div>
-				</a>
-				<div id="clear-cache-button" class="change-button on-map-view no-select" onClick="clearExplrCache().then(()=>window.location.reload())">
-					<img src="assets/img/refresh.png" alt="" width="28" height="28">
-					<p>Clear cached artists</p>
+					<label class="button-group__label" for="clear-cache-button">Clear cached artists</label>
+					<a href="./" target="_self" class="change-button on-map-view no-select" id="change-user-button">
+						<img src="assets/img/remove-user.png" alt="" width="32" height="32">
+					</a>
+					<label class="button-group__label" for="change-user-button">Change user</label>
 				</div>
 				<div class="button-group">
+					<div class="change-button on-map-view no-select">
+						<img src="assets/img/file-export-solid.png" alt="" width="30" height="30" style="padding: 5px 0 0 5px;">
+					</div>
+					<label class="button-group__label">Export data (e)</label>
 					<div role="button" id="snapshot-button" class="change-button on-map-view no-select"
 						onClick="screenshot.render();ga('send', 'event', 'Buttons', 'Take screenshot', 'test');">
 						<img src="assets/img/snapshot.png" alt="" width="32" height="32">
 					</div>
 					<label for="snapshot-button" class="button-group__label">Take snapshot (s)</label>
-					<div class="change-button on-map-view no-select">
-						<img src="assets/img/file-export-solid.png" alt="" width="30" height="30" style="padding: 5px 0 0 5px;">
-					</div>
-					<label class="button-group__label">Export data (e)</label>
 				</div>
 				<div id="countryCount" class="progress on-map-view full-opacity no-select">
 					<div id="progress-bar">
