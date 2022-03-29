@@ -61,6 +61,9 @@ $controls-padding: 20px;
     bottom: 80px;
     padding: $controls-padding;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
 
 
@@ -71,8 +74,8 @@ $controls-padding: 20px;
 //(Progressbar container)
 #countryCount {
     position: absolute;
-    // 4 * (buttonheight + padding) :^)
-    top: 4 * (40px+5px) + $controls-padding + 10px;
+    // 3 * (buttonheight + padding) :^)
+    top: 3 * (40px+5px) + $controls-padding + 10px;
     width: 10px;
     bottom: $controls-padding;
     right: 32px;

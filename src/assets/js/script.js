@@ -1,6 +1,7 @@
 /* requires:
 api/api.js
 api/lastfm.js
+utils.js
 */
 
 var STORED_ARTISTS;
@@ -25,11 +26,12 @@ function clearExplrCache() {
     return localforage.clear();
 }
 
+var countryCountObj = {};
+
 (function () {
     // user = prompt("Input your user name, get top 20 artists")
     var user, currPage = 1,
         maxPage;
-    var countryCountObj = {};
     var count = 0;
     var tries = 0;
     var randomcountrylist = ["Malawi", "Malaysia", "Peru", "Sierra Leone", "Trinidad & Tobago", "Greece", "Laos", "Iran", "Haiti", "Nicaragua", "Mongolia", "Slovakia"];
