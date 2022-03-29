@@ -156,7 +156,7 @@
 					<label class="button-group__label" for="change-user-button">Change user</label>
 				</div>
 				<div class="button-group">
-					<div class="change-button on-map-view no-select">
+					<div class="change-button on-map-view no-select" onClick="utils.exportToCSV(countryCountObj)">
 						<img src="assets/img/file-export-solid.png" alt="" width="30" height="30" style="padding: 5px 0 0 5px;">
 					</div>
 					<label class="button-group__label">Export data (e)</label>
@@ -214,6 +214,9 @@
 
 			<!-- localForage -->
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.7.3/localforage.min.js" integrity="sha256-H/ZsHjKSJUnQyCQHZwPmn7VTWFeTTI+qgCP1GkiB9zI=" crossorigin="anonymous"></script>
+
+			<!-- json2csv -->
+			<script src="https://cdn.jsdelivr.net/npm/json2csv@5"></script>
 			
 			<!-- Show and hide FAQ page on click -->
 			<script>

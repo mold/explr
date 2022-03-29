@@ -277,7 +277,7 @@ var countryScore = 0;
   }
 
   //Load country aliases and names
-  api.getCountriesData().then(countries => (countryNames = countries));
+  api.getCountriesData().then(countries => (map.countryNames = countryNames = countries));
   
   //Load map
   d3.json("assets/data/world-50m.json", function(error, world) {
