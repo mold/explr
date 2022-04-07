@@ -487,7 +487,6 @@ var countryCountObj = {};
     }
 
     var saveToStorage = function (key, object, cb) {
-        console.log({key,object,cb})
         localforage.setItem(key, object, cb || function () {});
     }
 })();
