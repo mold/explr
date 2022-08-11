@@ -52,6 +52,17 @@
     opacity: 0.4;
 }
 
+.social-icons {
+    margin-top:20px;
+
+    img {
+        width:20px;
+        height:20px;
+        filter: grayscale(1);
+        margin: 0 2px;
+    }
+}
+
 .faq-link {
     font-size: 15px;
     margin: 20px 0 0 0;
