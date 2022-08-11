@@ -6,16 +6,11 @@ var api = api || {};
 var superCount = 0;
 
 (function (window, document) {
-	var hardcodedCountries;
-	
-	function getHardcodedArtists() {
-		return new Promise((res, rej) =>
-			d3.json("assets/data/artist-countries.json", function (err, data){
-				err ? rej(err) : res(data)}
-		)
-		);
-	}
-	
+	let getHardcodedCountries = () => new Promise((res, rej) =>
+		d3.json("assets/data/artist-countries.json", (err, data) =>
+			err ? rej(err) : res(data)
+		));
+
 	api.getCountriesData = (() => {
 		let promise;
 
@@ -39,10 +34,7 @@ var superCount = 0;
 		}
 	})();
 	
-	Promise.all([api.getCountriesData(), getHardcodedArtists()]).then(([countryData, artistData]) => {
-		hardcodedCountries = artistData;
-		console.log({artistData})
-		
+	Promise.all([api.getCountriesData(), getHardcodedCountries()]).then(([countryData, hardcodedCountries]) => {
 		countryData = countryData.map(d => {
 			let splits = [];
 
@@ -76,8 +68,6 @@ var superCount = 0;
 				return d.name.toLowerCase();
 			})
 			.map(countryData);
-
-			console.log({data: countryData,alias,cname});
 
 		/**
 		 * Tries to find out the country for a specified artist.
@@ -218,8 +208,6 @@ var superCount = 0;
 					var start = new Date().getTime();
 
 					api.getCountry(el, function(data) {
-						console.log("getCountry data:",data)
-						
 						STORED_ARTISTS[el] = STORED_ARTISTS[el] || {};
 						// console.error(data)
 
