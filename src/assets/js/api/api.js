@@ -99,8 +99,16 @@ var superCount = 0;
 		 */
 		api.getCountry = function(artist, callback) {
 			if (hardcodedCountries[artist]) {
-				console.log(`Using hardcoded country "${hardcodedCountries[artist]}" for artist "${artist}"`)
-				callback(Object.assign({ "artist": artist, }, hardcodedCountries[artist]));
+				let hardcodedTagName = hardcodedCountries[artist].toLowerCase();
+				
+				console.log(`Using hardcoded country tag "${hardcodedTagName}" for artist "${artist}"`)
+				
+				callback({
+					artist,
+					tag: hardcodedTagName,
+					id: cname[hardcodedTagName][0].id,
+					country: cname[hardcodedTagName][0].mainName
+				});
 				return;
 			}
 			
@@ -210,6 +218,8 @@ var superCount = 0;
 					var start = new Date().getTime();
 
 					api.getCountry(el, function(data) {
+						console.log("getCountry data:",data)
+						
 						STORED_ARTISTS[el] = STORED_ARTISTS[el] || {};
 						// console.error(data)
 
