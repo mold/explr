@@ -5,7 +5,17 @@ api/lastfm.js
 var api = api || {};
 var superCount = 0;
 
-(function(window, document) {
+(function (window, document) {
+	var hardcodedCountries;
+	
+	function getHardcodedArtists() {
+		return new Promise((res, rej) =>
+			d3.json("assets/data/artist-countries.json", function (err, data){
+				err ? rej(err) : res(data)}
+		)
+		);
+	}
+	
 	api.getCountriesData = (() => {
 		let promise;
 
@@ -29,8 +39,11 @@ var superCount = 0;
 		}
 	})();
 	
-	api.getCountriesData().then(data => {
-		data = data.map(d => {
+	Promise.all([api.getCountriesData(), getHardcodedArtists()]).then(([countryData, artistData]) => {
+		hardcodedCountries = artistData;
+		console.log({artistData})
+		
+		countryData = countryData.map(d => {
 			let splits = [];
 
 			if (d.names.length === 1 && d.tags.length === 0) {
@@ -56,15 +69,15 @@ var superCount = 0;
 					return "";
 				}
 			})
-			.map(data);
+			.map(countryData);
 
 		let cname = d3.nest()
 			.key(function(d) {
 				return d.name.toLowerCase();
 			})
-			.map(data);
+			.map(countryData);
 
-			console.log({data,alias,cname});
+			console.log({data: countryData,alias,cname});
 
 		/**
 		 * Tries to find out the country for a specified artist.
@@ -85,6 +98,12 @@ var superCount = 0;
 		 *
 		 */
 		api.getCountry = function(artist, callback) {
+			if (hardcodedCountries[artist]) {
+				console.log(`Using hardcoded country "${hardcodedCountries[artist]}" for artist "${artist}"`)
+				callback(Object.assign({ "artist": artist, }, hardcodedCountries[artist]));
+				return;
+			}
+			
 			// Get artists country code here, from last.fm or whatever
 			api.lastfm.send("artist.gettoptags", [["artist", artist]], function(err, responseData2) {
 				// Return if something failed

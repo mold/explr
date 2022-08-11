@@ -5,14 +5,14 @@ utils.js
 */
 
 var STORED_ARTISTS;
-localforage.getItem("artists", function (err, val) {
-    STORED_ARTISTS = val || {};
-});
+var STORED_ARTISTS_PROMISE = localforage.getItem("artists").then(val => 
+    STORED_ARTISTS = val || {}
+);
 
 var CACHED_NO_COUNTRIES;
-localforage.getItem("no_countries", function (err, val) {
-    CACHED_NO_COUNTRIES = val || {};
-})
+var CACHED_NO_COUNTRIES_PROMISE = localforage.getItem("no_countries").then(val => 
+    CACHED_NO_COUNTRIES = val || {}
+);
 
 var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
 var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
@@ -480,7 +480,7 @@ var countryCountObj = {};
         }
         user = param;
         SESSION.name = param;
-        begin();
+        Promise.all([CACHED_NO_COUNTRIES_PROMISE, STORED_ARTISTS_PROMISE]).then(() => begin());
     } else {
         d3.select("#welcome-container").style("visibility", "visible");
         d3.select("#randomCountry").html(randomcountrylist[Math.floor(Math.random() * (randomcountrylist.length))] + "?")
