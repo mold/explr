@@ -10,9 +10,6 @@ api.lastfm.url = "https://ws.audioscrobbler.com/2.0/";
 		// https://gitlab.gnome.org/World/lollypop/blob/master/lollypop/lastfm.py
 		"7a9619a850ccf7377c46cf233c51e3c6",
 		
- 		// https://github.com/rembo10/headphones/blob/master/headphones/lastfm.py
-		"395e6ec6bb557382fc41fde867bce66f",
-		
 		// https://github.com/ampache/ampache/issues/1694
 		"13893ba930c63b1b2cbe21441dc7f550",
 
