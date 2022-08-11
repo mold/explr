@@ -157,6 +157,7 @@ function serve(cb) {
     gulp.watch(path.src.html + "*.html", gulp.series("html"));
     gulp.watch(path.src.js + "**/*.js", gulp.series("js"));
     gulp.watch(path.src.img + "**/*", gulp.series("img"));
+    gulp.watch(path.src.data + "**/*.(csv|json)", gulp.series("data"));
     cb();
 }
 
