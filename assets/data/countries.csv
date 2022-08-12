@@ -177,7 +177,7 @@ id,names,tags
 818,Egypt,Egyptian
 826,United Kingdom|UK|England|Wales|Scotland,British|English|Welsh|Scottish
 854,Burkina Faso,Burkinese|Burkinabe
-104,Burma|Myanmar,Burmese
+104,Myanmar|Burma,Burmese
 858,Uruguay,Uruguayan
 860,Uzbekistan,Uzbek
 862,Venezuela,Venezuelan
@@ -186,7 +186,7 @@ id,names,tags
 426,Lesotho,Lesothian
 140,Central African Republic,Central African
 728,South Sudan,South Sudanese
-384,Cote d'Ivoire,Ivorian
+384,Cote d'Ivoire|Cote Divoire,Ivorian|Ivory Coast
 678,Sao Tome and Principe,Sao Tomean
 226,Equatorial Guinea,Equatoguinean
 304,Greenland,Greenlandic
