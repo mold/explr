@@ -105,6 +105,7 @@ api.lastfm.url = "https://ws.audioscrobbler.com/2.0/";
 						try: tries,
 						options: options,
 						key: _key,
+						message: e.message || JSON.parse(e.response)?.message,
 					};
 					// alert("ERROR");
 					if (tries < retries) {
