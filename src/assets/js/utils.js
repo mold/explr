@@ -2,14 +2,14 @@ const utils = utils || {};
 
 (function () {
   utils.exportToCSV = function (countryCountObj) {
-    const list = Object.entries(countryCountObj)
-      .filter(([id]) => +id)
-      .map(([countryId, obj]) => ({
-        countryId,
-        countryName: map.countryNames.find(({ id }) => id == countryId)
-          .mainName,
-        artists: obj[SESSION.name],
-      }));
+    const list = map.countryNames.map((country) => {
+      const countryCount = countryCountObj[country.id];
+      return {
+        countryId: country.id,
+        countryName: country.mainName,
+        artists: (countryCount && countryCount[SESSION.name]) || [],
+      };
+    });
 
     let csv = json2csv.parse(
       list.sort(({ countryName: a }, { countryName: b }) =>
