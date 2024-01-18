@@ -12,6 +12,7 @@ var superCount = 0;
 		));
 
 	api.getCountriesData = (() => {
+		console.log("Loading countries data...")
 		let promise;
 
 		return () => {

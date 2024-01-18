@@ -2,6 +2,7 @@
 api/api.js
 api/lastfm.js
 utils.js
+search.js
 */
 
 var STORED_ARTISTS;
@@ -17,6 +18,8 @@ var CACHED_NO_COUNTRIES_PROMISE = localforage.getItem("no_countries").then(val =
 var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
 var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
 var SESSION = {};
+
+let SEARCH_IS_OPEN = false;
 
 function clearExplrCache() {
     var theme = window.localStorage.getItem("theme");
@@ -445,10 +448,25 @@ var countryCountObj = {};
     var param = window.location.href.split("username=")[1];
 
     if (param) { // We already have a user
+
         // set up keyboard shortcuts
         window.addEventListener("keydown", function (evt) {
+
+            if ((evt.ctrlKey || evt.metaKey) && evt.keyCode === 70) {
+
+                SEARCH_IS_OPEN = true;
+                
+                // Prevent the browser's default "ctrl + f" or "cmd + f" action (usually "Find")
+                evt.preventDefault();
+
+                // Initialize the search box
+                search.initSearch();
+                
+            }
+
+            // Supress hotkeys if search is open 
+            if (SEARCH_IS_OPEN) return;
             switch (evt.keyCode) {
-                // s
                 case 83:
                     screenshot.render();
                     //Send google analytics event

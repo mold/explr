@@ -1,0 +1,97 @@
+/* Free text search function */
+
+.search-container {
+    position: absolute;
+    top: 33vh;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.search-results {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-top: 8px;
+    overflow-y: auto;
+    max-height: 400px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
+}
+
+.result-wrapper {
+    position: relative;
+    margin: 0;
+    padding: 8px 12px ;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 400px;;
+    &:first-child {
+        padding-top: 16px;
+    }
+    &:last-child {
+        padding-bottom: 16px;
+    }
+    &:not(:last-of-type):after {
+        content: "";
+        position: absolute;
+        left: 12px; 
+        right: 12px; 
+        bottom: 0; 
+        border-bottom: 1px solid #ccc; 
+    }
+    &:first-of-type::before {
+        content: "";
+        position: absolute;
+        left: 12px; 
+        right: 12px; 
+        top: 0; 
+        border-top: 1px solid #ccc; 
+    }
+    &.focused {
+        background-color: #eee;
+        // 4px solid boxshadow outline
+        box-shadow: inset 0 0 0 4px #ae017e;
+
+
+    }
+}
+
+input.search {
+    padding-left: 12px;
+    height: 56px;
+    min-width: 400px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
+    min-width: 400px;
+}
+
+.artist-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    .playcount {
+        opacity: 0.54;
+    }
+}
+
+.artist-name, .country-name {
+    font-family: $heading-font-stack;
+    font-weight: 700;
+}
+.country-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 0;
+    flex-wrap: nowrap;
+    text-align: right;
+}
+.result-wrapper {
+    align-items: center;
+}
+
+.search-result-heading {
+    font-size: 1rem;
+    font-weight: normal;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-bottom: 4px;
+}
