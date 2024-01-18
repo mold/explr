@@ -8,12 +8,13 @@
 }
 
 .search-results {
-    background-color: #fff;
     border-radius: 8px;
     margin-top: 8px;
     overflow-y: auto;
     max-height: 400px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
+    backdrop-filter: blur(20px);
+    background-color: rgba(249, 249, 249, 0.94);
 }
 
 .result-wrapper {
@@ -30,7 +31,12 @@
     &:last-child {
         padding-bottom: 16px;
     }
-    &:not(:last-of-type):after {
+    .artists-wrapper & {
+        &:last-of-type::after {
+            border: none;
+        }
+    }
+    &:after {
         content: "";
         position: absolute;
         left: 12px; 
@@ -49,7 +55,7 @@
     &.focused {
         background-color: #eee;
         // 4px solid boxshadow outline
-        box-shadow: inset 0 0 0 4px #ae017e;
+        box-shadow: inset 0 0 0 3px #ae017e;
 
 
     }
@@ -61,6 +67,9 @@ input.search {
     min-width: 400px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
     min-width: 400px;
+    backdrop-filter: blur(20px);
+    background-color: rgba(249, 249, 249, 0.94);
+    outline-color: #ae017e;
 }
 
 .artist-wrapper {

@@ -69,11 +69,13 @@ const search = search || {};
             country.names.some(name => name.toLowerCase().includes(input.value.toLowerCase()))
           );
 
+          const countriesWrapper = document.createElement('div');
           if (filteredCountries.length > 0 && input.value.length > 2) {
             let countriesHeading = document.createElement('h2');
             countriesHeading.textContent = 'Countries';
             countriesHeading.classList.add('search-result-heading');
-            resultsDiv.appendChild(countriesHeading);
+            countriesWrapper.appendChild(countriesHeading);
+            resultsDiv.appendChild(countriesWrapper);
           }
 
 
@@ -88,19 +90,21 @@ const search = search || {};
                 countrySpan.classList.add('country-name');
                 countrySpan.textContent = c.name;
                 searchResultWrapper.appendChild(countrySpan);
-                resultsDiv.appendChild(searchResultWrapper);
+                countriesWrapper.appendChild(searchResultWrapper);
 
             }
         });
-    
+        const artistsWrapper = document.createElement('div');
         // Filter the artists based on the user's input
         let filteredArtists = artists.filter(country => country.artist.toLowerCase().includes(input.value.toLowerCase()));
 
         if (filteredArtists.length > 0 && input.value.length > 2) {
+
             let countriesHeading = document.createElement('h2');
             countriesHeading.textContent = 'Artists';
             countriesHeading.classList.add('search-result-heading');
-            resultsDiv.appendChild(countriesHeading);
+            artistsWrapper.appendChild(countriesHeading);
+            resultsDiv.appendChild(artistsWrapper);
           }
         
         // Display the filtered results
@@ -129,7 +133,8 @@ const search = search || {};
                 artistCountryWrapper.textContent = artist.country;
                 searchResultWrapper.appendChild(artistWrapper);
                 searchResultWrapper.appendChild(artistCountryWrapper);
-                resultsDiv.appendChild(searchResultWrapper);
+                artistsWrapper.appendChild(searchResultWrapper);
+                artistsWrapper.classList.add('artists-wrapper');
 
             }
         });
