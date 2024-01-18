@@ -5,6 +5,7 @@
     top: 33vh;
     left: 50%;
     transform: translate(-50%);
+    box-sizing: border-box;
 }
 
 .search-results {
@@ -15,9 +16,11 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
     backdrop-filter: blur(20px);
     background-color: rgba(249, 249, 249, 0.94);
+    box-sizing: border-box;
 }
 
 .result-wrapper {
+    box-sizing: border-box;
     position: relative;
     margin: 0;
     padding: 8px 12px ;
@@ -70,6 +73,8 @@ input.search {
     backdrop-filter: blur(20px);
     background-color: rgba(249, 249, 249, 0.94);
     outline-color: #ae017e;
+    outline-width: 4px;
+    box-sizing: border-box;
 }
 
 .artist-wrapper {
