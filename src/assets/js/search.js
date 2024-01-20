@@ -238,6 +238,63 @@ const search = search || {};
                 }
             });
         }
+
+        // Filter the artists based on the user's input
+        let filteredCountryArtists = artists.filter((artist) => filteredCountries.length === 1 && filteredCountries[0].id === artist.id);
+
+        if (filteredCountryArtists.length > 0 && input.value.length > 1) {
+            const artistsWrapper = document.createElement('ul');
+            artistsWrapper.classList.add('search-result-group');
+            let artistsHeading = document.createElement('li');
+            artistsHeading.textContent = 'Artists from ' + filteredCountries[0].name;
+            artistsHeading.role = "presentation"
+            artistsHeading.classList.add('search-result-heading');
+            artistsHeading.id = 'artists-heading';
+            artistsWrapper.appendChild(artistsHeading);
+            artistsWrapper.setAttribute('role', 'group');
+            artistsWrapper.ariaLabelledby = 'artists-heading';
+            resultsDiv.appendChild(artistsWrapper);
+        
+            filteredCountryArtists.slice(0, 100).forEach(artist => {
+                if (input.value.length > 1) {
+                    let searchResultWrapper = document.createElement('div');
+                    searchResultWrapper.classList.add('result-wrapper');
+                    searchResultWrapper.role = 'option';
+                    searchResultWrapper.id = `artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;                    // Zoom into the country of the artist on click
+                    searchResultWrapper.addEventListener('click', function() {
+                        search.stopSearch();
+                        console.log(`You clicked on ${artist.artist} from ${artist.id}`)
+                        const country = document.querySelector(`.country#c${artist.id}`);
+                        if (country) country.dispatchEvent(new Event('click'));
+                        setTimeout(() => {
+                            map.showArtists(1, 5, true, artist.artist)
+                        }, 250);
+                    });
+                    let artistWrapper = document.createElement('span');
+                    artistWrapper.classList.add('artist-wrapper');
+                    let artistCountryWrapper = document.createElement('span');
+                    artistCountryWrapper.classList.add('country-wrapper');
+                    let artistPlaycount = document.createElement('span');
+                    artistPlaycount.classList.add('playcount');
+                    artistPlaycount.textContent = `${artist.playcount} scrobbles`
+                    const artistNameSpan = document.createElement('span');
+                    artistNameSpan.classList.add('artist-name');
+        
+                    // Highlight the matching letters
+                    let regex = new RegExp(input.value, 'gi');
+                    let highlightedName = artist.artist.replace(regex, match => `<span class="highlight">${match}</span>`);
+                    artistNameSpan.innerHTML = highlightedName;
+        
+                    artistWrapper.appendChild(artistNameSpan);
+                    artistWrapper.appendChild(artistPlaycount);
+                    artistCountryWrapper.textContent = utils.getCountryNameFromId(artist.id);
+                    searchResultWrapper.appendChild(artistWrapper);
+                    searchResultWrapper.appendChild(artistCountryWrapper);
+                    artistsWrapper.appendChild(searchResultWrapper);
+                    artistsWrapper.classList.add('artists-wrapper');
+                }
+            });
+        }
             
     });
 
