@@ -1,5 +1,7 @@
 /* requires:
 api/api.js
+utils.js
+screenshot.js
 */
 
 const search = search || {};
@@ -22,11 +24,11 @@ const search = search || {};
 
     // List of shortcuts that you can match against
     const shortcuts = [
-        { name: "Clear cache", onClick: () => {} },
-        { name: "Change user", onClick: () => {} },
-        { name: "Change theme", onClick: () => {} },
-        { name: "Take screenshot", onClick: () => {} },
-        { name: "Export data", onClick: () => {} },
+        { name: "Clear cached users", onClick: () => { clearExplrCache().then(()=>window.location.reload()) } },
+        { name: "Change user", onClick: () => { window.location = "./" } },
+        { name: "Change theme", onClick: () => {map.nextTheme()} },
+        { name: "Take screenshot", onClick: () => {screenshot.render(true)} },
+        { name: "Export data", onClick: () => {utils.exportToCSV(script.getCurrentData())} },
         { name: "Map: Show number of artists", onClick: () => {} },
         { name: "Map: Show number of scrobbles", onClick: () => {} },
         { name: "Support Explr on BuyMeACoffee", onClick: () => { window.open('https://www.buymeacoffee.com/explrfm', '_blank'); } },
@@ -35,16 +37,22 @@ const search = search || {};
     ];
     
     // Get the current data
-    let data = script.countryCountObj;
+    let data = script.getCurrentData();
 
     // Flatten and prepare the data
     let artists = [].concat(...Object.values(data));
     artists = artists.reduce((acc, item) => {
-        return acc.concat(item.elfummel);
+        for (let key in item) {
+            if (item.hasOwnProperty(key)) {
+                acc = acc.concat(item[key]);
+            }
+        }
+        return acc;
     }, [])
 
     // Sort the artists by playcount
     artists = artists.sort((a, b) => b.playcount - a.playcount);
+    console.log(artists.slice(0, 5))
 
     // Create a div to hold the search field
     let searchContainer = document.createElement('div');
@@ -96,8 +104,6 @@ const search = search || {};
                     searchResultWrapper.role = 'option';
                     searchResultWrapper.id = c.name;
                     searchResultWrapper.addEventListener('click', function() {
-                        search.stopSearch();
-                        console.log(`You clicked on ${c.name}`)
                         c.onClick();
                     });
                     const shortcutSpan = document.createElement('span');
@@ -134,8 +140,7 @@ const search = search || {};
             filteredCountries.slice(0, 5).forEach(c => {
                 if (input.value.length > 1) {
                     let searchResultWrapper = document.createElement('div');
-                    searchResultWrapper.classList.add('result-wrapper');
-                    searchResultWrapper.role = 'option';
+                    searchResultWrapper.classList.add('result-wrapper', 'country');                    searchResultWrapper.role = 'option';
                     searchResultWrapper.id = c.name;
                     // Zoom into the country on click
                     searchResultWrapper.addEventListener('click', function() {
@@ -145,7 +150,11 @@ const search = search || {};
                         if (country) country.dispatchEvent(new Event('click'));
                     });
                     const countrySpan = document.createElement('span');
+
                     countrySpan.classList.add('country-name');
+                    const countryArtistsSpan = document.createElement('span');
+                    countryArtistsSpan.classList.add('country-artist-count');
+                    countryArtistsSpan.textContent = `${utils.getNumberOfArtistsForCountry(c.id)} artists`;
 
                     // Highlight the matching letters
                     let regex = new RegExp(input.value, 'gi');
@@ -153,12 +162,12 @@ const search = search || {};
                     countrySpan.innerHTML = highlightedName;
 
                     searchResultWrapper.appendChild(countrySpan);
+                    searchResultWrapper.appendChild(countryArtistsSpan);
                     countriesWrapper.appendChild(searchResultWrapper);
                 }
             });
         }
 
-          
         // Filter the artists based on the user's input
         let filteredArtists = artists.filter(country => country.artist.toLowerCase().includes(input.value.toLowerCase()));
 
@@ -187,7 +196,7 @@ const search = search || {};
                         if (country) country.dispatchEvent(new Event('click'));
                         setTimeout(() => {
                             map.showArtists(1, 5, true, artist.artist)
-                        }, 2500);
+                        }, 250);
                     });
                     let artistWrapper = document.createElement('span');
                     artistWrapper.classList.add('artist-wrapper');
@@ -206,7 +215,7 @@ const search = search || {};
         
                     artistWrapper.appendChild(artistNameSpan);
                     artistWrapper.appendChild(artistPlaycount);
-                    artistCountryWrapper.textContent = artist.country;
+                    artistCountryWrapper.textContent = utils.getCountryNameFromId(artist.id);
                     searchResultWrapper.appendChild(artistWrapper);
                     searchResultWrapper.appendChild(artistCountryWrapper);
                     artistsWrapper.appendChild(searchResultWrapper);

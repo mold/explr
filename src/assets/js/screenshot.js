@@ -1,7 +1,7 @@
 var screenshot = {};
 
 (function (window, document) {
-	screenshot.render = function () {
+	screenshot.render = function (autoDownload = false) {
 		var titleString,
 			subtitleString = "Make your own at explr.fm",
 			img;
@@ -106,12 +106,39 @@ var screenshot = {};
 
 			document.getElementsByClassName("screenshot-overlay")[0].style = "";
 
+			if (autoDownload) {
+				setTimeout(function () {
+					screenshot.download();
+					screenshot.close();
+				}, 0);
+			}
+
 		}
 		explrLogo.src = "assets/img/explrlogo.png";
 	}
 
 	screenshot.close = function () {
 		document.getElementsByClassName("screenshot-overlay")[0].style = "display:none;";
+	}
+
+	screenshot.download = function () {
+		var dataurl = document.getElementById("screenshot-img").src;
+	
+		// Create a new anchor element
+		var a = document.createElement('a');
+	
+		// Set the href and download attributes of the anchor
+		a.href = dataurl;
+		a.download = 'screenshot.png'; // or any other filename you want
+	
+		// Append the anchor to the body (this is necessary for Firefox)
+		document.body.appendChild(a);
+	
+		// Programmatically click the anchor
+		a.click();
+	
+		// Remove the anchor from the body
+		document.body.removeChild(a);
 	}
 
 })(window, document);

@@ -170,13 +170,17 @@
     height: 96px;
     width: 96px;
     background-position: center top;
-    border: 2px solid #444;
+    border: 1px solid #333;
     border-radius: 2px;
     margin-left: auto;
     margin-right: auto;
     background-size: cover;
     text-align: center;
     //position: relative;
+}
+
+.dark .image-div {
+    filter: invert(1) brightness(2) ;
 }
 
 .overlayNo{

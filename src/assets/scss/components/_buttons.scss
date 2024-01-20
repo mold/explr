@@ -75,13 +75,21 @@
     width: 130px;
     height: 40px;
     overflow: hidden;
-    margin: 1em auto 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 16px;
+    margin-top: 16px;
     padding: 3px 6px 6px 6px;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     background: #ffffff;
     background: linear-gradient(to bottom, #ffffff 0%, #ffc3c3 100%);
     border: 2px solid grey;
+
+    &:has(input:focus) {
+        outline: 4px solid #ae017e;
+        outline-offset: 4px;
+    }
 
     &:hover {
         background: white;
@@ -103,8 +111,12 @@
         background-size: 90%;
         background-position: center top;
         cursor: pointer;
+        text-align: center;
         border: none;
         width: inherit;
         height: inherit;
+        &:focus {
+            outline: none;
+        }
     }
 }

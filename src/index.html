@@ -90,7 +90,11 @@
 							<p align="center"><h4>Wonder no more!</h4></p>
 							<p class="info">Enter your Last.fm username in the field below. If you don't have Last.fm, <a href="https://last.fm">get it here!</a></p>
 							<form id="start-form" class="no-select" target="_self">
-								<input name="username" class="usernameinput" placeholder="Last.fm username" type="text" autofocus required>
+								<label for="username">
+									Last.fm username
+									<input id="username" name="username" class="usernameinput" placeholder="e.g. elfummel" type="text" autofocus required autocomplete="on">
+
+								</label>
 								<div class="gobutton"><input type="submit" value="&nbsp;"></div>
 							</form>
 							

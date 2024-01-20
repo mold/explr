@@ -4,101 +4,81 @@
 // -----------------------------------------------------------------------------
 /** FOR THEMES!! **/
 
-body.blue_black,
-body.green_black,
-body.pink_black {
-    background: black;
-    color: white;
-    fill: white;
+body {
+    --backgroundPrimary: #fff;
+    --backgroundSecondary: rgba(180, 225, 225, 0.5);
+    --backgroundTertiary: rgba(180, 225, 225, 0.5);
+    --backgroundInput: rgba(249, 249, 249, 0.94);
+    --textPrimary: #222;
+    --textSecondary: rgba(0, 0, 0, 0.8);
+    --textTertiary: rgba(0, 0, 0, 0.54);
+    --textHeading: rgba(55, 55, 55, 0.8);
+    --link: #222;
+    --border: rgba(0, 0, 0, 0.5);
+    --borderSecondary: rgba(0, 0, 0, 0.12);
+    --hover: rgba(0, 0, 0, 0.06);
+    color-scheme: light;
 }
 
-body.pink_white,
-body.green_white,
-body.red_white {
-    background: white;
-    color: #222;
-    fill: #222;
+body.dark {
+    --backgroundPrimary: #000;
+    --backgroundSecondary: rgba(0, 55, 55, 0.5);
+    --backgroundTertiary: rgba(0, 0, 0, 0.6);
+    --backgroundInput: rgba(20, 20, 20, 0.94);
+    --textPrimary: #fff;
+    --textSecondary: rgba(255, 255, 255, 0.8);
+    --textTertiary: rgba(255, 255, 255, 0.54);
+    --textHeading: rgba(255, 255, 255, 0.8);
+    --link: #fff;
+    --border: rgba(255, 255, 255, 0.5);
+    --borderSecondary: rgba(255, 255, 255, 0.12);
+    --hover: rgba(255, 255, 255, 0.06);
+    color-scheme: dark;
+}
+
+
+body {
+    background: var(--backgroundPrimary);
+    color: var(--textPrimary);
+    fill: var(--textPrimary);
 }
 
 /*
  * Link theme
  */
 
-body.blue_black a,
-body.green_black a,
-body.pink_black a,
-body.blue_black a:visited,
-body.green_black a:visited,
-body.pink_black a:visited,
-body.blue_black a:active,
-body.green_black a:active,
-body.pink_black a:active {
-    color: white;
-}
-
-body.pink_white a,
-body.green_white a,
-body.red_white a,
-body.pink_white a:visited,
-body.green_white a:visited,
-body.red_white a:visited,
-body.pink_white a:active,
-body.green_white a:active,
-body.red_white a:active {
-    color: #222;
+a, a:visited, a:active {
+    color: var(--link);
 }
 
 /*
  * HEADING THEMES
  */
 
-body.blue_black h1,
-body.green_black h1,
-body.pink_black h1 {
-    color: rgba(255, 255, 255, 0.8);
-}
+ h1 {
+    color: var(--textSecondary)
+ }
 
-body.blue_black h5,
-body.green_black h5,
-body.pink_black h5 {
-    color: rgba(200, 200, 200, 0.5);
-}
+ h5 {
+    color: var(--textTertiary)
+ }
 
-/*
- * splash themes
- */
-
-body.blue_black #welcome-container,
-body.green_black #welcome-container,
-body.pink_black #welcome-container {
-    background: rgba(0, 55, 55, 0.5);
-}
-
-body.blue_black .welcome-message,
-body.green_black .welcome-message,
-body.pink_black .welcome-message {
-    background: rgba(0, 0, 0, 0.6);
-    border: 5px solid black;
-}
 
 /*
  * Tooltip
  */
 
-body.blue_black .tooltip,
-body.green_black .tooltip,
-body.pink_black .tooltip {
-    background: black;
+.tooltip {
+    background: var(--textPrimary);
+    color: var(--backgroundPrimary)
 }
 
 /*
  * Map legend
  */
 
-body.blue_black .legend rect,
-body.pink_black .legend rect,
-body.green_black .legend rect {
-    stroke: #000;
+.legend rect {
+    stroke: var(--backgroundPrimary);
 }
 
 /*
@@ -118,9 +98,7 @@ body.green_black #progress-text:after {
     border-left-color: rgba(0, 0, 0, 0.5);
 }
 
-body.blue_black #countryCount,
-body.pink_black #countryCount,
-body.green_black #countryCount {
+.dark #countryCount {
     -webkit-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
@@ -130,9 +108,7 @@ body.green_black #countryCount {
  * Friendbox
  */
 
-body.blue_black #friends,
-body.pink_black #friends,
-body.green_black #friends {
+.dark #friends {
     color: #ccc;
     background: rgba(0, 0, 0, 0.5);
 }
@@ -141,16 +117,12 @@ body.green_black #friends {
  * infocontainer
  */
 
-body.blue_black .infoContainer,
-body.green_black .infoContainer,
-body.pink_black .infoContainer {
+.dark .infoContainer {
     background: rgba(0, 0, 0, 0.85);
     border-top: 1px solid white;
 }
 
-body.pink_white .infoContainer,
-body.green_white .infoContainer,
-body.red_white .infoContainer {
+.infoContainer {
     background: rgba(255, 255, 255, 0.85);
 }
 
@@ -158,15 +130,11 @@ body.red_white .infoContainer {
  * tags
  */
 
-body.blue_black .tagdiv,
-body.green_black .tagdiv,
-body.pink_black .tagdiv {
+.dark .tagdiv {
     color: #ccc;
 }
 
-body.blue_black .tagdiv .usertag,
-body.green_black .tagdiv .usertag,
-body.pink_black .tagdiv .usertag {
+.dark .tagdiv .usertag {
     color: #fff;
 }
 
@@ -174,9 +142,7 @@ body.pink_black .tagdiv .usertag {
 * flattr logo
 */
 
-body.blue_black .flattr-logo,
-body.green_black .flattr-logo,
-body.pink_black .flattr-logo {
+.dark .flattr-logo {
     fill: white;
 }
 
@@ -184,16 +150,12 @@ body.pink_black .flattr-logo {
 * bmc logo
 */
 
-body.blue_black .bmc-button,
-body.green_black .bmc-button,
-body.pink_black .bmc-button {
+.dark .bmc-button {
     background: none;
     border: none;
 }
 
-body.blue_black .screenshot-overlay,
-body.green_black .screenshot-overlay,
-body.pink_black .screenshot-overlay {
+.dark .screenshot-overlay {
     &__close {
         background: black;
         color: white;

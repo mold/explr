@@ -6,6 +6,7 @@ search.js
 */
 
 var script = script || {};
+let loadingReady = false;
 
 
 var STORED_ARTISTS;
@@ -72,6 +73,8 @@ var countryCountObj = {};
 
     var getAllArtists = function () {
         // console.log("get artists")
+
+        loadingReady = false;
 
         api.lastfm.send("library.getartists", [
                 ["user", user],
@@ -427,6 +430,7 @@ var countryCountObj = {};
     }
 
     var end = function () {
+        loadingReady = true;
         // We're done, fade out loader
         var loader = d3.select(".loader");
         loader.transition().duration(2000)
@@ -513,4 +517,11 @@ var countryCountObj = {};
 
 })();
 
-script.countryCountObj = countryCountObj;
+script.getCurrentData = function () {
+    if (loadingReady) {
+        return JSON.parse(window.localStorage.getItem('countryCountObj'));;
+    } else {
+        return countryCountObj;
+    }
+
+}
