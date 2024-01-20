@@ -324,8 +324,12 @@ div.colorChange {
     &__content {
         padding-right: 0.5em;
         overflow: auto;
+        visibility: hidden;
         p {
             margin: 0 0 0.5em;
+        }
+        .no-countries:hover & {
+            visibility: visible;
         }
     }
 

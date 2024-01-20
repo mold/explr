@@ -5,6 +5,9 @@ utils.js
 search.js
 */
 
+var script = script || {};
+
+
 var STORED_ARTISTS;
 var STORED_ARTISTS_PROMISE = localforage.getItem("artists").then(val => 
     STORED_ARTISTS = val || {}
@@ -507,4 +510,7 @@ var countryCountObj = {};
     var saveToStorage = function (key, object, cb) {
         localforage.setItem(key, object, cb || function () {});
     }
+
 })();
+
+script.countryCountObj = countryCountObj;
