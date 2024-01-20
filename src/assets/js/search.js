@@ -24,13 +24,14 @@ const search = search || {};
 
     // List of shortcuts that you can match against
     const shortcuts = [
+        { name: "Status", onClick: () => { } },
         { name: "Clear cached users", onClick: () => { clearExplrCache().then(()=>window.location.reload()) } },
         { name: "Change user", onClick: () => { window.location = "./" } },
         { name: "Change theme", onClick: () => {map.nextTheme()} },
         { name: "Take screenshot", onClick: () => {screenshot.render(true)} },
         { name: "Export data", onClick: () => {utils.exportToCSV(script.getCurrentData())} },
-        { name: "Map: Show number of artists", onClick: () => {} },
-        { name: "Map: Show number of scrobbles", onClick: () => {} },
+        { name: "Map: Show number of artists", onClick: () => { map.toggleFilter("artists") } },
+        { name: "Map: Show number of scrobbles", onClick: () => { map.toggleFilter("scrobbles") } },
         { name: "Support Explr on BuyMeACoffee", onClick: () => { window.open('https://www.buymeacoffee.com/explrfm', '_blank'); } },
         { name: "Support Explr on Flattr", onClick: () => { window.open('https://flattr.com/@explr.fm', '_blank'); } },
         { name: "View Explr on GitHub", onClick: () => { window.open('https://github.com/mold/explr', '_blank'); } },
@@ -57,6 +58,8 @@ const search = search || {};
     // Create a div to hold the search field
     let searchContainer = document.createElement('div');
     searchContainer.classList.add("search-container")
+    const searchInputWrapper = document.createElement('div');
+    searchInputWrapper.classList.add("search-input-wrapper")
     let input = document.createElement('input');
     input.type = 'text';
     input.classList.add("search")
@@ -64,8 +67,10 @@ const search = search || {};
     input.setAttribute('aria-label', 'Search for an artist or a country');
     input.setAttribute('aria-autocomplete', 'list');
     input.setAttribute('aria-controls', 'search-results');
+    input.setAttribute('aria-expanded', 'false');
     input.role = 'combobox';
-    searchContainer.appendChild(input);
+    searchInputWrapper.appendChild(input);
+    searchContainer.appendChild(searchInputWrapper);
     document.body.appendChild(searchContainer);
     setTimeout(() => {
         input.focus();
@@ -84,6 +89,8 @@ const search = search || {};
         // Clear the previous results
         resultsDiv.innerHTML = '';
 
+        input.setAttribute('aria-expanded', 'true');
+
         // Filter the shortcuts based on the user's input
         let filteredShortcuts = shortcuts.filter(shortcut => shortcut.name.toLowerCase().includes(input.value.toLowerCase()));
         if (filteredShortcuts.length > 0 && input.value.length > 3) {
@@ -91,18 +98,23 @@ const search = search || {};
             let shortcutsHeading = document.createElement('li');
             shortcutsHeading.textContent = 'Explr.fm shortcuts';
             shortcutsHeading.id = 'shortcuts-heading';
+            shortcutsHeading.role = "presentation"
             shortcutsHeading.classList.add('search-result-heading');
             shortcutsWrapper.appendChild(shortcutsHeading);
             shortcutsWrapper.setAttribute('role', 'group');
+            shortcutsWrapper.classList.add('search-result-group');
             shortcutsWrapper.ariaLabelledby = 'shortcuts-heading';
             resultsDiv.appendChild(shortcutsWrapper);
         
             filteredShortcuts.slice(0, 5).forEach(c => {
                 if (input.value.length > 3) {
+                    if (c.name === "Status") {
+                        shortcutsHeading.textContent = 'Explr.fm status';
+                    }
                     let searchResultWrapper = document.createElement('div');
                     searchResultWrapper.classList.add('result-wrapper');
                     searchResultWrapper.role = 'option';
-                    searchResultWrapper.id = c.name;
+                    searchResultWrapper.id = `shortcut-${c.name.replace(/\s+/g, '-').toLowerCase()}`;
                     searchResultWrapper.addEventListener('click', function() {
                         c.onClick();
                     });
@@ -111,7 +123,8 @@ const search = search || {};
         
                     // Highlight the matching letters
                     let regex = new RegExp(input.value, 'gi');
-                    let highlightedName = c.name.replace(regex, match => `<span class="highlight">${match}</span>`);
+                    const shortcutName = c.name === "Status" ? script.getLoadingStatus() : c.name
+                    let highlightedName = shortcutName.replace(regex, match => `<span class="highlight">${match}</span>`);
                     shortcutSpan.innerHTML = highlightedName;
         
                     searchResultWrapper.appendChild(shortcutSpan);
@@ -132,8 +145,10 @@ const search = search || {};
             countriesHeading.textContent = 'Countries';
             countriesHeading.classList.add('search-result-heading');
             countriesHeading.id = 'countries-heading';
+            countriesHeading.role = "presentation"
             countriesWrapper.appendChild(countriesHeading);
             countriesWrapper.setAttribute('role', 'group');
+            countriesWrapper.classList.add('search-result-group');
             countriesWrapper.ariaLabelledby = 'countries-heading';
             resultsDiv.appendChild(countriesWrapper);
 
@@ -141,8 +156,7 @@ const search = search || {};
                 if (input.value.length > 1) {
                     let searchResultWrapper = document.createElement('div');
                     searchResultWrapper.classList.add('result-wrapper', 'country');                    searchResultWrapper.role = 'option';
-                    searchResultWrapper.id = c.name;
-                    // Zoom into the country on click
+                    searchResultWrapper.id = `country-${c.name.replace(/\s+/g, '-').toLowerCase()}`;                    // Zoom into the country on click
                     searchResultWrapper.addEventListener('click', function() {
                         search.stopSearch();
                         console.log(`You clicked on ${c.name}`)
@@ -173,8 +187,10 @@ const search = search || {};
 
         if (filteredArtists.length > 0 && input.value.length > 1) {
             const artistsWrapper = document.createElement('ul');
+            artistsWrapper.classList.add('search-result-group');
             let artistsHeading = document.createElement('li');
             artistsHeading.textContent = 'Artists';
+            artistsHeading.role = "presentation"
             artistsHeading.classList.add('search-result-heading');
             artistsHeading.id = 'artists-heading';
             artistsWrapper.appendChild(artistsHeading);
@@ -187,8 +203,7 @@ const search = search || {};
                     let searchResultWrapper = document.createElement('div');
                     searchResultWrapper.classList.add('result-wrapper');
                     searchResultWrapper.role = 'option';
-                    searchResultWrapper.id = artist.artist;
-                    // Zoom into the country of the artist on click
+                    searchResultWrapper.id = `artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;                    // Zoom into the country of the artist on click
                     searchResultWrapper.addEventListener('click', function() {
                         search.stopSearch();
                         console.log(`You clicked on ${artist.artist} from ${artist.id}`)
@@ -230,12 +245,23 @@ const search = search || {};
     window.addEventListener("keydown", function (evt) {
         const inputElement = document.querySelector('.search');
 
+        // if backspace or letter key, we clear the focused result
+        if (FOCUSED_RESULT && (evt.keyCode === 8 || (evt.keyCode >= 65 && evt.keyCode <= 90))) {
+            FOCUSED_RESULT.removeAttribute("aria-selected")
+            FOCUSED_RESULT.classList.remove('focused');
+            inputElement.removeAttribute('aria-activedescendant');
+            FOCUSED_RESULT = null;
+            // scroll result list to top
+            resultsDiv.scrollTop = 0;
+        }
+
         // If arrow down, we set aria-activedescentant to the next result
         if (evt.keyCode === 40 && SEARCH_IS_OPEN) {
             evt.preventDefault();
             if (FOCUSED_RESULT) {
+                FOCUSED_RESULT.removeAttribute("aria-selected")
                 FOCUSED_RESULT.classList.remove('focused');
-                inputElement.setAttribute('aria-activedescendant', undefined);
+                inputElement.removeAttribute('aria-activedescendant');
                 let nextResult = FOCUSED_RESULT.nextElementSibling;
                 if (!nextResult) {
                     // If there's no next sibling, find the next group and select the first result in it
@@ -247,12 +273,14 @@ const search = search || {};
                 FOCUSED_RESULT = nextResult;
                 if (FOCUSED_RESULT) {
                     FOCUSED_RESULT.classList.add('focused');
+                    FOCUSED_RESULT.setAttribute("aria-selected", "true")
                     inputElement.setAttribute('aria-activedescendant', FOCUSED_RESULT.id);
                     FOCUSED_RESULT.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
             } else {
                 FOCUSED_RESULT = document.querySelector('.result-wrapper');
                 FOCUSED_RESULT.classList.add('focused');
+                FOCUSED_RESULT.setAttribute("aria-selected", "true")
                 inputElement.setAttribute('aria-activedescendant', FOCUSED_RESULT.id);
                 FOCUSED_RESULT.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
@@ -263,7 +291,8 @@ const search = search || {};
             evt.preventDefault();
             if (FOCUSED_RESULT) {
                 FOCUSED_RESULT.classList.remove('focused');
-                inputElement.setAttribute('aria-activedescendant', undefined);
+                FOCUSED_RESULT.removeAttribute("aria-selected")
+                inputElement.removeAttribute('aria-activedescendant');
                 let previousResult = FOCUSED_RESULT.previousElementSibling;
                 if (!previousResult) {
                     // If there's no previous sibling, find the previous group and select the last result in it
@@ -271,11 +300,21 @@ const search = search || {};
                     if (previousGroup) {
                         let resultsInGroup = previousGroup.querySelectorAll('.result-wrapper');
                         previousResult = resultsInGroup[resultsInGroup.length - 1];
+                    } else {
+                        // If there's no previous group, find the last group and select the last result in it
+                        let allGroups = document.querySelectorAll('.search-result-group');
+                        let lastGroup = allGroups[allGroups.length - 1];
+                        if (lastGroup) {
+                            let resultsInGroup = lastGroup.querySelectorAll('.result-wrapper');
+                            previousResult = resultsInGroup[resultsInGroup.length - 1];
+                        }
+                        
                     }
                 }
                 FOCUSED_RESULT = previousResult;
                 if (FOCUSED_RESULT) {
                     FOCUSED_RESULT.classList.add('focused');
+                    FOCUSED_RESULT.setAttribute("aria-selected", "true")
                     inputElement.setAttribute('aria-activedescendant', FOCUSED_RESULT.id);
                     FOCUSED_RESULT.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
@@ -298,6 +337,7 @@ const search = search || {};
         // If escape, close the search
         if (evt.keyCode === 27 && SEARCH_IS_OPEN) {
             search.stopSearch();
+
         }
 
 
@@ -313,6 +353,11 @@ const search = search || {};
   }
 
   search.stopSearch = function () {
+    const inputElement = document.querySelector('.search');
+    if (inputElement !== undefined) {
+        inputElement.removeAttribute('aria-activedescendant');
+        inputElement.setAttribute('aria-expanded', 'false');
+    }
     const searchContainer = document.querySelector('.search-container');
     if (searchContainer) searchContainer.remove();
     SEARCH_IS_OPEN = false;

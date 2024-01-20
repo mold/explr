@@ -7,6 +7,7 @@ search.js
 
 var script = script || {};
 let loadingReady = false;
+let loadingStatus = loadingReady ? "Ready to Explr!" : "Loading...";
 
 
 var STORED_ARTISTS;
@@ -331,9 +332,11 @@ var countryCountObj = {};
         // Fade in loader
         d3.select(".loader").transition().duration(2000).style("opacity", 1);
         d3.select("#loading-text").html("Getting library...");
+        script.setLoadingStatus("Getting library...");
         setTimeout(function () {
             if (d3.select("#loading-text").html() === "Getting library...") {
                 d3.select("#loading-text").html("Last.fm is taking<br>a long time to<br>respond...");
+                script.setLoadingStatus("Last.fm is taking a long time to respond...");
 
                 setTimeout(function () {
                     if (d3.select("#loading-text").html() === "Last.fm is taking<br>a long time to<br>respond...") {
@@ -524,4 +527,11 @@ script.getCurrentData = function () {
         return countryCountObj;
     }
 
+}
+
+script.getLoadingStatus = function () {
+    return loadingStatus;
+}
+script.setLoadingStatus = function (status) {
+    loadingStatus = status;
 }

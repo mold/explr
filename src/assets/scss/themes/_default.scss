@@ -119,7 +119,7 @@ body.green_black #progress-text:after {
 
 .dark .infoContainer {
     background: rgba(0, 0, 0, 0.85);
-    border-top: 1px solid white;
+    border-top: 1px solid var(--border);
 }
 
 .infoContainer {

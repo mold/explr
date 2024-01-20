@@ -86,9 +86,9 @@
     background: linear-gradient(to bottom, #ffffff 0%, #ffc3c3 100%);
     border: 2px solid grey;
 
-    &:has(input:focus) {
-        outline: 4px solid #ae017e;
-        outline-offset: 4px;
+    &:focus-within {
+        border-color: #ae017e;
+        outline: 4px solid pink;
     }
 
     &:hover {

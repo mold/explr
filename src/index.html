@@ -79,7 +79,8 @@
 		<!-- End Google Tag Manager -->
 		<div id="welcome-container">
 			<div class="welcome-message">
-				<div class="logoImageWelcome"><img src="assets/img/explrlogo.png" width="200"></div>
+				<h1 class="visually-hidden">Explr.fm – Color the world!</h1>
+				<div class="logoImageWelcome"><img alt="Explr.fm logotype" src="assets/img/explrlogo.png" width="200"></div>
 				<div id="splashTextContainer">
 					<div id="splashContent" class="splash">
 						<p class="info">
@@ -87,7 +88,7 @@
 						<p class="info">
 							Or if there are any good bands from <span id="randomCountry"></span></p>
 							
-							<p align="center"><h4>Wonder no more!</h4></p>
+							<p style="text-align: center;" ><h4>Wonder no more!</h4></p>
 							<p class="info">Enter your Last.fm username in the field below. If you don't have Last.fm, <a href="https://last.fm">get it here!</a></p>
 							<form id="start-form" class="no-select" target="_self">
 								<label for="username">
@@ -95,7 +96,7 @@
 									<input id="username" name="username" class="usernameinput" placeholder="e.g. elfummel" type="text" autofocus required autocomplete="on">
 
 								</label>
-								<div class="gobutton"><input type="submit" value="&nbsp;"></div>
+								<div class="gobutton"><input type="submit" value="&nbsp;" aria-label="Go Explr!"></div>
 							</form>
 							
 						</div>
@@ -111,23 +112,29 @@
 							<p class="details-p">Do you have any other questions or feedback? Send us an email at <a href="mailto:explr.fm@gmail.com">explr.fm@gmail.com</a> or check out our <a href="https://www.reddit.com/r/Music/comments/22n6t8/lastfm_user_heres_an_interactive_map_to_show_the/">reddit post</a>.</p>
 						</div>
 					</div>
-					<p class="faq-link splash"><a>Frequently asked questions -></a></p>
-					<p class="faq-link faq hidden"><a><- Go back</a></p>
+					<button class="faq-link splash" type="button">Frequently asked questions -></button>
+					<button class="faq-link faq hidden" type="button"><- Go back</button>
 					
 					<div class="donate">
 						<p class="donate__title">
 							Show your support with a small donation:
 						</p>
 						<div class="donate__list">
-							<a href="https://flattr.com/@explr.fm" target="_blank">
+							<a href="https://flattr.com/@explr.fm" target="_blank" aria-label="Flattr">
 								<svg data-v-4ca227fc="" xmlns="https://www.w3.org/2000/svg" viewBox="0 0 1901 500" class="flattr-logo"><path data-v-4ca227fc="" d="M39.71,250C39.71,134,134,39.71,250,39.71c1,0,83.39,0,113.64.05L302.7,100.7l28,28L456.31,0H374L250,0A250,250,0,0,0,0,250L0,444.4l39.78-36.64v-2C39.74,400.67,39.71,251.5,39.71,250Z"></path> <path data-v-4ca227fc="" d="M500,55.59,460.21,92.24v2c0,5.09.07,154.26.07,155.76,0,116-94.34,210.29-210.29,210.29-1,0-83.39,0-113.64-.05L197.3,399.3l-28-28L43.69,500H126l124,0A250,250,0,0,0,500,250Z"></path> <path data-v-4ca227fc="" d="M731.5,69.28H929.82v33.24H768.48V244H906.76v33.24H768.48V446.08h-37Z"></path> <path data-v-4ca227fc="" d="M993.61,69.28h36.45v305c0,35.38,16.08,40.74,30,40.74a83.24,83.24,0,0,0,9.08-.53v32.68a92.22,92.22,0,0,1-13.4,1.07c-22.51,0-62.18-7-62.18-65.94Z"></path> <path data-v-4ca227fc="" d="M1271.78,279.37h15v-7c0-52-28.41-69.68-67-69.68-44.5,0-76.1,25.72-76.1,25.72l-17.16-27.87S1161.92,170,1222.48,170c64.86,0,100.77,35.91,100.77,103.48V446.1h-34.82V416.6a213.07,213.07,0,0,1,1.07-22.51h-1.07s-22.51,58.42-90,58.42c-45,0-91.66-26.27-91.66-79.88C1106.71,281.48,1225.17,279.37,1271.78,279.37Zm-67.53,142c51.45,0,82.55-53.59,82.55-100.23v-11.8h-15.54c-42.34,0-127.08,1.62-127.08,61.11C1144.23,395.69,1164.06,421.41,1204.25,421.41Z"></path> <path data-v-4ca227fc="" d="M1416,210.24h-35.38V179.69h35.91V102h35.91v77.72H1520v30.55h-67.53v134c0,63.25,40.19,71.29,60.56,71.29a62.71,62.71,0,0,0,12.33-1.07v32.68a95.87,95.87,0,0,1-15.54,1.07c-31.08,0-93.8-10.18-93.8-100.23Z"></path> <path data-v-4ca227fc="" d="M1595.56,210.24h-35.38V179.69h35.91V102H1632v77.72h67.53v30.55H1632v134c0,63.25,40.19,71.29,60.56,71.29a62.71,62.71,0,0,0,12.33-1.07v32.68a95.87,95.87,0,0,1-15.54,1.07c-31.08,0-93.8-10.18-93.8-100.23Z"></path> <path data-v-4ca227fc="" d="M1764.94,176.48h35.91v47.71c0,11.8-1.07,21.44-1.07,21.44h1.07c12.85-40.74,42.88-71.82,85.22-71.82a73,73,0,0,1,14.52,1.6v35.91a92.3,92.3,0,0,0-13.4-1.07c-38.12,0-66.46,30-78.26,69.68a177.91,177.91,0,0,0-7.5,52.52V446.06H1765Z"></path></svg>
 							</a>
-							<a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/explrfm"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy me a coffee"><span style="margin-left:2px">Buy me a coffee</span></a>
+							<a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/explrfm"><img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt=""><span style="margin-left:2px">Buy me a coffee</span></a>
 						</div>
 					</div>
 					
 					<div id="made-by">
-						Made by <a href="https://se.linkedin.com/pub/anna-movin/50/463/1a0" target="_blank">Anna</a>, <a href="https://se.linkedin.com/pub/daniel-molin/82/211/b75" target="_blank">Daniel</a>, <a href="https://se.linkedin.com/pub/moa-bergsmark/49/554/93a" target="_blank">Moa</a> and <a href="https://se.linkedin.com/in/tommyfeldt" target="_blank">Tommy</a>.
+						Made by 
+						<ul aria-label="Made by">
+							<li><a href="https://se.linkedin.com/pub/anna-movin/50/463/1a0" target="_blank">Anna</a></li>
+							<li><a href="https://se.linkedin.com/pub/daniel-molin/82/211/b75" target="_blank">Daniel</a></li>
+							<li><a href="https://se.linkedin.com/pub/moa-bergsmark/49/554/93a" target="_blank">Moa</a></li>
+							<li><a href="https://se.linkedin.com/in/tommyfeldt" target="_blank">Tommy</a></li>
+						</ul>
 					</div>
 
 					<div class="social-icons">

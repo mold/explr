@@ -34,7 +34,11 @@ const utils = utils || {};
   };
 
   utils.getCountryNameFromId = function (countryId) {
-    return map.countryNames.find((country) => country.id === countryId).mainName;
+    const match = map.countryNames.find((country) => country.id === countryId);
+    if (match && match.mainName) {
+      return match.mainName;
+    }
+    else return ""
   }
 
   utils.getNumberOfArtistsForCountry = function (countryId) {

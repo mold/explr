@@ -19,6 +19,24 @@ body {
     overflow-y: hidden;
 }
 
+input[type=text]:focus-visible {
+    border-color: #ae017e;
+    box-shadow: 0 0 0 6px rgba(250,159,181,.5);
+}
+
+*:not(input):not(.gobutton):focus-visible {
+    outline: 3px solid #ae017e;
+    box-shadow: 0 0 0 6px rgba(250,159,181,.5);
+}
+
+input {
+    border-radius: 4px;
+}
+
+input:focus-visible {
+    outline: none;
+}
+
 /**
  * Make all elements from the DOM inherit from the parent box-sizing
  * Since `*` has a specificity of 0, it does not override the `html` value

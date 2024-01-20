@@ -13,6 +13,27 @@
     }
 }
 
+.search-input-wrapper {
+    position: relative;
+    &::before {
+        content: "";
+        display: inline-block;
+        width: 1.25em;
+        height: 1.25em;
+        background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZvY3VzYWJsZT0iZmFsc2UiIGFyaWEtaGlkZGVuPSJ0cnVlIiBjbGFzcz0iIj48ZyBjbGlwLXBhdGg9InVybCgjc2VhcmNoX3N2Z19fYSkiPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTE2LjEgMTQuNDI4YS45ODcuOTg3IDAgMCAwLTEuNDI3LjAxNSA1Ljk5OCA1Ljk5OCAwIDEgMSAxLjUyNS00LjE0M2MuMDE0LjU0Ny0uMTk0IDEuMjEyLjI0NyAxLjY1MmExIDEgMCAwIDAgMS43LS41NiA4IDggMCAxIDAtMi43NjUgNS4xNTdsNSA1IDEuNDItMS40Mi01LjctNS43WiI+PC9wYXRoPjwvZz48ZGVmcz48Y2xpcFBhdGggaWQ9InNlYXJjaF9zdmdfX2EiPjxwYXRoIGQ9Ik0wIDBoMjR2MjRIMHoiPjwvcGF0aD48L2NsaXBQYXRoPjwvZGVmcz48L3N2Zz4=);
+        background-repeat: no-repeat;
+        background-size: contain;
+        position: absolute;
+        left: 12px;
+        top: 51%;
+        transform: translateY(-50%);
+        z-index: 1000;
+    }
+    .dark &::before {
+        filter: invert(1);
+    }
+}
+
 .search-results {
     border-radius: 8px;
     margin-top: 8px;
@@ -76,19 +97,22 @@
 }
 
 input.search {
-    padding-left: 12px;
+    padding-left: 38px;
     height: 56px;
     min-width: 400px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
     min-width: 400px;
     backdrop-filter: blur(20px);
     background-color: var(--backgroundInput);
-    outline-color: #ae017e;
     outline-width: 4px;
     box-sizing: border-box;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    &:focus-visible {
+        outline: 4px solid #ae017e;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
+
+    }
 }
 
 .country.result-wrapper {
@@ -103,6 +127,7 @@ input.search {
     gap: 4px;
     .playcount {
         opacity: 0.54;
+        font-size: 0.9rem;
     }
 }
 
@@ -116,7 +141,6 @@ input.search {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    flex: 0;
     flex-wrap: nowrap;
     text-align: right;
 }
@@ -125,7 +149,7 @@ input.search {
 }
 
 .search-result-heading {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: normal;
     padding-left: 12px;
     padding-right: 12px;

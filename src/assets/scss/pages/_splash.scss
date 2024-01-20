@@ -6,8 +6,8 @@
    ========================================================================== */
 
 body {
-    --welcomeBackground: rgba(255, 200, 200, 0.5);
-    --welcomeMessageBackground: rgba(255, 255, 255, 0.7);
+    --welcomeBackground: rgba(255, 200, 200, 0.4);
+    --welcomeMessageBackground: rgba(255, 255, 255, 0.6);
     --welcomeMessageBorder: rgba(255, 255, 255, 1);
 }
 body.dark {
@@ -47,6 +47,7 @@ body.dark {
     width: 330px;
     border: 5px solid var(--welcomeMessageBorder);
     vertical-align: top;
+    backdrop-filter: blur(30px);
 }
 
 .info {
@@ -64,7 +65,14 @@ body.dark {
 #made-by {
     font-size: 13px;
     margin: 20px 0 0 0;
-    opacity: 0.4;
+    opacity: 0.7;
+    ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
 }
 
 .social-icons {
@@ -79,11 +87,23 @@ body.dark {
 }
 
 .faq-link {
-    font-size: 15px;
+    font-size: 16px;
     margin: 20px 0 0 0;
     opacity: 1;
     cursor: pointer;
+    line-height: 1.5;
+    font-weight: 700;
     text-align: center;
+    background: none;
+    appearance: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 .donate {
@@ -153,7 +173,7 @@ body.dark {
     width: 170px;
     font-weight: bold;
     margin-top: 0.5em;
-    /*text-align: center;*/
+    text-align: center;
     &:focus {
         outline-color: #ae017e;
         outline-width: 4px;

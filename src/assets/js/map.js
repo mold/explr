@@ -199,12 +199,12 @@ var countryScore = 0;
   var infoContainer = d3.select("body").append("div").attr("class",
     "infoContainer hidden").attr("id", "infoContainer");
 
-  var artistContainer = d3.select("#infoContainer").append("div").attr("class",
+    var cnameDiv = d3.select("#infoContainer").append("div").attr("class",
+  "cnameDiv").attr("id", "cname");
+  
+    var artistContainer = d3.select("#infoContainer").append("div").attr("class",
     "artistContainer").attr("id", "artistContainer");
 
-
-  var cnameDiv = d3.select("#infoContainer").append("div").attr("class",
-    "cnameDiv").attr("id", "cname");
 
   var detailsDiv = d3.select("#artistContainer").append("div").attr("class",
     "detailsDiv").attr("id", "details");
@@ -403,6 +403,7 @@ var countryScore = 0;
   /*-------redraw----*/
   //den kallas varje gång datan uppdateras. redrawMap är en boolean
   function redraw(redrawMap) {
+    console.log("redrawing 2");
     updateDimensions();
 
     if (redrawMap) {
@@ -860,7 +861,6 @@ var countryScore = 0;
     d3.selectAll(".artist-control").remove();
     d3.selectAll(".topartists-desc").remove();
 
-    cnameDiv.classed("hidden", true);
     d3.select("#cnameCont").remove("h1");
     d3.select("#cnameCont").remove("h5");
   }
@@ -1097,5 +1097,11 @@ var countryScore = 0;
   map.makeSummaryDiv = makeSummaryDiv;
 
   map.showArtists = showArtists;
+
+  map.toggleFilter = function(method) {
+    filter = method;
+    updateLegend();
+    redraw();
+  }
 
 })(window, document)
