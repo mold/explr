@@ -88,11 +88,12 @@
     position: relative;
     height: fit-content;
 
-    h4 {
+    h2 {
         font-size: 1.15em;
         margin-top: 1em;
         font-weight: bold;
-        //color: $text-color;
+        color: inherit;
+        font-family: $heading-font-stack;
     }
 
     p {
