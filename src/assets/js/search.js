@@ -260,7 +260,7 @@ const search = search || {};
                     let searchResultWrapper = document.createElement('div');
                     searchResultWrapper.classList.add('result-wrapper');
                     searchResultWrapper.role = 'option';
-                    searchResultWrapper.id = `artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;                    // Zoom into the country of the artist on click
+                    searchResultWrapper.id = `${filteredCountries[0].name}-artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;                    // Zoom into the country of the artist on click
                     searchResultWrapper.addEventListener('click', function() {
                         search.stopSearch();
                         console.log(`You clicked on ${artist.artist} from ${artist.id}`)

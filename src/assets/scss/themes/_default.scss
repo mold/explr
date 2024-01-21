@@ -6,7 +6,7 @@
 
 body {
     --backgroundPrimary: #fff;
-    --backgroundSecondary: rgba(180, 225, 225, 0.5);
+    --backgroundSecondary: #f5f5f5;
     --backgroundTertiary: rgba(180, 225, 225, 0.5);
     --backgroundInput: rgba(249, 249, 249, 0.94);
     --textPrimary: #222;
@@ -17,12 +17,15 @@ body {
     --border: rgba(0, 0, 0, 0.5);
     --borderSecondary: rgba(0, 0, 0, 0.12);
     --hover: rgba(0, 0, 0, 0.06);
+    --highlight: rgba(175, 175, 175, 0.5);
+    --focus: rgba(174, 1, 126, 1);
+    --focusSecondary: rgba(174, 1, 126, 0.24);
     color-scheme: light;
 }
 
 body.dark {
     --backgroundPrimary: #000;
-    --backgroundSecondary: rgba(0, 55, 55, 0.5);
+    --backgroundSecondary: rgba(40, 40, 40);
     --backgroundTertiary: rgba(0, 0, 0, 0.6);
     --backgroundInput: rgba(20, 20, 20, 0.94);
     --textPrimary: #fff;
@@ -33,6 +36,9 @@ body.dark {
     --border: rgba(255, 255, 255, 0.5);
     --borderSecondary: rgba(255, 255, 255, 0.12);
     --hover: rgba(255, 255, 255, 0.06);
+    --highlight: rgba(175, 175, 175, 0.3);
+    --focus: rgba(174, 1, 126, 1);
+    --focusSecondary: rgba(174, 1, 126, 0.24);
     color-scheme: dark;
 }
 
@@ -111,19 +117,6 @@ body.green_black #progress-text:after {
 .dark #friends {
     color: #ccc;
     background: rgba(0, 0, 0, 0.5);
-}
-
-/*
- * infocontainer
- */
-
-.dark .infoContainer {
-    background: rgba(0, 0, 0, 0.85);
-    border-top: 1px solid var(--border);
-}
-
-.infoContainer {
-    background: rgba(255, 255, 255, 0.85);
 }
 
 /*

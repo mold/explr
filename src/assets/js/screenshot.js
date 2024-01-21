@@ -104,7 +104,10 @@ var screenshot = {};
 
 			// window.open(dataurl, "_blank");
 
-			document.getElementsByClassName("screenshot-overlay")[0].style = "";
+			const overlay = document.getElementsByClassName("screenshot-overlay")[0];
+			overlay.style = "";
+			overlay.ariaModal = true
+
 
 			if (autoDownload) {
 				setTimeout(function () {
@@ -119,6 +122,7 @@ var screenshot = {};
 
 	screenshot.close = function () {
 		document.getElementsByClassName("screenshot-overlay")[0].style = "display:none;";
+		document.getElementsByClassName("screenshot-overlay")[0].ariaModal = false;
 	}
 
 	screenshot.download = function () {

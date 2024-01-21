@@ -89,7 +89,7 @@
         border-top: 1px solid var(--borderSecondary); 
     }
     &.focused {
-        box-shadow: inset 0 0 0 3px #ae017e;
+        box-shadow: inset 0 0 0 3px var(--focus);
     }
     &:hover, &.focused {
         background-color: var(--hover);
@@ -103,16 +103,10 @@ input.search {
     min-width: 400px;
     backdrop-filter: blur(20px);
     background-color: var(--backgroundInput);
-    outline-width: 4px;
     box-sizing: border-box;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    &:focus-visible {
-        outline: 4px solid #ae017e;
-        box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 12px 0px;
-
-    }
 }
 
 .country.result-wrapper {

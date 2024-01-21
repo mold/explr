@@ -9,7 +9,7 @@
     height: 40px;
     border-radius: 20px;
     margin-bottom: 5px;
-    background: rgb(172, 172, 172);
+    background: rgb(70, 70, 70);
     opacity: 0.5;
     cursor: pointer;
     overflow: hidden;
@@ -87,8 +87,9 @@
     border: 2px solid grey;
 
     &:focus-within {
-        border-color: #ae017e;
-        outline: 4px solid pink;
+        outline: 4px solid var(--focus);
+        outline-offset: 2px;
+        
     }
 
     &:hover {

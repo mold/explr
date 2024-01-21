@@ -13,14 +13,20 @@
     height: 150px;
     position: absolute;
     top: 7.5%;
-    border-top: 1px solid black;
+    border-top: 1px solid var(--borderSecondary);
     z-index: 4;
     opacity: 0;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     gap: 5%;
+    background: var(--backgroundPrimary);
 }
+
+
+/* ==========================================================================
+   Selected country info box
+   ========================================================================== */
 
 //Country name
 .cnameDiv {
@@ -30,6 +36,43 @@
     pointer-events: none;
 }
 
+.cnameContainer {
+    h1 {
+        margin-top: 0.27em;
+    }
+
+    strong {
+        color: var(--textHeading);
+        font-size: 1.5em;
+        margin-top: 0;
+    }
+
+    .playlist-link{
+        pointer-events: all;
+        margin-top: 5px;
+
+        a{
+            display: inline-flex;
+            align-items: center;
+        }
+
+        &__img{
+            border-radius: 100%;
+            width: 1.1em;
+            height: 1.1em;
+            background: #222;
+            vertical-align: middle;
+            margin-right: 0.3em;
+        }
+
+        .divider {
+            margin: 0 0.5em;
+            user-select: none;
+            opacity: 0.6;
+        }
+    }
+}
+
 /* ==========================================================================
    Artist info
    ========================================================================== */
@@ -37,9 +80,11 @@
 .artistContainer {
     //Main container for artist information, recommendations and details
     margin-right: 6%;
+    padding: 8px;
+    border-radius: 0 0 8px 8px;
     width: 592px;
     display: block;
-    background: inherit;
+    background: var(--backgroundPrimary);
     position: relative;
     height: fit-content;
 
@@ -52,6 +97,22 @@
 
     p {
         font-size: 0.8em;
+    }
+
+    ol, ul {
+        // reset list styles
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+    }
+
+    li {
+        // reset list item styles
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        
     }
 }
 
@@ -92,10 +153,16 @@
 .fa.artist-control{
     position: absolute;
     font-size: 40px;
-    top: 85px;
-    color: rgba(90,90,90,0.8);
+    top: 81px;
+    color: inherit;
     cursor: pointer;
     transition: 0.1s;
+    // button resets
+    border: none;
+    background: none;
+    padding: 8px;
+    margin: 0;
+    appearance: none;
 
     &.right{
         right: -8px;
@@ -160,30 +227,51 @@
     border-radius: 7px;
     box-sizing: border-box;
     transition: background 0.1s;
+    background: inherit;
+    border: none;
+    margin: 0;
+    appearance: none;
 
-    .image-div {
-        transition: border-radius 0.1s;
+    &:focus-visible {
+        outline-offset: 0;
     }
+
     a {
         text-decoration: none;
     }
 }
 
 .image-div {
+    position: relative;
     height: 96px;
     width: 96px;
-    background-position: center top;
-    border: 1px solid #333;
+    border: 1px solid var(--border);
     border-radius: 2px;
     margin-left: auto;
     margin-right: auto;
-    background-size: cover;
     text-align: center;
-    //position: relative;
+    background: none!important;
+    transition: border-radius 0.1s;
+
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-position: center top;
+        border-radius: 2px;
+        transition: border-radius 0.1s;
+        background-size: cover;
+        background-image: url(https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png);
+        z-index: -1;
+    }
 }
 
-.dark .image-div {
-    filter: invert(1) brightness(2) ;
+.dark .image-div::before {
+    filter: invert(1) brightness(2);
 }
 
 .overlayNo{
@@ -198,16 +286,24 @@
 }
 
 .artist-div.highlight, .reco-div.highlight {
-    background: rgba(175, 175, 175, 0.5);
+    background: var(--highlight);
 }
 
 .artist-div.lowlight .image-div {
     border-radius: 50%;
+    &::before {
+        border-radius: 50%;
+    }
 }
 
 .artist-div.lowlight .image-div:hover {
     border-radius: 30%;
+
+    &::before {
+        border-radius: 30%;
+    }
 }
+
 
 /* ==========================================================================
    Artist tags

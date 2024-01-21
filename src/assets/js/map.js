@@ -528,11 +528,18 @@ var countryScore = 0;
       }
     }
 
+    if (countryCount[currentCountry.id].length > 0) { 
+      d3.select("#details").append("ol").attr("id", "top-artist-list").attr("aria-labelledby", "top-artist-list-heading");
+     }
+
     //Generate new artist images for all artists within the desired range!
       for (let i = first-1; i <= last-1; i++) {
         if (countryCount[currentCountry.id][i]) {
 
-          var artistDiv = d3.select("#details").append("div")
+          var artistDiv = d3.select("#top-artist-list")
+          .append("li")
+            .attr("class", "artist-li")
+          .append("button")
             .attr({
               "class": `scrobbled artist-div lowlight`,
               "data-artist": countryCount[currentCountry.id][i].artist
@@ -552,17 +559,14 @@ var countryScore = 0;
               makeSummaryDiv(d3.select(this).attr("data-artist"), []);
             });
           
-          var artistLink = artistDiv.append("a").style("display", "block")
+          var artistLink = artistDiv.append("div").style("display", "block")
           artistLink.append("div")
-            // .style("background-image", "url(" + "'" + countryCount[d.id][i].image + "'" + " )")
-            .style("background-image", "url(https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png")
             .attr("class", "artist-image image-div");
-            //.append("span").attr("class", "overlayNo").html(i+1);
 
           var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
 
           playCountDiv.append("p")
-            .html("<b>" + countryCount[currentCountry.id][i].artist + "</b><br>" + countryCount[currentCountry.id][i].playcount + " scrobbles")
+            .html("<strong>" + countryCount[currentCountry.id][i].artist + "</strong><br>" + countryCount[currentCountry.id][i].playcount + " scrobbles")
             .attr("class", "details-p");
           
           // If the current artist is the pre-selected artist, trigger a click event
@@ -593,6 +597,7 @@ var countryScore = 0;
     if (currentNoArtists>=10 && !initial){
       d3.selectAll(".artist-control.left")
         .classed("disabled", false)
+        .attr("disabled", null)
         .on("click", function(){
           showPreviousFive();
         });
@@ -600,6 +605,7 @@ var countryScore = 0;
     else{
       d3.selectAll(".artist-control.left")
         .classed("disabled", true)
+        .attr("disabled", "disabled")
         .on('click',function(){
           d3.select(this).on('click',null); //Remove click listener!
         });
@@ -608,6 +614,7 @@ var countryScore = 0;
     if (currentNoArtists>countryCount[currentCountry.id].length-1){ //There are no more artists!
       d3.selectAll(".artist-control.right")
         .classed("disabled", true)
+        .attr("disabled", "disabled")
         .on('click',function(){
           d3.select(this).on('click',null); //Remove click listener!
         });
@@ -615,6 +622,7 @@ var countryScore = 0;
     else{
       d3.selectAll(".artist-control.right")
         .classed("disabled", false)
+        .attr("disabled", null)
         .on("click", function(){
           showNextFive();
         });
@@ -659,13 +667,13 @@ var countryScore = 0;
     d3.selectAll("#countryCount, .on-map-view")
       .classed("hidden", true);
 
-    closeButton = d3.select('#infoContainer').append("button").attr("type", "button").attr("class", "close-button").html("X");
+    closeButton = d3.select('#infoContainer').append("button").attr("type", "button").attr("aria-label", `Close ${name}`).attr("class", "close-button").html("X");
 
     //Populate country information div
     cnameDiv
       .append("div").attr("class", "cnameContainer").attr("id", "cnameCont")
       .append("h1").html(name);
-    d3.select("#cnameCont").append("h5")
+    d3.select("#cnameCont").append("strong")
       .html(function() {
         if (countryCount[d.id])
           return numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " scrobbles"
@@ -677,16 +685,17 @@ var countryScore = 0;
       .append("div").attr("class", "playlist-link")
 
    let lastFmLink =  linkdiv.append("a").attr("href", "https://last.fm/tag/" + name)
-   lastFmLink.append("img").attr("class", "playlist-link__img").attr("src", "https://www.shareicon.net/data/32x32/2016/05/24/769923_logo_512x512.png").attr("style","background:none");
+   lastFmLink.append("img").attr("alt", "Last.fm tag").attr("class", "playlist-link__img").attr("src", "https://www.shareicon.net/data/32x32/2016/05/24/769923_logo_512x512.png").attr("style","background:none");
    lastFmLink.append("span").html("#"+name);
 
     if (pl) {
 
-      linkdiv.append("span").attr("class","divider").html("/");
+      linkdiv.append("span").attr("class","divider").html("/").attr("aria-hidden", "true");
 
       let a = linkdiv.append("a").attr("href", pl.uri).attr("target", "_self");
 
       a.append("img")
+        .attr("alt", "Spotify playlist")
         .attr("class", "playlist-link__img")
         .attr("src", "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg");
 
@@ -697,19 +706,22 @@ var countryScore = 0;
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
 
 
-      d3.select("#details").append("div")
+      d3.select("#details").append("h2")
         .html("<span>Your top artists tagged with </span>" + nameTags + "<span> or </span>" + tagTags + "<span>: </span>")
-        .attr("class", "topartists-desc");
+        .attr("class", "topartists-desc").attr("id", "top-artist-list-heading");
       //Show top 5 artists
 
-      d3.select("#artistContainer").append("i")
+      d3.select("#artistContainer").append("button")
         .attr("class", "fa artist-control right fa-angle-right")
+        .attr("aria-label", "Next five artists")
         .on("click", function(){
           showNextFive();
         });
 
-      d3.select("#artistContainer").append("i")
+      d3.select("#artistContainer").append("button")
         .attr("class", "fa artist-control left disabled fa-angle-left")
+        .attr("aria-label", "Previous five artists")
+        .attr("disabled", "disabled")
         .on("click", function(){
           showPreviousFive();
         });
@@ -723,9 +735,16 @@ var countryScore = 0;
       // console.log("landet har inga lyssnade artister");
     }
     //"Recommended"-heading
-    d3.select("#recommendations").append("h4")
+    d3.select("#recommendations")
+    .append("h2")
       .html("You may like: ")
+      .attr("id", "recom-heading")
       .attr("class", "topartists-desc");
+    d3.select("#recommendations")
+      .append("ul")
+        .attr("id", "recom-list")
+        .attr("aria-labelledby", "recom-heading")
+        .classed("hidden", false);
 
     // show loading message
     var recLoadingDiv = d3.select("#recommendations").append("div").attr("class", "recLoadingDiv");
@@ -735,7 +754,8 @@ var countryScore = 0;
     recLoadingDiv.append("img")
       .attr({
         id: "rec-loading-img",
-        src: "assets/img/loader_horizontal.gif"
+        src: "assets/img/loader_horizontal.gif",
+        alt: "Loading..."
       })
       .style({
         display: "inline-block",
@@ -809,8 +829,12 @@ var countryScore = 0;
             var artistname = art[0].name;
 
 
-            var recoArtistDiv = d3.select("#recommendations").insert("div", "#summaryText").attr("class", "artist-div lowlight");
-            var recoArtistLink = recoArtistDiv.append("a").style("display", "block")
+            var recoArtistDiv = d3.select("#recom-list")
+              .append("li")
+              .insert("button", "#summaryText")
+              .attr("type", "button")
+              .attr("class", "artist-div lowlight");
+            var recoArtistLink = recoArtistDiv.append("div").style("display", "block")
               //.attr("href", artisturl)
               //.attr("target", "_blank");
             recoArtistLink.append("div")
@@ -851,18 +875,19 @@ var countryScore = 0;
     api.cancelRecommendationRequests();
 
     infoContainer.transition().style("opacity", 0).duration(1000);
-    infoContainer.classed("hidden", true);
-    d3.selectAll("#countryCount, .on-map-view").classed("hidden", false);
-    d3.selectAll(".artist-div").remove("div");
-    d3.selectAll(".close-button").remove("button");
-    d3.selectAll(".details-h").remove("p");
-    d3.selectAll(".details-h4").remove("h4");
-    d3.selectAll(".recom-h4").remove("h4");
-    d3.selectAll(".artist-control").remove();
-    d3.selectAll(".topartists-desc").remove();
 
-    d3.select("#cnameCont").remove("h1");
-    d3.select("#cnameCont").remove("h5");
+    infoContainer.classed("hidden", true);
+
+    // Restore toolbar
+    d3.selectAll("#countryCount, .on-map-view")
+      .classed("hidden", false);
+
+    d3.select("#details").html("");
+    d3.select("#recommendations").html("");
+    d3.select("#cname").html("");
+    d3.selectAll(".artist-control").remove();
+    d3.select(".close-button").remove();
+    d3.selectAll("#top-artist-list").remove();
   }
 
   function makeSummaryDiv(artistname) {
