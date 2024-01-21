@@ -30,8 +30,7 @@ const search = search || {};
         { name: "Change theme", onClick: () => {map.nextTheme()} },
         { name: "Take screenshot", onClick: () => {screenshot.render(true)} },
         { name: "Export data", onClick: () => {utils.exportToCSV(script.getCurrentData())} },
-        { name: "Map: Show number of artists", onClick: () => { map.toggleFilter("artists") } },
-        { name: "Map: Show number of scrobbles", onClick: () => { map.toggleFilter("scrobbles") } },
+        { name: "Map: Toggle between artists or scrobbles", onClick: () => { map.toggleFilter() } },
         { name: "Support Explr on BuyMeACoffee", onClick: () => { window.open('https://www.buymeacoffee.com/explrfm', '_blank'); } },
         { name: "Support Explr on Flattr", onClick: () => { window.open('https://flattr.com/@explr.fm', '_blank'); } },
         { name: "View Explr on GitHub", onClick: () => { window.open('https://github.com/mold/explr', '_blank'); } },
@@ -217,6 +216,9 @@ const search = search || {};
                     artistWrapper.classList.add('artist-wrapper');
                     let artistCountryWrapper = document.createElement('span');
                     artistCountryWrapper.classList.add('country-wrapper');
+                    const srOnlyFrom = document.createElement('span');
+                    srOnlyFrom.classList.add('visually-hidden');
+                    srOnlyFrom.textContent = ', from ';
                     let artistPlaycount = document.createElement('span');
                     artistPlaycount.classList.add('playcount');
                     artistPlaycount.textContent = `${artist.playcount} scrobbles`
@@ -230,7 +232,8 @@ const search = search || {};
         
                     artistWrapper.appendChild(artistNameSpan);
                     artistWrapper.appendChild(artistPlaycount);
-                    artistCountryWrapper.textContent = utils.getCountryNameFromId(artist.id);
+                    artistCountryWrapper.textContent = utils.getCountryNameFromId(artist.id) ? utils.getCountryNameFromId(artist.id) : 'Unknown country';
+                    artistCountryWrapper.prepend(srOnlyFrom);
                     searchResultWrapper.appendChild(artistWrapper);
                     searchResultWrapper.appendChild(artistCountryWrapper);
                     artistsWrapper.appendChild(searchResultWrapper);

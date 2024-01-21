@@ -1123,8 +1123,8 @@ var countryScore = 0;
 
   map.showArtists = showArtists;
 
-  map.toggleFilter = function(method) {
-    filter = method;
+  map.toggleFilter = function() {
+    filter = filter === "artists" ? "scrobbles" : "artists";
     updateLegend();
     redraw();
   }
