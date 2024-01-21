@@ -39,7 +39,8 @@ var countryScore = 0;
   var color;
 
   // Set theme
-  var theme = window.localStorage.theme || "pink_white";
+  const defaultTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "blue_black" : "pink_white";
+  var theme = window.localStorage.theme || defaultTheme;
 
   map.drawPlays = function() {
     filter = "scrobbles";

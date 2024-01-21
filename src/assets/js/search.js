@@ -38,6 +38,7 @@ const search = search || {};
     
     // Get the current data
     let data = script.getCurrentData();
+    console.log(data)
 
     // Flatten and prepare the data
     let artists = [].concat(...Object.values(data));
@@ -90,9 +91,14 @@ const search = search || {};
 
         input.setAttribute('aria-expanded', 'true');
 
+        const shortcutsWithoutStatus = shortcuts.filter(shortcut => shortcut.name !== "Status");
+
         // Filter the shortcuts based on the user's input
-        let filteredShortcuts = shortcuts.filter(shortcut => shortcut.name.toLowerCase().includes(input.value.toLowerCase()));
-        if (filteredShortcuts.length > 0 && input.value.length > 3) {
+            let filteredShortcuts = shortcutsWithoutStatus.filter(shortcut => 
+                input.value.toLowerCase() === "shortcuts" || 
+                shortcut.name.toLowerCase().includes(input.value.toLowerCase())
+            );
+            if (filteredShortcuts.length > 0 && input.value.length > 3) {
             const shortcutsWrapper = document.createElement('ul');
             let shortcutsHeading = document.createElement('li');
             shortcutsHeading.textContent = 'Explr.fm shortcuts';
@@ -105,7 +111,7 @@ const search = search || {};
             shortcutsWrapper.ariaLabelledby = 'shortcuts-heading';
             resultsDiv.appendChild(shortcutsWrapper);
         
-            filteredShortcuts.slice(0, 5).forEach(c => {
+            filteredShortcuts.forEach(c => {
                 if (input.value.length > 3) {
                     if (c.name === "Status") {
                         shortcutsHeading.textContent = 'Explr.fm status';
@@ -158,9 +164,14 @@ const search = search || {};
                     searchResultWrapper.id = `country-${c.name.replace(/\s+/g, '-').toLowerCase()}`;                    // Zoom into the country on click
                     searchResultWrapper.addEventListener('click', function() {
                         search.stopSearch();
-                        console.log(`You clicked on ${c.name}`)
                         const country = document.querySelector(`.country#c${c.id}`);
-                        if (country) country.dispatchEvent(new Event('click'));
+                        if (country) {
+                            country.dispatchEvent(new Event('click'));
+                            setTimeout(() => {
+                                document.querySelector('#cnameCont h1').setAttribute("tabindex", "-1");
+                                document.querySelector('#cnameCont h1').focus();
+                            }, 250);
+                        }
                     });
                     const countrySpan = document.createElement('span');
 
@@ -210,6 +221,10 @@ const search = search || {};
                         if (country) country.dispatchEvent(new Event('click'));
                         setTimeout(() => {
                             map.showArtists(1, 5, true, artist.artist)
+                            setTimeout(() => {
+                                document.querySelector('#summaryText h4').setAttribute("tabindex", "-1");
+                                document.querySelector('#summaryText h4').focus();
+                            }, 500);
                         }, 250);
                     });
                     let artistWrapper = document.createElement('span');
@@ -271,6 +286,10 @@ const search = search || {};
                         if (country) country.dispatchEvent(new Event('click'));
                         setTimeout(() => {
                             map.showArtists(1, 5, true, artist.artist)
+                            setTimeout(() => {
+                                document.querySelector('#summaryText h4').setAttribute("tabindex", "-1");
+                                document.querySelector('#summaryText h4').focus();
+                            }, 500);
                         }, 250);
                     });
                     let artistWrapper = document.createElement('span');
