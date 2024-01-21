@@ -28,7 +28,7 @@ const search = search || {};
         { name: "Clear cached users", onClick: () => { clearExplrCache().then(()=>window.location.reload()) } },
         { name: "Change user", onClick: () => { window.location = "./" } },
         { name: "Change theme", onClick: () => {map.nextTheme()} },
-        { name: "Take screenshot", onClick: () => {screenshot.render(true)} },
+        { name: "Download screenshot of map", onClick: () => {screenshot.render(true)} },
         { name: "Export data", onClick: () => {utils.exportToCSV(script.getCurrentData())} },
         { name: "Map: Toggle between artists or scrobbles", onClick: () => { map.toggleFilter() } },
         { name: "Support Explr on BuyMeACoffee", onClick: () => { window.open('https://www.buymeacoffee.com/explrfm', '_blank'); } },
