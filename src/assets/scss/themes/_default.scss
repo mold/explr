@@ -9,6 +9,7 @@ body {
     --backgroundSecondary: #f5f5f5;
     --backgroundTertiary: rgba(180, 225, 225, 0.5);
     --backgroundInput: rgba(249, 249, 249, 0.94);
+    --buttonBackground: #949494;
     --textPrimary: #222;
     --textSecondary: rgba(0, 0, 0, 0.8);
     --textTertiary: rgba(0, 0, 0, 0.54);
@@ -28,6 +29,7 @@ body.dark {
     --backgroundSecondary: rgba(40, 40, 40);
     --backgroundTertiary: rgba(0, 0, 0, 0.6);
     --backgroundInput: rgba(20, 20, 20, 0.94);
+    --buttonBackground: #949494;
     --textPrimary: #fff;
     --textSecondary: rgba(255, 255, 255, 0.8);
     --textTertiary: rgba(255, 255, 255, 0.54);

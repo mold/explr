@@ -5,15 +5,17 @@
 /* CHANGE BUTTON
    ========================================================================== */
 .change-button {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    margin-bottom: 5px;
-    background: rgb(70, 70, 70);
-    opacity: 0.5;
-    cursor: pointer;
+    box-sizing: border-box;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
     overflow: hidden;
-    display: block;
+    background-color: var(--buttonBackground);
+    opacity: 0.8;
 
     &:hover {
         overflow: visible;
@@ -26,9 +28,9 @@
     }
 
     img {
-        display: block;
-        margin: 0 auto;
-        padding: 3px 0;
+        width: 32px;
+        height: 32px;
+        
     }
 
     p {
@@ -43,16 +45,11 @@
  * Specific change buttons
  */
 
-#clear-cache-button {
-    img {
-        padding-top: 5px;
-    }
-}
 
 .button-group {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
 
     .change-button:hover {
         +.button-group__label {

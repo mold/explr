@@ -55,6 +55,7 @@ svg:active {
 
 $controls-padding: 20px;
 #controls {
+    gap: 4px;
     position: absolute;
     top: 0;
     right: 0;
@@ -75,7 +76,7 @@ $controls-padding: 20px;
 #countryCount {
     position: absolute;
     // 3 * (buttonheight + padding) :^)
-    top: 3 * (40px+5px) + $controls-padding + 10px;
+    top: 3 * (48px+4px) + $controls-padding + 10px;
     width: 10px;
     bottom: $controls-padding;
     right: 32px;

@@ -159,16 +159,19 @@
 			</div>
 
 			<div id="controls">
-				<div id="change-theme-button" class="change-button on-map-view no-select"
-					onClick="nextTheme();ga('send', 'event', 'Buttons', 'Cycle theme', 'test');">
-					<img src="assets/img/glyphicons_009_magic.png" alt="" width="32" height="32">
-					<p>Change theme (t)</p>
-				</div>
 				<div class="button-group">
-					<div id="clear-cache-button" class="change-button on-map-view no-select"
+					<button type="button" id="change-theme-button" class="change-button on-map-view no-select"
+					onClick="nextTheme();ga('send', 'event', 'Buttons', 'Cycle theme', 'test');">
+						<img src="assets/img/glyphicons_009_magic.png" alt="" width="32" height="32">
+					</button>
+					<label class="button-group__label" for="change-theme-button">Change theme (t)</label>
+				</div>
+				
+				<div class="button-group">
+					<button type="button" id="clear-cache-button" class="change-button on-map-view no-select"
 						onClick="clearExplrCache().then(()=>window.location.reload())">
 						<img src="assets/img/refresh.png" alt="" width="28" height="28">
-					</div>
+					</button>
 					<label class="button-group__label" for="clear-cache-button">Clear cached artists</label>
 					<a href="./" target="_self" class="change-button on-map-view no-select" id="change-user-button">
 						<img src="assets/img/remove-user.png" alt="" width="32" height="32">
@@ -176,14 +179,14 @@
 					<label class="button-group__label" for="change-user-button">Change user</label>
 				</div>
 				<div class="button-group">
-					<div class="change-button on-map-view no-select" onClick="utils.exportToCSV(countryCountObj)">
+					<button type="button" class="change-button on-map-view no-select" onClick="utils.exportToCSV(countryCountObj)">
 						<img src="assets/img/file-export-solid.png" alt="" width="30" height="30" style="padding: 5px 0 0 5px;">
-					</div>
+					</button>
 					<label class="button-group__label">Export data (e)</label>
-					<div role="button" id="snapshot-button" class="change-button on-map-view no-select"
+					<button type="button" id="snapshot-button" class="change-button on-map-view no-select"
 						onClick="screenshot.render();ga('send', 'event', 'Buttons', 'Take screenshot', 'test');">
 						<img src="assets/img/snapshot.png" alt="" width="32" height="32">
-					</div>
+					</button>
 					<label for="snapshot-button" class="button-group__label">Take snapshot (s)</label>
 				</div>
 				<div id="countryCount" class="progress on-map-view full-opacity no-select">
