@@ -257,7 +257,7 @@ const search = search || {};
             });
         }
 
-        // Filter the artists based on the user's input
+        // Filter the artists for the currently shown country
         let filteredCountryArtists = artists.filter((artist) => filteredCountries.length === 1 && filteredCountries[0].id === artist.id);
 
         if (filteredCountryArtists.length > 0 && input.value.length > 1) {
@@ -267,10 +267,10 @@ const search = search || {};
             artistsHeading.textContent = 'Artists from ' + filteredCountries[0].name;
             artistsHeading.role = "presentation"
             artistsHeading.classList.add('search-result-heading');
-            artistsHeading.id = 'artists-heading';
+            artistsHeading.id = 'artists-country-heading';
             artistsWrapper.appendChild(artistsHeading);
             artistsWrapper.setAttribute('role', 'group');
-            artistsWrapper.ariaLabelledby = 'artists-heading';
+            artistsWrapper.ariaLabelledby = 'artists-country-heading';
             resultsDiv.appendChild(artistsWrapper);
         
             filteredCountryArtists.slice(0, 100).forEach(artist => {
@@ -279,6 +279,60 @@ const search = search || {};
                     searchResultWrapper.classList.add('result-wrapper');
                     searchResultWrapper.role = 'option';
                     searchResultWrapper.id = `${filteredCountries[0].name}-artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;                    // Zoom into the country of the artist on click
+                    searchResultWrapper.addEventListener('click', function() {
+                        console.log(`You clicked on ${artist.artist} from unknown country`);
+                    });
+                    let artistWrapper = document.createElement('span');
+                    artistWrapper.classList.add('artist-wrapper');
+                    let artistCountryWrapper = document.createElement('span');
+                    artistCountryWrapper.classList.add('country-wrapper');
+                    let artistPlaycount = document.createElement('span');
+                    artistPlaycount.classList.add('playcount');
+                    artistPlaycount.textContent = `${artist.playcount} scrobbles`
+                    const artistNameSpan = document.createElement('span');
+                    artistNameSpan.classList.add('artist-name');
+        
+                    // Highlight the matching letters
+                    let regex = new RegExp(input.value, 'gi');
+                    let highlightedName = artist.artist.replace(regex, match => `<span class="highlight">${match}</span>`);
+                    artistNameSpan.innerHTML = highlightedName;
+        
+                    artistWrapper.appendChild(artistNameSpan);
+                    artistWrapper.appendChild(artistPlaycount);
+                    artistCountryWrapper.textContent = utils.getCountryNameFromId(artist.id);
+                    searchResultWrapper.appendChild(artistWrapper);
+                    searchResultWrapper.appendChild(artistCountryWrapper);
+                    artistsWrapper.appendChild(searchResultWrapper);
+                    artistsWrapper.classList.add('artists-wrapper');
+                }
+            });
+        }
+
+        // Show artists without country when the user types "unknown"
+        let noCountryArtists = artists.filter((artist) => 
+            input.value.toLowerCase() === "unknown" && 
+            !artist.id
+        );
+
+        if (noCountryArtists.length > 0 && input.value.length > 1) {
+            const artistsWrapper = document.createElement('ul');
+            artistsWrapper.classList.add('search-result-group');
+            let artistsHeading = document.createElement('li');
+            artistsHeading.textContent = 'Artists without a country (first 100)';
+            artistsHeading.role = "presentation"
+            artistsHeading.classList.add('search-result-heading');
+            artistsHeading.id = 'unknown-artists-heading';
+            artistsWrapper.appendChild(artistsHeading);
+            artistsWrapper.setAttribute('role', 'group');
+            artistsWrapper.ariaLabelledby = 'unknown-artists-heading';
+            resultsDiv.appendChild(artistsWrapper);
+        
+            noCountryArtists.slice(0, 100).forEach(artist => {
+                if (input.value.length > 1) {
+                    let searchResultWrapper = document.createElement('div');
+                    searchResultWrapper.classList.add('result-wrapper');
+                    searchResultWrapper.role = 'option';
+                    searchResultWrapper.id = `unknown-artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;                    // Zoom into the country of the artist on click
                     searchResultWrapper.addEventListener('click', function() {
                         search.stopSearch();
                         console.log(`You clicked on ${artist.artist} from ${artist.id}`)
@@ -309,7 +363,7 @@ const search = search || {};
         
                     artistWrapper.appendChild(artistNameSpan);
                     artistWrapper.appendChild(artistPlaycount);
-                    artistCountryWrapper.textContent = utils.getCountryNameFromId(artist.id);
+                    artistCountryWrapper.textContent = "Unknown country";
                     searchResultWrapper.appendChild(artistWrapper);
                     searchResultWrapper.appendChild(artistCountryWrapper);
                     artistsWrapper.appendChild(searchResultWrapper);
@@ -317,7 +371,6 @@ const search = search || {};
                 }
             });
         }
-            
     });
 
     // Close the search when the user presses escape
