@@ -26,10 +26,10 @@ body {
 
 body.dark {
     --backgroundPrimary: #000;
-    --backgroundSecondary: rgba(40, 40, 40);
+    --backgroundSecondary: rgba(20, 20, 20);
     --backgroundTertiary: rgba(0, 0, 0, 0.6);
     --backgroundInput: rgba(20, 20, 20, 0.94);
-    --buttonBackground: #949494;
+    --buttonBackground: #202020;
     --textPrimary: #fff;
     --textSecondary: rgba(255, 255, 255, 0.8);
     --textTertiary: rgba(255, 255, 255, 0.54);
@@ -110,15 +110,6 @@ body.green_black #progress-text:after {
     -webkit-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
-}
-
-/*
- * Friendbox
- */
-
-.dark #friends {
-    color: #ccc;
-    background: rgba(0, 0, 0, 0.5);
 }
 
 /*

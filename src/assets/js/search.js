@@ -6,8 +6,12 @@ screenshot.js
 
 const search = search || {};
 
+let SEARCH_IS_OPEN = false;
+
 (function () {
-  search.initSearch = function () {
+    search.initSearch = function () {
+
+    SEARCH_IS_OPEN = true;
 
     let FOCUSED_RESULT = null;
 
@@ -38,7 +42,6 @@ const search = search || {};
     
     // Get the current data
     let data = script.getCurrentData();
-    console.log(data)
 
     // Flatten and prepare the data
     let artists = [].concat(...Object.values(data));
@@ -53,10 +56,9 @@ const search = search || {};
 
     // Sort the artists by playcount
     artists = artists.sort((a, b) => b.playcount - a.playcount);
-    console.log(artists.slice(0, 5))
 
     // Create a div to hold the search field
-    let searchContainer = document.createElement('div');
+    let searchContainer = document.getElementById('search-container');
     searchContainer.classList.add("search-container")
     const searchInputWrapper = document.createElement('div');
     searchInputWrapper.classList.add("search-input-wrapper")
@@ -71,7 +73,6 @@ const search = search || {};
     input.role = 'combobox';
     searchInputWrapper.appendChild(input);
     searchContainer.appendChild(searchInputWrapper);
-    document.body.appendChild(searchContainer);
     setTimeout(() => {
         input.focus();
     }, 50);
@@ -222,8 +223,7 @@ const search = search || {};
                         setTimeout(() => {
                             map.showArtists(1, 5, true, artist.artist)
                             setTimeout(() => {
-                                document.querySelector('#summaryText h4').setAttribute("tabindex", "-1");
-                                document.querySelector('#summaryText h4').focus();
+                                document.querySelector(`.artist-div[data-artist="${artist.artist}"]`).focus();
                             }, 500);
                         }, 250);
                     });
@@ -278,9 +278,18 @@ const search = search || {};
                     let searchResultWrapper = document.createElement('div');
                     searchResultWrapper.classList.add('result-wrapper');
                     searchResultWrapper.role = 'option';
-                    searchResultWrapper.id = `${filteredCountries[0].name}-artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;                    // Zoom into the country of the artist on click
+                    searchResultWrapper.id = `${filteredCountries[0].name}-artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;                    
                     searchResultWrapper.addEventListener('click', function() {
-                        console.log(`You clicked on ${artist.artist} from unknown country`);
+                        search.stopSearch();
+                        console.log(`You clicked on ${artist.artist} from ${artist.id}`)
+                        const country = document.querySelector(`.country#c${artist.id}`);
+                        if (country) country.dispatchEvent(new Event('click'));
+                        setTimeout(() => {
+                            map.showArtists(1, 5, true, artist.artist)
+                            setTimeout(() => {
+                                document.querySelector(`.artist-div[data-artist="${artist.artist}"]`).focus();
+                            }, 500);
+                        }, 250);
                     });
                     let artistWrapper = document.createElement('span');
                     artistWrapper.classList.add('artist-wrapper');
@@ -335,16 +344,7 @@ const search = search || {};
                     searchResultWrapper.id = `unknown-artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;                    // Zoom into the country of the artist on click
                     searchResultWrapper.addEventListener('click', function() {
                         search.stopSearch();
-                        console.log(`You clicked on ${artist.artist} from ${artist.id}`)
-                        const country = document.querySelector(`.country#c${artist.id}`);
-                        if (country) country.dispatchEvent(new Event('click'));
-                        setTimeout(() => {
-                            map.showArtists(1, 5, true, artist.artist)
-                            setTimeout(() => {
-                                document.querySelector('#summaryText h4').setAttribute("tabindex", "-1");
-                                document.querySelector('#summaryText h4').focus();
-                            }, 500);
-                        }, 250);
+                        console.log(`You clicked on ${artist.artist} from unknown country`)
                     });
                     let artistWrapper = document.createElement('span');
                     artistWrapper.classList.add('artist-wrapper');
@@ -469,7 +469,6 @@ const search = search || {};
         // If escape, close the search
         if (evt.keyCode === 27 && SEARCH_IS_OPEN) {
             search.stopSearch();
-
         }
 
 
@@ -491,7 +490,17 @@ const search = search || {};
         inputElement.setAttribute('aria-expanded', 'false');
     }
     const searchContainer = document.querySelector('.search-container');
-    if (searchContainer) searchContainer.remove();
+    if (searchContainer) searchContainer.innerHTML = '';
     SEARCH_IS_OPEN = false;
   }
+  search.getSearchStatus = function () {
+    return SEARCH_IS_OPEN;
+  }
+
+  search.setSearchStatus = function (status) {
+    SEARCH_IS_OPEN = status;
+  }
+
+  window.initSearch = search.initSearch;
+
 })();

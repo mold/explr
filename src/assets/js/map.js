@@ -10,6 +10,8 @@ var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd349
 var legend;
 var countryScore = 0;
 
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 (function(window, document) {
   d3.select(window).on("resize", throttle);
 
@@ -195,10 +197,13 @@ var countryScore = 0;
   //Variables for color legend
 
   var tooltip = d3.select("#map-container").append("div").attr("class",
-    "tooltip hidden");
+    "tooltip hidden").attr("aria-hidden", "true");
 
-  var infoContainer = d3.select("body").append("div").attr("class",
-    "infoContainer hidden").attr("id", "infoContainer");
+  var infoContainer = d3.select("main").append("div")
+  .attr("class","infoContainer hidden")
+  .attr("id", "infoContainer")
+  .attr("role", "region")
+  .attr("aria-labelledby", "music-from cname-heading")
 
     var cnameDiv = d3.select("#infoContainer").append("div").attr("class",
   "cnameDiv").attr("id", "cname");
@@ -262,7 +267,7 @@ var countryScore = 0;
 
     svg = d3.select("#map-container").append("svg")
       .attr("role", "img")
-      .attr("aria-label", "Explr.fm interactive map")
+      .attr("aria-labelledby", "map-label progress-text showing filter-text filter")
       .attr("id", "map-svg")
       .attr("width", width)
       .attr("height", height)
@@ -310,12 +315,12 @@ var countryScore = 0;
     //Show progressbar text on mouse-over
     .on("mousemove", function() {
       d3.select("#progress-text")
-        .transition().duration(150).style("opacity", 0.9);
+        .transition().duration(prefersReducedMotion ? 0 : 150).style("opacity", 0.9);
     })
       .on("mouseout", function() {
-        d3.select("#progress-text").transition().duration(150).style("opacity", 0);
+        d3.select("#progress-text").transition().duration(prefersReducedMotion ? 0 : 150).style("opacity", 0);
       });
-    d3.select("#progress-text").html("Scrobbled from " + countryScore + "/210 countries")
+    d3.select("#progress-text").html("Scrobbled from " + countryScore + "/210 countries").attr("aria-hidden", "true");
 
     //Draw countries
     if (redrawMap) {
@@ -461,7 +466,7 @@ var countryScore = 0;
     zoom.scale(s);
 
     if (animate) {
-      g.transition().duration(950).attr("transform", "translate(" + t + ")scale(" + s + ")");
+      g.transition().duration(prefersReducedMotion ? 0 : 950).attr("transform", "translate(" + t + ")scale(" + s + ")");
 
     } else {
       g.attr("transform", "translate(" + t + ")scale(" + s + ")");
@@ -556,6 +561,8 @@ var countryScore = 0;
                 "highlight": true,
                 "lowlight": false
               });
+              d3.selectAll(".artist-div").attr("aria-pressed", "false");
+              d3.select(this).attr("aria-pressed", "true");
 
               makeSummaryDiv(d3.select(this).attr("data-artist"), []);
             });
@@ -662,7 +669,7 @@ var countryScore = 0;
       .classed("hidden", false)
       .transition()
       .style("opacity", 1)
-      .duration(750);
+      .duration(prefersReducedMotion ? 0 : 750);
 
     //Hide progressbar when showing
     d3.selectAll("#countryCount, .on-map-view")
@@ -673,7 +680,8 @@ var countryScore = 0;
     //Populate country information div
     cnameDiv
       .append("div").attr("class", "cnameContainer").attr("id", "cnameCont")
-      .append("h1").html(name);
+      .append("h1").html(name)
+      .attr("id", "cname-heading");
     d3.select("#cnameCont").append("strong")
       .html(function() {
         if (countryCount[d.id])
@@ -875,7 +883,7 @@ var countryScore = 0;
     currentCountry = null;
     api.cancelRecommendationRequests();
 
-    infoContainer.transition().style("opacity", 0).duration(1000);
+    infoContainer.transition().style("opacity", 0).duration(prefersReducedMotion ? 0 : 1000);
 
     infoContainer.classed("hidden", true);
 
@@ -1059,7 +1067,7 @@ var countryScore = 0;
     // Tell map to move with animation
     // Basically does the same as before: translate to middle,
     // then to x and y with respect to scale
-    move([pt[0] + x * k, pt[1] + y * k], k, true);
+    move([pt[0] + x * k, pt[1] + y * k], k, !prefersReducedMotion);
 
   }
 

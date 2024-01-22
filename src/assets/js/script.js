@@ -24,7 +24,6 @@ var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
 var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
 var SESSION = {};
 
-let SEARCH_IS_OPEN = false;
 
 function clearExplrCache() {
     var theme = window.localStorage.getItem("theme");
@@ -459,12 +458,18 @@ var countryCountObj = {};
 
     if (param) { // We already have a user
 
+        // Set up search button listener
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('search-button').addEventListener('click', function() {
+                // Set timeout needed to make sure the browser is ready to focus the search box
+                setTimeout(()=> { search.initSearch() }, 0) ;
+            });
+        });
+
         // set up keyboard shortcuts
         window.addEventListener("keydown", function (evt) {
 
             if ((evt.ctrlKey || evt.metaKey) && evt.keyCode === 70) {
-
-                SEARCH_IS_OPEN = true;
                 
                 // Prevent the browser's default "ctrl + f" or "cmd + f" action (usually "Find")
                 evt.preventDefault();
@@ -473,9 +478,10 @@ var countryCountObj = {};
                 search.initSearch();
                 
             }
-
             // Supress hotkeys if search is open 
-            if (SEARCH_IS_OPEN) return;
+            if (search.getSearchStatus()) {
+                return;
+            };
             switch (evt.keyCode) {
                 case 83:
                     screenshot.render();

@@ -2,6 +2,15 @@
 // This file contains all styles related to the button component.
 // -----------------------------------------------------------------------------
 
+// media query for forced colors
+@media screen and (forced-colors: active) {
+    button {
+        color: ButtonText!important;
+        fill: ButtonText!important;
+        border: 1px solid transparent!important;
+    }
+}
+
 /* CHANGE BUTTON
    ========================================================================== */
 .change-button {
@@ -15,16 +24,15 @@
     border: none;
     overflow: hidden;
     background-color: var(--buttonBackground);
-    opacity: 0.8;
 
     &:hover {
         overflow: visible;
-        opacity: 1;
+        filter: brightness(1.2);
     }
 
     &:active {
         overflow: visible;
-        opacity: 0.3;
+        filter: brightness(1.2);
     }
 
     img {

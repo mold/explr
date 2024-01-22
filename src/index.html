@@ -158,36 +158,42 @@
 				<div id="loading-text" class="no-select"></div>
 			</div>
 
-			<div id="controls">
-				<div class="button-group">
-					<button type="button" id="change-theme-button" class="change-button on-map-view no-select"
+			<div id="controls" role="group" aria-label="Explr.fm controls">
+				<div class="button-group" >
+					<div role="search" style="display: flex; align-items: center; gap: 4px;">
+						<button aria-labelledby="search-button-label" type="button" id="search-button" class="change-button on-map-view no-select" aria-haspopup="true">
+							<img src="assets/img/search.png" alt="" width="28" height="28">
+						</button>
+						<label class="button-group__label" for="search-button" id="search-button-label">Search (ctrl + f)</label>
+					</div>
+					<button aria-labelledby="change-theme-button-label" type="button" id="change-theme-button" class="change-button on-map-view no-select"
 					onClick="nextTheme();ga('send', 'event', 'Buttons', 'Cycle theme', 'test');">
 						<img src="assets/img/glyphicons_009_magic.png" alt="" width="32" height="32">
 					</button>
-					<label class="button-group__label" for="change-theme-button">Change theme (t)</label>
+					<label id="change-theme-button-label" class="button-group__label" for="change-theme-button">Change theme (t)</label>
 				</div>
 				
 				<div class="button-group">
-					<button type="button" id="clear-cache-button" class="change-button on-map-view no-select"
+					<button aria-labelledby="clear-cache-button-label" type="button" id="clear-cache-button" class="change-button on-map-view no-select"
 						onClick="clearExplrCache().then(()=>window.location.reload())">
 						<img src="assets/img/refresh.png" alt="" width="28" height="28">
 					</button>
-					<label class="button-group__label" for="clear-cache-button">Clear cached artists</label>
-					<a href="./" target="_self" class="change-button on-map-view no-select" id="change-user-button">
+					<label id="clear-cache-button-label" class="button-group__label" for="clear-cache-button">Clear cached artists</label>
+					<button aria-labelledby="change-user-button-label" type="button" class="change-button on-map-view no-select" id="change-user-button" onclick="window.location.href='./'">
 						<img src="assets/img/remove-user.png" alt="" width="32" height="32">
-					</a>
-					<label class="button-group__label" for="change-user-button">Change user</label>
+					</button>
+					<label class="button-group__label" id="change-user-button-label" for="change-user-button">Change user</label>
 				</div>
 				<div class="button-group">
-					<button type="button" class="change-button on-map-view no-select" onClick="utils.exportToCSV(countryCountObj)">
+					<button aria-labelledby="export-button-label" type="button" id="export-button" class="change-button on-map-view no-select" onClick="utils.exportToCSV(countryCountObj)">
 						<img src="assets/img/file-export-solid.png" alt="" width="30" height="30" style="padding: 5px 0 0 5px;">
 					</button>
-					<label class="button-group__label">Export data (e)</label>
-					<button type="button" id="snapshot-button" class="change-button on-map-view no-select"
+					<label id="export-button-label" for="export-button" class="button-group__label">Export data (e)</label>
+					<button aria-labelledby="snapshot-button-label" type="button" id="snapshot-button" class="change-button on-map-view no-select"
 						onClick="screenshot.render();ga('send', 'event', 'Buttons', 'Take screenshot', 'test');">
 						<img src="assets/img/snapshot.png" alt="" width="32" height="32">
 					</button>
-					<label for="snapshot-button" class="button-group__label">Take snapshot (s)</label>
+					<label id="snapshot-button-label" for="snapshot-button" class="button-group__label">Take snapshot (s)</label>
 				</div>
 				<div id="countryCount" class="progress on-map-view full-opacity no-select">
 					<div id="progress-bar">
@@ -195,12 +201,17 @@
 					</div>
 				</div>
 			</div>
+			<div id="search-container" class="search-container"></div>
+		</main>
+		<footer>
 			
-			<div id="friends" class="on-map-view">
+			<div id="friends" class="on-map-view" role="group" aria-labelledby="msg">
 				<p id="msg" class="details-p"></p>
-				<span class="arrow left no-select">
-					<-</span> <p id="friend-name" class="details-p">ding dong</p>
-					<span class="arrow right no-select">-></span>
+				<div class="friends-inner">
+					<button type="button" aria-label="Previous" class="arrow left no-select"><-</button>
+					<div id="friend-name" class="details-p">No friends :-/</div>
+					<button type="button" aria-label="Next" class="arrow right no-select">-></button>
+				</div>
 			</div>
 			<div id="logo" class="logo on-map-view no-select">
 				<img src="assets/img/explrlogo.png" width="100" alt="Explr.fm logotype">
@@ -212,7 +223,7 @@
 				<div><img class="screenshot-overlay__img" src="" alt="Screenshot of your Explr.fm map" id="screenshot-img"></div>
 			</div>
 
-			<div class="no-countries">
+			<div class="no-countries" aria-hidden="true">
 				<div class="no-countries__title">Artists without a country ▲</div>
 				<div class="no-countries__content">
 					<p>
@@ -229,7 +240,12 @@
 					<input type="text" name="query" placeholder="artist name here"> <button>where from??? 🕵️‍♂️🔎🔎</button>
 				</form>
 			</div>
-		</main>
+			<!-- Labels used for screen reader labels -->
+			<span class="hidden" id="map-label">Your world map</span>
+			<span class="hidden" id="showing">Currently showing</span>
+			<span class="hidden" id="music-from">Music from</span>
+			</footer>
+		
 
 			<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 			<script src="https://d3js.org/topojson.v1.min.js"></script>
