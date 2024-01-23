@@ -5,6 +5,7 @@
 /** FOR THEMES!! **/
 
 body {
+    color-scheme: light;
     --backgroundPrimary: #fff;
     --backgroundSecondary: #f5f5f5;
     --backgroundTertiary: rgba(180, 225, 225, 0.5);
@@ -18,13 +19,13 @@ body {
     --border: rgba(0, 0, 0, 0.5);
     --borderSecondary: rgba(0, 0, 0, 0.12);
     --hover: rgba(0, 0, 0, 0.06);
-    --highlight: rgba(175, 175, 175, 0.5);
+    --highlight: rgba(175, 175, 175, 0.2);
     --focus: rgba(174, 1, 126, 1);
     --focusSecondary: rgba(174, 1, 126, 0.24);
-    color-scheme: light;
 }
 
 body.dark {
+    color-scheme: dark;
     --backgroundPrimary: #000;
     --backgroundSecondary: rgba(20, 20, 20);
     --backgroundTertiary: rgba(0, 0, 0, 0.6);
@@ -38,11 +39,49 @@ body.dark {
     --border: rgba(255, 255, 255, 0.5);
     --borderSecondary: rgba(255, 255, 255, 0.12);
     --hover: rgba(255, 255, 255, 0.06);
-    --highlight: rgba(175, 175, 175, 0.3);
+    --highlight: rgba(175, 175, 175, 0.2);
     --focus: rgba(174, 1, 126, 1);
     --focusSecondary: rgba(174, 1, 126, 0.24);
-    color-scheme: dark;
 }
+
+body.blue_black {
+    --themeColorLight: #2A075A;
+    --themeColorDark: #4651C5;
+}
+
+body.green_black {
+    --themeColorLight: #032F30;
+    --themeColorDark: #1CB162;
+}
+
+body.pink_black {
+    --themeColorLight: #4B0627;
+    --themeColorDark: #C355A4;
+}
+
+body.pink_white {
+    --themeColorLight: #fcc5c0;
+    --themeColorDark: #ae017e;
+}
+
+body.green_white {
+    --themeColorLight: #ccece6;
+    --themeColorDark: #238b45;
+}
+
+body.red_white {
+    --themeColorLight: #feb24c;
+    --themeColorDark: #bd0026;
+}
+
+$themes: (
+    blue_black: ("#03020D", "#140E1F", "#2A075A", "#321C78", "#362688", "#3E3CA7", "#4651C5", "#5371F4"),
+    green_black: ("#03020D", "#08120C", "#032F30", "#064137", "#0E6745", "#158C54", "#1CB162", "#28EA78"),
+    pink_black: ("#03020D", "#1F0310", "#4B0627", "#5C1138", "#7E285C", "#A13F80", "#C355A4", "#F778DA"),
+    pink_white: ("#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"),
+    green_white: ("#ece2f0", "#F6EBFA", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c"),
+    red_white: ("#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"),
+);
 
 
 body {
@@ -112,17 +151,6 @@ body.green_black #progress-text:after {
     box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 }
 
-/*
- * tags
- */
-
-.dark .tagdiv {
-    color: #ccc;
-}
-
-.dark .tagdiv .usertag {
-    color: #fff;
-}
 
 /*
 * flattr logo

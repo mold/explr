@@ -242,8 +242,10 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
     theme = toTheme || themeList[(themeList.indexOf(theme) + 1) % themeList.length];
     colorArray = themes[theme];
 
-    //Change body class
-    d3.select(document.body).attr("class", ["blue_black", "green_black", "pink_black"].includes(theme) ? "dark" : "light");
+    // Change body class
+    let bodyClass = ["blue_black", "green_black", "pink_black"].includes(theme) ? "dark" : "light";
+    bodyClass += " " + theme;
+    d3.select(document.body).attr("class", bodyClass);
 
     // Save :)
     window.localStorage.theme = theme;
@@ -267,7 +269,9 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
     svg = d3.select("#map-container").append("svg")
       .attr("role", "img")
-      .attr("aria-labelledby", "map-label progress-text showing filter-text filter")
+      .attr("tabindex", "-1")
+      .attr("aria-labelledby", "map-label progress-text")
+      .attr("aria-describedby", "map-hint")
       .attr("id", "map-svg")
       .attr("width", width)
       .attr("height", height)
@@ -659,8 +663,8 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
         name = e.name;
         tag = e.tag;
 
-        nameTags = (e.names || [e.name]).map(n => "<span class=\"demonym\">#" + n + "</span>").join(", ");
-        tagTags = (e.tags || [e.tag]).map(t => "<span class=\"demonym\">#" + t + "</span>").join(", ");
+        nameTags = (e.names || [e.name]).map(n => "<span class=\"demonym\">" + n + "</span>").join(", ");
+        tagTags = (e.tags || [e.tag]).map(t => "<span class=\"demonym\">" + t + "</span>").join(", ");
       };
     })
     d3.select("#recommendations").html("");
@@ -720,14 +724,10 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
         .attr("class", "topartists-desc").attr("id", "top-artist-list-heading");
       //Show top 5 artists
 
-      d3.select("#artistContainer").append("button")
-        .attr("class", "fa artist-control right fa-angle-right")
-        .attr("aria-label", "Next five artists")
-        .on("click", function(){
-          showNextFive();
-        });
+      //Fetch the initial five artists!!
+      showArtists(1, 5, true);
 
-      d3.select("#artistContainer").append("button")
+      d3.select("#details").append("button")
         .attr("class", "fa artist-control left disabled fa-angle-left")
         .attr("aria-label", "Previous five artists")
         .attr("disabled", "disabled")
@@ -735,9 +735,12 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
           showPreviousFive();
         });
 
-      //Fetch the initial five artists!!
-      console.log("showing initial artists");
-      showArtists(1, 5, true);
+      d3.select("#details").append("button")
+      .attr("class", "fa artist-control right fa-angle-right")
+      .attr("aria-label", "Next five artists")
+      .on("click", function(){
+        showNextFive();
+      });
 
 
     } else { //Om landet vi klickat på inte har några lyssnade artister...
@@ -918,7 +921,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
     //Get artist info from Lastfm
     api.getArtistInfo(artistname, function(art) {
-      var text = art[0].description.replace(/(\n)+/g, '<br />');
+      var paragraphs = art[0].description.split(/(\n)+/g);
       //var text = text.substring(6);
       //Get artist's top tags
       artisttaglist = art[0].tags;
@@ -945,11 +948,13 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
       var h = window.innerHeight * 0.90 - document.getElementById("artistContainer").offsetHeight;
       summaryText.style("max-height", h + "px");
 
-      summaryText.append("h4").html(artistname);
+      summaryText.append("h2").html(artistname).attr("id", "artistname");
+
+      const tags = summaryText.append("ul").attr("class", "taglist").attr("aria-labelledby", "tags-for artistname");
 
       //Show top 7 tags
       for (let i = 0; i < Math.min(taglist.length, 6); i++) {
-        var tagdiv = summaryText.append("div").attr("class", "tagdiv").append("h4").html("#" + taglist[i]);
+        var tagdiv = tags.append("li").attr("class", "tagdiv").html(taglist[i]);
         //Mark all user tags
         for (let p = 0; p < usertaglist.length; p++) {
           if (taglist[i] === usertaglist[p])
@@ -957,7 +962,9 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
         }
       }
       //Display artist summary
-      summaryText.append("p").html(text || "No description available - <a href='https://last.fm/music/" + artistname + "' target='_blank'>check out last.fm.</a>");
+      paragraphs.forEach(function(paragraph) {
+        summaryText.append("p").html(paragraph || "No description available - <a href='https://last.fm/music/" + artistname + "' target='_blank'>check out last.fm.</a>");
+      });
 
     })
 
@@ -1060,7 +1067,10 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
       removeArtistDiv();
       highlightCountry(false);
       centered = null;
-
+      // Refocus the map svg (mainly for screen readers)
+      document.getElementById("map-svg").focus( { 
+        preventScroll: true
+       } );
     }
 
     var pt = projection.translate();

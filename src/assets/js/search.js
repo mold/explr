@@ -8,6 +8,8 @@ const search = search || {};
 
 let SEARCH_IS_OPEN = false;
 
+let searchButton = null;
+
 (function () {
     search.initSearch = function () {
 
@@ -16,6 +18,9 @@ let SEARCH_IS_OPEN = false;
     let FOCUSED_RESULT = null;
 
     let countriesList = null;
+
+    const searchButton = document.querySelector('#search-button');
+    if (searchButton) searchButton.ariaExpanded = true;
 
     api.getCountriesData().then(countries => {
         // countries is the array of country data
@@ -295,6 +300,9 @@ let SEARCH_IS_OPEN = false;
                     artistWrapper.classList.add('artist-wrapper');
                     let artistCountryWrapper = document.createElement('span');
                     artistCountryWrapper.classList.add('country-wrapper');
+                    const srOnlyFrom = document.createElement('span');
+                    srOnlyFrom.classList.add('visually-hidden');
+                    srOnlyFrom.textContent = ', from ';
                     let artistPlaycount = document.createElement('span');
                     artistPlaycount.classList.add('playcount');
                     artistPlaycount.textContent = `${artist.playcount} scrobbles`
@@ -309,6 +317,7 @@ let SEARCH_IS_OPEN = false;
                     artistWrapper.appendChild(artistNameSpan);
                     artistWrapper.appendChild(artistPlaycount);
                     artistCountryWrapper.textContent = utils.getCountryNameFromId(artist.id);
+                    artistCountryWrapper.prepend(srOnlyFrom);
                     searchResultWrapper.appendChild(artistWrapper);
                     searchResultWrapper.appendChild(artistCountryWrapper);
                     artistsWrapper.appendChild(searchResultWrapper);
@@ -350,6 +359,9 @@ let SEARCH_IS_OPEN = false;
                     artistWrapper.classList.add('artist-wrapper');
                     let artistCountryWrapper = document.createElement('span');
                     artistCountryWrapper.classList.add('country-wrapper');
+                    const srOnlyFrom = document.createElement('span');
+                    srOnlyFrom.classList.add('visually-hidden');
+                    srOnlyFrom.textContent = ', from ';
                     let artistPlaycount = document.createElement('span');
                     artistPlaycount.classList.add('playcount');
                     artistPlaycount.textContent = `${artist.playcount} scrobbles`
@@ -364,6 +376,7 @@ let SEARCH_IS_OPEN = false;
                     artistWrapper.appendChild(artistNameSpan);
                     artistWrapper.appendChild(artistPlaycount);
                     artistCountryWrapper.textContent = "Unknown country";
+                    artistCountryWrapper.prepend(srOnlyFrom);
                     searchResultWrapper.appendChild(artistWrapper);
                     searchResultWrapper.appendChild(artistCountryWrapper);
                     artistsWrapper.appendChild(searchResultWrapper);
@@ -484,6 +497,7 @@ let SEARCH_IS_OPEN = false;
   }
 
   search.stopSearch = function () {
+    const searchButtonClose = document.querySelector('#search-button');
     const inputElement = document.querySelector('.search');
     if (inputElement !== undefined) {
         inputElement.removeAttribute('aria-activedescendant');
@@ -491,6 +505,10 @@ let SEARCH_IS_OPEN = false;
     }
     const searchContainer = document.querySelector('.search-container');
     if (searchContainer) searchContainer.innerHTML = '';
+    if (searchButtonClose){
+        searchButtonClose.focus( {preventScroll: true} ); 
+        searchButtonClose.ariaExpanded = false;
+    };
     SEARCH_IS_OPEN = false;
   }
   search.getSearchStatus = function () {

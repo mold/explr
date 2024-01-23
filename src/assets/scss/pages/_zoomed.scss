@@ -80,7 +80,7 @@
 .artistContainer {
     //Main container for artist information, recommendations and details
     margin-right: 6%;
-    padding: 8px;
+    padding: 8px 16px;
     border-radius: 0 0 8px 8px;
     width: 592px;
     display: block;
@@ -90,22 +90,26 @@
 
     h2 {
         font-size: 1.15em;
-        margin-top: 1em;
         font-weight: bold;
         color: inherit;
         font-family: $heading-font-stack;
     }
 
     p {
-        font-size: 0.8em;
+        font-size: 0.9em;
     }
 
-    ol, ul {
+    ol#top-artist-list, ul#recom-list {
         // reset list styles
         list-style: none;
         padding: 0;
         margin: 0;
         display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        li {
+            flex-basis: 20%;
+        }
     }
 
     li {
@@ -118,12 +122,10 @@
 }
 
 .detailsDiv {
-    //
-    display: table;
-    margin-left: 16px;
     padding: 0 30px;
     padding: 0;
     opacity: 0.9;
+    width: 100%;
     vertical-align: top;
     position: relative;
 
@@ -138,53 +140,52 @@
     font-size: 1em;
     margin-top: 1em;
     margin-bottom: 0.8em;
-    font-weight: bold;
-    //color: $heading-color;
+    span:not(.demonym) {
+        font-family: $text-font-stack;
+    }
+    .demonym{
+        font-size: 1.15em;
+        font-weight: bold;
+        font-family: $heading-font-stack;
+        }
 }
-.demonym{
-    font-size: 1.15em;
-    font-weight: bold;
-    font-family: $heading-font-stack;
 
-    //color: $text-color;
-}
 
 
 //Artist controls
 .fa.artist-control{
     position: absolute;
-    font-size: 40px;
-    top: 81px;
+    font-size: 24px;
+    padding: 0;
+    height: 48px;
+    width: 48px;
+    top: 85px;
     color: inherit;
     cursor: pointer;
     transition: 0.1s;
     // button resets
     border: none;
     background: none;
-    padding: 8px;
+    border-radius: 100%;
+    background-color: var(--themeColorLight);
     margin: 0;
     appearance: none;
 
     &.right{
-        right: -8px;
+        right: -44px;
     }
 
     &.left{
-        left: -8px;
+        left: -44px;
+    }
+    &:hover {
+        background-color: var(--themeColorLight);
+        transform: scale(1.1);
+        filter: brightness(0.92);
     }
 
     &.disabled{
-        cursor: auto;
-        opacity: 0.5;
-        &:hover{
-            color: rgba(90,90,90,0.8);
-            transform: none;
-        }
-    }
-
-    &:hover{
-        transform: scale(2.5);
-        color: pink;
+        display: none;
     }
 }
 
@@ -206,7 +207,7 @@
 
     p {
         margin-bottom: 0;
-        margin-top: 0.3em;
+        margin-top: 1em;
     }
 
     h4 {
@@ -220,12 +221,11 @@
    ========================================================================== */
 
 .artist-div {
-    float: left;
     text-align: center;
-    width: 112px;
-    padding-top: 7px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     cursor: pointer;
-    border-radius: 7px;
+    border-radius: 6px;
     box-sizing: border-box;
     transition: background 0.1s;
     background: inherit;
@@ -309,9 +309,19 @@
 /* ==========================================================================
    Artist tags
    ========================================================================== */
+
+.taglist {
+    gap: 4px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+}
+
 .tagdiv {
-    border: 1px solid lightgrey;
-    color: #969696;
+    color: inherit;
     display: inline-block;
     background: inherit;
     margin-top: 0.6em;
@@ -319,15 +329,16 @@
     padding: 0.3em;
     margin-right: 0.2em;
     width: auto;
+    padding: 4px 12px!important;
+    border-radius: 48px;
+    background-color: var(--borderSecondary);
+    display: inline-flex!important;
+    align-items: center!important;
+    text-align: center;
+    height: fit-content;
 
-    h4 {
-        font-size: 0.8em;
-        font-weight: normal;
-    }
-
-    .usertag {
-        color: #636363;
-        font-weight: bolder;
+    &.usertag {
+        background-color: var(--themeColorLight);
     }
 }
 
@@ -336,15 +347,12 @@
    ========================================================================== */
 
 .recoDiv {
-    display: table;
-    margin-left: 16px;
-    margin-right: 16px;
     margin-bottom: 16px;
     padding: 0 30px;
     padding: 0;
     opacity: 0.9;
     vertical-align: top;
-    width: 560px;
+    width: 100%;
 }
 
 .recLoadingDiv {

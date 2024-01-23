@@ -146,6 +146,7 @@
 				</div>
 			</div>
 			<div id="map-container"></div>
+			<span class="visually-hidden" id="map-hint">Navigate the map by searching for a country or an artist (shortcut CTRL + F)</span>
 			<div class="loader no-select">
 				<div class="bubblingG">
 					<span id="bubblingG_1">
@@ -161,7 +162,7 @@
 			<div id="controls" role="group" aria-label="Explr.fm controls">
 				<div class="button-group" >
 					<div role="search" style="display: flex; align-items: center; gap: 4px;">
-						<button aria-labelledby="search-button-label" type="button" id="search-button" class="change-button on-map-view no-select" aria-haspopup="true">
+						<button aria-labelledby="search-button-label" type="button" aria-expanded="false" id="search-button" class="change-button on-map-view no-select" aria-haspopup="true">
 							<img src="assets/img/search.png" alt="" width="28" height="28">
 						</button>
 						<label class="button-group__label" for="search-button" id="search-button-label">Search (ctrl + f)</label>
@@ -244,6 +245,7 @@
 			<span class="hidden" id="map-label">Your world map</span>
 			<span class="hidden" id="showing">Currently showing</span>
 			<span class="hidden" id="music-from">Music from</span>
+			<span class="hidden" id="tags-for">Tags for</span>
 			</footer>
 		
 
