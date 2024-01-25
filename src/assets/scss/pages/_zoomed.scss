@@ -20,7 +20,7 @@
     flex-direction: row;
     justify-content: flex-end;
     gap: 5%;
-    background-color: var(--themeColorLight);
+    background-color: var(--backgroundSecondary);
     // box-shadow: rgba(0,0,0,.1) 0 2px 12px 0;
     backdrop-filter: blur(20px);
 }
@@ -90,7 +90,6 @@
     position: relative;
     height: fit-content;
     box-shadow: rgba(0,0,0,.1) 0 2px 12px 0;
-    transform: translate(0, -1px);
 
     h2 {
         font-size: 1.15em;
@@ -171,7 +170,8 @@
     border: none;
     background: none;
     border-radius: 100%;
-    background-color: var(--themeColorLight);
+    background-color: #222;
+    color: #fff;
     margin: 0;
     appearance: none;
 
@@ -183,7 +183,6 @@
         left: -44px;
     }
     &:hover {
-        background-color: var(--themeColorLight);
         transform: scale(1.1);
         filter: brightness(0.92);
     }
@@ -197,6 +196,9 @@
     font-size: 0.8em;
     font-style: #000;
     margin-bottom: 4px;
+    strong, b {
+        font-family: $heading-font-stack;
+    }
 }
 
 .summaryText {
@@ -255,7 +257,7 @@
     margin-left: auto;
     margin-right: auto;
     text-align: center;
-    background: none!important;
+    background: var(--backgroundPrimary);
     transition: border-radius 0.1s;
 
 
@@ -271,7 +273,7 @@
         transition: border-radius 0.1s;
         background-size: cover;
         background-image: url(https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png);
-        z-index: -1;
+        z-index: 1;
     }
 }
 
@@ -291,7 +293,8 @@
 }
 
 .artist-div.highlight, .reco-div.highlight {
-    background: var(--highlight);
+    background: var(--themeColorDark);
+    color: var(--backgroundPrimary)
 }
 
 .artist-div.lowlight .image-div {
@@ -372,13 +375,14 @@
     color: #444;
     width: 48px;
     height: 48px;
-    border: 1px solid var(--borderSecondary);
     color: #fff;
-    background-color: #333;
+    background-color: #222;
     padding: 0;
+    border: 0;
     border-radius: 100%;
     right: 10px;
     top: -20px;
     position: absolute;
     cursor: pointer;
+    box-shadow: rgba(0,0,0,.1) 0 2px 12px 0;
 }
