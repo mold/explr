@@ -2,33 +2,45 @@
 // This file contains all styles related to the button component.
 // -----------------------------------------------------------------------------
 
+// media query for forced colors
+@media screen and (forced-colors: active) {
+    button {
+        color: ButtonText!important;
+        fill: ButtonText!important;
+    }
+    .change-button {
+        border: 1px solid transparent!important;
+    }
+}
+
 /* CHANGE BUTTON
    ========================================================================== */
 .change-button {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    margin-bottom: 5px;
-    background: rgb(172, 172, 172);
-    opacity: 0.5;
-    cursor: pointer;
+    box-sizing: border-box;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
     overflow: hidden;
-    display: block;
+    background-color: var(--buttonBackground);
 
     &:hover {
         overflow: visible;
-        opacity: 1;
+        filter: brightness(1.2);
     }
 
     &:active {
         overflow: visible;
-        opacity: 0.3;
+        filter: brightness(1.2);
     }
 
     img {
-        display: block;
-        margin: 0 auto;
-        padding: 3px 0;
+        width: 32px;
+        height: 32px;
+        
     }
 
     p {
@@ -43,16 +55,11 @@
  * Specific change buttons
  */
 
-#clear-cache-button {
-    img {
-        padding-top: 5px;
-    }
-}
 
 .button-group {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
 
     .change-button:hover {
         +.button-group__label {
@@ -75,13 +82,22 @@
     width: 130px;
     height: 40px;
     overflow: hidden;
-    margin: 1em auto 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 16px;
+    margin-top: 16px;
     padding: 3px 6px 6px 6px;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     background: #ffffff;
     background: linear-gradient(to bottom, #ffffff 0%, #ffc3c3 100%);
     border: 2px solid grey;
+
+    &:focus-within {
+        outline: 4px solid var(--focus);
+        outline-offset: 2px;
+        
+    }
 
     &:hover {
         background: white;
@@ -103,8 +119,12 @@
         background-size: 90%;
         background-position: center top;
         cursor: pointer;
+        text-align: center;
         border: none;
         width: inherit;
         height: inherit;
+        &:focus {
+            outline: none;
+        }
     }
 }

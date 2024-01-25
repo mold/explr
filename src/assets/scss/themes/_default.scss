@@ -4,101 +4,128 @@
 // -----------------------------------------------------------------------------
 /** FOR THEMES!! **/
 
-body.blue_black,
-body.green_black,
-body.pink_black {
-    background: black;
-    color: white;
-    fill: white;
+body {
+    color-scheme: light;
+    --backgroundPrimary: #fff;
+    --backgroundSecondary: #fafafa;
+    --backgroundTertiary: rgba(180, 225, 225, 0.5);
+    --backgroundInput: rgba(249, 249, 249, 0.94);
+    --buttonBackground: #949494;
+    --textPrimary: #222;
+    --textSecondary: rgba(0, 0, 0, 0.8);
+    --textTertiary: rgba(0, 0, 0, 0.54);
+    --textHeading: rgba(55, 55, 55, 0.8);
+    --link: #222;
+    --border: rgba(0, 0, 0, 0.5);
+    --borderSecondary: rgba(0, 0, 0, 0.12);
+    --hover: rgba(0, 0, 0, 0.06);
+    --highlight: rgba(175, 175, 175, 0.2);
+    --focus: rgba(174, 1, 126, 1);
+    --focusSecondary: rgba(174, 1, 126, 0.24);
 }
 
-body.pink_white,
-body.green_white,
+body.dark {
+    color-scheme: dark;
+    --backgroundPrimary: #000;
+    --backgroundSecondary: rgba(20, 20, 20);
+    --backgroundTertiary: rgba(0, 0, 0, 0.6);
+    --backgroundInput: rgba(20, 20, 20, 0.94);
+    --buttonBackground: #202020;
+    --textPrimary: #fff;
+    --textSecondary: rgba(255, 255, 255, 0.8);
+    --textTertiary: rgba(255, 255, 255, 0.54);
+    --textHeading: rgba(255, 255, 255, 0.8);
+    --link: #fff;
+    --border: rgba(255, 255, 255, 0.5);
+    --borderSecondary: rgba(255, 255, 255, 0.12);
+    --hover: rgba(255, 255, 255, 0.06);
+    --highlight: rgba(175, 175, 175, 0.2);
+    --focus: rgba(174, 1, 126, 1);
+    --focusSecondary: rgba(174, 1, 126, 0.24);
+}
+
+body.blue_black {
+    --themeColorLight: #2A075A;
+    --themeColorDark: #4651C5;
+}
+
+body.green_black {
+    --themeColorLight: #032F30;
+    --themeColorDark: #1CB162;
+}
+
+body.pink_black {
+    --themeColorLight: #4B0627;
+    --themeColorDark: #C355A4;
+}
+
+body.pink_white {
+    --themeColorLight: #fcc5c0;
+    --themeColorDark: #ae017e;
+}
+
+body.green_white {
+    --themeColorLight: #ccece6;
+    --themeColorDark: #238b45;
+}
+
 body.red_white {
-    background: white;
-    color: #222;
-    fill: #222;
+    --themeColorLight: #feb24c;
+    --themeColorDark: #bd0026;
+}
+
+$themes: (
+    blue_black: ("#03020D", "#140E1F", "#2A075A", "#321C78", "#362688", "#3E3CA7", "#4651C5", "#5371F4"),
+    green_black: ("#03020D", "#08120C", "#032F30", "#064137", "#0E6745", "#158C54", "#1CB162", "#28EA78"),
+    pink_black: ("#03020D", "#1F0310", "#4B0627", "#5C1138", "#7E285C", "#A13F80", "#C355A4", "#F778DA"),
+    pink_white: ("#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"),
+    green_white: ("#ece2f0", "#F6EBFA", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c"),
+    red_white: ("#F0F0D8", "#F0F0D8", "#feb24c", "#fd8d3c", "#fc4e2a", "#e31a1c", "#bd0026", "#800026"),
+);
+
+
+body {
+    background: var(--backgroundPrimary);
+    color: var(--textPrimary);
+    fill: var(--textPrimary);
 }
 
 /*
  * Link theme
  */
 
-body.blue_black a,
-body.green_black a,
-body.pink_black a,
-body.blue_black a:visited,
-body.green_black a:visited,
-body.pink_black a:visited,
-body.blue_black a:active,
-body.green_black a:active,
-body.pink_black a:active {
-    color: white;
-}
-
-body.pink_white a,
-body.green_white a,
-body.red_white a,
-body.pink_white a:visited,
-body.green_white a:visited,
-body.red_white a:visited,
-body.pink_white a:active,
-body.green_white a:active,
-body.red_white a:active {
-    color: #222;
+a, a:visited, a:active {
+    color: var(--link);
 }
 
 /*
  * HEADING THEMES
  */
 
-body.blue_black h1,
-body.green_black h1,
-body.pink_black h1 {
-    color: rgba(255, 255, 255, 0.8);
-}
+ h1 {
+    color: var(--textSecondary)
+ }
 
-body.blue_black h5,
-body.green_black h5,
-body.pink_black h5 {
-    color: rgba(200, 200, 200, 0.5);
-}
+ h5 {
+    color: var(--textTertiary)
+ }
 
-/*
- * splash themes
- */
-
-body.blue_black #welcome-container,
-body.green_black #welcome-container,
-body.pink_black #welcome-container {
-    background: rgba(0, 55, 55, 0.5);
-}
-
-body.blue_black .welcome-message,
-body.green_black .welcome-message,
-body.pink_black .welcome-message {
-    background: rgba(0, 0, 0, 0.6);
-    border: 5px solid black;
-}
 
 /*
  * Tooltip
  */
 
-body.blue_black .tooltip,
-body.green_black .tooltip,
-body.pink_black .tooltip {
-    background: black;
+.tooltip {
+    background: var(--textPrimary);
+    color: var(--backgroundPrimary)
 }
 
 /*
  * Map legend
  */
 
-body.blue_black .legend rect,
-body.pink_black .legend rect,
-body.green_black .legend rect {
-    stroke: #000;
+.legend rect {
+    stroke: var(--backgroundPrimary);
 }
 
 /*
@@ -118,65 +145,18 @@ body.green_black #progress-text:after {
     border-left-color: rgba(0, 0, 0, 0.5);
 }
 
-body.blue_black #countryCount,
-body.pink_black #countryCount,
-body.green_black #countryCount {
+.dark #countryCount {
     -webkit-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 4px 4px 9px 0px rgba(0, 0, 0, 0.75);
 }
 
-/*
- * Friendbox
- */
-
-body.blue_black #friends,
-body.pink_black #friends,
-body.green_black #friends {
-    color: #ccc;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-/*
- * infocontainer
- */
-
-body.blue_black .infoContainer,
-body.green_black .infoContainer,
-body.pink_black .infoContainer {
-    background: rgba(0, 0, 0, 0.85);
-    border-top: 1px solid white;
-}
-
-body.pink_white .infoContainer,
-body.green_white .infoContainer,
-body.red_white .infoContainer {
-    background: rgba(255, 255, 255, 0.85);
-}
-
-/*
- * tags
- */
-
-body.blue_black .tagdiv,
-body.green_black .tagdiv,
-body.pink_black .tagdiv {
-    color: #ccc;
-}
-
-body.blue_black .tagdiv .usertag,
-body.green_black .tagdiv .usertag,
-body.pink_black .tagdiv .usertag {
-    color: #fff;
-}
 
 /*
 * flattr logo
 */
 
-body.blue_black .flattr-logo,
-body.green_black .flattr-logo,
-body.pink_black .flattr-logo {
+.dark .flattr-logo {
     fill: white;
 }
 
@@ -184,16 +164,12 @@ body.pink_black .flattr-logo {
 * bmc logo
 */
 
-body.blue_black .bmc-button,
-body.green_black .bmc-button,
-body.pink_black .bmc-button {
+.dark .bmc-button {
     background: none;
     border: none;
 }
 
-body.blue_black .screenshot-overlay,
-body.green_black .screenshot-overlay,
-body.pink_black .screenshot-overlay {
+.dark .screenshot-overlay {
     &__close {
         background: black;
         color: white;

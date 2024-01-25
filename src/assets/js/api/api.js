@@ -12,6 +12,7 @@ var superCount = 0;
 		));
 
 	api.getCountriesData = (() => {
+		console.log("Loading countries data...")
 		let promise;
 
 		return () => {
@@ -186,6 +187,7 @@ var superCount = 0;
 			var checkCount = function() {
 				count++;
 				superCount++;
+				script.setLoadingStatus(`Loading artists, please wait... (${superCount} / ${SESSION.total_artists})`);
 				d3.select("#loading-text").html("Loading artists...<br>(" + superCount + "/" + SESSION.total_artists + ")<br>You can start exploring,<br>but it might interfere<br>with loading your artists.");
 				if (count === artists.length) {
 					// We done, save artists and call back
@@ -381,4 +383,5 @@ var superCount = 0;
 	api.getFriends = function(callback) {
 		api.lastfm.send("user.getFriends", [["user", SESSION.name]], callback);
 	}
+
 })(window, document);

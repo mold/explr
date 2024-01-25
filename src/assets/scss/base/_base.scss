@@ -19,6 +19,18 @@ body {
     overflow-y: hidden;
 }
 
+*:focus-visible {
+    outline: 4px solid var(--focus);
+    outline-offset: 2px;
+}
+
+input {
+    border-radius: 4px;
+    &:focus-visible {
+        outline-offset: 0px;
+    }
+}
+
 /**
  * Make all elements from the DOM inherit from the parent box-sizing
  * Since `*` has a specificity of 0, it does not override the `html` value

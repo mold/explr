@@ -2,7 +2,13 @@
 api/api.js
 api/lastfm.js
 utils.js
+search.js
 */
+
+var script = script || {};
+let loadingReady = false;
+let loadingStatus = loadingReady ? "Ready to Explr!" : "Loading...";
+
 
 var STORED_ARTISTS;
 var STORED_ARTISTS_PROMISE = localforage.getItem("artists").then(val => 
@@ -17,6 +23,7 @@ var CACHED_NO_COUNTRIES_PROMISE = localforage.getItem("no_countries").then(val =
 var USER_TAGS = []; // JSON.parse(window.localStorage.user_tags || "[]");
 var CACHED_USERS = JSON.parse(window.localStorage.cached_users || "{}");
 var SESSION = {};
+
 
 function clearExplrCache() {
     var theme = window.localStorage.getItem("theme");
@@ -66,6 +73,8 @@ var countryCountObj = {};
 
     var getAllArtists = function () {
         // console.log("get artists")
+
+        loadingReady = false;
 
         api.lastfm.send("library.getartists", [
                 ["user", user],
@@ -322,9 +331,11 @@ var countryCountObj = {};
         // Fade in loader
         d3.select(".loader").transition().duration(2000).style("opacity", 1);
         d3.select("#loading-text").html("Getting library...");
+        script.setLoadingStatus("Getting library...");
         setTimeout(function () {
             if (d3.select("#loading-text").html() === "Getting library...") {
                 d3.select("#loading-text").html("Last.fm is taking<br>a long time to<br>respond...");
+                script.setLoadingStatus("Last.fm is taking a long time to respond...");
 
                 setTimeout(function () {
                     if (d3.select("#loading-text").html() === "Last.fm is taking<br>a long time to<br>respond...") {
@@ -421,6 +432,7 @@ var countryCountObj = {};
     }
 
     var end = function () {
+        loadingReady = true;
         // We're done, fade out loader
         var loader = d3.select(".loader");
         loader.transition().duration(2000)
@@ -445,10 +457,32 @@ var countryCountObj = {};
     var param = window.location.href.split("username=")[1];
 
     if (param) { // We already have a user
+
+        // Set up search button listener
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('search-button').addEventListener('click', function() {
+                // Set timeout needed to make sure the browser is ready to focus the search box
+                setTimeout(()=> { search.initSearch() }, 0) ;
+            });
+        });
+
         // set up keyboard shortcuts
         window.addEventListener("keydown", function (evt) {
+
+            if ((evt.ctrlKey || evt.metaKey) && evt.keyCode === 70) {
+                
+                // Prevent the browser's default "ctrl + f" or "cmd + f" action (usually "Find")
+                evt.preventDefault();
+
+                // Initialize the search box
+                search.initSearch();
+                
+            }
+            // Supress hotkeys if search is open 
+            if (search.getSearchStatus()) {
+                return;
+            };
             switch (evt.keyCode) {
-                // s
                 case 83:
                     screenshot.render();
                     //Send google analytics event
@@ -489,4 +523,21 @@ var countryCountObj = {};
     var saveToStorage = function (key, object, cb) {
         localforage.setItem(key, object, cb || function () {});
     }
+
 })();
+
+script.getCurrentData = function () {
+    if (loadingReady) {
+        return JSON.parse(window.localStorage.getItem('countryCountObj'));;
+    } else {
+        return countryCountObj;
+    }
+
+}
+
+script.getLoadingStatus = function () {
+    return loadingStatus;
+}
+script.setLoadingStatus = function (status) {
+    loadingStatus = status;
+}

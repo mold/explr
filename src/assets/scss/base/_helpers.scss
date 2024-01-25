@@ -52,7 +52,7 @@
  * Class for hiding elements
  */
 .hidden {
-    display: none;
+    display: none!important;
 }
 
 /* These are hidden until user has logged in */

@@ -32,4 +32,30 @@ const utils = utils || {};
 
     window.open(encodeURI(csv));
   };
+
+  utils.getCountryNameFromId = function (countryId) {
+    const match = map.countryNames.find((country) => country.id === countryId);
+    if (match && match.mainName) {
+      return match.mainName;
+    }
+    else return ""
+  }
+
+  utils.getNumberOfArtistsForCountry = function (countryId) {
+    // Get the current data
+    let data = script.getCurrentData();
+
+    // Flatten and prepare the data
+    let artists = [].concat(...Object.values(data));
+    artists = artists.reduce((acc, item) => {
+        for (let key in item) {
+            if (item.hasOwnProperty(key)) {
+                acc = acc.concat(item[key]);
+            }
+        }
+        return acc;
+    }, [])
+    const artistList = artists.filter(artist => artist.id === countryId)
+    return artists.filter(artist => artist.id === countryId).length
+  }
 })();

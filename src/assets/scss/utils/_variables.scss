@@ -23,7 +23,7 @@ $text-color: #222 !default;
 /// Main heading color
 /// @type Color
 
-$heading-color: rgba(55, 55, 55, 0.8) !default;
+$heading-color: var(--textHeading) !default;
 
 /// Main brand color
 /// @type Color

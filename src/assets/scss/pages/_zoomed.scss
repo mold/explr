@@ -13,18 +13,66 @@
     height: 150px;
     position: absolute;
     top: 7.5%;
-    border-top: 1px solid black;
+    border-top: 1px solid var(--borderSecondary);
     z-index: 4;
     opacity: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 5%;
+    background-color: var(--backgroundSecondary);
+    // box-shadow: rgba(0,0,0,.1) 0 2px 12px 0;
+    backdrop-filter: blur(20px);
 }
+
+
+/* ==========================================================================
+   Selected country info box
+   ========================================================================== */
 
 //Country name
 .cnameDiv {
     display: block;
-    float: right;
     margin-right: 5%;
     text-align: right;
     pointer-events: none;
+}
+
+.cnameContainer {
+    h1 {
+        margin-top: 0.27em;
+    }
+
+    strong {
+        color: var(--textHeading);
+        font-size: 1.5em;
+        margin-top: 0;
+    }
+
+    .playlist-link{
+        pointer-events: all;
+        margin-top: 5px;
+
+        a{
+            display: inline-flex;
+            align-items: center;
+        }
+
+        &__img{
+            border-radius: 100%;
+            width: 1.1em;
+            height: 1.1em;
+            background: #222;
+            vertical-align: middle;
+            margin-right: 0.3em;
+        }
+
+        .divider {
+            margin: 0 0.5em;
+            user-select: none;
+            opacity: 0.6;
+        }
+    }
 }
 
 /* ==========================================================================
@@ -33,32 +81,54 @@
 
 .artistContainer {
     //Main container for artist information, recommendations and details
-    float: right;
     margin-right: 6%;
+    padding: 8px 16px;
+    border-radius: 0 0 8px 8px;
     width: 592px;
     display: block;
-    background: inherit;
+    background: var(--backgroundPrimary);
     position: relative;
+    height: fit-content;
+    box-shadow: rgba(0,0,0,.1) 0 2px 12px 0;
 
-    h4 {
+    h2 {
         font-size: 1.15em;
-        margin-top: 1em;
         font-weight: bold;
-        //color: $text-color;
+        color: inherit;
+        font-family: $heading-font-stack;
     }
 
     p {
-        font-size: 0.8em;
+        font-size: 0.9em;
+    }
+
+    ol#top-artist-list, ul#recom-list {
+        // reset list styles
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        li {
+            flex-basis: 20%;
+        }
+    }
+
+    li {
+        // reset list item styles
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        
     }
 }
 
 .detailsDiv {
-    //
-    display: table;
-    margin-left: 16px;
     padding: 0 30px;
     padding: 0;
     opacity: 0.9;
+    width: 100%;
     vertical-align: top;
     position: relative;
 
@@ -73,47 +143,52 @@
     font-size: 1em;
     margin-top: 1em;
     margin-bottom: 0.8em;
-    font-weight: bold;
-    //color: $heading-color;
+    span:not(.demonym) {
+        font-family: $text-font-stack;
+    }
+    .demonym{
+        font-size: 1.15em;
+        font-weight: bold;
+        font-family: $heading-font-stack;
+        }
 }
-.demonym{
-    font-size: 1.15em;
-    font-weight: bold;
-    font-family: $heading-font-stack;
 
-    //color: $text-color;
-}
 
 
 //Artist controls
 .fa.artist-control{
     position: absolute;
-    font-size: 40px;
+    font-size: 24px;
+    padding: 0;
+    height: 48px;
+    width: 48px;
     top: 85px;
-    color: rgba(90,90,90,0.8);
+    color: inherit;
     cursor: pointer;
     transition: 0.1s;
+    // button resets
+    border: none;
+    background: none;
+    border-radius: 100%;
+    background-color: #222;
+    color: #fff;
+    margin: 0;
+    appearance: none;
 
     &.right{
-        right: -8px;
+        right: -44px;
     }
 
     &.left{
-        left: -8px;
+        left: -44px;
+    }
+    &:hover {
+        transform: scale(1.1);
+        filter: brightness(0.92);
     }
 
     &.disabled{
-        cursor: auto;
-        opacity: 0.5;
-        &:hover{
-            color: rgba(90,90,90,0.8);
-            transform: none;
-        }
-    }
-
-    &:hover{
-        transform: scale(2.5);
-        color: pink;
+        display: none;
     }
 }
 
@@ -121,6 +196,9 @@
     font-size: 0.8em;
     font-style: #000;
     margin-bottom: 4px;
+    strong, b {
+        font-family: $heading-font-stack;
+    }
 }
 
 .summaryText {
@@ -135,7 +213,7 @@
 
     p {
         margin-bottom: 0;
-        margin-top: 0.3em;
+        margin-top: 1em;
     }
 
     h4 {
@@ -149,34 +227,58 @@
    ========================================================================== */
 
 .artist-div {
-    float: left;
     text-align: center;
-    width: 112px;
-    padding-top: 7px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     cursor: pointer;
-    border-radius: 7px;
+    border-radius: 6px;
     box-sizing: border-box;
     transition: background 0.1s;
+    background: inherit;
+    border: none;
+    margin: 0;
+    appearance: none;
 
-    .image-div {
-        transition: border-radius 0.1s;
+    &:focus-visible {
+        outline-offset: 0;
     }
+
     a {
         text-decoration: none;
     }
 }
 
 .image-div {
+    position: relative;
     height: 96px;
     width: 96px;
-    background-position: center top;
-    border: 2px solid #444;
+    border: 1px solid var(--border);
     border-radius: 2px;
     margin-left: auto;
     margin-right: auto;
-    background-size: cover;
     text-align: center;
-    //position: relative;
+    background: var(--backgroundPrimary);
+    transition: border-radius 0.1s;
+
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-position: center top;
+        border-radius: 2px;
+        transition: border-radius 0.1s;
+        background-size: cover;
+        background-image: url(https://lastfm.freetls.fastly.net/i/u/300x300/2a96cbd8b46e442fc41c2b86b821562f.png);
+        z-index: 1;
+    }
+}
+
+.dark .image-div::before {
+    filter: invert(1) brightness(2);
 }
 
 .overlayNo{
@@ -191,23 +293,42 @@
 }
 
 .artist-div.highlight, .reco-div.highlight {
-    background: rgba(175, 175, 175, 0.5);
+    background: var(--themeColorDark);
+    color: var(--backgroundPrimary)
 }
 
 .artist-div.lowlight .image-div {
     border-radius: 50%;
+    &::before {
+        border-radius: 50%;
+    }
 }
 
 .artist-div.lowlight .image-div:hover {
     border-radius: 30%;
+
+    &::before {
+        border-radius: 30%;
+    }
 }
+
 
 /* ==========================================================================
    Artist tags
    ========================================================================== */
+
+.taglist {
+    gap: 4px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+}
+
 .tagdiv {
-    border: 1px solid lightgrey;
-    color: #969696;
+    color: inherit;
     display: inline-block;
     background: inherit;
     margin-top: 0.6em;
@@ -215,15 +336,16 @@
     padding: 0.3em;
     margin-right: 0.2em;
     width: auto;
+    padding: 4px 12px!important;
+    border-radius: 48px;
+    background-color: var(--borderSecondary);
+    display: inline-flex!important;
+    align-items: center!important;
+    text-align: center;
+    height: fit-content;
 
-    h4 {
-        font-size: 0.8em;
-        font-weight: normal;
-    }
-
-    .usertag {
-        color: #636363;
-        font-weight: bolder;
+    &.usertag {
+        background-color: var(--themeColorLight);
     }
 }
 
@@ -232,15 +354,12 @@
    ========================================================================== */
 
 .recoDiv {
-    display: table;
-    margin-left: 16px;
-    margin-right: 16px;
     margin-bottom: 16px;
     padding: 0 30px;
     padding: 0;
     opacity: 0.9;
     vertical-align: top;
-    width: 560px;
+    width: 100%;
 }
 
 .recLoadingDiv {
@@ -253,30 +372,17 @@
    ========================================================================== */
 
 .close-button {
-    width: 25px;
-    height: 25px;
-    display: block;
-    text-transform: uppercase;
     color: #444;
-    background: #fff;
-    border: 0.1em solid #444;
-    border-radius: 0.2em;
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 1.1em;
-    top: 0.1em;
-    right: 0;
+    width: 48px;
+    height: 48px;
+    color: #fff;
+    background-color: #222;
+    padding: 0;
+    border: 0;
+    border-radius: 100%;
+    right: 10px;
+    top: -20px;
     position: absolute;
     cursor: pointer;
-
-    &:hover {
-        color: #fff;
-        background: #aaa;
-    }
-
-    &:active {
-        color: #444;
-        background: #fff;
-    }
+    box-shadow: rgba(0,0,0,.1) 0 2px 12px 0;
 }
