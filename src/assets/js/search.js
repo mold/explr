@@ -160,7 +160,7 @@ let searchButton = null;
             countriesWrapper.appendChild(countriesHeading);
             countriesWrapper.setAttribute('role', 'group');
             countriesWrapper.classList.add('search-result-group');
-            countriesWrapper.ariaLabelledby = 'countries-heading';
+            countriesWrapper.setAttribute("aria-labelledby", "countries-heading");
             resultsDiv.appendChild(countriesWrapper);
 
             filteredCountries.slice(0, 5).forEach(c => {
@@ -211,7 +211,7 @@ let searchButton = null;
             artistsHeading.id = 'artists-heading';
             artistsWrapper.appendChild(artistsHeading);
             artistsWrapper.setAttribute('role', 'group');
-            artistsWrapper.ariaLabelledby = 'artists-heading';
+            artistsWrapper.setAttribute("aria-labelledby", "artists-heading");
             resultsDiv.appendChild(artistsWrapper);
         
             filteredArtists.slice(0, 100).forEach(artist => {
@@ -275,7 +275,7 @@ let searchButton = null;
             artistsHeading.id = 'artists-country-heading';
             artistsWrapper.appendChild(artistsHeading);
             artistsWrapper.setAttribute('role', 'group');
-            artistsWrapper.ariaLabelledby = 'artists-country-heading';
+            artistsWrapper.setAttribute("aria-labelledby", "artists-country-heading");
             resultsDiv.appendChild(artistsWrapper);
         
             filteredCountryArtists.slice(0, 100).forEach(artist => {
@@ -342,7 +342,7 @@ let searchButton = null;
             artistsHeading.id = 'unknown-artists-heading';
             artistsWrapper.appendChild(artistsHeading);
             artistsWrapper.setAttribute('role', 'group');
-            artistsWrapper.ariaLabelledby = 'unknown-artists-heading';
+            artistsWrapper.setAttribute("aria-labelledby", "unknown-artists-heading");
             resultsDiv.appendChild(artistsWrapper);
         
             noCountryArtists.slice(0, 100).forEach(artist => {
