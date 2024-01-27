@@ -1158,27 +1158,51 @@ function getCountryCenter(countryTopoData) {
 
   }
 
-  /** "PUBLUC" FUNCTIONS **/
-  map.putCountryCount = function(object) {
-    countryCount = JSON.parse(JSON.stringify(object));
-    countryScore = 0;
-    var countryList = [];
+  function animateCountries(countryDict) {
+    var countries = g.selectAll(".country").filter(c => !!countryDict[c.id]);
 
-    // Extract info for the current user
-    d3.keys(countryCount).forEach(function(id) {
-      if (countryCount[id][SESSION.name]) {
-        countryCount[id] = countryCount[id][SESSION.name];
-        countryScore = countryScore + 1;
-        countryList.push(+id)
-      } else {
-        // delete countryCount[id];
-      }
+    setTimeout(() => {
+      // bounce - didn't look too good but might be fun to try again
+      // later
+      
+      // countries.transition()
+      // .duration(200)
+      // .style("transform", "scale(1.1)")
+      // .delay((_, i) => i * 100)
+      // .transition().duration(150)
+      // .style("transform", "scale(1)");
+
+      // fade
+      countries.transition()
+        .duration(200)
+        .style("opacity", "0.8")
+        .delay((_, i) => i * 100)
+        .transition().duration(150)
+        .style("opacity", "1");
+    })
+  }
+
+  function putCountryCount(newArtists) {
+    Object.entries(newArtists).forEach(([key, value]) => {
+      countryCount[key] = (countryCount[key] || []).concat(value);
+    });
+
+    countryScore = 0;
+
+    d3.keys(countryCount).forEach(function (id) {
+      countryScore = countryScore + 1;
     })
 
     if (topo) redraw();
 
     window.countryScore = countryScore;
+  }
 
+  /** "PUBLUC" FUNCTIONS **/
+  
+  map.addArtists = function (newArtistsByCountry) {
+    putCountryCount(newArtistsByCountry);
+    animateCountries(newArtistsByCountry);
   }
 
   map.makeSummaryDiv = makeSummaryDiv;
