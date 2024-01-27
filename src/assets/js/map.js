@@ -417,7 +417,6 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
   /*-------redraw----*/
   //den kallas varje gång datan uppdateras. redrawMap är en boolean
   function redraw(redrawMap) {
-    console.log("redrawing 2");
     updateDimensions();
 
     if (redrawMap) {
@@ -1159,6 +1158,7 @@ function getCountryCenter(countryTopoData) {
   }
 
   function animateCountries(countryDict) {
+    const userPrefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var countries = g.selectAll(".country").filter(c => !!countryDict[c.id]);
 
     setTimeout(() => {
@@ -1173,12 +1173,16 @@ function getCountryCenter(countryTopoData) {
       // .style("transform", "scale(1)");
 
       // fade
-      countries.transition()
+      // Only do the bing bong thing if the user doesn't prefer reduced motion
+      if (!userPrefersReducedMotion) {
+        countries.transition()
         .duration(200)
         .style("opacity", "0.8")
         .delay((_, i) => i * 100)
         .transition().duration(150)
         .style("opacity", "1");
+      }
+      
     })
   }
 
