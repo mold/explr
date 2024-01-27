@@ -339,6 +339,10 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
         })
         .style("fill", function() {
           return color(0);
+        })
+        .style("transform-origin", function (d) {
+          const center = getCountryCenter(d);
+          return `${-center.x}px ${-center.y}px`;
         });
     }
     //Color countries
@@ -1080,6 +1084,45 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
     move([pt[0] + x * k, pt[1] + y * k], k, !prefersReducedMotion);
 
   }
+function getCountryCenter(countryTopoData) {
+  let x, y;
+  let b = path.bounds(countryTopoData);
+
+  //Special rules for special countries:
+  switch (countryTopoData.id) {
+    case 840: //US
+      x = -(b[1][0] + b[0][0]) / 4;
+      y = -(b[1][1] + b[0][1]) / 1.9;
+      break;
+    case 250: //France
+      x = -(b[1][0] + b[0][0]) / 1.94;
+      y = -(b[1][1] + b[0][1]) / 2.81;
+      break;
+    case 528: //Netherlands
+      x = -(b[1][0] + b[0][0]) / 1.605;
+      y = -(b[1][1] + b[0][1]) / 2.54;
+      break;
+    case 643: //Russia
+      x = -(b[1][0] + b[0][0]) / 1.40;
+      y = -(b[1][1] + b[0][1]) / 2;
+      break;
+    case 554: //New Zeeland
+      x = -(b[1][0] + b[0][0]) / 1.03;
+      y = -(b[1][1] + b[0][1]) / 1.87;
+      break;
+    case 36: //Australia
+      x = -(b[1][0] + b[0][0]) / 2;
+      y = -(b[1][1] + b[0][1]) / 2.1;
+      break;
+
+    default: //Everybody else
+      x = -(b[1][0] + b[0][0]) / 2;
+      y = -(b[1][1] + b[0][1]) / 2;
+      break;
+  }
+
+  return { x, y };
+}
 
   // Close the country div on escape
   window.addEventListener('keydown', function(evt) {
