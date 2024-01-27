@@ -112,8 +112,13 @@
 							<p>Sure, probably! Please <a href="https://github.com/mold/explr/issues">create an issue on our Github page</a> and we will have a look.</p>
 							<p class="details-p">Do you have any other questions or feedback? Send us an email at <a href="mailto:explr.fm@gmail.com">explr.fm@gmail.com</a> or check out our <a href="https://www.reddit.com/r/Music/comments/22n6t8/lastfm_user_heres_an_interactive_map_to_show_the/">reddit post</a>.</p>
 						</div>
+						<div id="a11y-text" class="a11y-text hidden">
+							<h2>Accessibility information</h2>
+							<p>Explr.fm has been updated and is now accessible with keyboard and screen readers!</p>
+						</div>
 					</div>
 					<button class="faq-link splash" type="button">Frequently asked questions -></button>
+					<button class="a11y-link splash" type="button">Accessibility information -></button>
 					<button class="faq-link faq hidden" type="button"><- Go back</button>
 					
 					<div class="donate">
@@ -264,6 +269,8 @@
 			d3.selectAll('.faq-link').on("click", function(){
 					d3.selectAll('.faq').classed("hidden", !d3.select('.faq').classed("hidden"));
 					d3.selectAll('.splash').classed("hidden", !d3.select('.splash').classed("hidden"));
+					d3.selectAll('.a11y-text').classed("hidden", !d3.select('.a11y-text').classed("hidden"));
+					d3.selectAll('.a11y-link').classed("hidden", !d3.select('.a11y-link').classed("hidden"));
 						//Google analytics event
 					ga('send', {
 			hitType: 'event',
@@ -273,20 +280,23 @@
 			});
 				});
 			</script>
-			<!-- Remove placeholder text on focus, return on blur -->
+
+			<!-- Show and hide accessibility information on click-->
 			<script>
-			d3.selectAll('input, text').on("focus", function(){
-				//Save placeholder as data
-				d3.select(this).data([d3.select(this).attr('placeholder')]);
-				//Replace with empty string
-				d3.select(this).attr('placeholder', '');
-			});
-			d3.selectAll('input, text').on("blur", function(){
-				//Return placeholder from data
-				d3.select(this).attr('placeholder', d3.select(this).data());
-			});
-			</script>
-			<!--<script src="new/vendor/js/vendor.min.js"></script>-->
+				d3.select('.a11y-link').on("click", function(){
+						d3.select('.a11y-text').classed("hidden", false);
+						d3.select('.splash').classed("hidden", true);
+						d3.select('.faq').classed("hidden", true);
+						d3.select('.faq-link').classed("hidden", true);
+							//Google analytics event
+						ga('send', {
+				hitType: 'event',
+				eventCategory: 'splash screen',
+				eventAction: 'read a11y info',
+				eventLabel: 'test'
+				});
+					});
+				</script>
 
 			<script>
 				// Please toggle artist test on press escape pleas
