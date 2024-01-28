@@ -109,7 +109,7 @@ $controls-padding: 20px;
     line-height: 12px;
     border-radius: 8px;
     padding: 5px;
-    background: var(--buttonBackground);
+    background: var(--backgroundSecondary);
     border: 1px solid var(--borderSecondary);
     &:after,
     &:before {
@@ -123,13 +123,11 @@ $controls-padding: 20px;
         pointer-events: none;
     }
     &:after {
-        border-color: var(--border);
         border-left-color: var(--border);
         border-width: 7px;
         margin-top: -7px;
     }
     &:before {
-        border-color: var(--border);
         border-left-color: var(--border);
         border-width: 9px;
         margin-top: -9px;

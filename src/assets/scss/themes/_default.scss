@@ -90,6 +90,10 @@ body {
     fill: var(--textPrimary);
 }
 
+svg[tabindex="-1"] {
+    outline: none;
+}
+
 /*
  * Link theme
  */

@@ -50,7 +50,6 @@ let filteredShortcuts = [];
         { name: "Export data", onClick: () => {utils.exportToCSV(script.getCurrentData())} },
         { name: "Map: Toggle between artists or scrobbles", onClick: () => { map.toggleFilter() } },
         { name: "Support Explr on BuyMeACoffee", onClick: () => { window.open('https://www.buymeacoffee.com/explrfm', '_blank'); } },
-        { name: "Support Explr on Flattr", onClick: () => { window.open('https://flattr.com/@explr.fm', '_blank'); } },
         { name: "View Explr on GitHub", onClick: () => { window.open('https://github.com/mold/explr', '_blank'); } },
     ];
     
