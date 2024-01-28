@@ -53,6 +53,7 @@ body.dark {
         font-family: $heading-font-stack;
         margin-top: 0.3em;
         margin-bottom: 0.8em;
+        font-weight: 400;
     }
 }
 
@@ -114,12 +115,14 @@ body.dark {
     margin-top: 1rem;
     margin-bottom: 0.8em;
     font-size: 1rem;
+    font-weight: 400;
 }
 #a11ytext h1 {
     font-family: $heading-font-stack;
     margin-top: 1rem;
     margin-bottom: 0.8em;
     font-size: 1.2rem;
+    font-weight: 400;
 }
 
 .donate {
