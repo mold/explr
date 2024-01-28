@@ -32,6 +32,8 @@ function clearExplrCache() {
     window.localStorage.clear();
     window.localStorage.setItem("theme", theme);
 
+    announcer.announce("Cleared artist cache, reloading page...");
+
     return localforage.clear();
 }
 
