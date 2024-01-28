@@ -3,11 +3,13 @@ api/api.js
 api/lastfm.js
 utils.js
 search.js
+aria-announcer.js
 */
 
 var script = script || {};
 let loadingReady = false;
 let loadingStatus = loadingReady ? "Ready to Explr!" : "Loading...";
+let announcementIntervalId;
 
 
 var STORED_ARTISTS;
@@ -314,28 +316,24 @@ var countryCountObj = {};
         // Fade in loader
         d3.select(".loader").transition().duration(2000).style("opacity", 1);
         d3.select("#loading-text").html("Getting library...");
-        script.setLoadingStatus("Getting library...");
-        const loader = d3.select("#loading-text");
-        setTimeout(() => {
-            loader.attr("aria-busy", "true");
-            let intervalId = setInterval(() => {
-                loader.attr("aria-busy", "false");
-        
-                setTimeout(() => {
-                    loader.attr("aria-busy", "true");
-                }, 5000); // Set aria-busy to true after 5 seconds
-            }, 45000); // Repeat every 60 seconds
+
+        // Screen reader status update every 30 seconds
+        setTimeout(function () {
+            announcer.announce(document.getElementById("loading-text").innerText);
         }, 5000);
+        announcer.announce(document.getElementById("loading-text").innerText);
+        announcementIntervalId = setInterval(() => {
+            announcer.announce(document.getElementById("loading-text").innerText);
+        }, 30000);
 
         setTimeout(function () {
             if (d3.select("#loading-text").html() === "Getting library...") {
                 d3.select("#loading-text").html("Last.fm is taking<br>a long time to<br>respond...");
-                script.setLoadingStatus("Last.fm is taking a long time to respond...");
-
                 setTimeout(function () {
                     if (d3.select("#loading-text").html() === "Last.fm is taking<br>a long time to<br>respond...") {
                         d3.select("#loading-text").html("Maybe <a href='http://last.fm' target='_blank'>last.fm</a> has<br>gone offline...")
                             .style("pointer-events", "all");
+                        clearInterval(announcementIntervalId);
                     }
                 }, 8000);
             }
@@ -432,6 +430,11 @@ var countryCountObj = {};
 
     var end = function () {
         loadingReady = true;
+
+        // Screen reader status update
+        clearInterval(announcementIntervalId);
+        announcer.announce("All artists are loaded!");
+
         // We're done, fade out loader
         var loader = d3.select(".loader");
         loader.transition().duration(2000)
