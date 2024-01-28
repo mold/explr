@@ -53,6 +53,7 @@ body.dark {
         font-family: $heading-font-stack;
         margin-top: 0.3em;
         margin-bottom: 0.8em;
+        font-weight: 400;
     }
 }
 
@@ -83,16 +84,19 @@ body.dark {
 
 .social-icons {
     margin-top:20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
 
-    img {
-        width:20px;
-        height:20px;
-        filter: grayscale(1);
-        margin: 0 2px;
+    a {
+        text-decoration: none;
+        font-size: 24px;
+        padding: 8px;
     }
 }
 
-.faq-link {
+.splash-link {
     font-size: 16px;
     margin: 20px 0 0 0;
     opacity: 1;
@@ -106,19 +110,22 @@ body.dark {
     padding: 0;
     color: inherit;
     text-decoration: underline;
-    text-underline-offset: 0.2em;
-    &:hover {
-        text-decoration: none;
-    }
+    text-underline-offset: 0.1em;
 } 
 
-#faqtext {
-    h2 {
-        font-family: $heading-font-stack;
-        margin-top: 0.3em;
-        margin-bottom: 0.8em;
-        font-size: 1rem;
-    }
+#faqtext h2, #a11ytext h2 {
+    font-family: $heading-font-stack;
+    margin-top: 1rem;
+    margin-bottom: 0.8em;
+    font-size: 1rem;
+    font-weight: 400;
+}
+#a11ytext h1 {
+    font-family: $heading-font-stack;
+    margin-top: 1rem;
+    margin-bottom: 0.8em;
+    font-size: 1.2rem;
+    font-weight: 400;
 }
 
 .donate {

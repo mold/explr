@@ -16,6 +16,7 @@ body {
         margin-bottom: 0em;
         text-transform: capitalize;
         font-family: $heading-font-stack;
+        font-weight: 400;
     }
 
     h2 {
@@ -33,6 +34,7 @@ body {
         font-family: $heading-font-stack;
         margin-top: 0.3em;
         margin-bottom: 0.8em;
+        font-weight: 400;
     }
 
     h5 {
@@ -49,8 +51,5 @@ body {
 a {
     font-weight: bold;
     text-decoration: underline;
-
-    @include on-event {
-        text-decoration: none;
-    }
+    text-underline-offset: 0.1em;
 }
