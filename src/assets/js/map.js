@@ -591,7 +591,11 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
         currentPage = Math.floor(index / itemsPerPage) + 1;
         showArtists(currentPage, itemsPerPage);
         setTimeout(() => {
-          document.querySelector(`[data-artist="${name}"]`)?.click(); 
+          const artist = document.querySelector(`[data-artist="${name}"]`);
+          artist?.click();
+          setTimeout(() => {
+            artist?.focus();
+          }, 50); 
         }, 250);
     }
   }
