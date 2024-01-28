@@ -637,7 +637,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
     d3.selectAll("#countryCount, .on-map-view")
       .classed("hidden", true);
 
-    closeButton = d3.select('#infoContainer').append("button").attr("type", "button").attr("aria-label", `Close ${name}`).attr("class", "close-button").html("X");
+    closeButton = d3.select('#infoContainer').append("button").attr("type", "button").attr("aria-label", `Close ${name}`).attr("class", "close-button fa fa-xmark");
 
     //Populate country information div
     cnameDiv
@@ -683,11 +683,12 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
         currentPage = 1;
         itemsPerPage = 5;
         artists = countryCount[d.id]; // Your artists data goes here
+        d3.select("#details").append("div").attr("id", "top-artist-list-container");
 
-        d3.select("#details").append("ol").attr("id", "top-artist-list").attr("aria-labelledby", "top-artist-list-heading");
+        d3.select("#top-artist-list-container").append("ol").attr("id", "top-artist-list").attr("aria-labelledby", "top-artist-list-heading");
       
-        d3.select("#details").append("button").attr("class", "fa artist-control left fa-angle-left").attr("aria-label", "Previous five artists");
-        d3.select("#details").append("button").attr("class", "fa artist-control right fa-angle-right").attr("aria-label", "Next five artists");
+        d3.select("#top-artist-list-container").append("button").attr("class", "fa artist-control left fa-angle-left").attr("aria-label", "Previous five artists");
+        d3.select("#top-artist-list-container").append("button").attr("class", "fa artist-control right fa-angle-right").attr("aria-label", "Next five artists");
         
         // Event listeners for the navigation buttons
         d3.select(".artist-control.left").on("click", showPreviousFive);
@@ -973,6 +974,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
       makeArtistDiv(d);
       highlightCountry(true, d);
 
+      announcer.announce(`Opened ${countryNames.find(c => c.id === d.id).name}`, "assertive");
 
       //Special rules for special countries:
       switch (d.id) {
@@ -1016,6 +1018,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
       //Landet är redan centrerat
     } else {
+      announcer.announce(`Left ${countryNames.find(c => c.id === d.id).name}`, "assertive");
       x = -width / 2;
       y = -height / 2 - height * 0.08;
       k = 1
@@ -1026,6 +1029,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
       document.getElementById("map-svg").focus( { 
         preventScroll: true
        } );
+
     }
 
     var pt = projection.translate();
