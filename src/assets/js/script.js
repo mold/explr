@@ -320,11 +320,11 @@ var countryCountObj = {};
         // Screen reader status update every 30 seconds
         setTimeout(function () {
             announcer.announce(document.getElementById("loading-text").innerText);
-        }, 5000);
+        }, 3000);
         announcer.announce(document.getElementById("loading-text").innerText);
         announcementIntervalId = setInterval(() => {
             announcer.announce(document.getElementById("loading-text").innerText);
-        }, 30000);
+        }, 60000);
 
         setTimeout(function () {
             if (d3.select("#loading-text").html() === "Getting library...") {
