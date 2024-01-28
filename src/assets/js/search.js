@@ -518,7 +518,7 @@ let filteredShortcuts = [];
                 FOCUSED_RESULT.classList.remove('focused');
                 FOCUSED_RESULT.removeAttribute("aria-selected")
                 inputElement.removeAttribute('aria-activedescendant');
-                let previousResult = FOCUSED_RESULT.previousElementSibling;
+                let previousResult = FOCUSED_RESULT.previousElementSibling.classList.contains('search-result-heading') ? null : FOCUSED_RESULT.previousElementSibling;
                 if (!previousResult) {
                     // If there's no previous sibling, find the previous group and select the last result in it
                     let previousGroup = FOCUSED_RESULT.parentElement.previousElementSibling;
