@@ -145,61 +145,44 @@ var countryCountObj = {};
                 // var n = count++;
 
                 // Get country for all artists
-                api.getCountries(artistNames,
-                    function (data) {
-                        // Count plays for each country?
-                        // countryCountList = countryCountList.concat(data);
-                        var dataObj = d3.nest() //Gör så att man kan slå upp på land-id och få upp en lista på artister.
-                            .key(function (d) {
-                                return d.id;
-                            })
-                            .rollup(function (leaves) { //gör så att man får en lista på alla artister för ett land.
-                                return leaves;
-                            })
-                            .map(data); //Skickar in en lista med ett objekt för varje artist.
+                api.getCountries(artistNames, function (data) {
+                    //Gör så att man kan slå upp på land-id och få upp en lista på artister.
+                    var newArtistCountries = d3.nest().key((d) => d.id)
+                        // gör så att man får en lista på alla artister för ett land.
+                        .rollup((leaves) => leaves)
+                        // Skickar in en lista med ett objekt för varje artist.
+                        .map(data);
 
-                        d3.keys(dataObj).forEach(function (id) {
-                            countryCountObj[id] = countryCountObj[id] || {};
-                            countryCountObj[id][user] = countryCountObj[id][user] || [];
-                            var artistList = countryCountObj[id][user]; // list of artists for a country
+                    d3.keys(newArtistCountries).forEach(function (id) {
+                        countryCountObj[id] = countryCountObj[id] || {};
+                        countryCountObj[id][user] = countryCountObj[id][user] || [];
 
-                            // if (artistList) {
-                            artistList = artistList.concat(dataObj[id]);
+                        var artistsFromCountry = countryCountObj[id][user];
 
-                            //Lägger på de nya dataObj-elementen i countryCountObj-listan.
-                            // } else {
-                            //     artistList = dataObj[id];
-                            // }
+                        artistsFromCountry = artistsFromCountry.concat(newArtistCountries[id]);
 
-                            artistList.forEach(function (el, i) {
-                                //Här lägger vi till ett fält image med artistens bild-url som ett fält till det "inre" objektet.
-                                artistList[i].url = STORED_ARTISTS[el.artist].url;
-                                artistList[i].playcount = STORED_ARTISTS[el.artist].playcount;
-                                // if (artistList[i].users) {
-                                //     artistList[i].users.push(user);
-                                // } else {
-                                //     artistList[i].users = [user];
-                                // }
-                            });
-                            //countryCountObj är en lista med "country"-objekt. 
-                            //Varje country-objekt innehåller en lista med "inre" objekt med artistnamn, lands-id och landsnamn.
-                            //dataObj är typ samma som countryCountObj, fast är bara för de tillfälligt sparade artisterna (intervallet).
-                            countryCountObj[id][user] = artistList;
-                        })
+                        artistsFromCountry.forEach(function (el, i) {
+                            //Här lägger vi till ett fält image med artistens bild-url som ett fält till det "inre" objektet.
+                            artistsFromCountry[i].url = STORED_ARTISTS[el.artist].url;
+                            artistsFromCountry[i].playcount = STORED_ARTISTS[el.artist].playcount;
+                        });
+                        // countryCountObj är en lista med "country"-objekt. 
+                        // Varje country-objekt innehåller en lista med "inre" objekt med artistnamn, lands-id och landsnamn.
+                        // dataObj är typ samma som countryCountObj, fast är bara för de tillfälligt sparade artisterna (intervallet).
+                        countryCountObj[id][user] = artistsFromCountry;
+                    })
 
-                        addArtistsWithNoCountry(data.filter(function (artist) {
-                            return !artist.id; // && artist.artist && artist.url;
-                        }));
+                    addArtistsWithNoCountry(data.filter((artist) => !artist.id));
 
-                        map.putCountryCount(countryCountObj);
+                    map.addArtists(newArtistCountries);
 
-                        if (currPage > maxPage) {
-                            end();
-                            return;
-                        } else {
-                            getAllArtists();
-                        }
-                    });
+                    if (currPage > maxPage) {
+                        end();
+                        return;
+                    } else {
+                        getAllArtists();
+                    }
+                });
             });
     }
 
@@ -417,7 +400,11 @@ var countryCountObj = {};
                 });
 
             setTimeout(function () {
-                map.putCountryCount(countryCountObj);
+                map.addArtists(
+                    Object.keys(countryCountObj).reduce((acc, countryId) => ({
+                        ...acc,
+                        [countryId]: countryCountObj[countryId][SESSION.name]
+                    }), {}));
                 end();
             }, 1000)
         } else {

@@ -339,6 +339,10 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
         })
         .style("fill", function() {
           return color(0);
+        })
+        .style("transform-origin", function (d) {
+          const center = getCountryCenter(d);
+          return `${-center.x}px ${-center.y}px`;
         });
     }
     //Color countries
@@ -413,7 +417,6 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
   /*-------redraw----*/
   //den kallas varje gång datan uppdateras. redrawMap är en boolean
   function redraw(redrawMap) {
-    console.log("redrawing 2");
     updateDimensions();
 
     if (redrawMap) {
@@ -1080,6 +1083,45 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
     move([pt[0] + x * k, pt[1] + y * k], k, !prefersReducedMotion);
 
   }
+function getCountryCenter(countryTopoData) {
+  let x, y;
+  let b = path.bounds(countryTopoData);
+
+  //Special rules for special countries:
+  switch (countryTopoData.id) {
+    case 840: //US
+      x = -(b[1][0] + b[0][0]) / 4;
+      y = -(b[1][1] + b[0][1]) / 1.9;
+      break;
+    case 250: //France
+      x = -(b[1][0] + b[0][0]) / 1.94;
+      y = -(b[1][1] + b[0][1]) / 2.81;
+      break;
+    case 528: //Netherlands
+      x = -(b[1][0] + b[0][0]) / 1.605;
+      y = -(b[1][1] + b[0][1]) / 2.54;
+      break;
+    case 643: //Russia
+      x = -(b[1][0] + b[0][0]) / 1.40;
+      y = -(b[1][1] + b[0][1]) / 2;
+      break;
+    case 554: //New Zeeland
+      x = -(b[1][0] + b[0][0]) / 1.03;
+      y = -(b[1][1] + b[0][1]) / 1.87;
+      break;
+    case 36: //Australia
+      x = -(b[1][0] + b[0][0]) / 2;
+      y = -(b[1][1] + b[0][1]) / 2.1;
+      break;
+
+    default: //Everybody else
+      x = -(b[1][0] + b[0][0]) / 2;
+      y = -(b[1][1] + b[0][1]) / 2;
+      break;
+  }
+
+  return { x, y };
+}
 
   // Close the country div on escape
   window.addEventListener('keydown', function(evt) {
@@ -1115,27 +1157,56 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
   }
 
-  /** "PUBLUC" FUNCTIONS **/
-  map.putCountryCount = function(object) {
-    countryCount = JSON.parse(JSON.stringify(object));
-    countryScore = 0;
-    var countryList = [];
+  function animateCountries(countryDict) {
+    const userPrefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var countries = g.selectAll(".country").filter(c => !!countryDict[c.id]);
 
-    // Extract info for the current user
-    d3.keys(countryCount).forEach(function(id) {
-      if (countryCount[id][SESSION.name]) {
-        countryCount[id] = countryCount[id][SESSION.name];
-        countryScore = countryScore + 1;
-        countryList.push(+id)
-      } else {
-        // delete countryCount[id];
+    setTimeout(() => {
+      // bounce - didn't look too good but might be fun to try again
+      // later
+      
+      // countries.transition()
+      // .duration(200)
+      // .style("transform", "scale(1.1)")
+      // .delay((_, i) => i * 100)
+      // .transition().duration(150)
+      // .style("transform", "scale(1)");
+
+      // fade
+      // Only do the bing bong thing if the user doesn't prefer reduced motion
+      if (!userPrefersReducedMotion) {
+        countries.transition()
+        .duration(200)
+        .style("opacity", "0.8")
+        .delay((_, i) => i * 100)
+        .transition().duration(150)
+        .style("opacity", "1");
       }
+      
+    })
+  }
+
+  function putCountryCount(newArtists) {
+    Object.entries(newArtists).forEach(([key, value]) => {
+      countryCount[key] = (countryCount[key] || []).concat(value);
+    });
+
+    countryScore = 0;
+
+    d3.keys(countryCount).forEach(function (id) {
+      countryScore = countryScore + 1;
     })
 
     if (topo) redraw();
 
     window.countryScore = countryScore;
+  }
 
+  /** "PUBLUC" FUNCTIONS **/
+  
+  map.addArtists = function (newArtistsByCountry) {
+    putCountryCount(newArtistsByCountry);
+    animateCountries(newArtistsByCountry);
   }
 
   map.makeSummaryDiv = makeSummaryDiv;
