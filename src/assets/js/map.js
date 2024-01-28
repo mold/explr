@@ -595,7 +595,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
           artist?.click();
           setTimeout(() => {
             artist?.focus();
-          }, 50);
+          }, 50); 
         }, 250);
     }
   }

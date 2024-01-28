@@ -2,13 +2,22 @@
 api/api.js
 utils.js
 screenshot.js
+aria-announcer.js
 */
 
 const search = search || {};
 
+let typingTimeout;
+
 let SEARCH_IS_OPEN = false;
 
 let searchButton = null;
+
+let filteredCountries = [];
+let filteredArtists = [];
+let filteredCountryArtists = [];
+let noCountryArtists = [];
+let filteredShortcuts = [];
 
 (function () {
     search.initSearch = function () {
@@ -89,7 +98,7 @@ let searchButton = null;
     resultsDiv.setAttribute('role', 'listbox');
     resultsDiv.setAttribute('aria-label', 'Search results');
     searchContainer.appendChild(resultsDiv);
-
+    
     // Add an event listener to the input field
     input.addEventListener('input', function() {
         // Clear the previous results
@@ -100,7 +109,7 @@ let searchButton = null;
         const shortcutsWithoutStatus = shortcuts.filter(shortcut => shortcut.name !== "Status");
 
         // Filter the shortcuts based on the user's input
-            let filteredShortcuts = shortcutsWithoutStatus.filter(shortcut => 
+            filteredShortcuts = shortcutsWithoutStatus.filter(shortcut => 
                 input.value.toLowerCase() === "shortcuts" || 
                 shortcut.name.toLowerCase().includes(input.value.toLowerCase())
             );
@@ -145,7 +154,7 @@ let searchButton = null;
         }
 
         // Filter the countries based on the user's input
-        let filteredCountries = countriesList.filter(country => 
+        filteredCountries = countriesList.filter(country => 
             country.names.some(name => name.toLowerCase().includes(input.value.toLowerCase()))
         );
 
@@ -199,7 +208,7 @@ let searchButton = null;
         }
 
         // Filter the artists based on the user's input
-        let filteredArtists = artists.filter(country => country.artist.toLowerCase().includes(input.value.toLowerCase()));
+        filteredArtists = artists.filter(country => country.artist.toLowerCase().includes(input.value.toLowerCase()));
 
         if (filteredArtists.length > 0 && input.value.length > 1) {
             const artistsWrapper = document.createElement('ul');
@@ -279,7 +288,7 @@ let searchButton = null;
         }
 
         // Filter the artists for the currently shown country
-        let filteredCountryArtists = artists.filter((artist) => filteredCountries.length === 1 && filteredCountries[0].id === artist.id);
+        filteredCountryArtists = artists.filter((artist) => filteredCountries.length === 1 && filteredCountries[0].id === artist.id);
         if (filteredCountryArtists.length > 0 && input.value.length > 1) {
             const artistsWrapper = document.createElement('ul');
             artistsWrapper.classList.add('search-result-group');
@@ -341,7 +350,7 @@ let searchButton = null;
         }
 
         // Show artists without country when the user types "unknown"
-        let noCountryArtists = artists.filter((artist) => 
+        noCountryArtists = artists.filter((artist) => 
             input.value.toLowerCase() === "unknown" && 
             !artist.id
         );
@@ -422,6 +431,39 @@ let searchButton = null;
                 }
             });
         }
+
+        // Announce the number of results to screen readers
+        clearTimeout(typingTimeout);
+        typingTimeout = setTimeout(() => {
+        
+        let announcementParts = [];
+    
+        const totalArtistLength = filteredArtists.slice(0, 100).length + filteredCountryArtists.slice(0, 100).length + noCountryArtists.slice(0, 100).length;
+    
+        if (filteredShortcuts.length > 0 && input.value.length > 3) {
+            let shortcutText = filteredShortcuts.length === 1 ? 'shortcut' : 'shortcuts';
+            announcementParts.push(`${filteredShortcuts.length} ${shortcutText}`);
+        }
+    
+        if (filteredCountries.slice(0, 5).length > 0 && input.value.length > 1) {
+            let countryText = filteredCountries.length === 1 ? 'country' : 'countries';
+            announcementParts.push(`${filteredCountries.length} ${countryText}`);
+        }
+    
+        if (totalArtistLength && input.value.length > 1) {
+            let artistText = totalArtistLength === 1 ? 'artist' : 'artists';
+            announcementParts.push(`${totalArtistLength} ${artistText}`);
+        }
+        
+    
+        let announcement = '';
+        if (announcementParts.length > 0) {
+            announcement = 'Showing ' + announcementParts.slice(0, -1).join(', ') + (announcementParts.length > 1 ? ' and ' : '') + announcementParts.slice(-1);
+        } else {
+            announcement = 'No results found';
+        }
+        announcer.announce(announcement, 'polite');
+        }, 2000);
     });
 
     // Close the search when the user presses escape
