@@ -84,12 +84,15 @@ body.dark {
 
 .social-icons {
     margin-top:20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
 
-    img {
-        width:20px;
-        height:20px;
-        filter: grayscale(1);
-        margin: 0 2px;
+    a {
+        text-decoration: none;
+        font-size: 24px;
+        padding: 8px;
     }
 }
 
