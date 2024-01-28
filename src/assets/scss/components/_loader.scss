@@ -52,6 +52,14 @@ body.black-theme .loader {
         -o-animation: bubblingG 1.3s infinite alternate;
         border-radius: 67px;
         animation: bubblingG 1.3s infinite alternate;
+        /* No animation when user prefers reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            -moz-animation: none;
+            -webkit-animation: none;
+            -ms-animation: none;
+            -o-animation: none;
+            animation: none;
+        }
     }
 }
 
