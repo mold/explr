@@ -2,6 +2,7 @@
 api/api.js
 api/lastfm.js
 script.js
+aria-announcer.js
 */
 
 var map = {};
@@ -255,6 +256,9 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
     // Redraw map :)
     if (topo) redraw();
+
+    // Annunce to screen readers
+    announcer.announce(`Theme changed to ${theme}`);
   }
   map.nextTheme = nextTheme;
 
