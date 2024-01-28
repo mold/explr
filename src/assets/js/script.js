@@ -315,6 +315,18 @@ var countryCountObj = {};
         d3.select(".loader").transition().duration(2000).style("opacity", 1);
         d3.select("#loading-text").html("Getting library...");
         script.setLoadingStatus("Getting library...");
+        const loader = d3.select("#loading-text");
+        setTimeout(() => {
+            loader.attr("aria-busy", "true");
+            let intervalId = setInterval(() => {
+                loader.attr("aria-busy", "false");
+        
+                setTimeout(() => {
+                    loader.attr("aria-busy", "true");
+                }, 5000); // Set aria-busy to true after 5 seconds
+            }, 45000); // Repeat every 60 seconds
+        }, 5000);
+
         setTimeout(function () {
             if (d3.select("#loading-text").html() === "Getting library...") {
                 d3.select("#loading-text").html("Last.fm is taking<br>a long time to<br>respond...");
