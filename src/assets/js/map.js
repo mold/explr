@@ -9,6 +9,9 @@ var map = {};
 var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
 var legend;
 var countryScore = 0;
+let currentPage = 1;
+let itemsPerPage = 5;
+let artists = []; // Your artists data goes here
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -499,148 +502,96 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
     //console.log(countryCount);
   }
 
-  function showNextFive(){
-    showArtists(currentNoArtists+1, currentNoArtists+5, false);
-    //Send event to google analytics
-    ga('send', {
-      hitType: 'event',
-      eventCategory: 'Artist viewer',
-      eventAction: 'Next five',
-      eventLabel: 'test'
+  function showArtists(pageNumber, itemsPerPage) {
+    const start = (pageNumber - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageItems = artists.slice(start, end);
+
+    // Clear the details section
+    d3.selectAll(".artist-li").remove();
+
+    // Append the artists to the details section
+    pageItems.forEach(artist => {
+      var artistDiv = d3.select("#top-artist-list")
+      .append("li")
+        .attr("class", "artist-li")
+      .append("button")
+        .attr({
+          "class": `scrobbled artist-div lowlight`,
+          "data-artist": artist.artist
+        })
+        .on("click", function() {
+          // Lowlight not selected artists
+          d3.selectAll(".artist-div").classed({
+            "lowlight": true,
+            "highlight": false
+          });
+          // Highlight selected artist
+          d3.select(this).classed({
+            "highlight": true,
+            "lowlight": false
+          });
+          d3.selectAll(".artist-div").attr("aria-pressed", "false");
+          d3.select(this).attr("aria-pressed", "true");
+
+          makeSummaryDiv(d3.select(this).attr("data-artist"), []);
+        });
+      
+      var artistLink = artistDiv.append("div").style("display", "block")
+      artistLink.append("div")
+        .attr("class", "artist-image image-div");
+
+      var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
+
+      playCountDiv.append("p")
+        .html("<strong>" + artist.artist + "</strong><br>" + artist.playcount + " scrobbles")
+        .attr("class", "details-p");
     });
-  }
 
-  function showPreviousFive(){
-    showArtists(currentNoArtists-9, currentNoArtists-5, false);
-    //Trigger GA event
-    ga('send', {
-      hitType: 'event',
-      eventCategory: 'Artist viewer',
-      eventAction: 'Previous five',
-      eventLabel: 'test'
-    });
-  }
+    // Update the state of the navigation buttons
+    d3.select(".artist-control.left").attr("disabled", currentPage === 1 ? "disabled" : null);
+    d3.select(".artist-control.right").attr("disabled", currentPage === Math.ceil(artists.length / itemsPerPage) ? "disabled" : null);
+}
 
-  function showArtists(first, last, initial, artistName){
-
-    d3.selectAll(".scrobbled").remove();
-
-    if (artistName) {
-      var artistIndex = countryCount[currentCountry.id].findIndex(function(artist) {
-        return artist.artist === artistName;
-      });
-  
-      // If the artist is found, calculate the first and last indices
-      if (artistIndex !== -1) {
-        first = Math.max(artistIndex - 2, 1);
-        last = Math.min(artistIndex + 2, countryCount[currentCountry.id].length - 1);
-        currentNoArtists = artistIndex;
+  function showNextFive() {
+      if (currentPage < artists.length / itemsPerPage) {
+          currentPage++;
+          showArtists(currentPage, itemsPerPage);
+          //Send event to google analytics
+          ga('send', {
+            hitType: 'event',
+            eventCategory: 'Artist viewer',
+            eventAction: 'Next five',
+            eventLabel: 'test'
+          });
       }
-    }
-
-    if (countryCount[currentCountry.id].length > 0) { 
-      d3.select("#details").append("ol").attr("id", "top-artist-list").attr("aria-labelledby", "top-artist-list-heading");
-     }
-
-    //Generate new artist images for all artists within the desired range!
-      for (let i = first-1; i <= last-1; i++) {
-        if (countryCount[currentCountry.id][i]) {
-
-          var artistDiv = d3.select("#top-artist-list")
-          .append("li")
-            .attr("class", "artist-li")
-          .append("button")
-            .attr({
-              "class": `scrobbled artist-div lowlight`,
-              "data-artist": countryCount[currentCountry.id][i].artist
-            })
-            .on("click", function() {
-              // Lowlight not selected artists
-              d3.selectAll(".artist-div").classed({
-                "lowlight": true,
-                "highlight": false
-              });
-              // Highlight selected artist
-              d3.select(this).classed({
-                "highlight": true,
-                "lowlight": false
-              });
-              d3.selectAll(".artist-div").attr("aria-pressed", "false");
-              d3.select(this).attr("aria-pressed", "true");
-
-              makeSummaryDiv(d3.select(this).attr("data-artist"), []);
-            });
-          
-          var artistLink = artistDiv.append("div").style("display", "block")
-          artistLink.append("div")
-            .attr("class", "artist-image image-div");
-
-          var playCountDiv = artistDiv.append("div").attr("class", "play-count-div");
-
-          playCountDiv.append("p")
-            .html("<strong>" + countryCount[currentCountry.id][i].artist + "</strong><br>" + countryCount[currentCountry.id][i].playcount + " scrobbles")
-            .attr("class", "details-p");
-          
-          // If the current artist is the pre-selected artist, trigger a click event
-          if (countryCount[currentCountry.id][i].artist === artistName) {
-            artistDiv.node().dispatchEvent(new Event('click'));
-          }
-
-          currentCount++;
-        } else {
-          i = last;
-        }
-    }
-    //
-    //Check to see if we are moving backwards or forwards through the list..
-    if (first<currentNoArtists) //Backwards!
-      currentNoArtists = Math.ceil((currentNoArtists-currentCount)/5)*5;
-    else if (last>currentNoArtists) //Forwards!
-      currentNoArtists = currentNoArtists+currentCount;
-
-    //Reset the count!
-    currentCount = 0;
-
-    //
-    //Disable and enable user controls
-    //
-
-    //Left arrow...
-    if (currentNoArtists>=10 && !initial){
-      d3.selectAll(".artist-control.left")
-        .classed("disabled", false)
-        .attr("disabled", null)
-        .on("click", function(){
-          showPreviousFive();
-        });
-    }
-    else{
-      d3.selectAll(".artist-control.left")
-        .classed("disabled", true)
-        .attr("disabled", "disabled")
-        .on('click',function(){
-          d3.select(this).on('click',null); //Remove click listener!
-        });
-    }
-    //and right...
-    if (currentNoArtists>countryCount[currentCountry.id].length-1){ //There are no more artists!
-      d3.selectAll(".artist-control.right")
-        .classed("disabled", true)
-        .attr("disabled", "disabled")
-        .on('click',function(){
-          d3.select(this).on('click',null); //Remove click listener!
-        });
-    }
-    else{
-      d3.selectAll(".artist-control.right")
-        .classed("disabled", false)
-        .attr("disabled", null)
-        .on("click", function(){
-          showNextFive();
-        });
-    }
   }
 
+  function showPreviousFive() {
+      if (currentPage > 1) {
+          currentPage--;
+          showArtists(currentPage, itemsPerPage);
+          //Trigger GA event
+          ga('send', {
+            hitType: 'event',
+            eventCategory: 'Artist viewer',
+            eventAction: 'Previous five',
+            eventLabel: 'test'
+          });
+      }
+  }
+
+  function searchArtist(name) {
+    const index = artists.findIndex(artist => artist.artist.toLowerCase() === name.toLowerCase());
+
+    if (index !== -1) {
+        currentPage = Math.floor(index / itemsPerPage) + 1;
+        showArtists(currentPage, itemsPerPage);
+        setTimeout(() => {
+          document.querySelector(`[data-artist="${name}"]`)?.click(); 
+        }, 250);
+    }
+  }
 
   /*----------------------------makeArtistDiv------------------------------------------------*/
   //Skapar "details-on-demand"-divarna.
@@ -718,29 +669,26 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
     if (countryCount[d.id]) { //Om landet vi klickat på har lyssnade artister.
 
-
       d3.select("#details").append("h2")
         .html("<span>Your top artists tagged with </span>" + nameTags + "<span> or </span>" + tagTags + "<span>: </span>")
         .attr("class", "topartists-desc").attr("id", "top-artist-list-heading");
-      //Show top 5 artists
+      
+        currentPage = 1;
+        itemsPerPage = 5;
+        artists = countryCount[d.id]; // Your artists data goes here
 
-      //Fetch the initial five artists!!
-      showArtists(1, 5, true);
-
-      d3.select("#details").append("button")
-        .attr("class", "fa artist-control left disabled fa-angle-left")
-        .attr("aria-label", "Previous five artists")
-        .attr("disabled", "disabled")
-        .on("click", function(){
-          showPreviousFive();
-        });
-
-      d3.select("#details").append("button")
-      .attr("class", "fa artist-control right fa-angle-right")
-      .attr("aria-label", "Next five artists")
-      .on("click", function(){
-        showNextFive();
-      });
+        d3.select("#details").append("ol").attr("id", "top-artist-list").attr("aria-labelledby", "top-artist-list-heading");
+      
+        d3.select("#details").append("button").attr("class", "fa artist-control left fa-angle-left").attr("aria-label", "Previous five artists");
+        d3.select("#details").append("button").attr("class", "fa artist-control right fa-angle-right").attr("aria-label", "Next five artists");
+        
+        // Event listeners for the navigation buttons
+        d3.select(".artist-control.left").on("click", showPreviousFive);
+        d3.select(".artist-control.right").on("click", showNextFive);
+        
+        
+        // Initial display of artists
+        showArtists(currentPage, itemsPerPage);
 
 
     } else { //Om landet vi klickat på inte har några lyssnade artister...
@@ -856,7 +804,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
             var recoArtistInfoDiv = recoArtistDiv.append("div").attr("class", "recoArtistInfoDiv");
 
             recoArtistInfoDiv.append("p")
-              .html("<b>" + artistname + "</b>")
+              .html(artistname)
               .attr("class", "details-p");
 
             recoArtistDiv.on("click", function() {
@@ -1141,6 +1089,8 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
   map.makeSummaryDiv = makeSummaryDiv;
 
   map.showArtists = showArtists;
+
+  map.searchArtist = searchArtist;
 
   map.toggleFilter = function() {
     filter = filter === "artists" ? "scrobbles" : "artists";

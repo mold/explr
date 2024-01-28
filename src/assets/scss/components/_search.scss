@@ -158,6 +158,10 @@ input.search {
     flex-direction: column;
     flex-wrap: nowrap;
     text-align: right;
+    .add-tags {
+        opacity: 0.54;
+        font-size: 0.9rem;
+    }
 }
 .result-wrapper {
     align-items: center;

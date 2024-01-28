@@ -186,17 +186,15 @@
         transform: scale(1.1);
         filter: brightness(0.92);
     }
-
-    &.disabled{
+    &:disabled {
         display: none;
     }
 }
 
 .details-p {
     font-size: 0.8em;
-    font-style: #000;
     margin-bottom: 4px;
-    strong, b {
+    strong {
         font-family: $heading-font-stack;
     }
 }

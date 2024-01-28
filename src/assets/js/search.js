@@ -219,19 +219,23 @@ let searchButton = null;
                     let searchResultWrapper = document.createElement('div');
                     searchResultWrapper.classList.add('result-wrapper');
                     searchResultWrapper.role = 'option';
-                    searchResultWrapper.id = `artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;                    // Zoom into the country of the artist on click
+                    searchResultWrapper.id = `artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;
+            
+                    // Navigate to the artist's last.fm link on click
                     searchResultWrapper.addEventListener('click', function() {
                         search.stopSearch();
-                        console.log(`You clicked on ${artist.artist} from ${artist.id}`)
+                        if (!utils.getCountryNameFromId(artist.id)) {
+                            window.open(artist.url, '_blank');
+                        }
                         const country = document.querySelector(`.country#c${artist.id}`);
-                        if (country) country.dispatchEvent(new Event('click'));
-                        setTimeout(() => {
-                            map.showArtists(1, 5, true, artist.artist)
+                        if (country) {
+                            country.dispatchEvent(new Event('click'));
                             setTimeout(() => {
-                                document.querySelector(`.artist-div[data-artist="${artist.artist}"]`).focus();
-                            }, 500);
-                        }, 250);
+                                map.searchArtist(artist.artist);
+                            }, 250);
+                        }
                     });
+            
                     let artistWrapper = document.createElement('span');
                     artistWrapper.classList.add('artist-wrapper');
                     let artistCountryWrapper = document.createElement('span');
@@ -244,16 +248,28 @@ let searchButton = null;
                     artistPlaycount.textContent = `${artist.playcount} scrobbles`
                     const artistNameSpan = document.createElement('span');
                     artistNameSpan.classList.add('artist-name');
-        
+            
                     // Highlight the matching letters
                     let regex = new RegExp(input.value, 'gi');
                     let highlightedName = artist.artist.replace(regex, match => `<span class="highlight">${match}</span>`);
                     artistNameSpan.innerHTML = highlightedName;
-        
+            
                     artistWrapper.appendChild(artistNameSpan);
                     artistWrapper.appendChild(artistPlaycount);
-                    artistCountryWrapper.textContent = utils.getCountryNameFromId(artist.id) ? utils.getCountryNameFromId(artist.id) : 'Unknown country';
+                    const artistCountryNameSpan = document.createElement('span');
+                    artistCountryNameSpan.classList.add('country-name');
+                    artistCountryNameSpan.textContent = utils.getCountryNameFromId(artist.id) ? utils.getCountryNameFromId(artist.id) : 'Unknown country :-(';
+                    artistCountryWrapper.appendChild(artistCountryNameSpan);
                     artistCountryWrapper.prepend(srOnlyFrom);
+                    // Check if the country is known
+                    let countryName = utils.getCountryNameFromId(artist.id);
+                    if (!countryName) {
+                        countryName = 'Unknown country';
+                        let addTagsSpan = document.createElement('span');
+                        addTagsSpan.classList.add('add-tags');
+                        addTagsSpan.textContent = 'Go add some tags on Last.fm!';
+                        artistCountryWrapper.appendChild(addTagsSpan);
+                    }
                     searchResultWrapper.appendChild(artistWrapper);
                     searchResultWrapper.appendChild(artistCountryWrapper);
                     artistsWrapper.appendChild(searchResultWrapper);
@@ -264,7 +280,6 @@ let searchButton = null;
 
         // Filter the artists for the currently shown country
         let filteredCountryArtists = artists.filter((artist) => filteredCountries.length === 1 && filteredCountries[0].id === artist.id);
-
         if (filteredCountryArtists.length > 0 && input.value.length > 1) {
             const artistsWrapper = document.createElement('ul');
             artistsWrapper.classList.add('search-result-group');
@@ -286,15 +301,14 @@ let searchButton = null;
                     searchResultWrapper.id = `${filteredCountries[0].name}-artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;                    
                     searchResultWrapper.addEventListener('click', function() {
                         search.stopSearch();
-                        console.log(`You clicked on ${artist.artist} from ${artist.id}`)
                         const country = document.querySelector(`.country#c${artist.id}`);
-                        if (country) country.dispatchEvent(new Event('click'));
-                        setTimeout(() => {
-                            map.showArtists(1, 5, true, artist.artist)
+                        if (country) {
+                            country.dispatchEvent(new Event('click'));
                             setTimeout(() => {
-                                document.querySelector(`.artist-div[data-artist="${artist.artist}"]`).focus();
-                            }, 500);
-                        }, 250);
+                                map.searchArtist(artist.artist);
+                            }, 250);
+                        }
+                        
                     });
                     let artistWrapper = document.createElement('span');
                     artistWrapper.classList.add('artist-wrapper');
@@ -350,11 +364,23 @@ let searchButton = null;
                     let searchResultWrapper = document.createElement('div');
                     searchResultWrapper.classList.add('result-wrapper');
                     searchResultWrapper.role = 'option';
-                    searchResultWrapper.id = `unknown-artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;                    // Zoom into the country of the artist on click
+                    searchResultWrapper.id = `artist-${artist.artist.replace(/\s+/g, '-').toLowerCase()}`;
+            
+                    // Navigate to the artist's last.fm link on click
                     searchResultWrapper.addEventListener('click', function() {
                         search.stopSearch();
-                        console.log(`You clicked on ${artist.artist} from unknown country`)
+                        if (!utils.getCountryNameFromId(artist.id)) {
+                            window.open(artist.url, '_blank');
+                        }
+                        const country = document.querySelector(`.country#c${artist.id}`);
+                        if (country) {
+                            country.dispatchEvent(new Event('click'));
+                            setTimeout(() => {
+                                map.searchArtist(artist.artist);
+                            }, 250);
+                        }
                     });
+            
                     let artistWrapper = document.createElement('span');
                     artistWrapper.classList.add('artist-wrapper');
                     let artistCountryWrapper = document.createElement('span');
@@ -367,16 +393,28 @@ let searchButton = null;
                     artistPlaycount.textContent = `${artist.playcount} scrobbles`
                     const artistNameSpan = document.createElement('span');
                     artistNameSpan.classList.add('artist-name');
-        
+            
                     // Highlight the matching letters
                     let regex = new RegExp(input.value, 'gi');
                     let highlightedName = artist.artist.replace(regex, match => `<span class="highlight">${match}</span>`);
                     artistNameSpan.innerHTML = highlightedName;
-        
+            
                     artistWrapper.appendChild(artistNameSpan);
                     artistWrapper.appendChild(artistPlaycount);
-                    artistCountryWrapper.textContent = "Unknown country";
+                    const artistCountryNameSpan = document.createElement('span');
+                    artistCountryNameSpan.classList.add('country-name');
+                    artistCountryNameSpan.textContent = utils.getCountryNameFromId(artist.id) ? utils.getCountryNameFromId(artist.id) : 'Unknown country :-(';
+                    artistCountryWrapper.appendChild(artistCountryNameSpan);
                     artistCountryWrapper.prepend(srOnlyFrom);
+                    // Check if the country is known
+                    let countryName = utils.getCountryNameFromId(artist.id);
+                    if (!countryName) {
+                        countryName = 'Unknown country';
+                        let addTagsSpan = document.createElement('span');
+                        addTagsSpan.classList.add('add-tags');
+                        addTagsSpan.textContent = 'Go add some tags on Last.fm!';
+                        artistCountryWrapper.appendChild(addTagsSpan);
+                    }
                     searchResultWrapper.appendChild(artistWrapper);
                     searchResultWrapper.appendChild(artistCountryWrapper);
                     artistsWrapper.appendChild(searchResultWrapper);
