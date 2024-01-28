@@ -49,8 +49,5 @@ body {
 a {
     font-weight: bold;
     text-decoration: underline;
-
-    @include on-event {
-        text-decoration: none;
-    }
+    text-underline-offset: 0.1em;
 }

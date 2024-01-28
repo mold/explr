@@ -61,7 +61,7 @@
     align-items: center;
     gap: 4px;
 
-    .change-button:hover {
+    .change-button:hover, .change-button:focus {
         +.button-group__label {
             display: block;
         }
