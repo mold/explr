@@ -20,6 +20,40 @@ let noCountryArtists = [];
 let filteredShortcuts = [];
 
 (function () {
+
+    // Function to generate screen reader feedback text for current search results
+    search.getAnnouncement = function () {
+        let announcementParts = [];
+
+        const input = document.querySelector('input.search');
+        
+        const totalArtistLength = filteredArtists.slice(0, 100).length + filteredCountryArtists.slice(0, 100).length + noCountryArtists.slice(0, 100).length;
+    
+        if (filteredShortcuts.length > 0 && input.value.length > 3) {
+            let shortcutText = filteredShortcuts.length === 1 ? 'shortcut' : 'shortcuts';
+            announcementParts.push(`${filteredShortcuts.length} ${shortcutText}`);
+        }
+    
+        if (filteredCountries.slice(0, 5).length > 0 && input.value.length > 1) {
+            let countryText = filteredCountries.length === 1 ? 'country' : 'countries';
+            announcementParts.push(`${filteredCountries.length} ${countryText}`);
+        }
+    
+        if (totalArtistLength && input.value.length > 1) {
+            let artistText = totalArtistLength === 1 ? 'artist' : 'artists';
+            announcementParts.push(`${totalArtistLength} ${artistText}`);
+        }
+        
+    
+        let announcement = '';
+        if (announcementParts.length > 0) {
+            announcement = 'Showing ' + announcementParts.slice(0, -1).join(', ') + (announcementParts.length > 1 ? ' and ' : '') + announcementParts.slice(-1);
+        } else {
+            announcement = 'No results found';
+        }
+        return announcement;
+      }
+
     search.initSearch = function () {
 
     SEARCH_IS_OPEN = true;
@@ -434,35 +468,8 @@ let filteredShortcuts = [];
         // Announce the number of results to screen readers
         clearTimeout(typingTimeout);
         typingTimeout = setTimeout(() => {
-        
-        let announcementParts = [];
-    
-        const totalArtistLength = filteredArtists.slice(0, 100).length + filteredCountryArtists.slice(0, 100).length + noCountryArtists.slice(0, 100).length;
-    
-        if (filteredShortcuts.length > 0 && input.value.length > 3) {
-            let shortcutText = filteredShortcuts.length === 1 ? 'shortcut' : 'shortcuts';
-            announcementParts.push(`${filteredShortcuts.length} ${shortcutText}`);
-        }
-    
-        if (filteredCountries.slice(0, 5).length > 0 && input.value.length > 1) {
-            let countryText = filteredCountries.length === 1 ? 'country' : 'countries';
-            announcementParts.push(`${filteredCountries.length} ${countryText}`);
-        }
-    
-        if (totalArtistLength && input.value.length > 1) {
-            let artistText = totalArtistLength === 1 ? 'artist' : 'artists';
-            announcementParts.push(`${totalArtistLength} ${artistText}`);
-        }
-        
-    
-        let announcement = '';
-        if (announcementParts.length > 0) {
-            announcement = 'Showing ' + announcementParts.slice(0, -1).join(', ') + (announcementParts.length > 1 ? ' and ' : '') + announcementParts.slice(-1);
-        } else {
-            announcement = 'No results found';
-        }
-        announcer.announce(announcement, 'polite');
-        }, 2000);
+            announcer.announce(search.getAnnouncement(), 'polite');
+        }, 750);
     });
 
     // Close the search when the user presses escape
@@ -574,6 +581,8 @@ let filteredShortcuts = [];
     });
 
   }
+
+
 
   search.stopSearch = function () {
     const searchButtonClose = document.querySelector('#search-button');
