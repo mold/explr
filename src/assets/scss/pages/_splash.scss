@@ -39,6 +39,8 @@ body.dark {
    ========================================================================== */
 
 .welcome-message {
+    max-height: 80%;
+    overflow: scroll;
     margin: 60px auto auto auto;
     padding: 20px 30px 20px 30px;
     background: var(--welcomeMessageBackground);
@@ -120,7 +122,7 @@ body.dark {
     font-size: 1rem;
     font-weight: 400;
 }
-#a11ytext h1 {
+#a11ytext h1, #faqtext h1 {
     font-family: $heading-font-stack;
     margin-top: 1rem;
     margin-bottom: 0.8em;

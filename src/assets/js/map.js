@@ -571,6 +571,8 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
       if (currentPage < artists.length / itemsPerPage) {
           currentPage++;
           showArtists(currentPage, itemsPerPage);
+          // Give feedback to screen readers
+          announcer.announce("Showing next five artists", "polite");
           //Send event to google analytics
           ga('send', {
             hitType: 'event',
@@ -585,6 +587,8 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
       if (currentPage > 1) {
           currentPage--;
           showArtists(currentPage, itemsPerPage);
+          // Give feedback to screen readers
+          announcer.announce("Showing previous five artists", "polite");
           //Trigger GA event
           ga('send', {
             hitType: 'event',

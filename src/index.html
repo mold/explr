@@ -89,19 +89,19 @@
 							Or if there are any good bands from <span id="randomCountry"></span></p>
 							
 							<p style="text-align: center;" ><strong>Wonder no more!</strong></p>
-							<p class="info">Enter your Last.fm username in the field below. If you don't have Last.fm, <a href="https://last.fm">get it here!</a></p>
+							<p class="info">Enter your Last.fm username in the field below. <a href="https://last.fm">If you don't have Last.fm, get it here!</a></p>
 							<form id="start-form" class="no-select" target="_self">
 								<label for="username">
 									Last.fm username
 									<input id="username" name="username" class="usernameinput" placeholder="e.g. elfummel" type="text" autofocus required autocomplete="on">
-
 								</label>
-								<div class="gobutton"><input type="submit" value="&nbsp;" aria-label="Go Explr!"></div>
+								<div class="gobutton"><input type="submit" value="&nbsp;" aria-label="Go Explore!"></div>
 							</form>
 							
 					</div>
-					<div id="faqtext" class="hidden">
-						<h2 tabindex="-1">Q: So how does this work exactly?</h2>
+					<div id="faqtext" class="hidden info">
+						<h1 tabindex="-1">Frequently asked questions</h1>
+						<h2 >Q: So how does this work exactly?</h2>
 						<p>A: We fetch your entire Last.fm library and use the tags to determine where each artist you've listened to comes from. This is done by running the artist tags from Last.fm against a list of country names and <a href="https://en.wikipedia.org/wiki/Demonym">demonyms</a>. If an artist is tagged with more than one country, the most popular tag is used. </p>
 						<h2>Q: What the heck, France isn't in South America!</h2>
 						<p>A: Actually, French Guiana is in South America and <a href="https://en.wikipedia.org/wiki/French_Guiana">French Guiana is an overseas region of France</a>.</p>
@@ -116,16 +116,16 @@
 					<div id="a11ytext" class="hidden info">
 						<h1 tabindex="-1">Accessibility information</h1>
 						<p>Explr.fm is now accessible using keyboard commands! It has been tested to work with screen readers VoiceOver for Mac + NVDA and JAWS for Windows.</p>
-						<p>You can navigate the map by free text searching for a country or an artist. Open the search bar with the shortcut <kbd>ctrl + f</kbd>.</p>
+						<p>You can navigate the map by free text searching for a country or an artist. Open the search bar with the shortcut <kbd>CTRL + F</kbd>.</p>
 						<h2>List of keyboard commands</h2>
 						<dl>
-							<dt><kbd>ctrl + f</kbd></dt>
+							<dt><kbd>CTRL + F</kbd></dt>
 							<dd>Open search</dd>
-							<dt><kbd>esc</kbd></dt>
+							<dt><kbd>ESC</kbd></dt>
 							<dd>Close search or country view</dd>
-							<dt><kbd>down/up arrow</kbd></dt>
+							<dt><kbd>DOWN/UP arrow</kbd></dt>
 							<dd>Navigate search results</dd>
-							<dt><kbd>enter</kbd></dt>
+							<dt><kbd>ENTER</kbd></dt>
 							<dd>Activate highlighted search result</dd>
 						</dl>
 						<h2>Remove animations</h2>
@@ -134,9 +134,9 @@
 						<p>Send an e-mail to Tommy (<a href="mailto:tommy.feldt@useit.se">tommy.feldt@useit.se</a>) and he will be happy to fix it!</p>
 					</div>
 					</div>
-					<button class="splash-link faq" type="button">Frequently asked questions -></button>
-					<button class="splash-link a11y" type="button">Accessibility information -></button>
-					<button class="splash-link back hidden" type="button"><- Go back</button>
+					<button class="splash-link faq" type="button">Frequently asked questions<span aria-hidden="true"> -></span></button>
+					<button class="splash-link a11y" type="button">Accessibility information<span aria-hidden="true"> -></span></button>
+					<button class="splash-link back hidden" type="button"><span aria-hidden="true"><- </span>Go back</button>
 					
 					<div class="donate">
 						<p class="donate__title">
@@ -290,7 +290,7 @@
 					document.querySelector(".splash-link.faq").classList.add("hidden");
 					document.querySelector(".splash-link.a11y").classList.add("hidden");
 					document.querySelector(".splash-link.back").classList.remove("hidden");
-					document.querySelector("#faqtext h2").focus();
+					document.querySelector("#faqtext h1").focus();
 				});
 				document.querySelector(".splash-link.a11y").addEventListener("click", function(){
 					document.getElementById("splashContent").classList.add("hidden");
