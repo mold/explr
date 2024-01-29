@@ -178,44 +178,48 @@
 				<div id="loading-text" class="no-select"></div>
 			</div>
 
-			<div id="controls" role="group" aria-label="Explr.fm controls">
-				<div class="button-group" >
-					<div role="search" style="display: flex; align-items: center; gap: 4px;">
-						<button aria-labelledby="search-button-label" type="button" aria-expanded="false" id="search-button" class="change-button on-map-view no-select" aria-haspopup="true">
-							<img src="assets/img/search.png" alt="" width="28" height="28">
+			<div>
+				<div id="controls" role="group" aria-label="Explr.fm controls">
+					<div class="button-group" >
+						<div role="search" style="display: flex; align-items: center; gap: 4px;">
+							<button aria-labelledby="search-button-label" type="button" aria-expanded="false" id="search-button" class="change-button on-map-view no-select" aria-haspopup="true">
+								<img src="assets/img/search.png" alt="" width="28" height="28">
+							</button>
+							<label aria-hidden="true" class="button-group__label" for="search-button" id="search-button-label">Search (ctrl + f)</label>
+						</div>
+						<button aria-labelledby="change-theme-button-label" type="button" id="change-theme-button" class="change-button on-map-view no-select"
+						onClick="nextTheme();ga('send', 'event', 'Buttons', 'Cycle theme', 'test');">
+							<img src="assets/img/glyphicons_009_magic.png" alt="" width="32" height="32">
 						</button>
-						<label class="button-group__label" for="search-button" id="search-button-label">Search (ctrl + f)</label>
+						<label aria-hidden="true" id="change-theme-button-label" class="button-group__label" for="change-theme-button">Change theme (t)</label>
 					</div>
-					<button aria-labelledby="change-theme-button-label" type="button" id="change-theme-button" class="change-button on-map-view no-select"
-					onClick="nextTheme();ga('send', 'event', 'Buttons', 'Cycle theme', 'test');">
-						<img src="assets/img/glyphicons_009_magic.png" alt="" width="32" height="32">
-					</button>
-					<label id="change-theme-button-label" class="button-group__label" for="change-theme-button">Change theme (t)</label>
+					
+					<div class="button-group">
+						<button aria-labelledby="clear-cache-button-label" type="button" id="clear-cache-button" class="change-button on-map-view no-select"
+							onClick="clearExplrCache().then(()=>window.location.reload())">
+							<img src="assets/img/refresh.png" alt="" width="28" height="28">
+						</button>
+						<label aria-hidden="true" id="clear-cache-button-label" class="button-group__label" for="clear-cache-button">Clear cached artists</label>
+						<button aria-labelledby="change-user-button-label" type="button" class="change-button on-map-view no-select" id="change-user-button" onclick="window.location.href='./'">
+							<img src="assets/img/remove-user.png" alt="" width="32" height="32">
+						</button>
+						<label aria-hidden="true" class="button-group__label" id="change-user-button-label" for="change-user-button">Change user</label>
+					</div>
+					<div class="button-group">
+						<button aria-labelledby="export-button-label" type="button" id="export-button" class="change-button on-map-view no-select" onClick="utils.exportToCSV(countryCountObj)">
+							<img src="assets/img/file-export-solid.png" alt="" width="30" height="30" style="padding: 5px 0 0 5px;">
+						</button>
+						<label aria-hidden="true" id="export-button-label" for="export-button" class="button-group__label">Export data (e)</label>
+						<button aria-labelledby="snapshot-button-label" type="button" id="snapshot-button" class="change-button on-map-view no-select"
+							onClick="screenshot.render();ga('send', 'event', 'Buttons', 'Take screenshot', 'test');">
+							<img src="assets/img/snapshot.png" alt="" width="32" height="32">
+						</button>
+						<label aria-hidden="true" id="snapshot-button-label" for="snapshot-button" class="button-group__label">Take snapshot (s)</label>
+					</div>
+
 				</div>
 				
-				<div class="button-group">
-					<button aria-labelledby="clear-cache-button-label" type="button" id="clear-cache-button" class="change-button on-map-view no-select"
-						onClick="clearExplrCache().then(()=>window.location.reload())">
-						<img src="assets/img/refresh.png" alt="" width="28" height="28">
-					</button>
-					<label id="clear-cache-button-label" class="button-group__label" for="clear-cache-button">Clear cached artists</label>
-					<button aria-labelledby="change-user-button-label" type="button" class="change-button on-map-view no-select" id="change-user-button" onclick="window.location.href='./'">
-						<img src="assets/img/remove-user.png" alt="" width="32" height="32">
-					</button>
-					<label class="button-group__label" id="change-user-button-label" for="change-user-button">Change user</label>
-				</div>
-				<div class="button-group">
-					<button aria-labelledby="export-button-label" type="button" id="export-button" class="change-button on-map-view no-select" onClick="utils.exportToCSV(countryCountObj)">
-						<img src="assets/img/file-export-solid.png" alt="" width="30" height="30" style="padding: 5px 0 0 5px;">
-					</button>
-					<label id="export-button-label" for="export-button" class="button-group__label">Export data (e)</label>
-					<button aria-labelledby="snapshot-button-label" type="button" id="snapshot-button" class="change-button on-map-view no-select"
-						onClick="screenshot.render();ga('send', 'event', 'Buttons', 'Take screenshot', 'test');">
-						<img src="assets/img/snapshot.png" alt="" width="32" height="32">
-					</button>
-					<label id="snapshot-button-label" for="snapshot-button" class="button-group__label">Take snapshot (s)</label>
-				</div>
-				<div id="countryCount" class="progress on-map-view full-opacity no-select">
+				<div id="countryCount" tabindex="0" class="progress on-map-view full-opacity no-select" role="meter" aria-valuemin="0" aria-valuemax="100" aria-label="Scrobbled countries" aria-describedby="progress-text">
 					<div id="progress-bar">
 						<span id="progress-text"></span><!-- class="hidden" -->
 					</div>

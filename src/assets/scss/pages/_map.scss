@@ -79,11 +79,11 @@ $controls-padding: 20px;
     // 3 * (buttonheight + padding) :^)
     top: 3 * (48px+4px) + $controls-padding + 10px;
     width: 10px;
-    bottom: $controls-padding;
+    bottom: 100px;
     right: 32px;
     box-shadow: inset 1px 1px 3px 0px rgba(0, 0, 0, 0.39);
     border: 0.1em solid;
-    z-index: 0;
+    z-index: 2;
     border-radius: 50px;
 }
 
