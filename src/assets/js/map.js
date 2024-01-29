@@ -80,7 +80,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
 
   function updateProgressBar() {
-    var progressPro = (countryScore / 210);
+    var progressPro = (countryScore / 209);
     return progressPro;
   }
 ;
@@ -338,7 +338,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
       .on("blur", () => {
         d3.select("#progress-text").transition().duration(prefersReducedMotion ? 0 : 150).style("opacity", 0);
       });
-    d3.select("#progress-text").html("Scrobbled from " + countryScore + "/210 countries").attr("aria-hidden", "true");
+    d3.select("#progress-text").html("Scrobbled from " + countryScore + "/209 countries").attr("aria-hidden", "true");
 
     //Draw countries
     if (redrawMap) {
