@@ -326,7 +326,7 @@ var countryCountObj = {};
         announcer.announce(document.getElementById("loading-text").innerText);
         announcementIntervalId = setInterval(() => {
             announcer.announce(document.getElementById("loading-text").innerText);
-        }, 60000);
+        }, 45000);
 
         setTimeout(function () {
             if (d3.select("#loading-text").html() === "Getting library...") {
