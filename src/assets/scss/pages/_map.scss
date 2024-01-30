@@ -5,6 +5,10 @@
 #map-container {
     height: 100%;
     overflow: hidden;
+    svg:focus-visible {
+        outline: 6px solid var(--focus);
+        outline-offset: -6px;
+    } 
 }
 
 /* ==========================================================================

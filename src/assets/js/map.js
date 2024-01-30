@@ -278,9 +278,11 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
     path = d3.geo.path().projection(projection);
 
-    svg = d3.select("#map-container").append("svg")
+    svg = d3.select("#map-container")
+      .attr("role", "application")
+      .append("svg")
       .attr("role", "img")
-      .attr("tabindex", "-1")
+      .attr("tabindex", "0")
       .attr("aria-labelledby", "map-label")
       // .attr("aria-describedby", "map-hint")
       .attr("id", "map-svg")
