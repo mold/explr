@@ -15,9 +15,10 @@ let keyBufferTimer = null;
 let keyboardModeActive = false;
 
 const handleNumberKeyPress = (e) => {
-    e.preventDefault();
+    console.log("key pressed");
     // Check if user has pressed a number key from 0 to 9
     if (e.key.match(/[0-9]/) && e.target.tagName !== "INPUT") {
+        console.log("pressed a number key");
         // Add the key to the buffer
         keyBuffer += e.key;
 
@@ -138,6 +139,7 @@ function getVisibleCountries(zoom) {
       
         // display a number on the center of each country
       visibleCountries.forEach((country) => {
+        console.log("visible country");
         window.addEventListener('keydown', handleNumberKeyPress);
 
         var center = getPathCenter(country);
