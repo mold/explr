@@ -87,7 +87,7 @@ function displayKeyboardModeMessage() {
     const message = document.getElementById("keyboard-mode-message");
     message.classList.remove("hidden");
     const innerMessage = document.createElement("div");
-    innerMessage.innerHTML = "<h2>Keyboard mode active!</h2><p>Type a number to select a country.<p><p>Move around with arrow keys.</p><p>Exit by zooming out (minus key). </p>";
+    innerMessage.innerHTML = "<h2>Keyboard mode active! <span class='fa fa-keyboard'></span> </h2><p>Type a <kbd>number</kbd> to select a country.<p><p>Move around with <kbd>arrow</kbd> keys.</p><p>Exit by zooming out with <kbd>minus</kbd> key. </p>";
     message.appendChild(innerMessage);
   }
 
