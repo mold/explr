@@ -321,3 +321,38 @@ div.colorChange {
     top: 20px;
     left: 20px;
 }
+
+// Keyboard mode
+
+.a11y-number {
+    font-size: 0.1rem;
+    fill: var(--backgroundPrimary);
+}
+
+#keyboard-mode-message {
+    position: absolute;
+    width: 400px;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--backgroundSecondary);
+    color: var(--textPriary);
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+    border: 6px solid var(--themeColorDark)
+
+    p {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+        text-transform: none;
+        font-family: $heading-font-stack;
+    }
+
+}

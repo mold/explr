@@ -3,8 +3,8 @@ api/api.js
 api/lastfm.js
 script.js
 aria-announcer.js
+keyboard-mode.js
 */
-
 var map = {};
 //White theme default:
 var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
@@ -13,6 +13,8 @@ var countryScore = 0;
 let currentPage = 1;
 let itemsPerPage = 5;
 let artists = []; // Your artists data goes here
+let currentZoom = 1;
+const MAX_ZOOM = 17;
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -23,7 +25,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
   var filter = "artists"; // filter by artists or plays
 
   var zoom = d3.behavior.zoom()
-    .scaleExtent([1, 9])
+    .scaleExtent([1, MAX_ZOOM])
     .on("zoom", move);
 
 
@@ -43,6 +45,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
   //Setting color and range to be used
   var color;
+
 
   // Set theme
   const defaultTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "blue_black" : "pink_white";
@@ -266,6 +269,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
   updateScale();
   updateDimensions();
   setup(width, height);
+  keyboardMode.init(zoom, move, width, height, MAX_ZOOM);
 
   function setup(width, height) {
     projection = d3.geo.naturalEarth()
@@ -451,8 +455,15 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
    * @param  {Array} tr      Optional: Translation tuple [x, y]
    * @param  {Number} sc      Optional: Scale factor
    * @param  {Boolean} animate Optional: Decides whether to animate the map movement
+   * @param  {Boolean} withKeyboard If the move was initiated by the keyboard
    */
-  function move(tr, sc, animate) {
+  function move(tr, sc, animate, withKeyboard) {
+
+    // If move was not initiated by the keyboard, remove the keyboard mode
+    if (!withKeyboard) {
+      keyboardMode.cleanup();
+    }
+    
     var t = tr || (d3.event ? d3.event.translate : false) || zoom.translate();
     var s = sc || (d3.event ? d3.event.scale : false) || zoom.scale();
 
@@ -960,6 +971,8 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
 
   function clicked(d) { //d är det en har klickat på
+
+    keyboardMode.cleanup();
 
     var x, y, k;
     //bounding box for clicked country
