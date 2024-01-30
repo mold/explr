@@ -86,7 +86,7 @@ function displayKeyboardModeMessage() {
     const message = document.getElementById("keyboard-mode-message");
     message.classList.remove("hidden");
     const innerMessage = document.createElement("div");
-    innerMessage.innerHTML = "<h2>Keyboard mode active!</h2><p>Type a number to select a country.<p><p>Move around with arrow keys.</p><p>Exit with ESC. </p>";
+    innerMessage.innerHTML = "<h2>Keyboard mode active!</h2><p>Type a number to select a country.<p><p>Move around with arrow keys.</p><p>Exit by zooming out (minus key). </p>";
     message.appendChild(innerMessage);
   }
 
@@ -124,7 +124,7 @@ function getVisibleCountries(zoom) {
         displayKeyboardModeMessage();
         // TODO: Find a working way to only announce this once
         if (!hasAnnounced) {
-            announcer.announce("Keyboard mode active! Type a number to select a country. Move around with arrow keys. Exit with ESC. Press 0 to hear the list of countries.")
+            announcer.announce("Keyboard mode active! Type a number to select a country. Move around with arrow keys. Exit by zooming out (minus key). Press 0 to hear the list of countries.")
             hasAnnounced = true;
         }
         // Hide controls, footer and legend
