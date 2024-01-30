@@ -1,7 +1,6 @@
 /* requires:
 aria-announcer.js
 search.js
-script.js
 */
 
 const keyboardMode = keyboardMode || {};
