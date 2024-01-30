@@ -18,7 +18,6 @@ const handleNumberKeyPress = (e) => {
     console.log("key pressed");
     // Check if user has pressed a number key from 0 to 9
     if (e.key.match(/[0-9]/) && e.target.tagName !== "INPUT") {
-        console.log("pressed a number key");
         // Add the key to the buffer
         keyBuffer += e.key;
 
@@ -38,6 +37,11 @@ const handleNumberKeyPress = (e) => {
                 // Generate a click on the target country
                 if (targetCountry) {
                     targetCountry.dispatchEvent(new Event('click'));
+                    // Focus the country name
+                    setTimeout(() => {
+                        document.querySelector('#cnameCont h1').setAttribute("tabindex", "-1");
+                        document.querySelector('#cnameCont h1').focus();
+                    }, 250);
                 }
             }
 
@@ -266,9 +270,13 @@ function getVisibleCountries(zoom) {
                     // Update the scale
                     s = newScale;
                     getVisibleCountries(zoom);
-                    announcer.announce(`Zooming ${e.key === '+' ? 'in' : 'out'}`, "assertive", 100)
+                    announcer.announce(`Zoom level ${parseInt(newScale)}`, "assertive", 100)
                     break;
                 case '0':
+                    if (!KEYBOARD_MODE_ACTIVE) {
+                        announcer.announce("Keyboard mode is not active right now. Zoom in to at least level 7 to activate.", "assertive", 100);
+                        return;
+                    }
                     // announce the list of countries
                     let message = "List of countries: ";
                     const countries = getCurrentlyVisibleCountries();

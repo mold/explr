@@ -308,6 +308,7 @@ var countryCountObj = {};
     var begin = function () {
         //Send analytics event
         ga('send', 'event', 'splash screen', 'Go!', 'test');
+        document.getElementById("map-label").innerHTML = `${user}'s world map`;
         // fade out username input box
         var welcomeOverlay = d3.select("#welcome-container");
         welcomeOverlay.transition().duration(2000)
@@ -437,6 +438,10 @@ var countryCountObj = {};
         // Screen reader status update
         clearInterval(announcementIntervalId);
         announcer.announce("All artists are loaded!");
+        const map = document.querySelector("#map-container svg")
+        console.log("update aria-labelledby");
+        const existingAriaLabelledBy = map.getAttribute("aria-labelledby");
+        map.setAttribute("aria-labelledby", `${existingAriaLabelledBy} progress-text`);
 
         // We're done, fade out loader
         var loader = d3.select(".loader");
