@@ -14,7 +14,7 @@ let currentPage = 1;
 let itemsPerPage = 5;
 let artists = []; // Your artists data goes here
 let currentZoom = 1;
-const MAX_ZOOM = 17;
+const MAX_ZOOM = 25;
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

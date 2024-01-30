@@ -4,8 +4,8 @@ aria-announcer.js
 
 const keyboardMode = keyboardMode || {};
 
-const MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE = 8;
-const MAX_COUNTRY_SUGGESTIONS = 100;
+const MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE = 9;
+const MAX_COUNTRY_SUGGESTIONS = 20;
 
 let visibleCountries = [];
 let keyBuffer = '';
@@ -55,7 +55,6 @@ function getCurrentlyVisibleCountries() {
             number: number
         });
     });
-    console.log(formattedCountries)
     return formattedCountries;
 }
 
@@ -103,6 +102,8 @@ function getPathCenter(path) {
     };
   }
 
+let hasAnnounced = false;
+
 function getVisibleCountries(zoom) {
     keyboardMode.cleanup();
 
@@ -113,10 +114,14 @@ function getVisibleCountries(zoom) {
         // Get the bounding box of the current country
         return isInViewport(country);
     });
-    if (visibleCountries.length < MAX_COUNTRY_SUGGESTIONS && zoom.scale() > MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
+    if (zoom.scale() > MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
         // Lets start keyboard mode
         displayKeyboardModeMessage();
-        announcer.announce("Keyboard mode active! Type a number to select a country. Move around with arrow keys. Exit with ESC. Press 0 to hear the list of countries.")
+        // TODO: Find a way to only announce this once
+        if (!hasAnnounced) {
+            announcer.announce("Keyboard mode active! Type a number to select a country. Move around with arrow keys. Exit with ESC. Press 0 to hear the list of countries.")
+            hasAnnounced = true;
+        }
         // Hide controls, footer and legend
         document.getElementById("controls").classList.add("hidden");
         document.getElementById("legend").classList.add("hidden");
@@ -197,18 +202,22 @@ function getVisibleCountries(zoom) {
                 case 'ArrowUp':
                     t[1] += panStep;
                     getVisibleCountries(zoom);
+                    announcer.announce("Panning north", "assertive", 100)
                     break;
                 case 'ArrowDown':
                     t[1] -= panStep;
                     getVisibleCountries(zoom);
+                    announcer.announce("Panning south", "assertive", 100)
                     break;
                 case 'ArrowLeft':
                     t[0] += panStep;
                     getVisibleCountries(zoom);
+                    announcer.announce("Panning west", "assertive", 100)
                     break;
                 case 'ArrowRight':
                     t[0] -= panStep;
                     getVisibleCountries(zoom);
+                    announcer.announce("Panning east", "assertive", 100)
                     break;
                 case '+':
                 case '-':
@@ -227,11 +236,16 @@ function getVisibleCountries(zoom) {
                     // Update the scale
                     s = newScale;
                     getVisibleCountries(zoom);
+                    announcer.announce(`Zooming ${e.key === '+' ? 'in' : 'out'}`, "assertive", 100)
                     break;
                 case '0':
-                    console.log("window.innerHeight", window.innerHeight);
-                    console.log("window.innerWidth", window.innerWidth);
-                    console.log("List of countries", getCurrentlyVisibleCountries());
+                    // announce the list of countries
+                    let message = "List of countries: ";
+                    const countries = getCurrentlyVisibleCountries();
+                    countries.forEach((country) => {
+                        message += `${country.number}: ${country.name}, `;
+                    });
+                    announcer.announce(message, "assertive", 100);
                     break;
                 default:
                     return; // Exit if it's not an arrow key or zoom key
@@ -248,7 +262,6 @@ function getVisibleCountries(zoom) {
 
     keyboardMode.cleanup = function () {
         hideKeyboardModeMessage();
-        announcer.announce("Keyboard mode inactive.");
         d3.selectAll(".a11y-number").remove();
         d3.selectAll(".a11y-number-bg").remove();
         d3.selectAll(".a11y-country-name").remove();
