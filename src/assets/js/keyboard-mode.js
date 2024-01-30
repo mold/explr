@@ -1,6 +1,7 @@
 /* requires:
 aria-announcer.js
 search.js
+script.js
 */
 
 const keyboardMode = keyboardMode || {};
@@ -129,7 +130,7 @@ function getVisibleCountries(zoom) {
         displayKeyboardModeMessage();
         // TODO: Find a working way to only announce this once
         if (!hasAnnounced) {
-            announcer.announce("Keyboard mode active! Type a number to select a country. Move around with arrow keys. Exit by zooming out (minus key). Press 0 to hear the list of countries.")
+            announcer.announce("Keyboard mode active! Press 0 to hear the list of countries.")
             hasAnnounced = true;
         }
         // Hide controls, footer and legend
@@ -191,8 +192,11 @@ function getVisibleCountries(zoom) {
         // Set keyboard listeners for zoom and pan
         window.addEventListener('keydown', function(e) {
 
-            // Exit if the search is active
-            if (search.getSearchStatus()) {
+            const param = window.location.href.split("username=")[1];
+
+
+            // Exit if the search is active or there is no user yet
+            if (search.getSearchStatus() || !param ) {
                 return;
             }
 
@@ -201,10 +205,10 @@ function getVisibleCountries(zoom) {
             var s = zoom.scale();
 
             // Define the distance for each pan step
-            var panStep = 50;
+            var panStep = 100;
 
             // Define the factor for each zoom step
-            var zoomStep = 1.2;
+            var zoomStep = 1.25;
 
             // Get the center of the screen
             var center = [width / 2, height / 2];
