@@ -1,11 +1,13 @@
 /* requires:
 aria-announcer.js
+search.js
 */
 
 const keyboardMode = keyboardMode || {};
 
 const MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE = 7;
 const MAX_COUNTRY_SUGGESTIONS = 20;
+let KEYBOARD_MODE_ACTIVE = false;
 
 let visibleCountries = [];
 let keyBuffer = '';
@@ -118,6 +120,7 @@ function getVisibleCountries(zoom) {
     });
     if (zoom.scale() > MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
         // Lets start keyboard mode
+        KEYBOARD_MODE_ACTIVE = true;
         displayKeyboardModeMessage();
         // TODO: Find a working way to only announce this once
         if (!hasAnnounced) {
@@ -139,8 +142,6 @@ function getVisibleCountries(zoom) {
 
         var center = getPathCenter(country);
 
-        console.log()
-
         const number = visibleCountries.indexOf(country) + 1;
 
 
@@ -151,7 +152,6 @@ function getVisibleCountries(zoom) {
             .attr("cx", center.x) // position the circle
             .attr("cy", center.y) // position the circle
             .attr("r", "2") // radius of the circle
-            .attr("fill", "black");
     
         // Append a text for the number
         d3.select(country.parentElement).append("text")
@@ -159,7 +159,6 @@ function getVisibleCountries(zoom) {
             .attr("data-country-id", country.id)
             .attr("text-anchor", "middle")
             .attr("alignment-baseline", "middle")
-            .attr("fill", "white")
             .attr("x", center.x) // position the text
             .attr("y", center.y + 0.4) // position the text
             .text(number);
@@ -169,7 +168,6 @@ function getVisibleCountries(zoom) {
             .attr("class", "a11y-country-name")
             .attr("text-anchor", "middle")
             .attr("alignment-baseline", "middle")
-            .attr("fill", "black")
             .attr("font-size", "0.1rem")
             .attr("x", center.x) // position the text
             .attr("y", center.y + 4) // position the text below the number
@@ -186,6 +184,12 @@ function getVisibleCountries(zoom) {
 
         // Set keyboard listeners for zoom and pan
         window.addEventListener('keydown', function(e) {
+
+            // Exit if the search is active
+            if (search.getSearchStatus()) {
+                return;
+            }
+
             // Get the current translation and scale
             var t = zoom.translate();
             var s = zoom.scale();
@@ -199,8 +203,11 @@ function getVisibleCountries(zoom) {
             // Get the center of the screen
             var center = [width / 2, height / 2];
 
+            
+
             // Adjust the translation or scale based on the key pressed
             switch(e.key) {
+
                 case 'Escape':
                     if (map.centered !== null) {
                         map.dismissCenteredCountry();
@@ -287,6 +294,7 @@ function getVisibleCountries(zoom) {
 
     keyboardMode.cleanup = function () {
         hideKeyboardModeMessage();
+        KEYBOARD_MODE_ACTIVE = false;
         d3.selectAll(".a11y-number").remove();
         d3.selectAll(".a11y-number-bg").remove();
         d3.selectAll(".a11y-country-name").remove();
@@ -299,6 +307,12 @@ function getVisibleCountries(zoom) {
         document.querySelector(".no-countries").classList.remove("hidden");
         // remove keyboard listeners
         window.removeEventListener('keydown', handleNumberKeyPress);        
+    }
+
+    keyboardMode.isActive = KEYBOARD_MODE_ACTIVE;
+
+    keyboardMode.getStatus = function () {
+        return KEYBOARD_MODE_ACTIVE;
     }
 
 })();

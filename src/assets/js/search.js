@@ -54,7 +54,7 @@ let filteredShortcuts = [];
         return announcement;
       }
 
-    search.initSearch = function () {
+    search.initSearch = function () {  
 
     SEARCH_IS_OPEN = true;
 
@@ -472,7 +472,6 @@ let filteredShortcuts = [];
         }, 750);
     });
 
-    // Close the search when the user presses escape
     window.addEventListener("keydown", function (evt) {
         const inputElement = document.querySelector('.search');
 
@@ -569,7 +568,6 @@ let filteredShortcuts = [];
         if (evt.keyCode === 27 && SEARCH_IS_OPEN) {
             search.stopSearch();
         }
-
 
     });
 

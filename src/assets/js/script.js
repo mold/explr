@@ -4,6 +4,7 @@ api/lastfm.js
 utils.js
 search.js
 aria-announcer.js
+keyboard-mode.js
 */
 
 var script = script || {};
@@ -465,6 +466,9 @@ var countryCountObj = {};
         // Set up search button listener
         document.addEventListener('DOMContentLoaded', (event) => {
             document.getElementById('search-button').addEventListener('click', function() {
+                if (keyboardMode.isActive) {
+                    keyboardMode.cleanup();
+                }
                 // Set timeout needed to make sure the browser is ready to focus the search box
                 setTimeout(()=> { search.initSearch() }, 0) ;
             });
@@ -472,6 +476,10 @@ var countryCountObj = {};
 
         // set up keyboard shortcuts
         window.addEventListener("keydown", function (evt) {
+
+            if (keyboardMode.getStatus()) {
+                keyboardMode.cleanup();
+            }
 
             if ((evt.ctrlKey || evt.metaKey) && evt.keyCode === 70) {
                 

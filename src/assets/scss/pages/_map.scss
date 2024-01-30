@@ -324,9 +324,18 @@ div.colorChange {
 
 // Keyboard mode
 
+.a11y-country-name {
+    fill: var(--textPrimary);
+}
+.a11y-number-bg {
+    stroke: 1px solid var(--textPrimary);
+}
+
 .a11y-number {
     font-size: 0.1rem;
+    font-family: $heading-font-stack;
     fill: var(--backgroundPrimary);
+    width: 0.2rem;
 }
 
 #keyboard-mode-message {
