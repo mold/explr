@@ -12,7 +12,7 @@ let keyBuffer = '';
 let keyBufferTimer = null;
 let keyboardModeActive = false;
 
-const handleNumberCountryKeyPress = (e) => {
+const handleNumberKeyPress = (e) => {
     e.preventDefault();
     // Check if user has pressed a number key from 0 to 9
     if (e.key.match(/[0-9]/) && e.target.tagName !== "INPUT") {
@@ -95,11 +95,13 @@ function displayKeyboardModeMessage() {
     }
 
 function getPathCenter(path) {
-    var bbox = path.getBBox();
+    const y = parseFloat(path.getAttribute("data-center-y"));
+    const x = parseFloat(path.getAttribute("data-center-x"));
     return {
-        x: bbox.x + bbox.width / 2,
-        y: bbox.y + bbox.height / 2
+        x: -x,
+        y: -y
     };
+    
   }
 
 let hasAnnounced = false;
@@ -117,7 +119,7 @@ function getVisibleCountries(zoom) {
     if (zoom.scale() > MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
         // Lets start keyboard mode
         displayKeyboardModeMessage();
-        // TODO: Find a way to only announce this once
+        // TODO: Find a working way to only announce this once
         if (!hasAnnounced) {
             announcer.announce("Keyboard mode active! Type a number to select a country. Move around with arrow keys. Exit with ESC. Press 0 to hear the list of countries.")
             hasAnnounced = true;
@@ -133,9 +135,11 @@ function getVisibleCountries(zoom) {
       
         // display a number on the center of each country
       visibleCountries.forEach((country) => {
-        window.addEventListener('keydown', handleNumberCountryKeyPress);
+        window.addEventListener('keydown', handleNumberKeyPress);
 
         var center = getPathCenter(country);
+
+        console.log()
 
         const number = visibleCountries.indexOf(country) + 1;
 
@@ -198,6 +202,11 @@ function getVisibleCountries(zoom) {
             // Adjust the translation or scale based on the key pressed
             switch(e.key) {
                 case 'Escape':
+                    if (map.centered !== null) {
+                        map.dismissCenteredCountry();
+                        keyboardMode.cleanup();
+                        return
+                    }
                     // reset the zoom and translation
                     // Calculate the new scale
                     var newScale = 1;
@@ -263,6 +272,10 @@ function getVisibleCountries(zoom) {
                     return; // Exit if it's not an arrow key or zoom key
             }
 
+            if (map.centered !== null) {
+                map.dismissCenteredCountry();
+            }
+
             // Prevent the default action to stop scrolling
             e.preventDefault();
 
@@ -285,7 +298,7 @@ function getVisibleCountries(zoom) {
         document.getElementById("filter").classList.remove("hidden");
         document.querySelector(".no-countries").classList.remove("hidden");
         // remove keyboard listeners
-        window.removeEventListener('keydown', handleNumberCountryKeyPress);        
+        window.removeEventListener('keydown', handleNumberKeyPress);        
     }
 
 })();

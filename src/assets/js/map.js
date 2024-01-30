@@ -348,6 +348,12 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
         .attr("title", function(d, i) {
           return d.properties.name;
         })
+        .attr("data-center-x", function(d, i) {
+          return getCountryCenter(d).x;
+        })
+        .attr("data-center-y", function(d, i) {
+          return getCountryCenter(d).y;
+        })
         .style("fill", function() {
           return color(0);
         })
@@ -1060,6 +1066,12 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
     move([pt[0] + x * k, pt[1] + y * k], k, !prefersReducedMotion);
 
   }
+
+function dismissCenteredCountry() {
+  removeArtistDiv();
+  highlightCountry(false);
+  centered = null;
+}
 function getCountryCenter(countryTopoData) {
   let x, y;
   let b = path.bounds(countryTopoData);
@@ -1103,6 +1115,7 @@ function getCountryCenter(countryTopoData) {
   // Close the country div on escape
   window.addEventListener('keydown', function(evt) {
     if ((evt.key === 'Escape' || evt.keyCode === 27) && countryDivIsOpen) {
+      console.log("Escape pressed");
       removeArtistDiv();
       // zoom out map, fulhack
       clicked(centered);
@@ -1186,11 +1199,17 @@ function getCountryCenter(countryTopoData) {
     animateCountries(newArtistsByCountry);
   }
 
+  map.getCountryCenter = getCountryCenter;
+
   map.makeSummaryDiv = makeSummaryDiv;
 
   map.showArtists = showArtists;
 
   map.searchArtist = searchArtist;
+
+  map.centered = centered;
+
+  map.dismissCenteredCountry = dismissCenteredCountry;
 
   map.toggleFilter = function() {
     filter = filter === "artists" ? "scrobbles" : "artists";
