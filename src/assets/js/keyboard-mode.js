@@ -4,7 +4,7 @@ aria-announcer.js
 
 const keyboardMode = keyboardMode || {};
 
-const MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE = 9;
+const MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE = 7;
 const MAX_COUNTRY_SUGGESTIONS = 20;
 
 let visibleCountries = [];
@@ -198,6 +198,18 @@ function getVisibleCountries(zoom) {
             // Adjust the translation or scale based on the key pressed
             switch(e.key) {
                 case 'Escape':
+                    // reset the zoom and translation
+                    // Calculate the new scale
+                    var newScale = 1;
+
+                    // Calculate the new translation to keep the center fixed
+                    t[0] = center[0] + (t[0] - center[0]) * newScale / s;
+                    t[1] = center[1] + (t[1] - center[1]) * newScale / s;
+
+                    // Update the scale
+                    s = newScale;
+                    keyboardMode.cleanup();
+                    break;
                     
                 case 'ArrowUp':
                     t[1] += panStep;
@@ -224,7 +236,7 @@ function getVisibleCountries(zoom) {
                     // Calculate the new scale
                     var newScale = e.key === '+' ? s * zoomStep : s / zoomStep;
 
-                    // If the new scale exceeds the maximum scale, return early
+                    // If the new scale exceeds the maximum scale, clamp
                     if (newScale > MAX_ZOOM) {
                     newScale = MAX_ZOOM;
                     }
@@ -246,7 +258,7 @@ function getVisibleCountries(zoom) {
                         message += `${country.number}: ${country.name}, `;
                     });
                     announcer.announce(message, "assertive", 100);
-                    break;
+                    return;
                 default:
                     return; // Exit if it's not an arrow key or zoom key
             }
