@@ -19,6 +19,11 @@ const handleLetterKeyPress = (e) => {
 
     // Check if user has pressed a letter key from A to Z
     if (e.key.match(/[a-zA-Z]/) && e.target.tagName !== "INPUT") {
+
+        // Check if it's a single key press with no modifier keys
+        if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
+            return;
+        }
         // Convert the key to uppercase
         const key = e.key.toUpperCase();
 

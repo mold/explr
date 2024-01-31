@@ -481,7 +481,8 @@ var countryCountObj = {};
         // set up keyboard shortcuts
         window.addEventListener("keydown", function (evt) {
 
-            if ((evt.ctrlKey || evt.metaKey) && evt.keyCode === 70 && !evt.shiftKey) {                
+            if ((evt.ctrlKey || evt.metaKey) && evt.keyCode === 70 && !evt.shiftKey && !keyboardMode.getStatus()) { 
+                console.log(keyboardMode.getStatus());               
                 // Prevent the browser's default "ctrl + f" or "cmd + f" action (usually "Find")
                 evt.preventDefault();
 
