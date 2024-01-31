@@ -5,6 +5,10 @@
 #map-container {
     height: 100%;
     overflow: hidden;
+    svg:focus-visible {
+        outline: 4px solid var(--focus);
+        outline-offset: -4px;
+    } 
 }
 
 /* ==========================================================================
@@ -320,4 +324,49 @@ div.colorChange {
     position: absolute;
     top: 20px;
     left: 20px;
+}
+
+// Keyboard mode
+
+.a11y-country-name {
+    fill: var(--textPrimary);
+}
+.a11y-number-bg {
+    stroke: 1px solid var(--textPrimary);
+}
+
+.a11y-number {
+    font-size: 0.1rem;
+    font-family: $heading-font-stack;
+    fill: var(--backgroundPrimary);
+    width: 0.2rem;
+}
+
+#keyboard-mode-message {
+    position: absolute;
+    width: 400px;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--backgroundSecondary);
+    color: var(--textPriary);
+    border-radius: 20px;
+    padding: 8px;
+    text-align: center;
+    border: 6px solid var(--themeColorDark);
+
+    p {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 0.25rem;
+        font-size: 1.2rem;
+        text-transform: none;
+        font-family: $heading-font-stack;
+    }
+
+
 }

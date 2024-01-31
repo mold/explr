@@ -54,7 +54,7 @@ let filteredShortcuts = [];
         return announcement;
       }
 
-    search.initSearch = function () {
+    search.initSearch = function () {  
 
     SEARCH_IS_OPEN = true;
 
@@ -472,7 +472,6 @@ let filteredShortcuts = [];
         }, 750);
     });
 
-    // Close the search when the user presses escape
     window.addEventListener("keydown", function (evt) {
         const inputElement = document.querySelector('.search');
 
@@ -563,13 +562,22 @@ let filteredShortcuts = [];
                     currentActiveElement.dispatchEvent(new Event('click'));
                 }
             }
+            else {
+                console.log('no active descendant');
+                // Select the first visible option
+                const firstVisibleOption = document.querySelector('.result-wrapper');
+                // If the first visible option exists
+                if (firstVisibleOption) {
+                    // Trigger a click event on the first visible option
+                    firstVisibleOption.dispatchEvent(new Event('click'));
+                }
+            }
         }
         
         // If escape, close the search
         if (evt.keyCode === 27 && SEARCH_IS_OPEN) {
             search.stopSearch();
         }
-
 
     });
 
