@@ -4,6 +4,7 @@ api/lastfm.js
 utils.js
 search.js
 aria-announcer.js
+no-countries.js
 keyboard-mode.js
 */
 
@@ -11,6 +12,7 @@ var script = script || {};
 let loadingReady = false;
 let loadingStatus = loadingReady ? "Ready to Explr!" : "Loading...";
 let announcementIntervalId;
+let noCountryArtistSortMethod = "scrobbles";
 
 
 var STORED_ARTISTS;
@@ -47,34 +49,6 @@ var countryCountObj = {};
     var count = 0;
     var tries = 0;
     var randomcountrylist = ["Malawi", "Malaysia", "Peru", "Sierra Leone", "Trinidad & Tobago", "Greece", "Laos", "Iran", "Haiti", "Nicaragua", "Mongolia", "Slovakia"];
-    var listOfArtistsWithNoCountry = [];
-
-    /**
-     * adds artists with no country to the array of artists with
-     * no country :)
-     * 
-     * @param {*} data Response from api.getCountries; array of
-     * artists that may or may not have country
-     */
-    var addArtistsWithNoCountry = function (data) {
-        listOfArtistsWithNoCountry = listOfArtistsWithNoCountry.concat(data);
-
-        var noCountriesListEl = d3.select(".no-countries ul");
-        data.forEach(function (_art) {
-            noCountriesListEl.append("li").html('<a href="' + _art.url + '" target="blank" class="no-countries__link">' + _art.artist + '</a>');
-        })
-
-        d3.select(".no-countries__info").html(listOfArtistsWithNoCountry.length + " artists without a country:");
-
-        saveToStorage("no_countries", listOfArtistsWithNoCountry);
-
-        if (listOfArtistsWithNoCountry.length) {
-            d3.select(".no-countries").style({
-                visibility: "visible",
-                "pointer-events": "all",
-            });
-        }
-    }
 
     var getAllArtists = function () {
         // console.log("get artists")
@@ -177,7 +151,7 @@ var countryCountObj = {};
                         countryCountObj[id][user] = artistsFromCountry;
                     })
 
-                    addArtistsWithNoCountry(data.filter((artist) => !artist.id));
+                    noCountries.addArtistsWithNoCountry(data.filter((artist) => !artist.id));
 
                     map.addArtists(newArtistCountries);
 
@@ -403,7 +377,7 @@ var countryCountObj = {};
             countryCountObj = JSON.parse(window.localStorage.countryCountObj);
 
             localforage.getItem("no_countries", function (err, val) {
-                addArtistsWithNoCountry(val || []);
+                noCountries.addArtistsWithNoCountry(val || []);
             });
 
             // Get number of artists for screenshot etc.
