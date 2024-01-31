@@ -5,6 +5,7 @@ utils.js
 search.js
 aria-announcer.js
 no-countries.js
+keyboard-mode.js
 */
 
 var script = script || {};
@@ -281,6 +282,7 @@ var countryCountObj = {};
     var begin = function () {
         //Send analytics event
         ga('send', 'event', 'splash screen', 'Go!', 'test');
+        document.getElementById("map-label").innerHTML = `${user}'s world map`;
         // fade out username input box
         var welcomeOverlay = d3.select("#welcome-container");
         welcomeOverlay.transition().duration(2000)
@@ -314,6 +316,9 @@ var countryCountObj = {};
                 }, 8000);
             }
         }, 8000);
+
+        // Show hidden screen reader help text
+        document.getElementById("a11y-map-info").classList.remove("hidden");
 
         // Fade in legend, progress-bar etc
         d3.selectAll(".on-map-view").style({
@@ -410,6 +415,9 @@ var countryCountObj = {};
         // Screen reader status update
         clearInterval(announcementIntervalId);
         announcer.announce("All artists are loaded!");
+        const map = document.querySelector("#map-container svg")
+        const existingAriaLabelledBy = map.getAttribute("aria-labelledby");
+        map.setAttribute("aria-labelledby", `${existingAriaLabelledBy} progress-text`);
 
         // We're done, fade out loader
         var loader = d3.select(".loader");
@@ -447,8 +455,8 @@ var countryCountObj = {};
         // set up keyboard shortcuts
         window.addEventListener("keydown", function (evt) {
 
-            if ((evt.ctrlKey || evt.metaKey) && evt.keyCode === 70) {
-                
+            if ((evt.ctrlKey || evt.metaKey) && evt.keyCode === 70 && !evt.shiftKey && !keyboardMode.getStatus()) { 
+                console.log(keyboardMode.getStatus());               
                 // Prevent the browser's default "ctrl + f" or "cmd + f" action (usually "Find")
                 evt.preventDefault();
 
@@ -456,8 +464,8 @@ var countryCountObj = {};
                 search.initSearch();
                 
             }
-            // Supress hotkeys if search is open 
-            if (search.getSearchStatus()) {
+            // Supress hotkeys if search or keyboard mode is open 
+            if (search.getSearchStatus() || keyboardMode.getStatus()) {
                 return;
             };
             switch (evt.keyCode) {

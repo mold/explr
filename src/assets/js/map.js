@@ -3,8 +3,8 @@ api/api.js
 api/lastfm.js
 script.js
 aria-announcer.js
+keyboard-mode.js
 */
-
 var map = {};
 //White theme default:
 var colorArray = ["#feebe2", "#feebe2", "#fcc5c0", "#fa9fb5", "#f768a1", "#dd3497", "#ae017e", "#7a0177"];
@@ -13,6 +13,8 @@ var countryScore = 0;
 let currentPage = 1;
 let itemsPerPage = 5;
 let artists = []; // Your artists data goes here
+let currentZoom = 1;
+const MAX_ZOOM = 25;
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -23,7 +25,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
   var filter = "artists"; // filter by artists or plays
 
   var zoom = d3.behavior.zoom()
-    .scaleExtent([1, 9])
+    .scaleExtent([1, MAX_ZOOM])
     .on("zoom", move);
 
 
@@ -43,6 +45,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
   //Setting color and range to be used
   var color;
+
 
   // Set theme
   const defaultTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "blue_black" : "pink_white";
@@ -266,6 +269,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
   updateScale();
   updateDimensions();
   setup(width, height);
+  keyboardMode.init(zoom, move, width, height, MAX_ZOOM);
 
   function setup(width, height) {
     projection = d3.geo.naturalEarth()
@@ -274,11 +278,13 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
     path = d3.geo.path().projection(projection);
 
-    svg = d3.select("#map-container").append("svg")
+    svg = d3.select("#map-container")
+      .attr("role", "application")
+      .append("svg")
       .attr("role", "img")
-      .attr("tabindex", "-1")
-      .attr("aria-labelledby", "map-label progress-text")
-      .attr("aria-describedby", "map-hint")
+      .attr("tabindex", "0")
+      .attr("aria-labelledby", "map-label")
+      // .attr("aria-describedby", "map-hint")
       .attr("id", "map-svg")
       .attr("width", width)
       .attr("height", height)
@@ -343,6 +349,12 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
         })
         .attr("title", function(d, i) {
           return d.properties.name;
+        })
+        .attr("data-center-x", function(d, i) {
+          return getCountryCenter(d).x;
+        })
+        .attr("data-center-y", function(d, i) {
+          return getCountryCenter(d).y;
         })
         .style("fill", function() {
           return color(0);
@@ -451,8 +463,15 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
    * @param  {Array} tr      Optional: Translation tuple [x, y]
    * @param  {Number} sc      Optional: Scale factor
    * @param  {Boolean} animate Optional: Decides whether to animate the map movement
+   * @param  {Boolean} withKeyboard If the move was initiated by the keyboard
    */
-  function move(tr, sc, animate) {
+  function move(tr, sc, animate, withKeyboard) {
+
+    // If move was not initiated by the keyboard, remove the keyboard mode
+    if (!withKeyboard) {
+      keyboardMode.cleanup();
+    }
+    
     var t = tr || (d3.event ? d3.event.translate : false) || zoom.translate();
     var s = sc || (d3.event ? d3.event.scale : false) || zoom.scale();
 
@@ -961,6 +980,8 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 
   function clicked(d) { //d är det en har klickat på
 
+    keyboardMode.cleanup();
+
     var x, y, k;
     //bounding box for clicked country
     var b = path.bounds(d);
@@ -1047,6 +1068,12 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
     move([pt[0] + x * k, pt[1] + y * k], k, !prefersReducedMotion);
 
   }
+
+function dismissCenteredCountry() {
+  removeArtistDiv();
+  highlightCountry(false);
+  centered = null;
+}
 function getCountryCenter(countryTopoData) {
   let x, y;
   let b = path.bounds(countryTopoData);
@@ -1090,6 +1117,7 @@ function getCountryCenter(countryTopoData) {
   // Close the country div on escape
   window.addEventListener('keydown', function(evt) {
     if ((evt.key === 'Escape' || evt.keyCode === 27) && countryDivIsOpen) {
+      console.log("Escape pressed");
       removeArtistDiv();
       // zoom out map, fulhack
       clicked(centered);
@@ -1173,11 +1201,17 @@ function getCountryCenter(countryTopoData) {
     animateCountries(newArtistsByCountry);
   }
 
+  map.getCountryCenter = getCountryCenter;
+
   map.makeSummaryDiv = makeSummaryDiv;
 
   map.showArtists = showArtists;
 
   map.searchArtist = searchArtist;
+
+  map.centered = centered;
+
+  map.dismissCenteredCountry = dismissCenteredCountry;
 
   map.toggleFilter = function() {
     filter = filter === "artists" ? "scrobbles" : "artists";
