@@ -279,89 +279,102 @@ div.colorChange {
     }
 }
 
-dialog[open] {
-    background-color: var(--backgroundSecondary);
-    border: 2px solid var(--border);
-    border-radius: 8px;
-    margin: auto;
-    padding: 2rem 3rem;
-    max-height: 80%;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 2rem 3rem;
-    overflow: scroll;
-    max-width: 35rem;
+dialog {
+    animation: fadein 0.5s;
+    opacity: 0;
+    @keyframes fadein {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+    &[open] {
+        opacity: 1;
+        background-color: var(--backgroundSecondary);
+        border: 2px solid var(--borderSecondary);
+        border-radius: 8px;
+        margin: auto;
+        max-height: 80%;
+        position: fixed;
+        padding: 1rem 2rem;
+        overflow: scroll;
+        max-width: 30rem;
 
-    button.close {
-        position: absolute;
-        font-size: 24px;
-        top: 0;
-        right: 0;
-        width: 48px;
-        height: 48px;
-        border-radius: 100%;
-        color: var(--textPrimary);
-        margin: 1rem;
-        appearance: none;
-        border: none;
-        background: none;
-        padding: 0;
-        cursor: pointer;
-        &:hover {
-            transform: scale(1.2);
-            filter: brightness(1.1)
+        &::backdrop {
+            background-color: rgba(255,255,255,0.4);
+            .dark & {
+                background-color: rgba(0,0,0,0.7);
+            }
         }
-    }
-    h1 {
-        text-transform: none;
-        font-size: 2rem;
-    }
-    ul {
-        padding: 0;
-        margin: 0;
-        line-height: 1.1em;
-    }
 
-    li {
-        list-style: none;
-        padding-bottom: 0.5em;
-        border-top: 1px solid var(--borderSecondary);
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 6px 0;
-        gap: 12px;
-        label {
-            width: 100%;
+        button.close {
+            position: absolute;
+            font-size: 24px;
+            top: 0;
+            right: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 100%;
+            color: var(--backgroundPrimary);
+            margin: 1rem;
+            appearance: none;
+            border: none;
+            background: none;
+            padding: 0;
+            cursor: pointer;
+            background-color: var(--textPrimary);
+            &:hover {
+                transform: scale(1.1);
+                filter: brightness(1.1)
+            }
+        }
+        h1 {
+            text-transform: none;
+            font-size: 2rem;
+        }
+        ul {
+            padding: 0;
+            margin: 0;
+            line-height: 1.1em;
+        }
+
+        li {
+            list-style: none;
+            padding-bottom: 0.5em;
+            border-top: 1px solid var(--borderSecondary);
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            padding: 6px 0;
+            gap: 12px;
+            label {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            span {
+                opacity: 0.54;
+            }
+            &:first-of-type {
+                border-top: none;
+            }
+            &:last-of-type {
+                // border-bottom: 1px solid var(--borderSecondary);
+            }
         }
-        span {
-            opacity: 0.54;
+        fieldset {
+            margin-bottom: 2rem;
+            display: flex;
+            width: fit-content;
+            gap: 8px;
+            border-color: var(--border);
+            legend {
+                // font-family: $heading-font-stack;
+            }
+            label {
+                margin-right: 1rem;
+            }
         }
-        &:first-of-type {
-            border-top: none;
-        }
-        &:last-of-type {
-            // border-bottom: 1px solid var(--borderSecondary);
-        }
-    }
-    fieldset {
-        margin-bottom: 2rem;
-        display: flex;
-        width: fit-content;
-        gap: 8px;
-        border-color: var(--border);
-        legend {
-            // font-family: $heading-font-stack;
-        }
-        label {
-            margin-right: 1rem;
-        }
-    }
+}
 }
 
 .artist-test{

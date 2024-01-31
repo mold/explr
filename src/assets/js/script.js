@@ -66,11 +66,14 @@ var countryCountObj = {};
             let artistsState = JSON.parse(localStorage.getItem('noCountryArtistsProgress')) || {};
             artistsState[artistName] = { artistName, checked };
             localStorage.setItem('noCountryArtistsProgress', JSON.stringify(artistsState));
+            // If you just checked and the filter is on, remove the artist from the DOM
+            if (checked && document.querySelector("#hide-checked")?.checked) {
+                this.parentNode.style.display = 'none';
+            }
             // get the label element for the filter checked checkbox
             let filterCheckedLabel = document.querySelector("label[for='hide-checked']");
             // Update the label to include the number of checked artists
             filterCheckedLabel.innerHTML = `Hide checked artists (${document.querySelectorAll("dialog[open] ul li input[type='checkbox']:checked").length})`;
-            
         }
 
         
@@ -132,7 +135,7 @@ var countryCountObj = {};
     
         document.querySelector(".no-countries__title").addEventListener("click", function () {
             const dialog = document.querySelector(".no-countries__content");
-            dialog.setAttribute("open", "open");
+            dialog.showModal();
     
             document.querySelector("#no-countries__heading").focus();
 
@@ -144,7 +147,7 @@ var countryCountObj = {};
             document.addEventListener("keydown", function (e) {
                 if (e.keyCode == 27) {
                     const dialog = document.querySelector(".no-countries__content");
-                    dialog.removeAttribute("open");
+                    dialog.close();
                     document.querySelector(".no-countries__title").focus();
                 }
             });
@@ -152,7 +155,7 @@ var countryCountObj = {};
     
         document.querySelector(".no-countries__content .close").addEventListener("click", function () {
             const dialog = document.querySelector(".no-countries__content");
-            dialog.removeAttribute("open");
+            dialog.close();
             document.querySelector(".no-countries__title").focus();
         });
     

@@ -9,6 +9,9 @@ body {
     --backgroundPrimary: #fff;
     --backgroundSecondary: #fafafa;
     --backgroundTertiary: rgba(180, 225, 225, 0.5);
+    --welcomeBackground: rgba(255, 200, 200, 0.4);
+    --welcomeMessageBackground: rgba(255, 255, 255, 0.6);
+    --welcomeMessageBorder: rgba(255, 255, 255, 1);
     --backgroundInput: rgba(249, 249, 249, 0.94);
     --buttonBackground: #949494;
     --textPrimary: #222;
@@ -30,6 +33,9 @@ body.dark {
     --backgroundSecondary: rgba(20, 20, 20);
     --backgroundTertiary: rgba(0, 0, 0, 0.6);
     --backgroundInput: rgba(20, 20, 20, 0.94);
+    --welcomeBackground: rgba(0,55,55,.5);
+    --welcomeMessageBackground: rgba(0,0,0,.6);
+    --welcomeMessageBorder: rgba(0, 0, 0, 1);
     --buttonBackground: #202020;
     --textPrimary: #fff;
     --textSecondary: rgba(255, 255, 255, 0.8);
