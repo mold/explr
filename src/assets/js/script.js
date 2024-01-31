@@ -439,7 +439,6 @@ var countryCountObj = {};
         clearInterval(announcementIntervalId);
         announcer.announce("All artists are loaded!");
         const map = document.querySelector("#map-container svg")
-        console.log("update aria-labelledby");
         const existingAriaLabelledBy = map.getAttribute("aria-labelledby");
         map.setAttribute("aria-labelledby", `${existingAriaLabelledBy} progress-text`);
 
@@ -479,8 +478,7 @@ var countryCountObj = {};
         // set up keyboard shortcuts
         window.addEventListener("keydown", function (evt) {
 
-            if ((evt.ctrlKey || evt.metaKey) && evt.keyCode === 70) {
-                
+            if ((evt.ctrlKey || evt.metaKey) && evt.keyCode === 70 && !evt.shiftKey) {                
                 // Prevent the browser's default "ctrl + f" or "cmd + f" action (usually "Find")
                 evt.preventDefault();
 

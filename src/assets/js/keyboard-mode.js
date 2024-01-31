@@ -15,7 +15,6 @@ let keyBufferTimer = null;
 let keyboardModeActive = false;
 
 const handleNumberKeyPress = (e) => {
-    console.log("key pressed");
     // Check if user has pressed a number key from 0 to 9
     if (e.key.match(/[0-9]/) && e.target.tagName !== "INPUT") {
         // Add the key to the buffer
@@ -129,7 +128,7 @@ function getVisibleCountries(zoom) {
         displayKeyboardModeMessage();
         // TODO: Find a working way to only announce this once
         if (!hasAnnounced) {
-            announcer.announce("Keyboard mode active! Press 0 to hear the list of countries.")
+            announcer.announce("Keyboard mode active! Press L to hear the list of countries.")
             hasAnnounced = true;
         }
         // Hide controls, footer and legend
@@ -143,7 +142,6 @@ function getVisibleCountries(zoom) {
       
         // display a number on the center of each country
       visibleCountries.forEach((country) => {
-        console.log("visible country");
         window.addEventListener('keydown', handleNumberKeyPress);
 
         var center = getPathCenter(country);
@@ -273,9 +271,14 @@ function getVisibleCountries(zoom) {
                     // Update the scale
                     s = newScale;
                     getVisibleCountries(zoom);
-                    announcer.announce(`Zoom level ${parseInt(newScale)}`, "assertive", 100)
+                    announcer.announce(`Zoom ${e.key === '+' ? "in" : "out"} level ${parseInt(newScale)}`, "assertive", 100)
                     break;
-                case '0':
+                case 'h':
+                    // Help for screen reader users. Read out the contents of #a11y-info-text
+                    announcer.announce(document.getElementById("a11y-info-text").textContent, "polite");
+                    console.log(document.getElementById("a11y-info-text").textContent); 
+                    break;
+                case 'l':
                     if (!KEYBOARD_MODE_ACTIVE) {
                         announcer.announce("Keyboard mode is not active right now. Zoom in to at least level 7 to activate.", "assertive", 100);
                         return;
@@ -287,7 +290,8 @@ function getVisibleCountries(zoom) {
                         message += `${country.number}: ${country.name}, `;
                     });
                     announcer.announce(message, "assertive", 100);
-                    return;
+                    console.log(message);
+                    break;
                 default:
                     return; // Exit if it's not an arrow key or zoom key
             }

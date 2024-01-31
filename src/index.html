@@ -144,13 +144,15 @@
 							<dd>Zoom in</dd>
 							<dt><kbd>MINUS</kbd></dt>
 							<dd>Zoom out</dd>
-							<dt><kbd>Number 0</kbd></dt>
+							<dt><kbd>L</kbd></dt>
 							<dd>Read out all visible countries (for screen readers)</dd>
 							<dt><kbd>Numbers 1-9</kbd></dt>
 							<dd>Choose a country</dd>
+							<dt><kbd>H</kbd></dt>
+							<dd>Read out help (for screen readers)</dd>
 						</dl>
 						<h2>Other accessibility features</h2>
-						<h3>Reduced animations</h3>
+						<em>Reduced animations</em>
 						<p>By default, the map is animated when zooming into and out of countries. If you do not want this, you can set a system-level accessibility setting on Mac or Windows to reduce animations. Explr.fm will respect this setting.</p>
 						<h2>Did you find an accessibility bug or something that didn't work quite right?</h2>
 						<p>Send an e-mail to Tommy (<a href="mailto:tommy.feldt@useit.se">tommy.feldt@useit.se</a>) and he will be happy to fix it!</p>
@@ -189,16 +191,19 @@
 			<div id="map-container"></div>
 			<div class="visually-hidden" role="region" aria-labelledby="a11y-info-heading">
 				<h2 id="a11y-info-heading">Accessibility information for screen reader users:</h2>
-				<p>There are two ways to navigate the map. </p>
-				<ul>
-					<li>
-						<p><strong>Search: </strong>You can search directly for a country or an artist with the shortcut CTRL + F.</p>
-					</li>
-					<li>
-						<p><strong>Explore:</strong> You can pan and zoom the map with the arrows and plus and minus keys. When you zoom in far enough, you can list all visible countries by pressing 0. Then select a country by pressing the listed number key. For instance, pressing "9" for Sweden.</p>
-						<p>You may need to activate forms mode.</p>
-					</li>
-				</ul>
+				<div id="a11y-info-text">
+					<p>There are two ways to navigate the map. </p>
+					<ul>
+						<li>
+							<p>You can search directly for a country or an artist with the shortcut CTRL + F.</p>
+						</li>
+						<li>
+							<p>Or you can pan and zoom the map with the arrows and plus and minus keys. When you zoom in far enough, you can list all visible countries by pressing L. Then select a country by pressing the listed number key. For instance, pressing "9" for Sweden.</p>
+							<p>You may need to activate forms mode.</p>
+						</li>
+					</ul>
+				</div>
+				
 			</div>
 			<div id="keyboard-mode-message" class="hidden"></div>
 			<div class="loader no-select" role="region" aria-label="Explr.fm status">
