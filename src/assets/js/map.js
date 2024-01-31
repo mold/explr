@@ -1014,13 +1014,13 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
           break;
         case 250: //France
           k = 7.012;
-          x = -(b[1][0] + b[0][0]) / 1.8;
-          y = -(b[1][1] + b[0][1]) / 3.4;
+          x = -(b[1][0] + b[0][0]) / 1.85;
+          y = -(b[1][1] + b[0][1]) / 3;
           break;
         case 528: //Netherlands
-          k = 9.0124;
-          x = -(b[1][0] + b[0][0]) / 1.5;
-          y = -(b[1][1] + b[0][1]) / 3.3;
+          k = 12.0124;
+          x = -(b[1][0] + b[0][0]) / 1.56;
+          y = -(b[1][1] + b[0][1]) / 2.7;
           break;
         case 643: //Russia
           k = 1.9;
