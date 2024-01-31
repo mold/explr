@@ -130,30 +130,30 @@
 						
 						<h2>List of keyboard commands</h2>
 						<dl>
-							<dt><kbd>CTRL + F</kbd></dt>
+							<dt><kbd>CTRL</kbd>+<kbd>F</kbd></dt>
 							<dd>Open search</dd>
 							<dt><kbd>ESC</kbd></dt>
 							<dd>Close search or country view</dd>
 							<dt><kbd>ENTER</kbd></dt>
 							<dd>Activate search result</dd>
-							<dt><kbd>UP/DOWN arrow</kbd></dt>
+							<dt><kbd>&#8593;</kbd><kbd>&#8595;</kbd> arrows</dt>
 							<dd>Navigate search results, or pan the map north/south</dd>
-							<dt><kbd>LEFT/RIGHT arrow</kbd></dt>
+							<dt><kbd>&#8592;</kbd><kbd>&#8594;</kbd> arrows</dt>
 							<dd>Pan the map east/west</dd>
-							<dt><kbd>PLUS</kbd></dt>
+							<dt><kbd>+</kbd></dt>
 							<dd>Zoom in</dd>
-							<dt><kbd>MINUS</kbd></dt>
+							<dt><kbd>-</kbd></dt>
 							<dd>Zoom out</dd>
 							<dt><kbd>L</kbd></dt>
 							<dd>Read out all visible countries (for screen readers)</dd>
-							<dt><kbd>Numbers 1-9</kbd></dt>
+							<dt>Numbers <kbd>1</kbd> to <kbd>9</kbd></dt>
 							<dd>Choose a country</dd>
 							<dt><kbd>H</kbd></dt>
 							<dd>Read out help (for screen readers)</dd>
 						</dl>
 						<h2>Other accessibility features</h2>
 						<em>Reduced animations</em>
-						<p>By default, the map is animated when zooming into and out of countries. If you do not want this, you can set a system-level accessibility setting on Mac or Windows to reduce animations. Explr.fm will respect this setting.</p>
+						<p>By default, the map is animated when zooming into and out of countries. If you do not want this, you can set a system-level accessibility setting on Mac or Windows to reduce animations.</p>
 						<h2>Did you find an accessibility bug or something that didn't work quite right?</h2>
 						<p>Send an e-mail to Tommy (<a href="mailto:tommy.feldt@useit.se">tommy.feldt@useit.se</a>) and he will be happy to fix it!</p>
 					</div>
@@ -189,7 +189,7 @@
 				</div>
 			</div>
 			<div id="map-container"></div>
-			<div class="visually-hidden" role="region" aria-labelledby="a11y-info-heading">
+			<div id="a11y-map-info" class="visually-hidden hidden" role="region" aria-labelledby="a11y-info-heading">
 				<h2 id="a11y-info-heading">Accessibility information for screen reader users:</h2>
 				<div id="a11y-info-text">
 					<p>There are two ways to navigate the map. </p>

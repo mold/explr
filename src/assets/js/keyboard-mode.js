@@ -90,7 +90,7 @@ function displayKeyboardModeMessage() {
     const message = document.getElementById("keyboard-mode-message");
     message.classList.remove("hidden");
     const innerMessage = document.createElement("div");
-    innerMessage.innerHTML = "<h2>Keyboard mode active! <span class='fa fa-keyboard'></span> </h2><p>Type a <kbd>number</kbd> to select a country.<p><p>Move around with <kbd>arrow</kbd> keys.</p><p>Exit by zooming out with <kbd>minus</kbd> key. </p>";
+    innerMessage.innerHTML = "<h2>Keyboard mode active! <span class='fa fa-keyboard'></span> </h2><p>Type a <kbd>number</kbd> to select a country.<p><p>Move around with <kbd>&#8592;</kbd><kbd>&#8594;</kbd><kbd>&#8593;</kbd><kbd>&#8595;</kbd> keys.</p><p>Exit by zooming out with <kbd>-</kbd> key. </p>";
     message.appendChild(innerMessage);
   }
 
@@ -151,11 +151,14 @@ function getVisibleCountries(zoom) {
 
     
         // Append a circle
-        d3.select(country.parentElement).append("circle")
+        d3.select(country.parentElement).append("rect")
             .attr("class", "a11y-number-bg")
-            .attr("cx", center.x) // position the circle
-            .attr("cy", center.y) // position the circle
-            .attr("r", "2") // radius of the circle
+            .attr("x", center.x - 1.5) // position the rectangle
+            .attr("y", center.y - 1.5) // position the rectangle
+            .attr("width", 3) // width of the rectangle
+            .attr("height", 3) // height of the rectangle
+            .attr("rx", 0.5) // horizontal corner radius
+            .attr("ry", 0.5); // vertical corner radius
     
         // Append a text for the number
         d3.select(country.parentElement).append("text")
@@ -164,7 +167,7 @@ function getVisibleCountries(zoom) {
             .attr("text-anchor", "middle")
             .attr("alignment-baseline", "middle")
             .attr("x", center.x) // position the text
-            .attr("y", center.y + 0.4) // position the text
+            .attr("y", center.y + 0.2) // position the text
             .text(number);
     
         // Append a text for the country name

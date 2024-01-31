@@ -343,6 +343,9 @@ var countryCountObj = {};
             }
         }, 8000);
 
+        // Show hidden screen reader help text
+        document.getElementById("a11y-map-info").classList.remove("hidden");
+
         // Fade in legend, progress-bar etc
         d3.selectAll(".on-map-view").style({
             "visibility": "visible",

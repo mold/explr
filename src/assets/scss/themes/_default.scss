@@ -114,6 +114,24 @@ a, a:visited, a:active {
     color: var(--textTertiary)
  }
 
+ /*
+* Keyboard key styling
+*/
+kbd {
+    font-size: 0.9rem;
+    padding: 2px 4px;
+    font-size: 0.85em;
+    color: #555;
+    background-color: #fcfcfc;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #ffffff inset;
+    white-space: nowrap;
+    kbd+& {
+        margin-left: 4px;
+    }
+}
+
 
 /*
  * Tooltip
