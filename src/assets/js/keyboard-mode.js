@@ -38,6 +38,13 @@ const handleLetterKeyPress = (e) => {
                     document.querySelector('#cnameCont h1').setAttribute("tabindex", "-1");
                     document.querySelector('#cnameCont h1').focus();
                 }, 250);
+
+                ga('send', {
+                    hitType: 'event',
+                    eventCategory: 'Keyboard',
+                    eventAction: 'Opened country',
+                    eventLabel: 'test'
+                });
             }
         }
     }
@@ -114,7 +121,7 @@ function getVisibleCountries(zoom) {
         // Get the bounding box of the current country
         return isInViewport(country);
     });
-    if (zoom.scale() > MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
+    if (zoom.scale() >= MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
         // Lets start keyboard mode
         KEYBOARD_MODE_ACTIVE = true;
         displayKeyboardModeMessage();
@@ -225,28 +232,68 @@ function getVisibleCountries(zoom) {
 
                     // Update the scale
                     s = newScale;
+                    e.preventDefault();
+                    move(t, s, false, true);
                     keyboardMode.cleanup();
+                    ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'Keyboard',
+                        eventAction: 'Escape key',
+                        eventLabel: 'test'
+                    });
                     break;
                     
                 case 'ArrowUp':
                     t[1] += panStep;
+                    e.preventDefault();
+                    move(t, s, false, true);
                     getVisibleCountries(zoom);
                     announcer.announce("Panning north", "assertive", 100)
+                    ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'Keyboard',
+                        eventAction: 'ArrowUp key',
+                        eventLabel: 'test'
+                    });
                     break;
                 case 'ArrowDown':
                     t[1] -= panStep;
+                    e.preventDefault();
+                    move(t, s, false, true);
                     getVisibleCountries(zoom);
                     announcer.announce("Panning south", "assertive", 100)
+                    ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'Keyboard',
+                        eventAction: 'ArrowDown key',
+                        eventLabel: 'test'
+                    });
                     break;
                 case 'ArrowLeft':
                     t[0] += panStep;
+                    e.preventDefault();
+                    move(t, s, false, true);
                     getVisibleCountries(zoom);
                     announcer.announce("Panning west", "assertive", 100)
+                    ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'Keyboard',
+                        eventAction: 'ArrowLeft key',
+                        eventLabel: 'test'
+                    });
                     break;
                 case 'ArrowRight':
                     t[0] -= panStep;
+                    e.preventDefault();
+                    move(t, s, false, true);
                     getVisibleCountries(zoom);
                     announcer.announce("Panning east", "assertive", 100)
+                    ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'Keyboard',
+                        eventAction: 'ArrowRight key',
+                        eventLabel: 'test'
+                    });
                     break;
                 case '+':
                 case '-':
@@ -264,17 +311,38 @@ function getVisibleCountries(zoom) {
 
                     // Update the scale
                     s = newScale;
+                    e.preventDefault();
+                    move(t, s, false, true);
+
                     getVisibleCountries(zoom);
-                    announcer.announce(`Zoom ${e.key === '+' ? "in" : "out"} level ${parseInt(newScale)}`, "assertive", 100)
+                    announcer.announce(`Zoom ${e.key === '+' ? "in" : "out"} level ${parseInt(newScale)}`, "assertive", 100);
+                    ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'Keyboard',
+                        eventAction: 'Zoom in/out',
+                        eventLabel: 'test'
+                    });
                     break;
                 case 'h':
                     // Help for screen reader users. Read out the contents of #a11y-info-text
                     announcer.announce(document.getElementById("a11y-info-text").textContent, "polite");
-                    console.log(document.getElementById("a11y-info-text").textContent); 
+                    console.log(document.getElementById("a11y-info-text").textContent);
+                    ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'Keyboard',
+                        eventAction: 'Help',
+                        eventLabel: 'test'
+                    }); 
                     break;
                 case 'l':
                     if (!KEYBOARD_MODE_ACTIVE) {
                         announcer.announce("Keyboard mode is not active right now. Zoom in to at least level 7 to activate.", "assertive", 100);
+                        ga('send', {
+                            hitType: 'event',
+                            eventCategory: 'Keyboard',
+                            eventAction: 'List countries (premature)',
+                            eventLabel: 'test'
+                        });
                         return;
                     }
                     // announce the list of countries
@@ -285,6 +353,12 @@ function getVisibleCountries(zoom) {
                     });
                     announcer.announce(message, "assertive", 100);
                     console.log(message);
+                    ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'Keyboard',
+                        eventAction: 'List countries',
+                        eventLabel: 'test'
+                    });
                     break;
                 default:
                     return; // Exit if it's not an arrow key or zoom key
@@ -294,11 +368,6 @@ function getVisibleCountries(zoom) {
                 map.dismissCenteredCountry();
             }
 
-            // Prevent the default action to stop scrolling
-            e.preventDefault();
-
-            // Call the move function with the new translation and scale
-            move(t, s, false, true);
         });
 
     }

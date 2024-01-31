@@ -489,8 +489,8 @@ var countryCountObj = {};
                 search.initSearch();
                 
             }
-            // Supress hotkeys if search is open 
-            if (search.getSearchStatus()) {
+            // Supress hotkeys if search or keyboard mode is open 
+            if (search.getSearchStatus() || keyboardMode.getStatus) {
                 return;
             };
             switch (evt.keyCode) {
