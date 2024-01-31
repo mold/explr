@@ -490,7 +490,7 @@ var countryCountObj = {};
                 
             }
             // Supress hotkeys if search or keyboard mode is open 
-            if (search.getSearchStatus() || keyboardMode.getStatus) {
+            if (search.getSearchStatus() || keyboardMode.getStatus()) {
                 return;
             };
             switch (evt.keyCode) {
