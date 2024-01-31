@@ -78,6 +78,12 @@ var countryCountObj = {};
             let filterCheckedLabel = document.querySelector("label[for='hide-checked']");
             // Update the label to include the number of checked artists
             filterCheckedLabel.innerHTML = `Hide checked artists (${document.querySelectorAll("dialog[open] ul li input[type='checkbox']:checked").length})`;
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'No countries',
+                eventAction: 'Check artist as done',
+                eventLabel: 'test'
+            });
         }
 
         
@@ -129,6 +135,12 @@ var countryCountObj = {};
                     break;
                 }
             }
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'No countries',
+                eventAction: 'Sort artists',
+                eventLabel: 'test'
+            });
         }
     
         for (let radio of radios) {
@@ -154,6 +166,12 @@ var countryCountObj = {};
                     dialog.close();
                     document.querySelector(".no-countries__title").focus();
                 }
+            });
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'No countries',
+                eventAction: 'Open dialog',
+                eventLabel: 'test'
             });
         });
     
