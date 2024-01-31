@@ -203,7 +203,7 @@ body.dark {
         outline-width: 4px;
     }
 }
-label {
+.welcome-message label:not(.no-countries__content label) {
     font-weight: bolder;
     margin-top: 16px;
     display: flex;

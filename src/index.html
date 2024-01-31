@@ -243,17 +243,27 @@
 				<div><img class="screenshot-overlay__img" src="" alt="Screenshot of your Explr.fm map" id="screenshot-img"></div>
 			</div>
 
-			<div class="no-countries" aria-hidden="true">
-				<div class="no-countries__title">Artists without a country ▲</div>
-				<div class="no-countries__content">
-					<p>
-						For some reason we couldn't determine the country for these artists. Help out by giving them a country tag on last.fm!
-					</p>
-					<p class="no-countries__info"></p>
-					<ul>
-					</ul>
-				</div>
+			<div class="no-countries hidden" aria-hidden="true">
+				<button type="button" class="no-countries__title">Show artists without a country</button>
 			</div>
+			<dialog aria-labelledby="no-countries__heading" class="no-countries__content">
+				<h1 id="no-countries__heading" tabindex="-1">Artists without a country</h1>
+				<button type="button" class="fa fa-close close" aria-label="Close artists without a country"></button>
+				<p>
+					For some reason we couldn't determine the country for these artists. Help out by giving them a country tag on last.fm!
+				</p>
+				<p>Protip: Use the checkboxes to track your progress!</p>
+				<p class="no-countries__info"></p>
+				<fieldset>
+					<legend>Sort by</legend>
+					<input type="radio" name="sort" id="sort-name" value="name">
+					<label for="sort-name">Artist name</label>
+					<input type="radio" name="sort" id="sort-scrobbles" value="scrobbles" checked>
+					<label for="sort-scrobbles">Scrobbles</label>
+				</fieldset>
+				<ul>
+				</ul>
+			</dialog>
 
 			<div class="artist-test" onkeydown="event.stopPropagation()">
 				<form action="" >
