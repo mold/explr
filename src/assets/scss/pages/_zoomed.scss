@@ -201,6 +201,7 @@
 .details-p {
     font-size: 0.8em;
     margin-bottom: 4px;
+    word-break: break-word;
     strong {
         font-family: $heading-font-stack;
         font-weight: 400;
