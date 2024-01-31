@@ -562,6 +562,16 @@ let filteredShortcuts = [];
                     currentActiveElement.dispatchEvent(new Event('click'));
                 }
             }
+            else {
+                console.log('no active descendant');
+                // Select the first visible option
+                const firstVisibleOption = document.querySelector('.result-wrapper');
+                // If the first visible option exists
+                if (firstVisibleOption) {
+                    // Trigger a click event on the first visible option
+                    firstVisibleOption.dispatchEvent(new Event('click'));
+                }
+            }
         }
         
         // If escape, close the search

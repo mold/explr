@@ -8,45 +8,38 @@ const keyboardMode = keyboardMode || {};
 const MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE = 7;
 const MAX_COUNTRY_SUGGESTIONS = 20;
 let KEYBOARD_MODE_ACTIVE = false;
+const ALPHABET = 'ABCDEFGIJKMNOPQRSTUVWXYZ'.split('');
 
 let visibleCountries = [];
 let keyBuffer = '';
 let keyBufferTimer = null;
 let keyboardModeActive = false;
 
-const handleNumberKeyPress = (e) => {
-    // Check if user has pressed a number key from 0 to 9
-    if (e.key.match(/[0-9]/) && e.target.tagName !== "INPUT") {
-        // Add the key to the buffer
-        keyBuffer += e.key;
+const handleLetterKeyPress = (e) => {
 
-        // Clear the previous timer
-        clearTimeout(keyBufferTimer);
+    // Check if user has pressed a letter key from A to Z
+    if (e.key.match(/[a-zA-Z]/) && e.target.tagName !== "INPUT") {
+        // Convert the key to uppercase
+        const key = e.key.toUpperCase();
 
-        // Set a timer to process the buffer
-        keyBufferTimer = setTimeout(() => {
-            // Convert the buffer to a number
-            var index = Number(keyBuffer) - 1;
+        // Convert the key to an index based on the custom alphabet
+        const index = ALPHABET.indexOf(key);
 
-            // Check if the index is within the range of visible countries
-            if (index >= 0 && index < visibleCountries.length) {
-                // Get the country with the corresponding index
-                var targetCountry = visibleCountries[index];
+        // Check if the index is within the range of visible countries
+        if (index >= 0 && index < visibleCountries.length) {
+            // Get the country with the corresponding index
+            var targetCountry = visibleCountries[index];
 
-                // Generate a click on the target country
-                if (targetCountry) {
-                    targetCountry.dispatchEvent(new Event('click'));
-                    // Focus the country name
-                    setTimeout(() => {
-                        document.querySelector('#cnameCont h1').setAttribute("tabindex", "-1");
-                        document.querySelector('#cnameCont h1').focus();
-                    }, 250);
-                }
+            // Generate a click on the target country
+            if (targetCountry) {
+                targetCountry.dispatchEvent(new Event('click'));
+                // Focus the country name
+                setTimeout(() => {
+                    document.querySelector('#cnameCont h1').setAttribute("tabindex", "-1");
+                    document.querySelector('#cnameCont h1').focus();
+                }, 250);
             }
-
-            // Clear the buffer
-            keyBuffer = '';
-        }, 500); // adjust the delay as needed
+        }
     }
 }
 
@@ -54,11 +47,10 @@ function getCurrentlyVisibleCountries() {
     // return an array consiting of objects with the country name in plain text + the index number of the country
     let formattedCountries = [];
     visibleCountries.forEach((country) => {
-        var center = getPathCenter(country);
-        const number = visibleCountries.indexOf(country) + 1;
+        const letter = ALPHABET[visibleCountries.indexOf(country)];
         formattedCountries.push({
             name: utils.getCountryNameFromId(parseInt(country.id.slice(1))),
-            number: number
+            number: letter
         });
     });
     return formattedCountries;
@@ -90,7 +82,7 @@ function displayKeyboardModeMessage() {
     const message = document.getElementById("keyboard-mode-message");
     message.classList.remove("hidden");
     const innerMessage = document.createElement("div");
-    innerMessage.innerHTML = "<h2>Keyboard mode active! <span class='fa fa-keyboard'></span> </h2><p>Type a <kbd>number</kbd> to select a country.<p><p>Move around with <kbd>&#8592;</kbd><kbd>&#8594;</kbd><kbd>&#8593;</kbd><kbd>&#8595;</kbd> keys.</p><p>Exit by zooming out with <kbd>-</kbd> key. </p>";
+    innerMessage.innerHTML = "<h2>Keyboard mode active! <span class='fa fa-keyboard'></span> </h2><p>Type a <kbd>letter</kbd> to select a country.<p><p>Move around with <kbd>&#8592;</kbd><kbd>&#8594;</kbd><kbd>&#8593;</kbd><kbd>&#8595;</kbd> keys.</p><p>Exit by zooming out with <kbd>-</kbd> key. </p>";
     message.appendChild(innerMessage);
   }
 
@@ -142,12 +134,11 @@ function getVisibleCountries(zoom) {
       
         // display a number on the center of each country
       visibleCountries.forEach((country) => {
-        window.addEventListener('keydown', handleNumberKeyPress);
+        window.addEventListener('keydown', handleLetterKeyPress);
 
         var center = getPathCenter(country);
 
-        const number = visibleCountries.indexOf(country) + 1;
-
+        const letter = ALPHABET[visibleCountries.indexOf(country)];
 
     
         // Append a circle
@@ -168,7 +159,7 @@ function getVisibleCountries(zoom) {
             .attr("alignment-baseline", "middle")
             .attr("x", center.x) // position the text
             .attr("y", center.y + 0.2) // position the text
-            .text(number);
+            .text(letter);
     
         // Append a text for the country name
         d3.select(country.parentElement).append("text")
@@ -326,7 +317,7 @@ function getVisibleCountries(zoom) {
         document.getElementById("filter").classList.remove("hidden");
         document.querySelector(".no-countries").classList.remove("hidden");
         // remove keyboard listeners
-        window.removeEventListener('keydown', handleNumberKeyPress);        
+        window.removeEventListener('keydown', handleLetterKeyPress);        
     }
 
     keyboardMode.isActive = KEYBOARD_MODE_ACTIVE;
