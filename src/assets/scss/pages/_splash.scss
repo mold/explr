@@ -31,7 +31,7 @@ body.dark {
 
 #splashTextContainer {
     overflow-y: auto;
-    max-height: 400px;
+    // max-height: 400px;
     padding: 0px 13px 0px 13px;
 }
 
@@ -39,6 +39,8 @@ body.dark {
    ========================================================================== */
 
 .welcome-message {
+    max-height: 80%;
+    overflow: scroll;
     margin: 60px auto auto auto;
     padding: 20px 30px 20px 30px;
     background: var(--welcomeMessageBackground);
@@ -113,14 +115,14 @@ body.dark {
     text-underline-offset: 0.1em;
 } 
 
-#faqtext h2, #a11ytext h2 {
+#faqtext h2, #a11ytext h2, #a11ytext h3, #faqtext h3 {
     font-family: $heading-font-stack;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     margin-bottom: 0.8em;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 400;
 }
-#a11ytext h1 {
+#a11ytext h1, #faqtext h1 {
     font-family: $heading-font-stack;
     margin-top: 1rem;
     margin-bottom: 0.8em;

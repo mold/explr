@@ -89,19 +89,19 @@
 							Or if there are any good bands from <span id="randomCountry"></span></p>
 							
 							<p style="text-align: center;" ><strong>Wonder no more!</strong></p>
-							<p class="info">Enter your Last.fm username in the field below. If you don't have Last.fm, <a href="https://last.fm">get it here!</a></p>
+							<p class="info">Enter your Last.fm username in the field below. <a href="https://last.fm">If you don't have Last.fm, get it here!</a></p>
 							<form id="start-form" class="no-select" target="_self">
 								<label for="username">
 									Last.fm username
 									<input id="username" name="username" class="usernameinput" placeholder="e.g. elfummel" type="text" autofocus required autocomplete="on">
-
 								</label>
-								<div class="gobutton"><input type="submit" value="&nbsp;" aria-label="Go Explr!"></div>
+								<div class="gobutton"><input type="submit" value="&nbsp;" aria-label="Go Explore!"></div>
 							</form>
 							
 					</div>
-					<div id="faqtext" class="hidden">
-						<h2 tabindex="-1">Q: So how does this work exactly?</h2>
+					<div id="faqtext" class="hidden info" tabindex="0">
+						<h1 tabindex="-1">Frequently asked questions</h1>
+						<h2 >Q: So how does this work exactly?</h2>
 						<p>A: We fetch your entire Last.fm library and use the tags to determine where each artist you've listened to comes from. This is done by running the artist tags from Last.fm against a list of country names and <a href="https://en.wikipedia.org/wiki/Demonym">demonyms</a>. If an artist is tagged with more than one country, the most popular tag is used. </p>
 						<h2>Q: What the heck, France isn't in South America!</h2>
 						<p>A: Actually, French Guiana is in South America and <a href="https://en.wikipedia.org/wiki/French_Guiana">French Guiana is an overseas region of France</a>.</p>
@@ -113,30 +113,54 @@
 						<p>Sure, probably! Please <a href="https://github.com/mold/explr/issues">create an issue on our Github page</a> and we will have a look.</p>
 						<p class="details-p">Do you have any other questions or feedback? Send us an email at <a href="mailto:explr.fm@gmail.com">explr.fm@gmail.com</a> or check out our <a href="https://www.reddit.com/r/Music/comments/22n6t8/lastfm_user_heres_an_interactive_map_to_show_the/">reddit post</a>.</p>
 					</div>
-					<div id="a11ytext" class="hidden info">
+					<div id="a11ytext" class="hidden info" tabindex="0">
 						<h1 tabindex="-1">Accessibility information</h1>
-						<p>Explr.fm is now accessible using keyboard commands! It has been tested to work with screen readers VoiceOver for Mac + NVDA and JAWS for Windows.</p>
-						<p>You can navigate the map by free text searching for a country or an artist. Open the search bar with the shortcut <kbd>ctrl + f</kbd>.</p>
+						<p>Music is universal and should be for everyone! Because of this we have made accessibility a priority for Explr.fm.</p>
+						<p>We recently updated Explr.fm with full keyboard support. There are two ways to navigate the map with keyboard: </p>
+						<ul>
+							<li>
+								<p><strong>Search:</strong> You can search directly for a country or an artist with the shortcut CTRL + F.</p>
+							</li>
+							<li>
+								<p><strong>Keyboard mode:</strong> You can pan and zoom the map with the arrows and plus and minus keys. When you zoom in far enough, each visible country is assigned a letter that you can type on the keyboard.</p>
+							</li>
+						</ul>
+						<h2>Screen readers</h2>
+						<p>Explr.fm has been tested to work with screen readers VoiceOver for Mac, and NVDA and JAWS for Windows.</p>
+						
 						<h2>List of keyboard commands</h2>
 						<dl>
-							<dt><kbd>ctrl + f</kbd></dt>
+							<dt><kbd>CTRL</kbd>+<kbd>F</kbd></dt>
 							<dd>Open search</dd>
-							<dt><kbd>esc</kbd></dt>
+							<dt><kbd>ESC</kbd></dt>
 							<dd>Close search or country view</dd>
-							<dt><kbd>down/up arrow</kbd></dt>
-							<dd>Navigate search results</dd>
-							<dt><kbd>enter</kbd></dt>
-							<dd>Activate highlighted search result</dd>
+							<dt><kbd>ENTER</kbd></dt>
+							<dd>Activate search result</dd>
+							<dt><kbd>&#8593;</kbd><kbd>&#8595;</kbd> arrows</dt>
+							<dd>Navigate search results, or pan the map north/south</dd>
+							<dt><kbd>&#8592;</kbd><kbd>&#8594;</kbd> arrows</dt>
+							<dd>Pan the map east/west</dd>
+							<dt><kbd>+</kbd></dt>
+							<dd>Zoom in</dd>
+							<dt><kbd>-</kbd></dt>
+							<dd>Zoom out</dd>
+							<dt><kbd>L</kbd></dt>
+							<dd>Read out all visible countries (for screen readers)</dd>
+							<dt>Letters <kbd>A</kbd> to <kbd>Z</kbd> (excluding <kbd>L</kbd> and <kbd>H</kbd>)</dt>
+							<dd>Choose a country</dd>
+							<dt><kbd>H</kbd></dt>
+							<dd>Read out help (for screen readers)</dd>
 						</dl>
-						<h2>Remove animations</h2>
-						<p>By default, the map is animated when zooming into and out of countries. If you do not want this, you can set a system-level accessibility setting on Mac or Windows to reduce animations. Explr.fm will respect this setting.</p>
+						<h2>Other accessibility features</h2>
+						<em>Reduced animations</em>
+						<p>By default, the map is animated when zooming into and out of countries. If you do not want this, you can set a system-level accessibility setting on Mac or Windows to reduce animations.</p>
 						<h2>Did you find an accessibility bug or something that didn't work quite right?</h2>
 						<p>Send an e-mail to Tommy (<a href="mailto:tommy.feldt@useit.se">tommy.feldt@useit.se</a>) and he will be happy to fix it!</p>
 					</div>
 					</div>
-					<button class="splash-link faq" type="button">Frequently asked questions -></button>
-					<button class="splash-link a11y" type="button">Accessibility information -></button>
-					<button class="splash-link back hidden" type="button"><- Go back</button>
+					<button class="splash-link faq" type="button">Frequently asked questions<span aria-hidden="true"> -></span></button>
+					<button class="splash-link a11y" type="button">Accessibility information<span aria-hidden="true"> -></span></button>
+					<button class="splash-link back hidden" type="button"><span aria-hidden="true"><- </span>Go back</button>
 					
 					<div class="donate">
 						<p class="donate__title">
@@ -165,7 +189,23 @@
 				</div>
 			</div>
 			<div id="map-container"></div>
-			<span class="visually-hidden" id="map-hint">Navigate the map by searching for a country or an artist (shortcut CTRL + F)</span>
+			<div id="a11y-map-info" class="visually-hidden hidden" role="region" aria-labelledby="a11y-info-heading">
+				<h2 id="a11y-info-heading">Accessibility information for screen reader users:</h2>
+				<div id="a11y-info-text">
+					<p>There are two ways to navigate the map. </p>
+					<ul>
+						<li>
+							<p>You can search directly for a country or an artist with the shortcut CTRL + F.</p>
+						</li>
+						<li>
+							<p>Or you can pan and zoom the map with the arrows and plus and minus keys. When you zoom in far enough, you can list all visible countries by pressing L. Then select a country by pressing the listed letter key. For instance, pressing "C" for Sweden.</p>
+							<p>You may need to activate forms mode.</p>
+						</li>
+					</ul>
+				</div>
+				
+			</div>
+			<div id="keyboard-mode-message" class="hidden"></div>
 			<div class="loader no-select" role="region" aria-label="Explr.fm status">
 				<div class="bubblingG">
 					<span id="bubblingG_1">
@@ -243,7 +283,7 @@
 				<div><img class="screenshot-overlay__img" src="" alt="Screenshot of your Explr.fm map" id="screenshot-img"></div>
 			</div>
 
-			<div class="no-countries" aria-hidden="true">
+			<div class="no-countries">
 				<div class="no-countries__title">Artists without a country ▲</div>
 				<div class="no-countries__content">
 					<p>
@@ -286,7 +326,9 @@
 					document.querySelector(".splash-link.faq").classList.add("hidden");
 					document.querySelector(".splash-link.a11y").classList.add("hidden");
 					document.querySelector(".splash-link.back").classList.remove("hidden");
-					document.querySelector("#faqtext h2").focus();
+					document.querySelector(".donate").classList.add("hidden");
+					document.querySelector("#made-by").classList.add("hidden");
+					document.querySelector("#faqtext h1").focus();
 				});
 				document.querySelector(".splash-link.a11y").addEventListener("click", function(){
 					document.getElementById("splashContent").classList.add("hidden");
@@ -295,6 +337,8 @@
 					document.querySelector(".splash-link.back").classList.remove("hidden");
 					document.getElementById("a11ytext").classList.remove("hidden");
 					document.getElementById("faqtext").classList.add("hidden");
+					document.querySelector(".donate").classList.add("hidden");
+					document.querySelector("#made-by").classList.add("hidden");
 					document.querySelector("#a11ytext h1").focus();
 
 				});
@@ -303,6 +347,8 @@
 					document.querySelector(".splash-link.faq").classList.remove("hidden");
 					document.querySelector(".splash-link.a11y").classList.remove("hidden");
 					document.querySelector(".splash-link.back").classList.add("hidden");
+					document.querySelector(".donate").classList.remove("hidden");
+					document.querySelector("#made-by").classList.remove("hidden");
 					document.getElementById("a11ytext").classList.add("hidden");
 					document.getElementById("faqtext").classList.add("hidden");
 				});
