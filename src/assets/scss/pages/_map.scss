@@ -260,8 +260,8 @@ div.colorChange {
     &__title {
         position: absolute;
         left: 3%;
-        bottom: 240px;
-        font-size: 0.8em;
+        bottom: 225px;
+        font-size: 14px;
         margin-bottom: 0.3em;
         font-family: $heading-font-stack;
         font-weight: 400;
@@ -289,8 +289,8 @@ dialog {
     &[open] {
         opacity: 1;
         background-color: var(--backgroundSecondary);
-        border: 2px solid var(--borderSecondary);
-        border-radius: 8px;
+        border: 5px solid var(--borderSecondary);
+        border-radius: 30px;
         margin: auto;
         max-height: 80%;
         position: fixed;
@@ -334,6 +334,10 @@ dialog {
             padding: 0;
             margin: 0;
             line-height: 1.1em;
+        }
+        h2 {
+            font-size: 1rem;
+            font-family: $heading-font-stack;
         }
 
         li {

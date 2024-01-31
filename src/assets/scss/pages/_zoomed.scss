@@ -13,7 +13,6 @@
     height: 150px;
     position: absolute;
     top: 7.5%;
-    border-top: 1px solid var(--borderSecondary);
     z-index: 4;
     opacity: 0;
     display: flex;
@@ -82,10 +81,11 @@
 .artistContainer {
     //Main container for artist information, recommendations and details
     margin-right: 6%;
-    padding: 8px 16px;
-    border-radius: 0 0 8px 8px;
+    padding: 8px 24px;
+    border-radius: 20px;
     width: 592px;
     display: block;
+    border: 5px solid var(--borderSecondary);
     background: var(--backgroundPrimary);
     position: relative;
     height: fit-content;
@@ -97,6 +97,8 @@
         color: inherit;
         font-family: $heading-font-stack;
         font-weight: 400;
+        margin-bottom: 0.5rem;
+        margin-top: 0.75rem;
     }
 
     p {
@@ -169,6 +171,7 @@
     color: inherit;
     cursor: pointer;
     transition: 0.1s;
+    box-shadow: rgba(0,0,0,.1) 0 2px 12px 0;
     // button resets
     border: none;
     background: none;

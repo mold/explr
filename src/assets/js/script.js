@@ -69,6 +69,10 @@ var countryCountObj = {};
             // If you just checked and the filter is on, remove the artist from the DOM
             if (checked && document.querySelector("#hide-checked")?.checked) {
                 this.parentNode.style.display = 'none';
+                let nextCheckbox = this.parentNode.nextElementSibling.querySelector('input');
+                if (nextCheckbox) {
+                    nextCheckbox.focus();
+                }
             }
             // get the label element for the filter checked checkbox
             let filterCheckedLabel = document.querySelector("label[for='hide-checked']");
@@ -157,6 +161,12 @@ var countryCountObj = {};
             const dialog = document.querySelector(".no-countries__content");
             dialog.close();
             document.querySelector(".no-countries__title").focus();
+        });
+        const dialog = document.querySelector(".no-countries__content");
+        dialog.addEventListener("click", function (event) {
+            if (event.target === dialog) {
+                dialog.close();
+              }
         });
     
         if (listOfArtistsWithNoCountry.length) {
