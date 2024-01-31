@@ -98,14 +98,17 @@ var countryCountObj = {};
             d3.select(".no-countries__info").html(listOfArtistsWithNoCountry.length + " artists without a country:");
         }
 
-        // Add the checkbox next to the filter radios
-        d3.select("dialog fieldset").append("input")
-            .attr("type", "checkbox")
-            .attr("id", "hide-checked")
-            .on("change", updateNoCountriesList);
-        d3.select("dialog fieldset").append("label")
-            .attr("for", "hide-checked")
-            .text("Hide checked artists");
+        // Check if the checkbox and label already exist
+        if (!d3.select("#hide-checked").node() && !d3.select("label[for='hide-checked']").node()) {
+            // Add the checkbox next to the filter radios
+            d3.select("dialog fieldset").append("input")
+                .attr("type", "checkbox")
+                .attr("id", "hide-checked")
+                .on("change", updateNoCountriesList);
+            d3.select("dialog fieldset").append("label")
+                .attr("for", "hide-checked")
+                .text("Hide checked artists");
+        }
     
         // Handle sorting with radios
         let radios = document.getElementsByName('sort');
