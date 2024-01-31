@@ -5,17 +5,6 @@
 /* Container
    ========================================================================== */
 
-body {
-    --welcomeBackground: rgba(255, 200, 200, 0.4);
-    --welcomeMessageBackground: rgba(255, 255, 255, 0.6);
-    --welcomeMessageBorder: rgba(255, 255, 255, 1);
-}
-body.dark {
-    --welcomeBackground: rgba(0,55,55,.5);
-    --welcomeMessageBackground: rgba(0,0,0,.6);
-    --welcomeMessageBorder: rgba(0, 0, 0, 1);
-}
-
 /*
  * splash themes
  */
@@ -203,7 +192,7 @@ body.dark {
         outline-width: 4px;
     }
 }
-label {
+.welcome-message label:not(.no-countries__content label) {
     font-weight: bolder;
     margin-top: 16px;
     display: flex;

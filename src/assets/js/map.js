@@ -675,7 +675,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
       .html(function() {
         if (countryCount[d.id])
           return numbersWithSpace(countryCount[d.id].length) + " artists, " + numbersWithSpace(getCountryPlaycount(d)) + " scrobbles"
-        else return "No artists yet - Find new here ->"
+        else return "No artists yet - Find new here<span aria-hidden> -></span>"
       })
 
     let pl = countryPlaylists.find(c => c.name === name);
