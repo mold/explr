@@ -47,7 +47,7 @@ let filteredShortcuts = [];
     
         let announcement = '';
         if (announcementParts.length > 0) {
-            announcement = 'Showing ' + announcementParts.slice(0, -1).join(', ') + (announcementParts.length > 1 ? ' and ' : '') + announcementParts.slice(-1);
+            announcement = 'Showing ' + announcementParts.slice(0, -1).join(', ') + (announcementParts.length > 1 ? ' and ' : '') + announcementParts.slice(-1) + ', press down arrow to go to results';
         } else {
             announcement = 'No results found';
         }
