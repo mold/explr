@@ -298,11 +298,7 @@ var countryCountObj = {};
         // Screen reader status update every 30 seconds
         setTimeout(function () {
             announcer.announce(document.getElementById("loading-text").innerText);
-        }, 3000);
-        announcer.announce(document.getElementById("loading-text").innerText);
-        announcementIntervalId = setInterval(() => {
-            announcer.announce(document.getElementById("loading-text").innerText);
-        }, 45000);
+        }, 6000);
 
         setTimeout(function () {
             if (d3.select("#loading-text").html() === "Getting library...") {
@@ -311,7 +307,6 @@ var countryCountObj = {};
                     if (d3.select("#loading-text").html() === "Last.fm is taking<br>a long time to<br>respond...") {
                         d3.select("#loading-text").html("Maybe <a href='http://last.fm' target='_blank'>last.fm</a> has<br>gone offline...")
                             .style("pointer-events", "all");
-                        clearInterval(announcementIntervalId);
                     }
                 }, 8000);
             }
@@ -414,10 +409,10 @@ var countryCountObj = {};
 
         // Screen reader status update
         clearInterval(announcementIntervalId);
-        announcer.announce("All artists are loaded!");
+        announcer.announce("All artists have been loaded!");
         const map = document.querySelector("#map-container svg")
         const existingAriaLabelledBy = map.getAttribute("aria-labelledby");
-        map.setAttribute("aria-labelledby", `${existingAriaLabelledBy} progress-text`);
+        map.setAttribute("aria-labelledby", `${existingAriaLabelledBy} progress-text sr-instructions`);
 
         // We're done, fade out loader
         var loader = d3.select(".loader");
