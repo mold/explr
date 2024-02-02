@@ -412,7 +412,7 @@ var countryCountObj = {};
         announcer.announce("All artists have been loaded!");
         const map = document.querySelector("#map-container svg")
         const existingAriaLabelledBy = map.getAttribute("aria-labelledby");
-        map.setAttribute("aria-labelledby", `${existingAriaLabelledBy} progress-text`);
+        map.setAttribute("aria-labelledby", `${existingAriaLabelledBy} progress-text sr-instructions`);
 
         // We're done, fade out loader
         var loader = d3.select(".loader");
