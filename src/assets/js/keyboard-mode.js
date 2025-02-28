@@ -58,15 +58,27 @@ const handleLetterKeyPress = (e) => {
 function getCurrentlyVisibleCountries() {
     const userName = window.location.href.split("username=")[1];
     let data = script.getCurrentData();
-    // return an array consiting of objects with the country name in plain text + the index number of the country
+    // return an array consisting of objects with the country name in plain text + the index number of the country
     let formattedCountries = [];
+    
+    // Add null checks and error handling
+    if (!data || !userName) {
+        console.warn('Data or username not available');
+        return formattedCountries;
+    }
+
     visibleCountries.forEach((country) => {
         const countryId = parseInt(country.id.slice(1));
         const letter = ALPHABET[visibleCountries.indexOf(country)];
+        
+        // Add null checks for data[countryId] and data[countryId][userName]
+        const artistCount = data[countryId] && data[countryId][userName] ? 
+            data[countryId][userName].length : 0;
+            
         formattedCountries.push({
             name: utils.getCountryNameFromId(parseInt(country.id.slice(1))),
             number: letter,
-            artistCount: data[countryId][userName].length || 0
+            artistCount: artistCount
         });
     });
     return formattedCountries;
