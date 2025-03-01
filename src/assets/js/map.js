@@ -34,7 +34,14 @@ const COUNTRY_BBOX_OVERRIDES = {
   ],
   // Chile - mainland only, excluding Pacific islands
   '152': [
-    [-75.6, -55.9, -66.0, -17.5]  // Chilean mainland
+    [-75.6, -55.9, -66.0, -17.5],  // Chilean mainland
+    [-109.5, -27.2, -109.2, -27.0], // Easter Island (Rapa Nui)
+    [-80.8, -33.8, -80.0, -33.3]    // Juan Fernández Islands
+  ],
+  // Ecuador - mainland only, excluding Galápagos
+  '218': [
+    [-81.5, -5.0, -75.0, 1.5],   // Ecuadorian mainland
+    [-92.0, -1.4, -89.2, 1.7]     // Galápagos Islands
   ],
   // Add other countries as needed
 };
