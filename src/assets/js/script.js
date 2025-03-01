@@ -297,11 +297,11 @@ var countryCountObj = {};
 
         // Screen reader status update every 30 seconds
         setTimeout(function () {
-            announcer.announce(document.getElementById("loading-text").innerText);
+            announcer.announce(document.getElementById("loading-text")?.innerText);
         }, 6000);
 
         setTimeout(function () {
-            if (d3.select("#loading-text").html() === "Getting library...") {
+            if (d3.select("#loading-text")?.html() === "Getting library...") {
                 d3.select("#loading-text").html("Last.fm is taking<br>a long time to<br>respond...");
                 setTimeout(function () {
                     if (d3.select("#loading-text").html() === "Last.fm is taking<br>a long time to<br>respond...") {

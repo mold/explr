@@ -18,6 +18,79 @@ const MAX_ZOOM = 25;
 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+// Update the COUNTRY_BBOX_OVERRIDES constant
+const COUNTRY_BBOX_OVERRIDES = {
+  // Format: [west, south, east, north]
+  // US territories as multiple boxes
+  '840': [
+    [-125, 24, -66, 50],  // Continental US
+    [-180, 51, -130, 72], // Alaska
+    [-160, 18, -154, 23], // Hawaii
+  ],
+  // Russia - adjusted boundaries
+  '643': [
+    [27.5, 41.0, 180.0, 82.0],   // Main Russian territory (European + Asian)
+    [-180.0, 60.0, -169.0, 71.0], // Far Eastern part (crosses the date line)
+  ],
+  // Chile - mainland only, excluding Pacific islands
+  '152': [
+    [-75.6, -55.9, -66.0, -17.5],  // Chilean mainland
+    [-109.5, -27.2, -109.2, -27.0], // Easter Island (Rapa Nui)
+    [-80.8, -33.8, -80.0, -33.3]    // Juan Fernández Islands
+  ],
+  // Ecuador - mainland only, excluding Galápagos
+  '218': [
+    [-81.5, -5.0, -75.0, 1.5],   // Ecuadorian mainland
+    [-92.0, -1.4, -89.2, 1.7]     // Galápagos Islands
+  ],
+  // Spain - mainland and islands
+  '724': [
+    [-9.3, 36.0, 3.4, 43.8],     // Iberian Peninsula (mainland Spain)
+    [-18.2, 27.6, -13.3, 29.5],   // Canary Islands
+    [1.2, 38.6, 4.4, 40.1]        // Balearic Islands
+  ],
+  // Portugal
+  '620': [
+    [-9.5, 36.8, -6.2, 42.2],     // Continental Portugal (mainland)
+    [-31.3, 32.6, -16.2, 39.7]     // Atlantic islands (Azores and Madeira)
+  ],
+  // France - mainland and overseas territories
+  '250': [
+    [-5.1, 41.3, 9.6, 51.1],     // Metropolitan France (mainland)
+    [-54.6, 2.1, -51.6, 5.8],     // French Guiana
+    [55.2, -21.4, 55.8, -20.8],   // Réunion
+    [-61.2, 14.4, -60.8, 14.9],   // Martinique
+    [-61.8, 15.8, -61.0, 16.5],   // Guadeloupe
+    [8.5, 41.3, 9.6, 43.0]        // Corsica
+  ],
+  // Netherlands - mainland and Caribbean territories
+  '528': [
+    [3.3, 50.7, 7.2, 53.6],      // Mainland Netherlands
+    [-69.2, 12.0, -68.2, 12.4],   // Aruba
+    [-69.0, 11.9, -68.2, 12.4],   // Curaçao
+    [-63.2, 17.9, -62.9, 18.1]    // Sint Maarten
+  ],
+  // New Zealand - main islands
+  '554': [
+    [166.0, -47.5, 179.0, -34.0],  // Main islands (North and South)
+    [172.5, -43.9, 173.9, -40.5],  // Chatham Islands
+  ],
+  // Fiji - main island group (corrected)
+  '242': [
+    [177.0, -21.0, 180.0, -16.0],  // Western islands (up to the date line)
+    [-180.0, -21.0, -178.0, -16.0], // Eastern islands (from the date line)
+  ],
+  // Kiribati - three island groups spread across the Pacific
+  '296': [
+    [172.0, -3.0, 177.0, 5.0],      // Gilbert Islands (western group)
+    [-175.0, -11.5, -170.0, -5.0],   // Phoenix Islands (central group)
+    [-160.0, -5.0, -150.0, 12.0],    // Line Islands (eastern group)
+  ],
+  // Add other countries as needed
+};
+
+map.COUNTRY_BBOX_OVERRIDES = COUNTRY_BBOX_OVERRIDES;
+
 (function(window, document) {
   d3.select(window).on("resize", throttle);
 
@@ -277,6 +350,10 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
       .scale(width / 1.7 / Math.PI);
 
     path = d3.geo.path().projection(projection);
+    
+    // Export path and projection for use in keyboard-mode.js
+    map.path = path;
+    map.projection = projection;
 
     svg = d3.select("#map-container")
       .attr("role", "application")
@@ -303,6 +380,8 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
       id: "filter",
       class: "legend"
     });
+
+    map.zoom = zoom; // Export the zoom behavior
   }
 
   //Load country aliases and names
@@ -466,9 +545,11 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
    * @param  {Boolean} withKeyboard If the move was initiated by the keyboard
    */
   function move(tr, sc, animate, withKeyboard) {
-
-    // If move was not initiated by the keyboard, remove the keyboard mode
-    if (!withKeyboard) {
+    // Check if we should activate keyboard mode
+    if (sc >= MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
+      // Pass the zoom object to updateVisibleCountries
+      keyboardMode.updateVisibleCountries(zoom);
+    } else {
       keyboardMode.cleanup();
     }
     
@@ -648,8 +729,8 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
         name = e.name;
         tag = e.tag;
 
-        nameTags = (e.names || [e.name]).map(n => "<span class=\"demonym\">" + n + "</span>").join(", ");
-        tagTags = (e.tags || [e.tag]).map(t => "<span class=\"demonym\">" + t + "</span>").join(", ");
+        nameTags = (e.names || [e.name]).map(n => "<span class=\"demonym\">" + n + "</span>").join(", ");
+        tagTags = (e.tags || [e.tag]).map(t => "<span class=\"demonym\">" + t + "</span>").join(", ");
       };
     })
     d3.select("#recommendations").html("");
@@ -1074,7 +1155,37 @@ function dismissCenteredCountry() {
   highlightCountry(false);
   centered = null;
 }
+
+// Add this helper function
+function getBBoxCenter(bbox) {
+  const [west, south, east, north] = bbox;
+  // For countries that cross the date line, handle the longitude calculation specially
+  const centerLon = west > east ? (west + east + 360) / 2 % 360 : (west + east) / 2;
+  const centerLat = (north + south) / 2;
+  return [centerLon, centerLat];
+}
+
+// Modify the getCountryCenter function
 function getCountryCenter(countryTopoData) {
+  // Check if we have a custom bounding box for this country
+  const countryId = countryTopoData.id;
+  if (COUNTRY_BBOX_OVERRIDES && COUNTRY_BBOX_OVERRIDES[countryId]) {
+    // Use the first bounding box for the center (usually the main territory)
+    const overrides = COUNTRY_BBOX_OVERRIDES[countryId];
+    const mainBBox = Array.isArray(overrides[0]) ? overrides[0] : overrides;
+    
+    // Calculate the center of the bounding box
+    const center = getBBoxCenter(mainBBox);
+    
+    // Project the center to screen coordinates
+    const projected = projection(center);
+    return {
+      x: -projected[0],
+      y: -projected[1]
+    };
+  }
+  
+  // Fall back to the existing logic for countries without overrides
   let x, y;
   let b = path.bounds(countryTopoData);
 
@@ -1217,6 +1328,70 @@ function getCountryCenter(countryTopoData) {
     filter = filter === "artists" ? "scrobbles" : "artists";
     updateLegend();
     redraw();
+  }
+
+  // Find the function that handles the zoom/fit behavior, likely something like:
+  function fitToCountry(countryFeature) {
+    if (countryFeature.id && COUNTRY_BBOX_OVERRIDES[countryFeature.id]) {
+      const overrides = COUNTRY_BBOX_OVERRIDES[countryFeature.id];
+      const boxArray = Array.isArray(overrides[0]) ? overrides : [overrides];
+      
+      // Find the overall bounding box that encompasses all boxes
+      const allBounds = boxArray.reduce((acc, bbox) => {
+        const [west, south, east, north] = bbox;
+        return {
+          west: Math.min(acc.west, west),
+          south: Math.min(acc.south, south),
+          east: Math.max(acc.east, east),
+          north: Math.max(acc.north, north)
+        };
+      }, {west: 180, south: 90, east: -180, north: -90});
+      
+      const bounds = [[allBounds.west, allBounds.south], [allBounds.east, allBounds.north]];
+      
+      // Use your existing zoom/fit logic with these bounds
+      const [[x0, y0], [x1, y1]] = bounds;
+      const dx = x1 - x0;
+      const dy = y1 - y0;
+      const x = (x0 + x1) / 2;
+      const y = (y0 + y1) / 2;
+      const scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height)));
+      
+      // Apply the transform
+      svg.transition()
+        .duration(750)
+        .call(zoom.transform, d3.zoomIdentity
+          .translate(width / 2, height / 2)
+          .scale(scale)
+          .translate(-projection([x, y])[0], -projection([x, y])[1]));
+        
+      return; // Skip the regular bounds calculation
+    }
+    
+    // ... rest of existing fitToCountry code ...
+  }
+
+  function handleKeyboardNavigation(event) {
+    if (!isKeyboardModeEnabled) return;
+    
+    switch(event.key) {
+        case 'ArrowRight':
+        case 'ArrowLeft':
+            // Move focus to next/previous country
+            const countries = getVisibleCountries();
+            const currentIndex = countries.indexOf(currentFocus);
+            const nextIndex = event.key === 'ArrowRight' ? 
+                (currentIndex + 1) % countries.length :
+                (currentIndex - 1 + countries.length) % countries.length;
+            setFocus(countries[nextIndex]);
+            break;
+            
+        case 'Enter':
+        case ' ': // Space
+            // Select currently focused country
+            selectCountry(currentFocus);
+            break;
+    }
   }
 
 })(window, document)
