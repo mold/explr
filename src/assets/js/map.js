@@ -534,10 +534,6 @@ map.COUNTRY_BBOX_OVERRIDES = COUNTRY_BBOX_OVERRIDES;
     updateLegend();
 
     draw(topo, redrawMap);
-
-    if (redrawMap) {
-      debugDrawBoundingBoxes();
-    }
   }
 
 
@@ -1373,58 +1369,6 @@ function getCountryCenter(countryTopoData) {
     }
     
     // ... rest of existing fitToCountry code ...
-  }
-
-  function debugDrawBoundingBoxes() {
-    // Remove any existing debug boxes
-    g.selectAll(".debug-box").remove();
-    
-    // Draw boxes for each override
-    Object.entries(COUNTRY_BBOX_OVERRIDES).forEach(([countryId, bboxes]) => {
-      // Handle both single box and array of boxes
-      const boxArray = Array.isArray(bboxes[0]) ? bboxes : [bboxes];
-      
-      boxArray.forEach((bbox, i) => {
-        const [west, south, east, north] = bbox;
-        
-        // Create a GeoJSON rectangle from the bounding box
-        const rectangle = {
-          type: "Feature",
-          geometry: {
-            type: "Polygon",
-            coordinates: [[
-              [west, south],
-              [east, south], 
-              [east, north],
-              [west, north],
-              [west, south]
-            ]]
-          }
-        };
-
-        // Draw the rectangle
-        g.append("path")
-          .datum(rectangle)
-          .attr("d", path)
-          .attr("class", "debug-box")
-          .style("fill", "none")
-          .style("stroke", "red")
-          .style("stroke-width", "1px")
-          .style("stroke-dasharray", "5,5");
-          
-        // Add label
-        const center = getBBoxCenter([west, south, east, north]);
-        const projected = projection(center);
-        
-        g.append("text")
-          .attr("class", "debug-box")
-          .attr("x", projected[0])
-          .attr("y", projected[1])
-          .style("fill", "red")
-          .style("font-size", "12px")
-          .text(`${countryId}-${i}`);
-      });
-    });
   }
 
   function handleKeyboardNavigation(event) {
