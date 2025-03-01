@@ -14,6 +14,8 @@ let visibleCountries = [];
 let keyBuffer = '';
 let keyBufferTimer = null;
 let keyboardModeActive = false;
+let isKeyboardModeEnabled = false;
+let currentFocus = null;
 
 const handleLetterKeyPress = (e) => {
 
@@ -85,6 +87,20 @@ function getCurrentlyVisibleCountries() {
 }
 
 function isInViewport(element) {
+    // Get country ID from the element
+    const countryId = parseInt(element.id.slice(1));
+    
+    // Check if we have an override for this country in map.COUNTRY_BBOX_OVERRIDES
+    if (map.COUNTRY_BBOX_OVERRIDES && map.COUNTRY_BBOX_OVERRIDES[countryId]) {
+        console.log("Country ID with override:", countryId);
+        // For countries with multiple boxes (like USA), check if any box is visible
+        const overrides = map.COUNTRY_BBOX_OVERRIDES[countryId];
+        const boxArray = Array.isArray(overrides[0]) ? overrides : [overrides];
+        
+        return boxArray.some(bbox => isBBoxInViewport(bbox));
+    }
+    
+    // Fall back to the current implementation for countries without overrides
     const rect = element.getBoundingClientRect();
 
     // Define the dimensions of the rectangle
@@ -103,6 +119,64 @@ function isInViewport(element) {
         rect.bottom >= rectangleTop &&
         rect.left <= rectangleRight &&
         rect.right >= rectangleLeft
+    );
+}
+
+// New helper function to check if a geographic bounding box is in the viewport
+function isBBoxInViewport(bbox) {
+    // Convert geographic coordinates to screen coordinates
+    const [west, south, east, north] = bbox;
+    
+    // Create points for the corners of the bounding box
+    const corners = [
+        [west, north], // Northwest
+        [east, north], // Northeast
+        [east, south], // Southeast
+        [west, south]  // Southwest
+    ];
+    
+    // Project each corner to screen coordinates
+    const screenCorners = corners.map(coord => {
+        const projected = map.projection(coord);
+        return {
+            x: projected[0],
+            y: projected[1]
+        };
+    });
+    
+    // Find the bounding box of the projected corners
+    const minX = Math.min(...screenCorners.map(p => p.x));
+    const maxX = Math.max(...screenCorners.map(p => p.x));
+    const minY = Math.min(...screenCorners.map(p => p.y));
+    const maxY = Math.max(...screenCorners.map(p => p.y));
+    
+    // Get the current transform from the zoom behavior
+    const zoom = d3.select("#map-svg").call(map.zoom);
+    const scale = map.zoom.scale();
+    const translate = map.zoom.translate();
+    
+    // Apply the transform to the bounding box
+    const transformedMinX = translate[0] + minX * scale;
+    const transformedMaxX = translate[0] + maxX * scale;
+    const transformedMinY = translate[1] + minY * scale;
+    const transformedMaxY = translate[1] + maxY * scale;
+    
+    // Define the dimensions of the viewport rectangle
+    const rectangleWidth = 400;
+    const rectangleHeight = 400;
+    
+    // Calculate the position of the rectangle
+    const rectangleLeft = (window.innerWidth - rectangleWidth) / 2;
+    const rectangleRight = rectangleLeft + rectangleWidth;
+    const rectangleTop = (window.innerHeight - rectangleHeight) / 2;
+    const rectangleBottom = rectangleTop + rectangleHeight;
+    
+    // Check if the transformed bounding box intersects with the viewport rectangle
+    return !(
+        transformedMaxX < rectangleLeft ||
+        transformedMinX > rectangleRight ||
+        transformedMaxY < rectangleTop ||
+        transformedMinY > rectangleBottom
     );
 }
 
@@ -414,6 +488,17 @@ function getVisibleCountries(zoom) {
 
     keyboardMode.getStatus = function () {
         return KEYBOARD_MODE_ACTIVE;
+    }
+
+    function enableKeyboardMode() {
+        isKeyboardModeEnabled = true;
+        // Likely adds visual indicators or focus states
+    }
+
+    function disableKeyboardMode() {
+        isKeyboardModeEnabled = false;
+        currentFocus = null;
+        // Removes visual indicators
     }
 
 })();
