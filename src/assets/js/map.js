@@ -27,10 +27,10 @@ const COUNTRY_BBOX_OVERRIDES = {
     [-180, 51, -130, 72], // Alaska
     [-160, 18, -154, 23], // Hawaii
   ],
-  // Russia - split into European and Asian parts
+  // Russia - adjusted boundaries
   '643': [
-    [20, 41, 180, 82],   // Main Russian territory (European + Asian)
-    [-180, 60, -169, 71], // Far Eastern part (crosses the date line)
+    [27.5, 41.0, 180.0, 82.0],   // Main Russian territory (European + Asian)
+    [-180.0, 60.0, -169.0, 71.0], // Far Eastern part (crosses the date line)
   ],
   // Chile - mainland only, excluding Pacific islands
   '152': [
@@ -42,6 +42,49 @@ const COUNTRY_BBOX_OVERRIDES = {
   '218': [
     [-81.5, -5.0, -75.0, 1.5],   // Ecuadorian mainland
     [-92.0, -1.4, -89.2, 1.7]     // Galápagos Islands
+  ],
+  // Spain - mainland and islands
+  '724': [
+    [-9.3, 36.0, 3.4, 43.8],     // Iberian Peninsula (mainland Spain)
+    [-18.2, 27.6, -13.3, 29.5],   // Canary Islands
+    [1.2, 38.6, 4.4, 40.1]        // Balearic Islands
+  ],
+  // Portugal
+  '620': [
+    [-9.5, 36.8, -6.2, 42.2],     // Continental Portugal (mainland)
+    [-31.3, 32.6, -16.2, 39.7]     // Atlantic islands (Azores and Madeira)
+  ],
+  // France - mainland and overseas territories
+  '250': [
+    [-5.1, 41.3, 9.6, 51.1],     // Metropolitan France (mainland)
+    [-54.6, 2.1, -51.6, 5.8],     // French Guiana
+    [55.2, -21.4, 55.8, -20.8],   // Réunion
+    [-61.2, 14.4, -60.8, 14.9],   // Martinique
+    [-61.8, 15.8, -61.0, 16.5],   // Guadeloupe
+    [8.5, 41.3, 9.6, 43.0]        // Corsica
+  ],
+  // Netherlands - mainland and Caribbean territories
+  '528': [
+    [3.3, 50.7, 7.2, 53.6],      // Mainland Netherlands
+    [-69.2, 12.0, -68.2, 12.4],   // Aruba
+    [-69.0, 11.9, -68.2, 12.4],   // Curaçao
+    [-63.2, 17.9, -62.9, 18.1]    // Sint Maarten
+  ],
+  // New Zealand - main islands
+  '554': [
+    [166.0, -47.5, 179.0, -34.0],  // Main islands (North and South)
+    [172.5, -43.9, 173.9, -40.5],  // Chatham Islands
+  ],
+  // Fiji - main island group (corrected)
+  '242': [
+    [177.0, -21.0, 180.0, -16.0],  // Western islands (up to the date line)
+    [-180.0, -21.0, -178.0, -16.0], // Eastern islands (from the date line)
+  ],
+  // Kiribati - three island groups spread across the Pacific
+  '296': [
+    [172.0, -3.0, 177.0, 5.0],      // Gilbert Islands (western group)
+    [-175.0, -11.5, -170.0, -5.0],   // Phoenix Islands (central group)
+    [-160.0, -5.0, -150.0, 12.0],    // Line Islands (eastern group)
   ],
   // Add other countries as needed
 };
@@ -506,9 +549,11 @@ map.COUNTRY_BBOX_OVERRIDES = COUNTRY_BBOX_OVERRIDES;
    * @param  {Boolean} withKeyboard If the move was initiated by the keyboard
    */
   function move(tr, sc, animate, withKeyboard) {
-
-    // If move was not initiated by the keyboard, remove the keyboard mode
-    if (!withKeyboard) {
+    // Check if we should activate keyboard mode
+    if (sc >= MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
+      // Pass the zoom object to updateVisibleCountries
+      keyboardMode.updateVisibleCountries(zoom);
+    } else {
       keyboardMode.cleanup();
     }
     
@@ -1333,7 +1378,6 @@ function getCountryCenter(countryTopoData) {
   function debugDrawBoundingBoxes() {
     // Remove any existing debug boxes
     g.selectAll(".debug-box").remove();
-    console.log(COUNTRY_BBOX_OVERRIDES);
     
     // Draw boxes for each override
     Object.entries(COUNTRY_BBOX_OVERRIDES).forEach(([countryId, bboxes]) => {

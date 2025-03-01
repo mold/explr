@@ -17,6 +17,15 @@ let keyboardModeActive = false;
 let isKeyboardModeEnabled = false;
 let currentFocus = null;
 
+// Add a list of country IDs to exclude from keyboard mode
+const EXCLUDED_COUNTRY_IDS = [
+  831, // Jersey
+  832, // Guernsey
+  833, // Isle of Man
+  136, // Cayman Islands
+  796, // Turks and Caicos Islands
+];
+
 const handleLetterKeyPress = (e) => {
 
     // Check if user has pressed a letter key from A to Z
@@ -71,17 +80,28 @@ function getCurrentlyVisibleCountries() {
 
     visibleCountries.forEach((country) => {
         const countryId = parseInt(country.id.slice(1));
+        
+        // Skip excluded country IDs
+        if (EXCLUDED_COUNTRY_IDS.includes(countryId)) {
+            return;
+        }
+        
         const letter = ALPHABET[visibleCountries.indexOf(country)];
         
         // Add null checks for data[countryId] and data[countryId][userName]
         const artistCount = data[countryId] && data[countryId][userName] ? 
             data[countryId][userName].length : 0;
             
-        formattedCountries.push({
-            name: utils.getCountryNameFromId(parseInt(country.id.slice(1))),
-            number: letter,
-            artistCount: artistCount
-        });
+        // Only add countries that have a valid name
+        const countryName = utils.getCountryNameFromId(countryId);
+        if (countryName && countryName !== "undefined") {
+            formattedCountries.push({
+                name: countryName,
+                number: letter,
+                artistCount: artistCount,
+                id: countryId
+            });
+        }
     });
     return formattedCountries;
 }
@@ -90,9 +110,13 @@ function isInViewport(element) {
     // Get country ID from the element
     const countryId = parseInt(element.id.slice(1));
     
+    // Skip excluded country IDs
+    if (EXCLUDED_COUNTRY_IDS.includes(countryId)) {
+        return false;
+    }
+    
     // Check if we have an override for this country in map.COUNTRY_BBOX_OVERRIDES
     if (map.COUNTRY_BBOX_OVERRIDES && map.COUNTRY_BBOX_OVERRIDES[countryId]) {
-        console.log("Country ID with override:", countryId);
         // For countries with multiple boxes (like USA), check if any box is visible
         const overrides = map.COUNTRY_BBOX_OVERRIDES[countryId];
         const boxArray = Array.isArray(overrides[0]) ? overrides : [overrides];
@@ -206,77 +230,102 @@ function getPathCenter(path) {
 
 let hasAnnounced = false;
 
-function getVisibleCountries(zoom) {
-    keyboardMode.cleanup();
-
-    var countries = document.querySelectorAll(".country");
-    var countriesArray = Array.from(countries);
-    // Filter the countries to get only the ones that are visible
-    visibleCountries = countriesArray.filter((country) => {
-        // Get the bounding box of the current country
+function getVisibleCountries() {
+    // Get all country elements in a D3 v3 compatible way
+    const countriesSelection = d3.selectAll(".country");
+    const countries = [];
+    
+    // Convert D3 selection to array in v3 compatible way
+    countriesSelection.each(function() {
+        countries.push(this);
+    });
+    
+    // Filter out countries that should be excluded
+    const filteredCountries = countries.filter(country => {
+        const countryId = parseInt(country.id.slice(1));
+        
+        // Skip excluded country IDs
+        if (EXCLUDED_COUNTRY_IDS.includes(countryId)) {
+            return false;
+        }
+        
+        // Skip countries with undefined names
+        const countryName = utils.getCountryNameFromId(countryId);
+        if (!countryName || countryName === "undefined") {
+            return false;
+        }
+        
+        // Check if the country is in the viewport
         return isInViewport(country);
     });
-    if (zoom.scale() >= MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
+    
+    return filteredCountries;
+}
+
+function updateVisibleCountries(zoom) {
+    keyboardMode.cleanup();
+    
+    // Get filtered visible countries
+    visibleCountries = getVisibleCountries();
+    
+    if (zoom && zoom.scale() >= MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
         // Lets start keyboard mode
         KEYBOARD_MODE_ACTIVE = true;
         displayKeyboardModeMessage();
+        
         // TODO: Find a working way to only announce this once
         if (!hasAnnounced) {
             announcer.announce("Keyboard mode active! Press L to hear the list of countries.")
             hasAnnounced = true;
         }
+        
         // Hide controls, footer and legend
         document.getElementById("controls").classList.add("hidden");
         document.getElementById("legend").classList.add("hidden");
         document.getElementById("filter-text").classList.add("hidden");
         document.getElementById("filter").classList.add("hidden");
         document.querySelector(".no-countries").classList.add("hidden");
-
         document.getElementById("friends").classList.add("hidden");
-      
+        
         // display a number on the center of each country
-      visibleCountries.forEach((country) => {
-        window.addEventListener('keydown', handleLetterKeyPress);
-
-        var center = getPathCenter(country);
-
-        const letter = ALPHABET[visibleCountries.indexOf(country)];
-
-    
-        // Append a circle
-        d3.select(country.parentElement).append("rect")
-            .attr("class", "a11y-number-bg")
-            .attr("x", center.x - 1.5) // position the rectangle
-            .attr("y", center.y - 1.5) // position the rectangle
-            .attr("width", 3) // width of the rectangle
-            .attr("height", 3) // height of the rectangle
-            .attr("rx", 0.5) // horizontal corner radius
-            .attr("ry", 0.5); // vertical corner radius
-    
-        // Append a text for the number
-        d3.select(country.parentElement).append("text")
-            .attr("class", "a11y-number")
-            .attr("data-country-id", country.id)
-            .attr("text-anchor", "middle")
-            .attr("alignment-baseline", "middle")
-            .attr("x", center.x) // position the text
-            .attr("y", center.y + 0.2) // position the text
-            .text(letter);
-    
-        // Append a text for the country name
-        d3.select(country.parentElement).append("text")
-            .attr("class", "a11y-country-name")
-            .attr("text-anchor", "middle")
-            .attr("alignment-baseline", "middle")
-            .attr("font-size", "0.1rem")
-            .attr("x", center.x) // position the text
-            .attr("y", center.y + 4) // position the text below the number
-            .text(utils.getCountryNameFromId(parseInt(country.id.slice(1))));
+        visibleCountries.forEach((country) => {
+            window.addEventListener('keydown', handleLetterKeyPress);
+            
+            var center = getPathCenter(country);
+            const letter = ALPHABET[visibleCountries.indexOf(country)];
+            
+            // Append a circle
+            d3.select(country.parentElement).append("rect")
+                .attr("class", "a11y-number-bg")
+                .attr("x", center.x - 1.5) // position the rectangle
+                .attr("y", center.y - 1.5) // position the rectangle
+                .attr("width", 3) // width of the rectangle
+                .attr("height", 3) // height of the rectangle
+                .attr("rx", 0.5) // horizontal corner radius
+                .attr("ry", 0.5); // vertical corner radius
+            
+            // Append a text for the number
+            d3.select(country.parentElement).append("text")
+                .attr("class", "a11y-number")
+                .attr("data-country-id", country.id)
+                .attr("text-anchor", "middle")
+                .attr("alignment-baseline", "middle")
+                .attr("x", center.x) // position the text
+                .attr("y", center.y + 0.2) // position the text
+                .text(letter);
+            
+            // Append a text for the country name
+            d3.select(country.parentElement).append("text")
+                .attr("class", "a11y-country-name")
+                .attr("text-anchor", "middle")
+                .attr("alignment-baseline", "middle")
+                .attr("font-size", "0.1rem")
+                .attr("x", center.x) // position the text
+                .attr("y", center.y + 4) // position the text below the number
+                .text(utils.getCountryNameFromId(parseInt(country.id.slice(1))));
         });
-      }
-  }
-
-  
+    }
+}
 
 (function () {
 
@@ -342,7 +391,7 @@ function getVisibleCountries(zoom) {
                     t[1] += panStep;
                     e.preventDefault();
                     move(t, s, false, true);
-                    getVisibleCountries(zoom);
+                    getVisibleCountries();
                     announcer.announce("Panning north", "assertive", 100)
                     ga('send', {
                         hitType: 'event',
@@ -355,7 +404,7 @@ function getVisibleCountries(zoom) {
                     t[1] -= panStep;
                     e.preventDefault();
                     move(t, s, false, true);
-                    getVisibleCountries(zoom);
+                    getVisibleCountries();
                     announcer.announce("Panning south", "assertive", 100)
                     ga('send', {
                         hitType: 'event',
@@ -368,7 +417,7 @@ function getVisibleCountries(zoom) {
                     t[0] += panStep;
                     e.preventDefault();
                     move(t, s, false, true);
-                    getVisibleCountries(zoom);
+                    getVisibleCountries();
                     announcer.announce("Panning west", "assertive", 100)
                     ga('send', {
                         hitType: 'event',
@@ -381,7 +430,7 @@ function getVisibleCountries(zoom) {
                     t[0] -= panStep;
                     e.preventDefault();
                     move(t, s, false, true);
-                    getVisibleCountries(zoom);
+                    getVisibleCountries();
                     announcer.announce("Panning east", "assertive", 100)
                     ga('send', {
                         hitType: 'event',
@@ -409,7 +458,7 @@ function getVisibleCountries(zoom) {
                     e.preventDefault();
                     move(t, s, false, true);
 
-                    getVisibleCountries(zoom);
+                    getVisibleCountries();
                     announcer.announce(`Zoom ${e.key === '+' ? "in" : "out"} level ${parseInt(newScale)}`, "assertive", 100);
                     ga('send', {
                         hitType: 'event',
@@ -500,5 +549,9 @@ function getVisibleCountries(zoom) {
         currentFocus = null;
         // Removes visual indicators
     }
+
+    keyboardMode.updateVisibleCountries = function(zoom) {
+        updateVisibleCountries(zoom);
+    };
 
 })();
