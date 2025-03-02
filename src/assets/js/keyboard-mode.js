@@ -8,7 +8,8 @@ const keyboardMode = keyboardMode || {};
 const MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE = 7;
 const MAX_COUNTRY_SUGGESTIONS = 20;
 let KEYBOARD_MODE_ACTIVE = false;
-const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+// Exclude L and H because they are used for other purposes
+const ALPHABET = 'ABCDEFGIJKMNOPQRSTUVWXYZ'.split('');
 
 let visibleCountries = [];
 let keyBuffer = '';
