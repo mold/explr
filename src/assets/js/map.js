@@ -1422,4 +1422,9 @@ function getCountryCenter(countryTopoData) {
   // Call this after your map is initialized
   setupAuditoryFeedbackForMap();
 
+  // Add this to the public API section at the bottom of the file
+  map.getColorDomain = function() {
+    return mydomain; // This is the array that defines the color thresholds
+  };
+
 })(window, document)

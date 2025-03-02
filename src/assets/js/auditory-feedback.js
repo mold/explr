@@ -235,9 +235,25 @@ const auditoryFeedback = (function() {
     
     const avgDensity = countries.length > 0 ? totalArtists / countries.length : 0;
     
-    // Normalize density to 0-1 range
-    const maxPossibleAvg = 100; // Adjust based on your data
-    const normalizedDensity = Math.min(avgDensity / maxPossibleAvg, 1);
+    // Get the color domain from the map
+    let normalizedDensity = 0;
+    
+    if (window.map && window.map.getColorDomain) {
+      const colorDomain = window.map.getColorDomain();
+      if (colorDomain && colorDomain.length > 0) {
+        // Find where our density falls in the color domain
+        const maxDomain = colorDomain[colorDomain.length - 1];
+        normalizedDensity = Math.min(avgDensity / maxDomain, 1);
+      } else {
+        // Fallback to old method if color domain isn't available
+        const maxPossibleAvg = 100;
+        normalizedDensity = Math.min(avgDensity / maxPossibleAvg, 1);
+      }
+    } else {
+      // Fallback to old method if map or getColorDomain isn't available
+      const maxPossibleAvg = 100;
+      normalizedDensity = Math.min(avgDensity / maxPossibleAvg, 1);
+    }
     
     // Update the tone
     updateTone(normalizedDensity);
