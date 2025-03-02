@@ -507,6 +507,8 @@ map.COUNTRY_BBOX_OVERRIDES = COUNTRY_BBOX_OVERRIDES;
             removeArtistDiv();
             // zoom out map, fulhack
             clicked(centered);
+            // Restore focus to the img
+            d3.select('#map-svg').node().focus();
           }) //"stäng" onclick slutar
       }) // on click slutar
 

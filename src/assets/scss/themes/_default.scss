@@ -127,17 +127,23 @@ kbd {
     font-size: 0.9rem;
     padding: 2px 4px;
     font-size: 0.85em;
-    color: #555;
-    background-color: #fcfcfc;
-    border: solid 1px #ccc;
+    color: #fff;
+    background-color: #333;
+    border: solid 1px #666;
     border-radius: 3px;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #ffffff inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 0 2px #222 inset;
     white-space: nowrap;
     kbd+& {
         margin-left: 4px;
     }
 }
 
+body.dark kbd {
+    color: #222;
+    background-color: #fcfcfc;
+    border: solid 1px #ccc;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #ffffff inset;
+}
 
 /*
  * Tooltip

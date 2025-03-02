@@ -8,7 +8,7 @@ const keyboardMode = keyboardMode || {};
 const MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE = 7;
 const MAX_COUNTRY_SUGGESTIONS = 20;
 let KEYBOARD_MODE_ACTIVE = false;
-const ALPHABET = 'ABCDEFGIJKMNOPQRSTUVWXYZ'.split('');
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 let visibleCountries = [];
 let keyBuffer = '';
@@ -26,26 +26,29 @@ const EXCLUDED_COUNTRY_IDS = [
   796, // Turks and Caicos Islands
 ];
 
-const handleLetterKeyPress = (e) => {
+// Add a map to store country-to-letter assignments
+let countryLetterMap = {};
 
+const handleLetterKeyPress = (e) => {
     // Check if user has pressed a letter key from A to Z
     if (e.key.match(/[a-zA-Z]/) && e.target.tagName !== "INPUT") {
-
         // Check if it's a single key press with no modifier keys
         if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
             return;
         }
+        
         // Convert the key to uppercase
         const key = e.key.toUpperCase();
-
-        // Convert the key to an index based on the custom alphabet
-        const index = ALPHABET.indexOf(key);
-
-        // Check if the index is within the range of visible countries
-        if (index >= 0 && index < visibleCountries.length) {
-            // Get the country with the corresponding index
-            var targetCountry = visibleCountries[index];
-
+        
+        // Find the country with this letter
+        const targetCountryId = Object.keys(countryLetterMap).find(
+            id => countryLetterMap[id] === key
+        );
+        
+        if (targetCountryId) {
+            // Find the country element
+            const targetCountry = visibleCountries.find(country => country.id === targetCountryId);
+            
             // Generate a click on the target country
             if (targetCountry) {
                 targetCountry.dispatchEvent(new Event('click'));
@@ -86,7 +89,7 @@ function getCurrentlyVisibleCountries() {
             return;
         }
         
-        const letter = ALPHABET[visibleCountries.indexOf(country)];
+        const letter = countryLetterMap[country.id];
         
         // Add null checks for data[countryId] and data[countryId][userName]
         const artistCount = data[countryId] && data[countryId][userName] ? 
@@ -287,12 +290,16 @@ function updateVisibleCountries(zoom) {
         document.querySelector(".no-countries").classList.add("hidden");
         document.getElementById("friends").classList.add("hidden");
         
+        // Assign letters to countries if they don't already have one
+        assignLettersToCountries();
+        
         // display a number on the center of each country
         visibleCountries.forEach((country) => {
             window.addEventListener('keydown', handleLetterKeyPress);
             
             var center = getPathCenter(country);
-            const letter = ALPHABET[visibleCountries.indexOf(country)];
+            const countryId = country.id;
+            const letter = countryLetterMap[countryId];
             
             // Append a circle
             d3.select(country.parentElement).append("rect")
@@ -307,7 +314,7 @@ function updateVisibleCountries(zoom) {
             // Append a text for the number
             d3.select(country.parentElement).append("text")
                 .attr("class", "a11y-number")
-                .attr("data-country-id", country.id)
+                .attr("data-country-id", countryId)
                 .attr("text-anchor", "middle")
                 .attr("alignment-baseline", "middle")
                 .attr("x", center.x) // position the text
@@ -322,15 +329,50 @@ function updateVisibleCountries(zoom) {
                 .attr("font-size", "0.1rem")
                 .attr("x", center.x) // position the text
                 .attr("y", center.y + 4) // position the text below the number
-                .text(utils.getCountryNameFromId(parseInt(country.id.slice(1))));
+                .text(utils.getCountryNameFromId(parseInt(countryId.slice(1))));
         });
     }
+}
+
+// New function to assign letters to countries
+function assignLettersToCountries() {
+    // For any new countries that don't have a letter yet, assign them one
+    visibleCountries.forEach((country) => {
+        const countryId = country.id;
+        
+        // If this country doesn't have a letter assigned yet
+        if (!countryLetterMap[countryId]) {
+            // Find the first available letter
+            for (let i = 0; i < ALPHABET.length; i++) {
+                const letter = ALPHABET[i];
+                
+                // Check if this letter is already used
+                const isLetterUsed = Object.values(countryLetterMap).includes(letter);
+                
+                // If letter is not used, assign it to this country
+                if (!isLetterUsed) {
+                    countryLetterMap[countryId] = letter;
+                    break;
+                }
+            }
+        }
+    });
+    
+    // Clean up letters for countries that are no longer visible
+    Object.keys(countryLetterMap).forEach(id => {
+        const isVisible = visibleCountries.some(country => country.id === id);
+        if (!isVisible) {
+            delete countryLetterMap[id];
+        }
+    });
 }
 
 (function () {
 
     keyboardMode.init = function (zoom, move, width, height, MAX_ZOOM) {
-
+        // Store the zoom behavior for use in other methods
+        keyboardMode.zoomBehavior = zoom;
+        
         // Set keyboard listeners for zoom and pan
         window.addEventListener('keydown', function(e) {
 
@@ -364,6 +406,8 @@ function updateVisibleCountries(zoom) {
                     if (map.centered !== null) {
                         map.dismissCenteredCountry();
                         keyboardMode.cleanup();
+                        // Restore focus to the img
+                        d3.select('#map-svg').node().focus();
                         return
                     }
                     // reset the zoom and translation
@@ -519,6 +563,10 @@ function updateVisibleCountries(zoom) {
     keyboardMode.cleanup = function () {
         hideKeyboardModeMessage();
         KEYBOARD_MODE_ACTIVE = false;
+        // Reset the letter map when exiting keyboard mode completely
+        if (keyboardMode.zoomBehavior && keyboardMode.zoomBehavior.scale() < MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
+            countryLetterMap = {};
+        }
         d3.selectAll(".a11y-number").remove();
         d3.selectAll(".a11y-number-bg").remove();
         d3.selectAll(".a11y-country-name").remove();
