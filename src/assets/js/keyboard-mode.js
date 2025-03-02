@@ -266,6 +266,12 @@ function getVisibleCountries() {
     return filteredCountries;
 }
 
+// New function to get a summary of visible countries
+function getVisibleCountriesSummary() {
+    const countries = getVisibleCountries();
+    return `${countries.length} ${countries.length === 1 ? 'country' : 'countries'} visible, press L to list`;
+}
+
 function updateVisibleCountries(zoom) {
     keyboardMode.cleanup();
     
@@ -368,6 +374,14 @@ function assignLettersToCountries() {
     });
 }
 
+// Update the announcement functions to only include country count when keyboard mode is active
+function getAnnouncementText(baseText) {
+    if (KEYBOARD_MODE_ACTIVE) {
+        return `${baseText}. ${getVisibleCountriesSummary()}`;
+    }
+    return baseText;
+}
+
 (function () {
 
     keyboardMode.init = function (zoom, move, width, height, MAX_ZOOM) {
@@ -437,7 +451,12 @@ function assignLettersToCountries() {
                     e.preventDefault();
                     move(t, s, false, true);
                     getVisibleCountries();
-                    announcer.announce("Panning north", "assertive", 100)
+                    // Update announcement to include country count only when keyboard mode is active
+                    setTimeout(() => {
+                        const message = getAnnouncementText("Panning north");
+                        announcer.announce(message, "assertive", 100);
+                        console.log(message);
+                    }, 100);
                     ga('send', {
                         hitType: 'event',
                         eventCategory: 'Keyboard',
@@ -450,7 +469,12 @@ function assignLettersToCountries() {
                     e.preventDefault();
                     move(t, s, false, true);
                     getVisibleCountries();
-                    announcer.announce("Panning south", "assertive", 100)
+                    // Update announcement to include country count only when keyboard mode is active
+                    setTimeout(() => {
+                        const message = getAnnouncementText("Panning south");
+                        announcer.announce(message, "assertive", 100);
+                        console.log(message);
+                    }, 100);
                     ga('send', {
                         hitType: 'event',
                         eventCategory: 'Keyboard',
@@ -463,7 +487,12 @@ function assignLettersToCountries() {
                     e.preventDefault();
                     move(t, s, false, true);
                     getVisibleCountries();
-                    announcer.announce("Panning west", "assertive", 100)
+                    // Update announcement to include country count only when keyboard mode is active
+                    setTimeout(() => {
+                        const message = getAnnouncementText("Panning west");
+                        announcer.announce(message, "assertive", 100);
+                        console.log(message);
+                    }, 100);
                     ga('send', {
                         hitType: 'event',
                         eventCategory: 'Keyboard',
@@ -476,7 +505,12 @@ function assignLettersToCountries() {
                     e.preventDefault();
                     move(t, s, false, true);
                     getVisibleCountries();
-                    announcer.announce("Panning east", "assertive", 100)
+                    // Update announcement to include country count only when keyboard mode is active
+                    setTimeout(() => {
+                        const message = getAnnouncementText("Panning east");
+                        announcer.announce(message, "assertive", 100);
+                        console.log(message);
+                    }, 100);
                     ga('send', {
                         hitType: 'event',
                         eventCategory: 'Keyboard',
@@ -504,7 +538,13 @@ function assignLettersToCountries() {
                     move(t, s, false, true);
 
                     getVisibleCountries();
-                    announcer.announce(`Zoom ${e.key === '+' ? "in" : "out"} level ${parseInt(newScale)}`, "assertive", 100);
+                    // Update announcement to include country count only when keyboard mode is active
+                    setTimeout(() => {
+                        const baseMessage = `Zoom ${e.key === '+' ? "in" : "out"} level ${parseInt(newScale)}`;
+                        const message = getAnnouncementText(baseMessage);
+                        announcer.announce(message, "assertive", 100);
+                        console.log(message);
+                    }, 100);
                     ga('send', {
                         hitType: 'event',
                         eventCategory: 'Keyboard',
@@ -534,9 +574,14 @@ function assignLettersToCountries() {
                         });
                         return;
                     }
-                    // announce the list of countries
-                    let message = "List of countries: ";
+                    // announce the list of countries. Temporarily removing the prefix to improve screen reader ux
+                    // let message = "Listing countries: ";
+                    let message = "";
                     const countries = getCurrentlyVisibleCountries();
+                    
+                    // Sort countries by their assigned letter
+                    countries.sort((a, b) => a.number.localeCompare(b.number));
+                    
                     countries.forEach((country) => {
                         message += `${country.number}: ${country.name} (${country.artistCount} artists), `;
                     });
