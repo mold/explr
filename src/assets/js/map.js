@@ -590,6 +590,8 @@ map.COUNTRY_BBOX_OVERRIDES = COUNTRY_BBOX_OVERRIDES;
 
     //adjust the country hover stroke width based on zoom level
     d3.selectAll(".country").style("stroke-width", 1.5 / s);
+
+    window.triggerAuditoryFeedback();
   }
   map.move = move;
 
@@ -1395,5 +1397,29 @@ function getCountryCenter(countryTopoData) {
             break;
     }
   }
+
+  // Update the setupAuditoryFeedbackForMap function to only trigger on keyboard navigation
+  function setupAuditoryFeedbackForMap() {
+    // Remove the automatic triggers on zoom/pan
+    
+    // Only trigger feedback when new data is loaded
+    document.addEventListener("artistsLoaded", function() {
+      if (window.auditoryFeedback) {
+        window.auditoryFeedback.updateFeedback();
+      }
+    });
+    
+    // Create a custom event dispatcher to trigger feedback manually if needed
+    window.triggerAuditoryFeedback = function() {
+      if (window.auditoryFeedback) {
+        window.auditoryFeedback.updateFeedback();
+      }
+    };
+    
+    // Remove the automatic trigger in the move function
+  }
+
+  // Call this after your map is initialized
+  setupAuditoryFeedbackForMap();
 
 })(window, document)

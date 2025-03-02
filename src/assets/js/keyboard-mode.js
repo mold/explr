@@ -8,8 +8,8 @@ const keyboardMode = keyboardMode || {};
 const MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE = 7;
 const MAX_COUNTRY_SUGGESTIONS = 20;
 let KEYBOARD_MODE_ACTIVE = false;
-// Exclude L and H because they are used for other purposes
-const ALPHABET = 'ABCDEFGIJKMNOPQRSTUVWXYZ'.split('');
+// Exclude A, L and H because they are used for other purposes
+const ALPHABET = 'BCDEFGIJKMNOPQRSTUVWXYZ'.split('');
 
 let visibleCountries = [];
 let keyBuffer = '';
@@ -602,6 +602,19 @@ function getAnnouncementText(baseText) {
                 map.dismissCenteredCountry();
             }
 
+            // Only handle arrow keys for navigation
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || 
+                e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                
+                // Then trigger the auditory feedback after a small delay
+                // to allow the map to update first
+                setTimeout(function() {
+                    if (window.auditoryFeedback && window.auditoryFeedback.isEnabled()) {
+                        window.auditoryFeedback.updateFeedback();
+                    }
+                }, 100);
+            }
+
         });
 
     }
@@ -646,6 +659,11 @@ function getAnnouncementText(baseText) {
 
     keyboardMode.updateVisibleCountries = function(zoom) {
         updateVisibleCountries(zoom);
+    };
+
+    // Add this line to expose the getCurrentlyVisibleCountries function
+    keyboardMode.getCurrentlyVisibleCountries = function() {
+        return getCurrentlyVisibleCountries();
     };
 
 })();
