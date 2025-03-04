@@ -377,7 +377,10 @@ function assignLettersToCountries() {
 // Update the announcement functions to only include country count when keyboard mode is active
 function getAnnouncementText(baseText) {
     if (KEYBOARD_MODE_ACTIVE) {
-        return `${baseText}. ${getVisibleCountriesSummary()}`;
+        const audioFeedbackState = window.auditoryFeedback && window.auditoryFeedback.isEnabled() 
+            ? "turn off" 
+            : "turn on";
+        return `${baseText}. ${getVisibleCountriesSummary()}. Press A to ${audioFeedbackState} audio feedback.`;
     }
     return baseText;
 }
@@ -640,7 +643,13 @@ function getAnnouncementText(baseText) {
         window.removeEventListener('keydown', handleLetterKeyPress);        
     }
 
-    keyboardMode.isActive = KEYBOARD_MODE_ACTIVE;
+    keyboardMode.isActive = function() {
+        // Return true if keyboard mode is currently active
+        // Instead of using currentZoomLevel which doesn't exist,
+        // use the stored zoom behavior and check its scale
+        return keyboardMode.zoomBehavior && 
+               keyboardMode.zoomBehavior.scale() >= MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE;
+    }
 
     keyboardMode.getStatus = function () {
         return KEYBOARD_MODE_ACTIVE;

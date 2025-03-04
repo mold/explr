@@ -178,7 +178,14 @@ const auditoryFeedback = (function() {
     // Low density: 220Hz (low A), High density: 880Hz (high A)
     const minFreq = 220;
     const maxFreq = 880;
-    const frequency = minFreq + (density * (maxFreq - minFreq));
+    
+    // Apply a slight curve to give better distinction at lower values
+    // while preserving the overall scale
+    // This power value (0.8) is closer to linear (1.0) but still provides
+    // some enhancement for lower values
+    const curvedDensity = Math.pow(density, 0.8);
+    
+    const frequency = minFreq + (curvedDensity * (maxFreq - minFreq));
     
     // Create or restart the tone if it's not playing
     if (!isPlaying) {
@@ -207,6 +214,21 @@ const auditoryFeedback = (function() {
     
     // Skip if keyboard only and last interaction was not keyboard
     if (keyboardNavigationOnly && !lastInteractionWasKeyboard) return;
+    
+    // Check if keyboard mode is active (only when zoomed in far enough)
+    if (window.keyboardMode && typeof window.keyboardMode.isActive === 'function') {
+      if (!window.keyboardMode.isActive()) {
+        // Keyboard mode is not active, so don't play audio feedback
+        if (isPlaying && oscillator) {
+          // Fade out any currently playing tone
+          if (gainNode) {
+            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.5);
+          }
+          return;
+        }
+        return;
+      }
+    }
     
     // Get the current data from the keyboard mode
     const countries = getCurrentlyVisibleCountries();
