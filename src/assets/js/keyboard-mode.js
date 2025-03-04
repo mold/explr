@@ -214,13 +214,86 @@ function displayKeyboardModeMessage() {
     const innerMessage = document.createElement("div");
     innerMessage.innerHTML = "<h2>Keyboard mode active! <span class='fa fa-keyboard'></span> </h2><p>Type a <kbd>letter</kbd> to select a country.<p><p>Move around with <kbd>&#8592;</kbd><kbd>&#8594;</kbd><kbd>&#8593;</kbd><kbd>&#8595;</kbd> keys.</p><p>Exit by zooming out with <kbd>-</kbd> key. </p><p>Toggle auditory feedback with <kbd>A</kbd> key.</p>";
     message.appendChild(innerMessage);
-  }
+    
+    // Add the visual indicator for the 400x400 box
+    addViewportBoxIndicator();
+}
 
-    function hideKeyboardModeMessage() {
-        const message = document.getElementById("keyboard-mode-message");
-        message.classList.add("hidden");
-        message.innerHTML = "";
+function hideKeyboardModeMessage() {
+    const message = document.getElementById("keyboard-mode-message");
+    message.classList.add("hidden");
+    message.innerHTML = "";
+    
+    // Remove the visual indicator
+    removeViewportBoxIndicator();
+}
+
+// Add a visual indicator for the 400x400 box used to determine visible countries
+function addViewportBoxIndicator() {
+    // Remove any existing indicator first
+    removeViewportBoxIndicator();
+    
+    // Create the indicator element
+    const indicator = document.createElement("div");
+    indicator.id = "viewport-box-indicator";
+    
+    // Calculate the position and size
+    const rectangleWidth = 400;
+    const rectangleHeight = 400;
+    const rectangleLeft = (window.innerWidth - rectangleWidth) / 2;
+    const rectangleTop = (window.innerHeight - rectangleHeight) / 2;
+    
+    // Set the styles
+    indicator.style.position = "fixed";
+    indicator.style.left = rectangleLeft + "px";
+    indicator.style.top = rectangleTop + "px";
+    indicator.style.width = rectangleWidth + "px";
+    indicator.style.height = rectangleHeight + "px";
+    indicator.style.border = "1px solid rgba(255, 255, 255, 0.6)";
+    indicator.style.pointerEvents = "none"; // Make sure it doesn't interfere with clicks
+    indicator.style.zIndex = "1000"; // Make sure it's above the map but below other UI
+    indicator.style.boxSizing = "border-box";
+    
+    // Add a tooltip/label
+    const label = document.createElement("div");
+    label.textContent = "Active Area";
+    label.style.position = "absolute";
+    label.style.top = "-25px";
+    label.style.left = "50%";
+    label.style.transform = "translateX(-50%)";
+    label.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+    label.style.color = "white";
+    label.style.padding = "3px 8px";
+    label.style.borderRadius = "3px";
+    label.style.fontSize = "12px";
+    
+    indicator.appendChild(label);
+    document.body.appendChild(indicator);
+    
+    // Update position on window resize
+    window.addEventListener('resize', updateViewportBoxPosition);
+}
+
+function removeViewportBoxIndicator() {
+    const indicator = document.getElementById("viewport-box-indicator");
+    if (indicator) {
+        indicator.remove();
     }
+    window.removeEventListener('resize', updateViewportBoxPosition);
+}
+
+function updateViewportBoxPosition() {
+    const indicator = document.getElementById("viewport-box-indicator");
+    if (indicator) {
+        const rectangleWidth = 400;
+        const rectangleHeight = 400;
+        const rectangleLeft = (window.innerWidth - rectangleWidth) / 2;
+        const rectangleTop = (window.innerHeight - rectangleHeight) / 2;
+        
+        indicator.style.left = rectangleLeft + "px";
+        indicator.style.top = rectangleTop + "px";
+    }
+}
 
 function getPathCenter(path) {
     const y = parseFloat(path.getAttribute("data-center-y"));
@@ -640,7 +713,9 @@ function getAnnouncementText(baseText) {
         document.getElementById("filter").classList.remove("hidden");
         document.querySelector(".no-countries").classList.remove("hidden");
         // remove keyboard listeners
-        window.removeEventListener('keydown', handleLetterKeyPress);        
+        window.removeEventListener('keydown', handleLetterKeyPress);
+        // Remove the visual indicator
+        removeViewportBoxIndicator();
     }
 
     keyboardMode.isActive = function() {

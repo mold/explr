@@ -255,6 +255,30 @@ const auditoryFeedback = (function() {
       });
     }
     
+    // If there are no artists in any of the visible countries, remain silent
+    if (totalArtists === 0) {
+      // Fade out any currently playing tone
+      if (isPlaying && oscillator && gainNode) {
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.5);
+        
+        // Clear any scheduled stop
+        if (toneTimeout) {
+          clearTimeout(toneTimeout);
+          toneTimeout = null;
+        }
+        
+        // Stop oscillator after fade out
+        setTimeout(() => {
+          if (oscillator) {
+            oscillator.stop();
+            oscillator = null;
+            isPlaying = false;
+          }
+        }, 600);
+      }
+      return;
+    }
+    
     const avgDensity = countries.length > 0 ? totalArtists / countries.length : 0;
     
     // Get the color domain from the map
