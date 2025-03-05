@@ -1,5 +1,5 @@
 /* 
- * Auditory Feedback Module
+ * Audio Feedback Module
  * Provides audio visualization of artist density on the music map
  * for improved accessibility for blind users
  */
@@ -146,8 +146,8 @@ const auditoryFeedback = (function() {
     if (window.announcer) {
       window.announcer.announce(
         audioFeedbackEnabled ? 
-        "Auditory feedback enabled. Use arrow keys to navigate and hear artist density." : 
-        "Auditory feedback disabled."
+        "Audio feedback enabled. Use arrow keys to navigate and hear artist density for the currently visible countries." : 
+        "Audio feedback disabled."
       );
     }
     

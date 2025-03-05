@@ -212,7 +212,7 @@ function displayKeyboardModeMessage() {
     const message = document.getElementById("keyboard-mode-message");
     message.classList.remove("hidden");
     const innerMessage = document.createElement("div");
-    innerMessage.innerHTML = "<h2>Keyboard mode active! <span class='fa fa-keyboard'></span> </h2><p>Type a <kbd>letter</kbd> to select a country.<p><p>Move around with <kbd>&#8592;</kbd><kbd>&#8594;</kbd><kbd>&#8593;</kbd><kbd>&#8595;</kbd> keys.</p><p>Exit by zooming out with <kbd>-</kbd> key. </p><p>Toggle auditory feedback with <kbd>A</kbd> key.</p>";
+    innerMessage.innerHTML = "<h2>Keyboard mode active! <span class='fa fa-keyboard'></span> </h2><p>Type a <kbd>letter</kbd> to select a country.<p><p>Move around with <kbd>&#8592;</kbd><kbd>&#8594;</kbd><kbd>&#8593;</kbd><kbd>&#8595;</kbd> keys.</p><p>Exit by zooming out with <kbd>-</kbd> key. </p><p>Toggle audio feedback with <kbd>A</kbd> key.</p>";
     message.appendChild(innerMessage);
     
     // Add the visual indicator for the 400x400 box
@@ -358,7 +358,7 @@ function updateVisibleCountries(zoom) {
         
         // TODO: Find a working way to only announce this once
         if (!hasAnnounced) {
-            announcer.announce("Keyboard mode active! Press L to hear the list of countries.")
+            announcer.announce("Keyboard mode active! Press L to hear the list of countries. Press A to turn on audio feedback.")
             hasAnnounced = true;
         }
         
