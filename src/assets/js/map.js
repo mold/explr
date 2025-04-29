@@ -507,6 +507,8 @@ map.COUNTRY_BBOX_OVERRIDES = COUNTRY_BBOX_OVERRIDES;
             removeArtistDiv();
             // zoom out map, fulhack
             clicked(centered);
+            // Restore focus to the img
+            d3.select('#map-svg').node().focus();
           }) //"stäng" onclick slutar
       }) // on click slutar
 
@@ -588,6 +590,8 @@ map.COUNTRY_BBOX_OVERRIDES = COUNTRY_BBOX_OVERRIDES;
 
     //adjust the country hover stroke width based on zoom level
     d3.selectAll(".country").style("stroke-width", 1.5 / s);
+
+    window.triggerAuditoryFeedback();
   }
   map.move = move;
 
@@ -1393,5 +1397,34 @@ function getCountryCenter(countryTopoData) {
             break;
     }
   }
+
+  // Update the setupAuditoryFeedbackForMap function to only trigger on keyboard navigation
+  function setupAuditoryFeedbackForMap() {
+    // Remove the automatic triggers on zoom/pan
+    
+    // Only trigger feedback when new data is loaded
+    document.addEventListener("artistsLoaded", function() {
+      if (window.auditoryFeedback) {
+        window.auditoryFeedback.updateFeedback();
+      }
+    });
+    
+    // Create a custom event dispatcher to trigger feedback manually if needed
+    window.triggerAuditoryFeedback = function() {
+      if (window.auditoryFeedback) {
+        window.auditoryFeedback.updateFeedback();
+      }
+    };
+    
+    // Remove the automatic trigger in the move function
+  }
+
+  // Call this after your map is initialized
+  setupAuditoryFeedbackForMap();
+
+  // Add this to the public API section at the bottom of the file
+  map.getColorDomain = function() {
+    return mydomain; // This is the array that defines the color thresholds
+  };
 
 })(window, document)

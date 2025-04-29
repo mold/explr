@@ -8,7 +8,8 @@ const keyboardMode = keyboardMode || {};
 const MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE = 7;
 const MAX_COUNTRY_SUGGESTIONS = 20;
 let KEYBOARD_MODE_ACTIVE = false;
-const ALPHABET = 'ABCDEFGIJKMNOPQRSTUVWXYZ'.split('');
+// Exclude A, L and H because they are used for other purposes
+const ALPHABET = 'BCDEFGIJKMNOPQRSTUVWXYZ'.split('');
 
 let visibleCountries = [];
 let keyBuffer = '';
@@ -26,26 +27,29 @@ const EXCLUDED_COUNTRY_IDS = [
   796, // Turks and Caicos Islands
 ];
 
-const handleLetterKeyPress = (e) => {
+// Add a map to store country-to-letter assignments
+let countryLetterMap = {};
 
+const handleLetterKeyPress = (e) => {
     // Check if user has pressed a letter key from A to Z
     if (e.key.match(/[a-zA-Z]/) && e.target.tagName !== "INPUT") {
-
         // Check if it's a single key press with no modifier keys
         if (e.ctrlKey || e.altKey || e.shiftKey || e.metaKey) {
             return;
         }
+        
         // Convert the key to uppercase
         const key = e.key.toUpperCase();
-
-        // Convert the key to an index based on the custom alphabet
-        const index = ALPHABET.indexOf(key);
-
-        // Check if the index is within the range of visible countries
-        if (index >= 0 && index < visibleCountries.length) {
-            // Get the country with the corresponding index
-            var targetCountry = visibleCountries[index];
-
+        
+        // Find the country with this letter
+        const targetCountryId = Object.keys(countryLetterMap).find(
+            id => countryLetterMap[id] === key
+        );
+        
+        if (targetCountryId) {
+            // Find the country element
+            const targetCountry = visibleCountries.find(country => country.id === targetCountryId);
+            
             // Generate a click on the target country
             if (targetCountry) {
                 targetCountry.dispatchEvent(new Event('click'));
@@ -86,7 +90,7 @@ function getCurrentlyVisibleCountries() {
             return;
         }
         
-        const letter = ALPHABET[visibleCountries.indexOf(country)];
+        const letter = countryLetterMap[country.id];
         
         // Add null checks for data[countryId] and data[countryId][userName]
         const artistCount = data[countryId] && data[countryId][userName] ? 
@@ -208,15 +212,88 @@ function displayKeyboardModeMessage() {
     const message = document.getElementById("keyboard-mode-message");
     message.classList.remove("hidden");
     const innerMessage = document.createElement("div");
-    innerMessage.innerHTML = "<h2>Keyboard mode active! <span class='fa fa-keyboard'></span> </h2><p>Type a <kbd>letter</kbd> to select a country.<p><p>Move around with <kbd>&#8592;</kbd><kbd>&#8594;</kbd><kbd>&#8593;</kbd><kbd>&#8595;</kbd> keys.</p><p>Exit by zooming out with <kbd>-</kbd> key. </p>";
+    innerMessage.innerHTML = "<h2>Keyboard mode active! <span class='fa fa-keyboard'></span> </h2><p>Type a <kbd>letter</kbd> to select a country.<p><p>Move around with <kbd>&#8592;</kbd><kbd>&#8594;</kbd><kbd>&#8593;</kbd><kbd>&#8595;</kbd> keys.</p><p>Exit by zooming out with <kbd>-</kbd> key. </p><p>Toggle audio feedback with <kbd>A</kbd> key.</p>";
     message.appendChild(innerMessage);
-  }
+    
+    // Add the visual indicator for the 400x400 box
+    addViewportBoxIndicator();
+}
 
-    function hideKeyboardModeMessage() {
-        const message = document.getElementById("keyboard-mode-message");
-        message.classList.add("hidden");
-        message.innerHTML = "";
+function hideKeyboardModeMessage() {
+    const message = document.getElementById("keyboard-mode-message");
+    message.classList.add("hidden");
+    message.innerHTML = "";
+    
+    // Remove the visual indicator
+    removeViewportBoxIndicator();
+}
+
+// Add a visual indicator for the 400x400 box used to determine visible countries
+function addViewportBoxIndicator() {
+    // Remove any existing indicator first
+    removeViewportBoxIndicator();
+    
+    // Create the indicator element
+    const indicator = document.createElement("div");
+    indicator.id = "viewport-box-indicator";
+    
+    // Calculate the position and size
+    const rectangleWidth = 400;
+    const rectangleHeight = 400;
+    const rectangleLeft = (window.innerWidth - rectangleWidth) / 2;
+    const rectangleTop = (window.innerHeight - rectangleHeight) / 2;
+    
+    // Set the styles
+    indicator.style.position = "fixed";
+    indicator.style.left = rectangleLeft + "px";
+    indicator.style.top = rectangleTop + "px";
+    indicator.style.width = rectangleWidth + "px";
+    indicator.style.height = rectangleHeight + "px";
+    indicator.style.border = "1px solid rgba(255, 255, 255, 0.6)";
+    indicator.style.pointerEvents = "none"; // Make sure it doesn't interfere with clicks
+    indicator.style.zIndex = "1000"; // Make sure it's above the map but below other UI
+    indicator.style.boxSizing = "border-box";
+    
+    // Add a tooltip/label
+    const label = document.createElement("div");
+    label.textContent = "Active Area";
+    label.style.position = "absolute";
+    label.style.top = "-25px";
+    label.style.left = "50%";
+    label.style.transform = "translateX(-50%)";
+    label.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
+    label.style.color = "white";
+    label.style.padding = "3px 8px";
+    label.style.borderRadius = "3px";
+    label.style.fontSize = "12px";
+    
+    indicator.appendChild(label);
+    document.body.appendChild(indicator);
+    
+    // Update position on window resize
+    window.addEventListener('resize', updateViewportBoxPosition);
+}
+
+function removeViewportBoxIndicator() {
+    const indicator = document.getElementById("viewport-box-indicator");
+    if (indicator) {
+        indicator.remove();
     }
+    window.removeEventListener('resize', updateViewportBoxPosition);
+}
+
+function updateViewportBoxPosition() {
+    const indicator = document.getElementById("viewport-box-indicator");
+    if (indicator) {
+        const rectangleWidth = 400;
+        const rectangleHeight = 400;
+        const rectangleLeft = (window.innerWidth - rectangleWidth) / 2;
+        const rectangleTop = (window.innerHeight - rectangleHeight) / 2;
+        
+        indicator.style.left = rectangleLeft + "px";
+        indicator.style.top = rectangleTop + "px";
+    }
+}
 
 function getPathCenter(path) {
     const y = parseFloat(path.getAttribute("data-center-y"));
@@ -262,6 +339,12 @@ function getVisibleCountries() {
     return filteredCountries;
 }
 
+// New function to get a summary of visible countries
+function getVisibleCountriesSummary() {
+    const countries = getVisibleCountries();
+    return `${countries.length} ${countries.length === 1 ? 'country' : 'countries'} visible, press L to list`;
+}
+
 function updateVisibleCountries(zoom) {
     keyboardMode.cleanup();
     
@@ -275,7 +358,7 @@ function updateVisibleCountries(zoom) {
         
         // TODO: Find a working way to only announce this once
         if (!hasAnnounced) {
-            announcer.announce("Keyboard mode active! Press L to hear the list of countries.")
+            announcer.announce("Keyboard mode active! Press L to hear the list of countries. Press A to turn on audio feedback.")
             hasAnnounced = true;
         }
         
@@ -287,12 +370,16 @@ function updateVisibleCountries(zoom) {
         document.querySelector(".no-countries").classList.add("hidden");
         document.getElementById("friends").classList.add("hidden");
         
+        // Assign letters to countries if they don't already have one
+        assignLettersToCountries();
+        
         // display a number on the center of each country
         visibleCountries.forEach((country) => {
             window.addEventListener('keydown', handleLetterKeyPress);
             
             var center = getPathCenter(country);
-            const letter = ALPHABET[visibleCountries.indexOf(country)];
+            const countryId = country.id;
+            const letter = countryLetterMap[countryId];
             
             // Append a circle
             d3.select(country.parentElement).append("rect")
@@ -307,7 +394,7 @@ function updateVisibleCountries(zoom) {
             // Append a text for the number
             d3.select(country.parentElement).append("text")
                 .attr("class", "a11y-number")
-                .attr("data-country-id", country.id)
+                .attr("data-country-id", countryId)
                 .attr("text-anchor", "middle")
                 .attr("alignment-baseline", "middle")
                 .attr("x", center.x) // position the text
@@ -322,15 +409,61 @@ function updateVisibleCountries(zoom) {
                 .attr("font-size", "0.1rem")
                 .attr("x", center.x) // position the text
                 .attr("y", center.y + 4) // position the text below the number
-                .text(utils.getCountryNameFromId(parseInt(country.id.slice(1))));
+                .text(utils.getCountryNameFromId(parseInt(countryId.slice(1))));
         });
     }
+}
+
+// New function to assign letters to countries
+function assignLettersToCountries() {
+    // For any new countries that don't have a letter yet, assign them one
+    visibleCountries.forEach((country) => {
+        const countryId = country.id;
+        
+        // If this country doesn't have a letter assigned yet
+        if (!countryLetterMap[countryId]) {
+            // Find the first available letter
+            for (let i = 0; i < ALPHABET.length; i++) {
+                const letter = ALPHABET[i];
+                
+                // Check if this letter is already used
+                const isLetterUsed = Object.values(countryLetterMap).includes(letter);
+                
+                // If letter is not used, assign it to this country
+                if (!isLetterUsed) {
+                    countryLetterMap[countryId] = letter;
+                    break;
+                }
+            }
+        }
+    });
+    
+    // Clean up letters for countries that are no longer visible
+    Object.keys(countryLetterMap).forEach(id => {
+        const isVisible = visibleCountries.some(country => country.id === id);
+        if (!isVisible) {
+            delete countryLetterMap[id];
+        }
+    });
+}
+
+// Update the announcement functions to only include country count when keyboard mode is active
+function getAnnouncementText(baseText) {
+    if (KEYBOARD_MODE_ACTIVE) {
+        const audioFeedbackState = window.auditoryFeedback && window.auditoryFeedback.isEnabled() 
+            ? "turn off" 
+            : "turn on";
+        return `${baseText}. ${getVisibleCountriesSummary()}. Press A to ${audioFeedbackState} audio feedback.`;
+    }
+    return baseText;
 }
 
 (function () {
 
     keyboardMode.init = function (zoom, move, width, height, MAX_ZOOM) {
-
+        // Store the zoom behavior for use in other methods
+        keyboardMode.zoomBehavior = zoom;
+        
         // Set keyboard listeners for zoom and pan
         window.addEventListener('keydown', function(e) {
 
@@ -364,6 +497,8 @@ function updateVisibleCountries(zoom) {
                     if (map.centered !== null) {
                         map.dismissCenteredCountry();
                         keyboardMode.cleanup();
+                        // Restore focus to the img
+                        d3.select('#map-svg').node().focus();
                         return
                     }
                     // reset the zoom and translation
@@ -392,7 +527,12 @@ function updateVisibleCountries(zoom) {
                     e.preventDefault();
                     move(t, s, false, true);
                     getVisibleCountries();
-                    announcer.announce("Panning north", "assertive", 100)
+                    // Update announcement to include country count only when keyboard mode is active
+                    setTimeout(() => {
+                        const message = getAnnouncementText("Panning north");
+                        announcer.announce(message, "assertive", 100);
+                        console.log(message);
+                    }, 100);
                     ga('send', {
                         hitType: 'event',
                         eventCategory: 'Keyboard',
@@ -405,7 +545,12 @@ function updateVisibleCountries(zoom) {
                     e.preventDefault();
                     move(t, s, false, true);
                     getVisibleCountries();
-                    announcer.announce("Panning south", "assertive", 100)
+                    // Update announcement to include country count only when keyboard mode is active
+                    setTimeout(() => {
+                        const message = getAnnouncementText("Panning south");
+                        announcer.announce(message, "assertive", 100);
+                        console.log(message);
+                    }, 100);
                     ga('send', {
                         hitType: 'event',
                         eventCategory: 'Keyboard',
@@ -418,7 +563,12 @@ function updateVisibleCountries(zoom) {
                     e.preventDefault();
                     move(t, s, false, true);
                     getVisibleCountries();
-                    announcer.announce("Panning west", "assertive", 100)
+                    // Update announcement to include country count only when keyboard mode is active
+                    setTimeout(() => {
+                        const message = getAnnouncementText("Panning west");
+                        announcer.announce(message, "assertive", 100);
+                        console.log(message);
+                    }, 100);
                     ga('send', {
                         hitType: 'event',
                         eventCategory: 'Keyboard',
@@ -431,7 +581,12 @@ function updateVisibleCountries(zoom) {
                     e.preventDefault();
                     move(t, s, false, true);
                     getVisibleCountries();
-                    announcer.announce("Panning east", "assertive", 100)
+                    // Update announcement to include country count only when keyboard mode is active
+                    setTimeout(() => {
+                        const message = getAnnouncementText("Panning east");
+                        announcer.announce(message, "assertive", 100);
+                        console.log(message);
+                    }, 100);
                     ga('send', {
                         hitType: 'event',
                         eventCategory: 'Keyboard',
@@ -459,7 +614,13 @@ function updateVisibleCountries(zoom) {
                     move(t, s, false, true);
 
                     getVisibleCountries();
-                    announcer.announce(`Zoom ${e.key === '+' ? "in" : "out"} level ${parseInt(newScale)}`, "assertive", 100);
+                    // Update announcement to include country count only when keyboard mode is active
+                    setTimeout(() => {
+                        const baseMessage = `Zoom ${e.key === '+' ? "in" : "out"} level ${parseInt(newScale)}`;
+                        const message = getAnnouncementText(baseMessage);
+                        announcer.announce(message, "assertive", 100);
+                        console.log(message);
+                    }, 100);
                     ga('send', {
                         hitType: 'event',
                         eventCategory: 'Keyboard',
@@ -489,9 +650,14 @@ function updateVisibleCountries(zoom) {
                         });
                         return;
                     }
-                    // announce the list of countries
-                    let message = "List of countries: ";
+                    // announce the list of countries. Temporarily removing the prefix to improve screen reader ux
+                    // let message = "Listing countries: ";
+                    let message = "";
                     const countries = getCurrentlyVisibleCountries();
+                    
+                    // Sort countries by their assigned letter
+                    countries.sort((a, b) => a.number.localeCompare(b.number));
+                    
                     countries.forEach((country) => {
                         message += `${country.number}: ${country.name} (${country.artistCount} artists), `;
                     });
@@ -512,6 +678,19 @@ function updateVisibleCountries(zoom) {
                 map.dismissCenteredCountry();
             }
 
+            // Only handle arrow keys for navigation
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || 
+                e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                
+                // Then trigger the auditory feedback after a small delay
+                // to allow the map to update first
+                setTimeout(function() {
+                    if (window.auditoryFeedback && window.auditoryFeedback.isEnabled()) {
+                        window.auditoryFeedback.updateFeedback();
+                    }
+                }, 100);
+            }
+
         });
 
     }
@@ -519,6 +698,10 @@ function updateVisibleCountries(zoom) {
     keyboardMode.cleanup = function () {
         hideKeyboardModeMessage();
         KEYBOARD_MODE_ACTIVE = false;
+        // Reset the letter map when exiting keyboard mode completely
+        if (keyboardMode.zoomBehavior && keyboardMode.zoomBehavior.scale() < MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
+            countryLetterMap = {};
+        }
         d3.selectAll(".a11y-number").remove();
         d3.selectAll(".a11y-number-bg").remove();
         d3.selectAll(".a11y-country-name").remove();
@@ -530,10 +713,18 @@ function updateVisibleCountries(zoom) {
         document.getElementById("filter").classList.remove("hidden");
         document.querySelector(".no-countries").classList.remove("hidden");
         // remove keyboard listeners
-        window.removeEventListener('keydown', handleLetterKeyPress);        
+        window.removeEventListener('keydown', handleLetterKeyPress);
+        // Remove the visual indicator
+        removeViewportBoxIndicator();
     }
 
-    keyboardMode.isActive = KEYBOARD_MODE_ACTIVE;
+    keyboardMode.isActive = function() {
+        // Return true if keyboard mode is currently active
+        // Instead of using currentZoomLevel which doesn't exist,
+        // use the stored zoom behavior and check its scale
+        return keyboardMode.zoomBehavior && 
+               keyboardMode.zoomBehavior.scale() >= MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE;
+    }
 
     keyboardMode.getStatus = function () {
         return KEYBOARD_MODE_ACTIVE;
@@ -552,6 +743,11 @@ function updateVisibleCountries(zoom) {
 
     keyboardMode.updateVisibleCountries = function(zoom) {
         updateVisibleCountries(zoom);
+    };
+
+    // Add this line to expose the getCurrentlyVisibleCountries function
+    keyboardMode.getCurrentlyVisibleCountries = function() {
+        return getCurrentlyVisibleCountries();
     };
 
 })();
