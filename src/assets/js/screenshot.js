@@ -68,7 +68,7 @@ var screenshot = {};
 			ctx.save(); // To draw with different opaticy
 			ctx.globalAlpha = 0.6;
 			ctx.fillStyle = backgroundColor;
-			let scoreString = SESSION.total_artists + " artists from " + countryScore + " / 210 countries";
+			let scoreString = SESSION.total_artists + " artists from " + countryScore + " / 209 countries";
 			let titleString = SESSION.name + "'s musical world map";
 			ctx.font = "34px Patua One";
 			ctx.fillRect(w / 2 - ctx.measureText(titleString).width / 2 - 20, h - 110, ctx.measureText(titleString).width + 40, 100);
