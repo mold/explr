@@ -27,6 +27,7 @@ var superCount = 0;
 						d.mainName = d.names[0];
 						d.tag = d.tags[0];
 						d.name = d.mainName;
+						d.continent = d.continent || '';
 					});
 
 					res(data);

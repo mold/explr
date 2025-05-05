@@ -258,6 +258,12 @@
 					</button>
 					<label id="snapshot-button-label" for="snapshot-button" class="button-group__label">Take snapshot (s)</label>
 				</div>
+				<div class="button-group">
+					<button aria-labelledby="country-list-button-label" type="button" id="country-list-button" class="change-button on-map-view no-select">
+						<i class="fa-solid fa-list" style="font-size: 32px; color: white"></i>
+					</button>
+					<label id="country-list-button-label" for="country-list-button" class="button-group__label">List countries</label>
+				</div>
 				<div id="countryCount" class="progress on-map-view full-opacity no-select">
 					<div id="progress-bar">
 						<span id="progress-text"></span><!-- class="hidden" -->
@@ -306,6 +312,13 @@
 				<h2 class="no-countries__info"></h2>
 				<ul>
 				</ul>
+			</dialog>
+
+			<dialog aria-labelledby="country-list__heading" class="country-list__content" id="country-list-dialog">
+				<h1 id="country-list__heading" tabindex="-1">List of countries</h1>
+				<button type="button" class="fa fa-close close" aria-label="Close"></button>
+				<div class="country-list__info"></div>
+				<div class="country-list__continents"></div>
 			</dialog>
 
 			<div class="artist-test" onkeydown="event.stopPropagation()">
@@ -394,6 +407,8 @@
 				}
 			</script>
 			
+			<script src="assets/js/map.js"></script>
+			<script src="assets/js/country-list.js"></script>
 			<script src="assets/js/all.min.js"></script>
 			<!-- Canvg for screenshots -->
 			<!-- Required to convert named colors to RGB -->

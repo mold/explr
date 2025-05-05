@@ -253,22 +253,7 @@ function addViewportBoxIndicator() {
     indicator.style.pointerEvents = "none"; // Make sure it doesn't interfere with clicks
     indicator.style.zIndex = "1000"; // Make sure it's above the map but below other UI
     indicator.style.boxSizing = "border-box";
-    
-    // Add a tooltip/label
-    const label = document.createElement("div");
-    label.textContent = "Active Area";
-    label.style.position = "absolute";
-    label.style.top = "-25px";
-    label.style.left = "50%";
-    label.style.transform = "translateX(-50%)";
-    label.style.backgroundColor = "rgba(0, 0, 0, 0.7)";
-    label.style.color = "white";
-    label.style.padding = "3px 8px";
-    label.style.borderRadius = "3px";
-    label.style.fontSize = "12px";
-    
-    indicator.appendChild(label);
-    document.body.appendChild(indicator);
+
     
     // Update position on window resize
     window.addEventListener('resize', updateViewportBoxPosition);
@@ -466,6 +451,10 @@ function getAnnouncementText(baseText) {
         
         // Set keyboard listeners for zoom and pan
         window.addEventListener('keydown', function(e) {
+            // If any dialog is open, do not process keyboard mode events
+            if (document.querySelector('dialog[open]')) {
+                return;
+            }
 
             const param = window.location.href.split("username=")[1];
 
