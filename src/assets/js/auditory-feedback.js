@@ -34,6 +34,10 @@ const auditoryFeedback = (function() {
       document.addEventListener('keydown', function(e) {
         // Toggle audio feedback with 'A' key
         if (e.key.toLowerCase() === 'a' && !e.repeat) {
+          // Don't trigger if we're in an input field or if keyboard mode is not active
+          if (e.target.tagName === "INPUT" || !window.keyboardMode || !window.keyboardMode.isActive()) {
+            return;
+          }
           toggleAudioFeedback();
         }
         

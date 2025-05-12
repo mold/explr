@@ -89,6 +89,7 @@ $controls-padding: 20px;
     border: 0.1em solid;
     z-index: 0;
     border-radius: 50px;
+    margin-top: 64px;
 }
 
 #progress-bar {
@@ -281,6 +282,10 @@ div.colorChange {
     &__link {
         font-weight: normal;
     }
+
+    &__secondary {
+            opacity: 0.54;
+    }
 }
 
 dialog {
@@ -301,6 +306,7 @@ dialog {
         padding: 1rem 2rem;
         overflow: scroll;
         max-width: 30rem;
+        height: 80vh;
 
         &::backdrop {
             background-color: rgba(255,255,255,0.4);
@@ -358,9 +364,6 @@ dialog {
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
-            }
-            span {
-                opacity: 0.54;
             }
             &:first-of-type {
                 border-top: none;

@@ -91,6 +91,20 @@ const COUNTRY_BBOX_OVERRIDES = {
 
 map.COUNTRY_BBOX_OVERRIDES = COUNTRY_BBOX_OVERRIDES;
 
+// At the top, after requires or before main logic
+window.lastInputWasKeyboard = false;
+
+// Listen for keyboard and mouse input globally
+window.addEventListener('keydown', function(e) {
+  // Only set for navigation/keyboard mode relevant keys
+  if ([37,38,39,40, 65, 76, 27, 13, 32].includes(e.keyCode) || (e.key >= '0' && e.key <= '9')) {
+    window.lastInputWasKeyboard = true;
+  }
+});
+window.addEventListener('mousedown', function() { window.lastInputWasKeyboard = false; });
+window.addEventListener('click', function() { window.lastInputWasKeyboard = false; });
+window.addEventListener('wheel', function() { window.lastInputWasKeyboard = false; });
+
 (function(window, document) {
   d3.select(window).on("resize", throttle);
 
@@ -549,8 +563,11 @@ map.COUNTRY_BBOX_OVERRIDES = COUNTRY_BBOX_OVERRIDES;
   function move(tr, sc, animate, withKeyboard) {
     // Check if we should activate keyboard mode
     if (sc >= MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
-      // Pass the zoom object to updateVisibleCountries
-      keyboardMode.updateVisibleCountries(zoom);
+      if (window.lastInputWasKeyboard) {
+        keyboardMode.updateVisibleCountries(zoom);
+      } else {
+        keyboardMode.cleanup();
+      }
     } else {
       keyboardMode.cleanup();
     }
@@ -1064,8 +1081,9 @@ map.COUNTRY_BBOX_OVERRIDES = COUNTRY_BBOX_OVERRIDES;
 
 
   function clicked(d) { //d är det en har klickat på
-
-    keyboardMode.cleanup();
+    if (window.keyboardMode && window.keyboardMode.getStatus && window.keyboardMode.getStatus()) {
+        window.keyboardMode.cleanup();
+    }
 
     var x, y, k;
     //bounding box for clicked country

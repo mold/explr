@@ -60,7 +60,7 @@ var addArtistsWithNoCountry = function (data) {
                 .on("change", handleCheckboxChange);
             listItem.append("label")
                 .attr("for", _art.artist)
-                .html('<a href="' + _art.url + '" target="blank" class="no-countries__link">' + _art.artist + '</a><span>' + _art.playcount + ' scrobbles</span>');
+                .html('<a href="' + _art.url + '" target="blank" class="no-countries__link">' + _art.artist + '</a><span class="no-countries__secondary">' + _art.playcount + ' scrobbles</span>');
             if (document.querySelector("#hide-checked")?.checked && artistState.checked) {
                 listItem.style("display", "none");
             }
