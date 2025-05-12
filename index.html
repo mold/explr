@@ -122,7 +122,7 @@
 								<p><strong>Search:</strong> You can search directly for a country or an artist with the shortcut CTRL + F.</p>
 							</li>
 							<li>
-								<p><strong>Keyboard mode:</strong> You can pan and zoom the map with the arrows and plus and minus keys. When you zoom in far enough, each visible country is assigned a letter that you can type on the keyboard.</p>
+								<p><strong>Keyboard mode:</strong> You can pan and zoom the map with the arrows and plus and minus keys. When you zoom in far enough, each visible country is assigned a <strong>number</strong> that you can type on the keyboard to select it.</p>
 							</li>
 						</ul>
 						<h2>Screen readers</h2>
@@ -146,7 +146,7 @@
 							<dd>Zoom out</dd>
 							<dt><kbd>L</kbd></dt>
 							<dd>Read out all visible countries (for screen readers)</dd>
-							<dt>Letters <kbd>B</kbd> to <kbd>Z</kbd> (excluding <kbd>L</kbd> and <kbd>H</kbd>)</dt>
+							<dt>Numbers <kbd>1</kbd>–<kbd>25</kbd></dt>
 							<dd>Choose a country</dd>
 							<dt><kbd>H</kbd></dt>
 							<dd>Read out help (for screen readers)</dd>
@@ -200,7 +200,7 @@
 							<p>You can search directly for a country or an artist with the shortcut CTRL + F.</p>
 						</li>
 						<li>
-							<p>Or you can pan and zoom the map with the arrows and plus and minus keys. When you zoom in far enough, you can list all visible countries by pressing L. Then select a country by pressing the listed letter key.</p>
+							<p>Or you can pan and zoom the map with the arrows and plus and minus keys. When you zoom in far enough, you can list all visible countries by pressing L. Then select a country by pressing the listed <strong>number</strong> key (1–99).</p>
 							<p>An audio tone will play when you navigate with the keyboard. Higher pitch means more artists among the countries in the current view, lower pitch means less. Press A to disable the tone.</p>
 							<p>You may need to activate forms mode.</p>
 						</li>
@@ -258,6 +258,12 @@
 					</button>
 					<label id="snapshot-button-label" for="snapshot-button" class="button-group__label">Take snapshot (s)</label>
 				</div>
+				<div class="button-group">
+					<button aria-labelledby="country-list-button-label" type="button" id="country-list-button" class="change-button on-map-view no-select">
+						<i class="fa-solid fa-list" style="font-size: 32px; color: white"></i>
+					</button>
+					<label id="country-list-button-label" for="country-list-button" class="button-group__label">List countries</label>
+				</div>
 				<div id="countryCount" class="progress on-map-view full-opacity no-select">
 					<div id="progress-bar">
 						<span id="progress-text"></span><!-- class="hidden" -->
@@ -306,6 +312,13 @@
 				<h2 class="no-countries__info"></h2>
 				<ul>
 				</ul>
+			</dialog>
+
+			<dialog aria-labelledby="country-list__heading" class="country-list__content" id="country-list-dialog">
+				<h1 id="country-list__heading" tabindex="-1">List of countries</h1>
+				<button type="button" class="fa fa-close close" aria-label="Close"></button>
+				<div class="country-list__info"></div>
+				<div class="country-list__continents"></div>
 			</dialog>
 
 			<div class="artist-test" onkeydown="event.stopPropagation()">
@@ -394,6 +407,8 @@
 				}
 			</script>
 			
+			<script src="assets/js/map.js"></script>
+			<script src="assets/js/country-list.js"></script>
 			<script src="assets/js/all.min.js"></script>
 			<!-- Canvg for screenshots -->
 			<!-- Required to convert named colors to RGB -->
