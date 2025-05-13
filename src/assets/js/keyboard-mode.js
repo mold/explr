@@ -708,7 +708,7 @@ function getAnnouncementText(baseText) {
                     const countries = getCurrentlyVisibleCountries();
                     
                     // Sort countries by their assigned number
-                    countries.sort((a, b) => a.number.localeCompare(b.number));
+                    countries.sort((a, b) => parseInt(a.number) - parseInt(b.number));
                     
                     countries.forEach((country) => {
                         message += `${country.number}: ${country.name} (${country.artistCount} artists), `;

@@ -1106,7 +1106,7 @@ window.addEventListener('wheel', function() { window.lastInputWasKeyboard = fals
       makeArtistDiv(d);
       highlightCountry(true, d);
 
-      announcer.announce(`Opened ${countryNames.find(c => c.id === d.id).name}`, "assertive");
+      announcer.announce(`Opened ${countryNames.find(c => c.id === d.id).name}. Use TAB key to find scrobbled artists.`, "assertive");
 
       //Special rules for special countries:
       switch (d.id) {
