@@ -205,8 +205,8 @@ function isInViewport(element) {
     const rect = element.getBoundingClientRect();
 
     // Define the dimensions of the rectangle
-    const rectangleWidth = 400;
-    const rectangleHeight = 400;
+    const rectangleWidth = 500;
+    const rectangleHeight = 500;
 
     // Calculate the position of the rectangle
     const rectangleLeft = (window.innerWidth - rectangleWidth) / 2;
