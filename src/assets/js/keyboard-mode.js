@@ -205,8 +205,8 @@ function isInViewport(element) {
     const rect = element.getBoundingClientRect();
 
     // Define the dimensions of the rectangle
-    const rectangleWidth = 400;
-    const rectangleHeight = 400;
+    const rectangleWidth = 500;
+    const rectangleHeight = 500;
 
     // Calculate the position of the rectangle
     const rectangleLeft = (window.innerWidth - rectangleWidth) / 2;
@@ -413,10 +413,9 @@ function updateVisibleCountries(zoom) {
         // Lets start keyboard mode
         KEYBOARD_MODE_ACTIVE = true;
         displayKeyboardModeMessage();
-        
         // TODO: Find a working way to only announce this once
         if (!hasAnnounced) {
-            announcer.announce("Keyboard mode active! Press L to hear the list of countries. Press A to turn on audio feedback.")
+            announcer.announce("Keyboard mode active! Press L to hear the list of countries.")
             hasAnnounced = true;
         }
         
@@ -505,10 +504,8 @@ function assignNumbersToCountries() {
 // Update the announcement functions to only include country count when keyboard mode is active
 function getAnnouncementText(baseText) {
     if (KEYBOARD_MODE_ACTIVE) {
-        const audioFeedbackState = window.auditoryFeedback && window.auditoryFeedback.isEnabled() 
-            ? "turn off" 
-            : "turn on";
-        return `${baseText}. ${getVisibleCountriesSummary()}. Press A to ${audioFeedbackState} audio feedback.`;
+        const audioFeedbackIsEnabled = window.auditoryFeedback && window.auditoryFeedback.isEnabled();
+        return `${baseText}. ${getVisibleCountriesSummary()}. ${audioFeedbackIsEnabled ? "Press A to turn off audio feedback." : ""}`;
     }
     return baseText;
 }
@@ -668,7 +665,9 @@ function getAnnouncementText(baseText) {
                     e.preventDefault();
                     move(t, s, false, true);
 
-                    getVisibleCountries();
+                    // Update visible countries and keyboard mode
+                    updateVisibleCountries(zoom);
+
                     // Update announcement to include country count only when keyboard mode is active
                     setTimeout(() => {
                         const baseMessage = `Zoom ${e.key === '+' ? "in" : "out"} level ${parseInt(newScale)}`;
