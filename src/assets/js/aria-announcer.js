@@ -26,6 +26,7 @@ function announce(message, assertiveness = 'assertive', timeout = LIVEREGION_TIM
   }
 
   liveAnnouncer.announce(message, assertiveness, timeout);
+  console.log(message);
 }
 
 /**
