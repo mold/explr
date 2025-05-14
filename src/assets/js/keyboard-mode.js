@@ -505,7 +505,7 @@ function assignNumbersToCountries() {
 function getAnnouncementText(baseText) {
     if (KEYBOARD_MODE_ACTIVE) {
         const audioFeedbackIsEnabled = window.auditoryFeedback && window.auditoryFeedback.isEnabled();
-        return `${baseText}. ${getVisibleCountriesSummary()}. ${audioFeedbackIsEnabled ? "Press A to turn off audio feedback." : ""}`;
+        return `${baseText} ${getVisibleCountriesSummary()}, ${audioFeedbackIsEnabled ? "Press A to turn off audio feedback." : ""}`;
     }
     return baseText;
 }
@@ -668,6 +668,11 @@ function getAnnouncementText(baseText) {
                     // Update visible countries and keyboard mode
                     updateVisibleCountries(zoom);
 
+                    // Announce if keyboard mode was just disabled
+                    if (KEYBOARD_MODE_ACTIVE && s < MIN_ZOOM_LEVEL_FOR_KEYBOARD_MODE) {
+                        announcer.announce("Keyboard mode disabled.", "assertive", 100);
+                    }
+
                     // Update announcement to include country count only when keyboard mode is active
                     setTimeout(() => {
                         const baseMessage = `Zoom ${e.key === '+' ? "in" : "out"} level ${parseInt(newScale)}`;
@@ -708,7 +713,7 @@ function getAnnouncementText(baseText) {
                     const countries = getCurrentlyVisibleCountries();
                     
                     // Sort countries by their assigned number
-                    countries.sort((a, b) => a.number.localeCompare(b.number));
+                    countries.sort((a, b) => parseInt(a.number) - parseInt(b.number));
                     
                     countries.forEach((country) => {
                         message += `${country.number}: ${country.name} (${country.artistCount} artists), `;
@@ -747,6 +752,11 @@ function getAnnouncementText(baseText) {
     }
 
     keyboardMode.cleanup = function () {
+        // Announce if keyboard mode was active before cleanup
+        if (KEYBOARD_MODE_ACTIVE) {
+            announcer.announce("Keyboard mode disabled.", "assertive", 100);
+        }
+        
         hideKeyboardModeMessage();
         KEYBOARD_MODE_ACTIVE = false;
         // Reset the letter map when exiting keyboard mode completely
