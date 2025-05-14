@@ -1150,7 +1150,7 @@ window.addEventListener('wheel', function() { window.lastInputWasKeyboard = fals
 
       //Landet är redan centrerat
     } else {
-      announcer.announce(`Left ${countryNames.find(c => c.id === d.id).name}`, "assertive");
+      announcer.announce(`Left ${countryNames.find(c => c.id === d.id).name}`, "polite");
       x = -width / 2;
       y = -height / 2 - height * 0.08;
       k = 1
@@ -1173,6 +1173,10 @@ window.addEventListener('wheel', function() { window.lastInputWasKeyboard = fals
   }
 
 function dismissCenteredCountry() {
+  if (centered) {
+    const countryName = countryNames.find(c => c.id === centered.id).name;
+    announcer.announce(`Left ${countryName}`, "polite");
+  }
   removeArtistDiv();
   highlightCountry(false);
   centered = null;
