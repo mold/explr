@@ -505,7 +505,7 @@ function assignNumbersToCountries() {
 function getAnnouncementText(baseText) {
     if (KEYBOARD_MODE_ACTIVE) {
         const audioFeedbackIsEnabled = window.auditoryFeedback && window.auditoryFeedback.isEnabled();
-        return `${baseText}. ${getVisibleCountriesSummary()}. ${audioFeedbackIsEnabled ? "Press A to turn off audio feedback." : ""}`;
+        return `${baseText} ${getVisibleCountriesSummary()}, ${audioFeedbackIsEnabled ? "Press A to turn off audio feedback." : ""}`;
     }
     return baseText;
 }
