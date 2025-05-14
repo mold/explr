@@ -640,10 +640,11 @@ window.addEventListener('wheel', function() { window.lastInputWasKeyboard = fals
 
     // Append the artists to the details section
     pageItems.forEach(artist => {
-      var artistDiv = d3.select("#top-artist-list")
+      var artistLi = d3.select("#top-artist-list")
       .append("li")
-        .attr("class", "artist-li")
-      .append("button")
+        .attr("class", "artist-li");
+      
+      var artistDiv = artistLi.append("button")
         .attr({
           "class": `scrobbled artist-div lowlight`,
           "data-artist": artist.artist
@@ -654,6 +655,9 @@ window.addEventListener('wheel', function() { window.lastInputWasKeyboard = fals
             "lowlight": true,
             "highlight": false
           });
+          // Remove aria-owns from all li elements
+          d3.selectAll(".artist-li").attr("aria-owns", null);
+          
           // Highlight selected artist
           d3.select(this).classed({
             "highlight": true,
@@ -661,6 +665,9 @@ window.addEventListener('wheel', function() { window.lastInputWasKeyboard = fals
           });
           d3.selectAll(".artist-div").attr("aria-pressed", "false");
           d3.select(this).attr("aria-pressed", "true");
+
+          // Add aria-owns to the parent li element
+          d3.select(this.parentNode).attr("aria-owns", "summaryText");
 
           makeSummaryDiv(d3.select(this).attr("data-artist"), []);
         });
@@ -970,6 +977,9 @@ window.addEventListener('wheel', function() { window.lastInputWasKeyboard = fals
     countryDivIsOpen = false;
     currentCountry = null;
     api.cancelRecommendationRequests();
+
+    // Remove aria-owns from all li elements
+    d3.selectAll(".artist-li").attr("aria-owns", null);
 
     infoContainer.transition().style("opacity", 0).duration(prefersReducedMotion ? 0 : 1000);
 
