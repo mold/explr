@@ -28,8 +28,35 @@
 		<link href='https://fonts.googleapis.com/css?family=Didact+Gothic|Patua+One' rel='stylesheet' type='text/css'>
 		<link rel="icon" type="image/png" href="assets/img/favicon.png">
 
-
-
+		<style>
+			.period-selector {
+				margin: 15px 0;
+				text-align: center;
+			}
+			
+			.period-selector label {
+				display: block;
+				margin-bottom: 8px;
+				font-weight: bold;
+				color: #333;
+			}
+			
+			.period-selector select {
+				padding: 8px 12px;
+				border: 2px solid #ddd;
+				border-radius: 4px;
+				background: white;
+				font-size: 14px;
+				min-width: 200px;
+				cursor: pointer;
+			}
+			
+			.period-selector select:focus {
+				outline: none;
+				border-color: #007cba;
+				box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.2);
+			}
+		</style>
 
 		<script type="application/ld+json">
         [
@@ -95,6 +122,19 @@
 									Last.fm username
 									<input id="username" name="username" class="usernameinput" placeholder="e.g. elfummel" type="text" autofocus required autocomplete="on">
 								</label>
+								
+								<div class="period-selector">
+									<label for="period-select">Time Period</label>
+									<select id="period-select" name="period">
+										<option value="overall">All Time</option>
+										<option value="12month" selected>Last 12 Months</option>
+										<option value="6month">Last 6 Months</option>
+										<option value="3month">Last 3 Months</option>
+										<option value="1month">Last Month</option>
+										<option value="7day">Last 7 Days</option>
+									</select>
+								</div>
+								
 								<div class="gobutton"><input type="submit" value="&nbsp;" aria-label="Go Explore!"></div>
 							</form>
 							
@@ -419,3 +459,4 @@
 			<script src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
 		</body>
 	</html>
+	
