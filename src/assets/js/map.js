@@ -512,9 +512,10 @@ window.addEventListener('wheel', function() { window.lastInputWasKeyboard = fals
             id = d.id;
           };
         })
-        var mouse = d3.mouse(svg.node()).map(function(d) {
-          return parseInt(d);
-        });
+
+        var mouse = d3.event && d3.event.clientX !== undefined
+          ? d3.mouse(svg.node()).map(function(d) { return parseInt(d); })
+          : [0, 0];
 
         closeButton
           .on("click", function(d, i) {
