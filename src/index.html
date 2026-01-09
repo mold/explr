@@ -407,9 +407,34 @@
 				}
 			</script>
 			
-			<script src="assets/js/map.js"></script>
-			<script src="assets/js/country-list.js"></script>
-			<script src="assets/js/all.min.js"></script>
+		<script>
+			// Global error handler to catch and log errors with stack traces
+			window.addEventListener('error', function(event) {
+				console.error('=== GLOBAL ERROR CAUGHT ===');
+				console.error('Message:', event.message);
+				console.error('Filename:', event.filename);
+				console.error('Line:', event.lineno);
+				console.error('Column:', event.colno);
+				console.error('Error object:', event.error);
+				if (event.error && event.error.stack) {
+					console.error('Stack trace:', event.error.stack);
+				}
+				console.error('================================');
+			});
+			
+			// Catch unhandled promise rejections
+			window.addEventListener('unhandledrejection', function(event) {
+				console.error('=== UNHANDLED PROMISE REJECTION ===');
+				console.error('Reason:', event.reason);
+				if (event.reason && event.reason.stack) {
+					console.error('Stack trace:', event.reason.stack);
+				}
+				console.error('====================================');
+			});
+		</script>
+		<script src="assets/js/map.js"></script>
+		<script src="assets/js/country-list.js"></script>
+		<script src="assets/js/all.min.js"></script>
 			<!-- Canvg for screenshots -->
 			<!-- Required to convert named colors to RGB -->
 			<!-- <script src="https://cdn.jsdelivr.net/npm/rgbcolor@^1/index.js"></script> -->

@@ -1,9 +1,16 @@
 /*requires:
 api/lastfm.js
+api/musicbrainz.js
 */
 
 var api = api || {};
 var superCount = 0;
+
+// Queue for artists that need MusicBrainz fallback lookup
+var musicbrainzFallbackQueue = [];
+var musicbrainzProcessingActive = false;
+var musicbrainzProcessedCount = 0;
+var musicbrainzFoundCount = 0;
 
 (function (window, document) {
 	let getHardcodedCountries = () => new Promise((res, rej) =>
@@ -71,8 +78,51 @@ var superCount = 0;
 			})
 			.map(countryData);
 
-		/**
-		 * Tries to find out the country for a specified artist.
+	/**
+	 * Convert country name to country data
+	 * @param {String} countryName - Country name (e.g., "United States", "Sweden")
+	 * @returns {Object|null} Country data object with id, name, etc., or null if not found
+	 */
+	api.convertCountryNameToCountry = function(countryName) {
+		if (!countryName) return null;
+		
+		var countryNameLower = countryName.toLowerCase();
+		var countryMatch = cname[countryNameLower];
+		
+		if (countryMatch && countryMatch.length > 0) {
+			var country = countryMatch[0];
+			return {
+				id: country.id,
+				name: country.mainName,
+				country: country.mainName,
+				tag: country.tag || country.mainName.toLowerCase(),
+				mainName: country.mainName
+			};
+		}
+		
+		// Try to find by matching any of the names array
+		var country = countryData.find(function(d) {
+			return d.names.some(function(name) {
+				return name.toLowerCase() === countryNameLower;
+			});
+		});
+		
+		if (country) {
+			return {
+				id: country.id,
+				name: country.mainName,
+				country: country.mainName,
+				tag: country.tag || country.mainName.toLowerCase(),
+				mainName: country.mainName
+			};
+		}
+		
+		console.warn("Unknown country name:", countryName);
+		return null;
+	};
+
+	/**
+	 * Tries to find out the country for a specified artist.
 		 * @param  {String}   artist   Name of the artist to get country for
 		 * @param  {Function} callback Callback function, called when the search is over (whether a country's been found or not)
 		 *                             The callback function takes one argument, this object:
@@ -163,6 +213,27 @@ var superCount = 0;
 
 				if (theTroubles.includes(bestTag.tag)) {
 					console.info("Potentially incorrect country for '" + artist + "': " + bestTag.country + ", using the tag '" + bestTag.tag + "'");
+				}
+
+				// If no country found from Last.fm tags, queue for MusicBrainz fallback
+				if (!bestTag.id && !bestTag.country) {
+					// Last.fm succeeded but no country tag found - queue for MusicBrainz fallback
+					var playcount = STORED_ARTISTS[artist] ? STORED_ARTISTS[artist].playcount : 0;
+					musicbrainzFallbackQueue.push({
+						artist: artist,
+						url: STORED_ARTISTS[artist] ? STORED_ARTISTS[artist].url : null,
+						playcount: playcount
+					});
+					
+					// Sort queue by playcount (highest first) to prioritize artists with most scrobbles
+					musicbrainzFallbackQueue.sort(function(a, b) {
+						return (b.playcount || 0) - (a.playcount || 0);
+					});
+					
+					// Start processing if not already active
+					if (!musicbrainzProcessingActive) {
+						api.startMusicBrainzProcessing();
+					}
 				}
 
 				callback(Object.assign({ "artist": artist, }, bestTag));
@@ -384,5 +455,199 @@ var superCount = 0;
 	api.getFriends = function(callback) {
 		api.lastfm.send("user.getFriends", [["user", SESSION.name]], callback);
 	}
+
+	/**
+	 * Get the queue of artists that need MusicBrainz fallback lookup
+	 * @returns {Array} Array of artist objects
+	 */
+	api.getMusicBrainzFallbackQueue = function() {
+		return musicbrainzFallbackQueue;
+	};
+
+	/**
+	 * Check if an artist is currently in the MusicBrainz fallback queue
+	 * @param {String} artistName - Name of the artist to check
+	 * @returns {Boolean} True if artist is in queue
+	 */
+	api.isArtistInMusicBrainzQueue = function(artistName) {
+		return musicbrainzFallbackQueue.some(function(item) {
+			return item.artist === artistName;
+		});
+	};
+	
+	/**
+	 * Queue multiple artists for MusicBrainz fallback lookup
+	 * @param {Array} artists - Array of artist objects with artist, url, playcount properties
+	 */
+	api.queueArtistsForMusicBrainz = function(artists) {
+		if (!artists || !Array.isArray(artists)) {
+			return;
+		}
+		
+		var queuedCount = 0;
+		artists.forEach(function(art) {
+			// Skip if already has a country
+			if (STORED_ARTISTS[art.artist] && STORED_ARTISTS[art.artist].country && STORED_ARTISTS[art.artist].country.id) {
+				return;
+			}
+			
+			// Skip if already in queue
+			if (api.isArtistInMusicBrainzQueue(art.artist)) {
+				return;
+			}
+			
+			// Add to queue
+			musicbrainzFallbackQueue.push({
+				artist: art.artist,
+				url: art.url || (STORED_ARTISTS[art.artist] ? STORED_ARTISTS[art.artist].url : null),
+				playcount: art.playcount || (STORED_ARTISTS[art.artist] ? STORED_ARTISTS[art.artist].playcount : 0)
+			});
+			queuedCount++;
+		});
+		
+		if (queuedCount > 0) {
+			// Sort queue by playcount (highest first)
+			musicbrainzFallbackQueue.sort(function(a, b) {
+				return (b.playcount || 0) - (a.playcount || 0);
+			});
+			
+			// Start processing if not already active
+			if (!musicbrainzProcessingActive) {
+				api.startMusicBrainzProcessing();
+			}
+		}
+	};
+
+	/**
+	 * Clear the MusicBrainz fallback queue
+	 */
+	api.clearMusicBrainzFallbackQueue = function() {
+		musicbrainzFallbackQueue = [];
+	};
+
+	/**
+	 * Start processing MusicBrainz fallbacks continuously
+	 * Processes artists as they're added to the queue, prioritizing by scrobbles
+	 */
+	api.startMusicBrainzProcessing = function() {
+		if (musicbrainzProcessingActive) {
+			return; // Already processing
+		}
+		
+		musicbrainzProcessingActive = true;
+		musicbrainzProcessedCount = 0;
+		musicbrainzFoundCount = 0;
+		
+		// Process next item in queue
+		var processNext = function() {
+			// Sort queue by playcount (highest first) to prioritize artists with most scrobbles
+			musicbrainzFallbackQueue.sort(function(a, b) {
+				return (b.playcount || 0) - (a.playcount || 0);
+			});
+			
+			if (musicbrainzFallbackQueue.length === 0) {
+				// Queue is empty, stop processing
+				musicbrainzProcessingActive = false;
+				return;
+			}
+			
+			// Get next item from queue (highest playcount)
+			var queueItem = musicbrainzFallbackQueue.shift();
+			
+			var processResult = function(result) {
+				musicbrainzProcessedCount++;
+				
+				if (result.error) {
+					if (result.error === "rate_limit") {
+						// Retry after longer delay - put back in queue
+						musicbrainzFallbackQueue.unshift(queueItem);
+						setTimeout(function() {
+							api.musicbrainz.queueRequest(queueItem.artist, processResult);
+						}, 2000);
+						return;
+					}
+					// Other errors: not_found, no_country, api_error - just skip
+					// Process next item after delay
+					setTimeout(processNext, 1100);
+					return;
+				}
+				
+				if (result.countryName) {
+					// Convert country name to country data
+					var countryData = api.convertCountryNameToCountry(result.countryName);
+					
+					if (countryData) {
+						musicbrainzFoundCount++;
+						
+						// Update STORED_ARTISTS
+						STORED_ARTISTS[result.artist] = STORED_ARTISTS[result.artist] || {};
+						STORED_ARTISTS[result.artist].country = {
+							id: countryData.id,
+							name: countryData.name
+						};
+						
+						// Remove artist from no-countries list
+						if (typeof noCountries !== 'undefined' && typeof noCountries.removeArtist === 'function') {
+							noCountries.removeArtist(result.artist);
+						}
+						
+						// Create artist object for countryCountObj
+						var artistObj = {
+							artist: result.artist,
+							id: countryData.id,
+							country: countryData.name,
+							url: queueItem.url || STORED_ARTISTS[result.artist].url || "",
+							playcount: queueItem.playcount || STORED_ARTISTS[result.artist].playcount || 0
+						};
+						
+						// Update countryCountObj (only if SESSION.name is available)
+						if (typeof SESSION !== 'undefined' && SESSION.name) {
+							var countryId = countryData.id.toString();
+							if (!countryCountObj[countryId]) { countryCountObj[countryId] = {}; }
+							if (!countryCountObj[countryId][SESSION.name]) { countryCountObj[countryId][SESSION.name] = []; }
+							var exists = countryCountObj[countryId][SESSION.name].some(function(a) { return a.artist === result.artist; });
+							if (!exists) {
+								countryCountObj[countryId][SESSION.name].push(artistObj);
+								var newArtistsByCountry = {};
+								newArtistsByCountry[countryId] = [artistObj];
+								map.addArtists(newArtistsByCountry);
+								localforage.setItem("artists", STORED_ARTISTS);
+								window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
+							}
+						}
+					}
+				}
+				
+				// Process next item after delay (respect rate limit)
+				setTimeout(processNext, 1100);
+				
+				// Trigger update of no-countries list to reflect queue changes
+				// Use setTimeout to avoid calling during render
+				setTimeout(function() {
+					if (typeof noCountries !== 'undefined' && typeof noCountries.updateList === 'function') {
+						noCountries.updateList();
+					}
+				}, 0);
+			};
+			
+			// Queue the request (MusicBrainz module handles rate limiting)
+			api.musicbrainz.queueRequest(queueItem.artist, processResult);
+		};
+		
+		// Start processing
+		processNext();
+	};
+
+	/**
+	 * Process artists in the MusicBrainz fallback queue
+	 * This is kept for backwards compatibility but now just calls startMusicBrainzProcessing
+	 * @param {Function} progressCallback - Optional callback for progress updates (not used in new implementation)
+	 */
+	api.processMusicBrainzFallbacks = function(progressCallback) {
+		// Just start processing if not already active
+		if (!musicbrainzProcessingActive) {
+			api.startMusicBrainzProcessing();
+		}
+	};
 
 })(window, document);

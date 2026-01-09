@@ -18,7 +18,7 @@ var uglify      = require("gulp-uglify");
 var deporder    = require("gulp-deporder");
 var changed     = require("gulp-changed");
 var imagemin    = require("gulp-imagemin");
-var minifyCss   = require("gulp-minify-css");
+var minifyCss   = require("gulp-clean-css");
 var ghPages     = require("gulp-gh-pages");
 var babel       = require('gulp-babel');
 

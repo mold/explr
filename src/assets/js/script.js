@@ -293,19 +293,37 @@ var countryCountObj = {};
 
         // Fade in loader
         d3.select(".loader").transition().duration(2000).style("opacity", 1);
-        d3.select("#loading-text").html("Getting library...");
+        var loadingTextEl = d3.select("#loading-text");
+        if (!loadingTextEl.empty()) {
+            loadingTextEl.html("Getting library...");
+        } else {
+            console.warn("[Script] #loading-text element not found when trying to set loading message");
+        }
 
         // Screen reader status update every 30 seconds
         setTimeout(function () {
-            announcer.announce(document.getElementById("loading-text")?.innerText);
+            var loadingText = document.getElementById("loading-text");
+            if (loadingText) {
+                announcer.announce(loadingText.innerText);
+            }
         }, 6000);
 
         setTimeout(function () {
-            if (d3.select("#loading-text")?.html() === "Getting library...") {
-                d3.select("#loading-text").html("Last.fm is taking<br>a long time to<br>respond...");
+            var loadingText = d3.select("#loading-text");
+            if (loadingText.empty()) {
+                console.warn("[Script] #loading-text element not found, skipping timeout message");
+                return;
+            }
+            if (loadingText.html() === "Getting library...") {
+                loadingText.html("Last.fm is taking<br>a long time to<br>respond...");
                 setTimeout(function () {
-                    if (d3.select("#loading-text").html() === "Last.fm is taking<br>a long time to<br>respond...") {
-                        d3.select("#loading-text").html("Maybe <a href='http://last.fm' target='_blank'>last.fm</a> has<br>gone offline...")
+                    var loadingText2 = d3.select("#loading-text");
+                    if (loadingText2.empty()) {
+                        console.warn("[Script] #loading-text element not found, skipping timeout message");
+                        return;
+                    }
+                    if (loadingText2.html() === "Last.fm is taking<br>a long time to<br>respond...") {
+                        loadingText2.html("Maybe <a href='http://last.fm' target='_blank'>last.fm</a> has<br>gone offline...")
                             .style("pointer-events", "all");
                     }
                 }, 8000);
@@ -429,6 +447,15 @@ var countryCountObj = {};
         CACHED_USERS[user] = new Date().getTime();
         window.localStorage.cached_users = JSON.stringify(CACHED_USERS);
         window.localStorage.countryCountObj = JSON.stringify(countryCountObj);
+
+        // MusicBrainz processing should already be running in parallel if there were artists without countries
+        // If queue still has items, ensure processing continues
+        var fallbackQueue = api.getMusicBrainzFallbackQueue();
+        if (fallbackQueue.length > 0) {
+            console.log("Final check: " + fallbackQueue.length + " artists still in MusicBrainz queue");
+            // Processing should already be active, but ensure it continues
+            api.processMusicBrainzFallbacks();
+        }
     }
 
     // // Set theme

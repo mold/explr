@@ -286,6 +286,19 @@ div.colorChange {
     &__secondary {
             opacity: 0.54;
     }
+
+    &__fetching {
+        display: inline-block;
+        margin-left: 0.3em;
+        color: var(--textPrimary);
+        animation: blink 1.4s infinite;
+        font-weight: bold;
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+    }
 }
 
 dialog {
